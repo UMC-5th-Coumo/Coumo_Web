@@ -9,7 +9,7 @@
     "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended",
     "plugin:react-hooks/recommended",
-    "react-app", 
+    "react-app",
     "prettier"
   ],
   "overrides": [],
@@ -19,6 +19,7 @@
   },
   "plugins": ["react", "prettier"],
   "rules": {
-    "prettier/prettier": ["error", { "endOfLine": "auto" }]
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "react/prop-types": "off"
   }
 }
