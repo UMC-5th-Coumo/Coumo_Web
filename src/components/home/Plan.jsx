@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { COLORS } from '../../styles/theme';
 import { Arrow } from '../../assets';
 
-const PlanBox = ({ title, price }) => {
+const Plan = ({ data }) => {
   return (
     <Container>
       <Top>
-        <Title>{title}</Title>
+        <Title>{data.title}</Title>
         <Term>1개월마다</Term>
-        <Price>{price}</Price>
+        <Price>{data.price}</Price>
       </Top>
       <Icon>
         <Button>
@@ -20,7 +20,7 @@ const PlanBox = ({ title, price }) => {
   );
 };
 
-export default PlanBox;
+export default Plan;
 
 const Container = styled.div`
   width: 288px;
