@@ -10,7 +10,7 @@ export default TitleChip;
 
 const Container = styled.span`
   height: 52px;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   padding: 8px 32px;

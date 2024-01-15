@@ -1,20 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../styles/theme';
+import { BannerIcon } from '../../assets';
 
 const Banner = () => {
   return (
     <Back>
-      <Title>
-        바쁜 사장님을 위한 <br />
-        쿠폰 관리 서비스, 쿠모
-      </Title>
-      <Description>
-        번거로운 종이 쿠폰은 이제 그만! 편리한 쿠폰 적립 서비스 쿠모로 매장을
-        자유롭게 <br />
-        홍보하며, 고객 데이터를 한 눈에 파악해 효과적인 이익 창출이 가능합니다.
-      </Description>
-      <Button>입점 문의하기</Button>
+      <Container>
+        <Title>
+          바쁜 사장님을 위한 <br />
+          쿠폰 관리 서비스, 쿠모
+        </Title>
+        <Description>
+          번거로운 종이 쿠폰은 이제 그만! 편리한 쿠폰 적립 서비스 쿠모로 매장을
+          자유롭게 홍보하며, 고객 데이터를 한 눈에 파악해 효과적인 이익 창출이
+          가능합니다.
+        </Description>
+        <Button>입점 문의하기</Button>
+        <Icon>
+          <BannerIcon />
+        </Icon>
+      </Container>
     </Back>
   );
 };
@@ -25,10 +31,18 @@ const Back = styled.div`
   width: 100%;
   height: 735px;
   background: ${COLORS.banner_gradient};
+`;
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 `;
 
 const Title = styled.h1`
@@ -46,6 +60,8 @@ const Title = styled.h1`
 `;
 
 const Description = styled.span`
+  width: 100%;
+  max-width: 503px;
   color: ${COLORS.white};
   text-align: center;
   font-size: 16px;
@@ -76,4 +92,10 @@ const Button = styled.button`
   font-weight: 600;
   line-height: 132%;
   letter-spacing: 0.54px;
+`;
+
+const Icon = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
 `;
