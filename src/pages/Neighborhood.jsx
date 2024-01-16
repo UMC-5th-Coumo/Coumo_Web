@@ -1,7 +1,12 @@
 import React from 'react';
+import Post from '../components/admin/neighborhood/Post';
 
 const Neighborhood = () => {
-  return <div>Neighborhood</div>;
+  return (
+    <div>
+      <Post />
+    </div>
+  );
 };
 
 export default Neighborhood;
