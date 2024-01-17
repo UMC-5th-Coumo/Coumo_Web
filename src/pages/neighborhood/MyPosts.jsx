@@ -2,11 +2,16 @@ import React from 'react';
 import Title from '../../components/common/Title';
 import Post from '../../components/admin/neighborhood/Post';
 import styled from 'styled-components';
+import { Line } from '../../assets';
 
 const MyPosts = () => {
   return (
     <>
-      <Title title='총 13개의 게시글이 있어요!' />
+      <TitleBox>
+        <Title title='총 13개의 게시글이 있어요!' />
+        <Line />
+      </TitleBox>
+
       <PostContainer>
         {postDummyData.map((data, index) => {
           return <Post key={index} data={data} />;
@@ -17,6 +22,13 @@ const MyPosts = () => {
 };
 
 export default MyPosts;
+
+const TitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  margin-bottom: 87px;
+`;
 
 const PostContainer = styled.div`
   display: flex;
