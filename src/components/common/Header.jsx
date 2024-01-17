@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { COLORS } from '../../styles/theme';
 import { Logo } from '../../assets';
+import Button from './Button';
 
 const Head = styled.div`
   width: 100%;
@@ -15,9 +16,6 @@ const Head = styled.div`
   background-color: ${COLORS.white};
   font-family: 'Pretendard';
   font-size: 20px;
-
-  position: absolute;
-  top: 0;
 `;
 
 const HeaderBar = styled.div`
@@ -42,26 +40,11 @@ const StyledLink = styled(Link)`
   text-decoration-line: none;
 `;
 
-const Button = styled.button`
-  display: flex;
-  width: 150px;
-  height: 42px;
-  padding: 8px 16px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  border-radius: 12px;
-  background: #e3e1e8;
-  border: none;
-  box-sizing: border-box;
-`;
-
 const Header = () => {
   return (
     <Head>
       <HeaderBar>
-        <Link to='/'>
+        <Link to='/home'>
           <Logo />
         </Link>
         <Nav>
@@ -70,7 +53,7 @@ const Header = () => {
           <StyledLink to='/coupon'>쿠폰 관리</StyledLink>
           <StyledLink to='/customer'>고객 데이터 관리</StyledLink>
         </Nav>
-        <Button>임시 버튼</Button>
+        <Button text='로그인/회원가입'></Button>
       </HeaderBar>
     </Head>
   );
