@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { writingTabs } from '../assets/data/writingTabs';
+import { writingTabs } from '../assets/data/tabData';
 import TabBar from '../components/common/TabBar';
 import { COLORS } from '../styles/theme';
 import MyPosts from './neighborhood/MyPosts';
+import WritePost from './neighborhood/WritePost';
 
 const Neighborhood = () => {
   const [selected, setSelected] = useState(writingTabs[0].key);
@@ -14,7 +15,10 @@ const Neighborhood = () => {
         selected={selected}
         setSelected={setSelected}
       />
-      <Content>{selected === 'myPosts' && <MyPosts />}</Content>
+      <Content>
+        {selected === 'myPosts' && <MyPosts />}
+        {selected === 'writePost' && <WritePost />}
+      </Content>
     </Container>
   );
 };
@@ -28,7 +32,6 @@ const Container = styled.div`
 
 const Content = styled.div`
   width: 100%;
-  color: ${COLORS.tab_gray};
   font-size: 16px;
   padding: 70px 0px;
   box-sizing: border-box;

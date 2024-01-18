@@ -2,10 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../styles/theme';
 
-const RadioBtn = ({ id, value, name, label }) => {
+const RadioBtn = ({ id, value, name, label, selected, onChange }) => {
   return (
     <RadioLabel>
-      <RadioInput type='radio' id={id} name={name} value={value} />
+      <RadioInput
+        type='radio'
+        id={id}
+        name={name}
+        value={value}
+        checked={id === selected}
+        onChange={() => onChange(id)}
+      />
       <RadioSpan for={id}>{label}</RadioSpan>
     </RadioLabel>
   );

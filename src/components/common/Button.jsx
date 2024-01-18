@@ -1,9 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { COLORS } from '../../styles/theme';
 
-const Button = ({ text, onClickBtn, size, color, disabled, loading }) => {
+const Button = ({
+  text,
+  onClickBtn,
+  size,
+  color = COLORS.btn_lightgray,
+  disabled,
+  loading,
+}) => {
   return (
     <Btn
       onClick={onClickBtn}
@@ -15,19 +21,6 @@ const Button = ({ text, onClickBtn, size, color, disabled, loading }) => {
       {loading ? 'Loading...' : text}
     </Btn>
   );
-};
-
-Button.propTypes = {
-  text: PropTypes.string.isRequired,
-  onClickBtn: PropTypes.func,
-  size: PropTypes.shape({
-    width: PropTypes.number,
-    height: PropTypes.number,
-    fontSize: PropTypes.number,
-  }),
-  color: PropTypes.string,
-  disabled: PropTypes.bool,
-  loading: PropTypes.bool,
 };
 
 export default Button;
@@ -44,10 +37,12 @@ const Btn = styled.button`
   flex-shrink: 0;
   border: none;
   border-radius: 12px;
-  background: ${COLORS.btn_lightgray};
-  color: ${COLORS.text_btn_darkgray};
+  background: ${(props) => props.color};
+  color: ${(props) =>
+    props.color === COLORS.btn_lightgray
+      ? COLORS.text_btn_darkgray
+      : COLORS.white};
   text-align: center;
-  font-family: 'Pretendard';
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
