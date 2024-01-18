@@ -10,13 +10,13 @@ const Button = ({
   disabled,
   loading,
 }) => {
-
   return (
     <Btn
       title={text}
       onClick={onClickBtn}
       disabled={disabled || loading}
       loading={loading}
+      color={color}
     >
       {loading ? 'Loading...' : text}
     </Btn>
