@@ -1,20 +1,39 @@
-import React from 'react';
-import Input from '../components/common/Input';
-import RadioBtn from '../components/common/RadioBtn';
+import React, { useState } from 'react';
 import TabBar from '../components/common/TabBar';
-import { basicInfoTabs } from '../assets/data/basicInfoTabs';
-import { writingTabs } from '../assets/data/writingTabs';
+import { basicInfoTabs } from '../assets/data/tabData';
+import styled from 'styled-components';
+import BasicInfo from './shop/BasicInfo';
+import StoreInfo from './shop/StoreInfo';
+import { COLORS } from '../styles/theme';
 
 const Shop = () => {
+  const [selected, setSelected] = useState(basicInfoTabs[0].key);
   return (
-    <>
-      <Input label='매장명' type='text' placeholder='김밥천국' />
-      <TabBar tabs={basicInfoTabs} />
-      <TabBar tabs={writingTabs} />
-      <RadioBtn name='store' label='카페/디저트' />
-      <RadioBtn name='store' label='요식업' />
-    </>
+    <Container>
+      <TabBar
+        tabs={basicInfoTabs}
+        selected={selected}
+        setSelected={setSelected}
+      />
+      <Content>
+        {selected === 'basicInfo' && <BasicInfo />}
+        {selected === 'storeInfo' && <StoreInfo />}
+      </Content>
+    </Container>
   );
 };
 
 export default Shop;
+
+const Container = styled.div`
+  box-sizing: border-box;
+  padding: 70px 120px;
+`;
+
+const Content = styled.div`
+  width: 100%;
+  font-size: 16px;
+  padding: 70px 0px;
+  box-sizing: border-box;
+  font-weight: 500;
+`;

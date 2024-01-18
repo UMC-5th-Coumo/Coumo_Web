@@ -2,11 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../styles/theme';
 
-const Input = ({ label, type, placeholder }) => {
+const Input = ({ label, type, placeholder, value, onChange }) => {
   return (
     <Element>
       <StyledInputTitle>{label}</StyledInputTitle>
-      <StyledInput type={type} placeholder={placeholder}></StyledInput>
+      <StyledInput
+        type={type}
+        value={value}
+        placeholder={placeholder}
+        onChange={onChange}
+      ></StyledInput>
     </Element>
   );
 };

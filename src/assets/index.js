@@ -5,3 +5,4 @@ export { ReactComponent as LoginId } from './icon/LoginId.svg';
 export { ReactComponent as LoginPw } from './icon/LoginPw.svg';
 export { ReactComponent as LoginSave } from './icon/LoginSave.svg';
 export { ReactComponent as LoginSaveCheck } from './icon/LoginSaveCheck.svg';
+export { ReactComponent as Line } from './icon/line.svg';

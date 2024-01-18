@@ -2,7 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../styles/theme';
 
-const Button = ({ text, onClickBtn, disabled, loading }) => {
+const Button = ({
+  text,
+  onClickBtn,
+  size,
+  color = COLORS.btn_lightgray,
+  disabled,
+  loading,
+}) => {
+
   return (
     <Btn
       title={text}
@@ -24,14 +32,17 @@ export const Btn = styled.button`
   padding: 8px 16px;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   gap: 8px;
   flex-shrink: 0;
   border: none;
   border-radius: 12px;
-  background: ${COLORS.btn_lightgray};
-  color: ${COLORS.text_btn_darkgray};
+  background: ${(props) => props.color};
+  color: ${(props) =>
+    props.color === COLORS.btn_lightgray
+      ? COLORS.text_btn_darkgray
+      : COLORS.white};
   text-align: center;
-  font-family: 'Pretendard';
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
