@@ -16,6 +16,8 @@ const Head = styled.div`
   background-color: ${COLORS.white};
   font-family: 'Pretendard';
   font-size: 20px;
+  position: absolute;
+  top: 0;
 `;
 
 const HeaderBar = styled.div`
@@ -44,7 +46,7 @@ const Header = () => {
   return (
     <Head>
       <HeaderBar>
-        <Link to='/home'>
+        <Link to='/'>
           <Logo />
         </Link>
         <Nav>

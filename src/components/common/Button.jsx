@@ -39,6 +39,7 @@ const Btn = styled.button`
   padding: 8px 16px;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   gap: 8px;
   flex-shrink: 0;
   border: none;
