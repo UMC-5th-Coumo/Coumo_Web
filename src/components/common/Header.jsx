@@ -1,9 +1,37 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { COLORS } from '../../styles/theme';
 import { Logo } from '../../assets';
 import Button from './Button';
+
+const Header = () => {
+  const navigate = useNavigate();
+
+  return (
+    <Head>
+      <HeaderBar>
+        <Link to='/'>
+          <Logo />
+        </Link>
+        <Nav>
+          <StyledLink to='/shop'>매장 관리</StyledLink>
+          <StyledLink to='/neighborhood'>동네 소식</StyledLink>
+          <StyledLink to='/coupon'>쿠폰 관리</StyledLink>
+          <StyledLink to='/customer'>고객 데이터 관리</StyledLink>
+        </Nav>
+        <Button
+          text='로그인/회원가입'
+          onClickBtn={() => {
+            navigate('/login');
+          }}
+        ></Button>
+      </HeaderBar>
+    </Head>
+  );
+};
+
+export default Header;
 
 const Head = styled.div`
   width: 100%;
@@ -41,24 +69,3 @@ const StyledLink = styled(Link)`
   font-weight: 600;
   text-decoration-line: none;
 `;
-
-const Header = () => {
-  return (
-    <Head>
-      <HeaderBar>
-        <Link to='/'>
-          <Logo />
-        </Link>
-        <Nav>
-          <StyledLink to='/shop'>매장 관리</StyledLink>
-          <StyledLink to='/neighborhood'>동네 소식</StyledLink>
-          <StyledLink to='/coupon'>쿠폰 관리</StyledLink>
-          <StyledLink to='/customer'>고객 데이터 관리</StyledLink>
-        </Nav>
-        <Button text='로그인/회원가입'></Button>
-      </HeaderBar>
-    </Head>
-  );
-};
-
-export default Header;

@@ -10,11 +10,11 @@ const Button = ({
   disabled,
   loading,
 }) => {
+
   return (
     <Btn
+      title={text}
       onClick={onClickBtn}
-      size={size}
-      color={color}
       disabled={disabled || loading}
       loading={loading}
     >
@@ -25,7 +25,7 @@ const Button = ({
 
 export default Button;
 
-const Btn = styled.button`
+export const Btn = styled.button`
   display: flex;
   width: 180px;
   height: 52px;
@@ -54,5 +54,9 @@ const Btn = styled.button`
     color: ${COLORS.text_btn_darkgray};
     background: ${COLORS.coumo_purple};
     color: ${COLORS.white};
+  }
+
+  &::before {
+    content: '${(props) => (props.text ? props.text : '')}';
   }
 `;
