@@ -1,14 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { COLORS } from '../../styles/theme';
 
-const Button = ({ text, onClickBtn, size, color, disabled, loading }) => {
+const Button = ({ text, onClickBtn, disabled, loading }) => {
   return (
     <Btn
+      title={text}
       onClick={onClickBtn}
-      size={size}
-      color={color}
       disabled={disabled || loading}
       loading={loading}
     >
@@ -17,22 +15,9 @@ const Button = ({ text, onClickBtn, size, color, disabled, loading }) => {
   );
 };
 
-Button.propTypes = {
-  text: PropTypes.string.isRequired,
-  onClickBtn: PropTypes.func,
-  size: PropTypes.shape({
-    width: PropTypes.number,
-    height: PropTypes.number,
-    fontSize: PropTypes.number,
-  }),
-  color: PropTypes.string,
-  disabled: PropTypes.bool,
-  loading: PropTypes.bool,
-};
-
 export default Button;
 
-const Btn = styled.button`
+export const Btn = styled.button`
   display: flex;
   width: 180px;
   height: 52px;
@@ -58,5 +43,9 @@ const Btn = styled.button`
     color: ${COLORS.text_btn_darkgray};
     background: ${COLORS.coumo_purple};
     color: ${COLORS.white};
+  }
+
+  &::before {
+    content: '${(props) => (props.text ? props.text : '')}';
   }
 `;

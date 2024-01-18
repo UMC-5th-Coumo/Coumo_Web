@@ -5,7 +5,6 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     font-family: "Pretendard";
-    padding-top: 100px;
     box-sizing: border-box;
   }
 `;
