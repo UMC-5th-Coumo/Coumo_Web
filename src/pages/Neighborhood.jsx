@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { writingTabs } from '../assets/data/tabData';
 import TabBar from '../components/common/TabBar';
-import { COLORS } from '../styles/theme';
 import MyPosts from './neighborhood/MyPosts';
 import WritePost from './neighborhood/WritePost';
 

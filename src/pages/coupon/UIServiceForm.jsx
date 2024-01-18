@@ -5,6 +5,7 @@ import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
 import Category from '../../components/admin/coupon/Category';
 import FormPopUp from '../../components/admin/coupon/FormPopUp';
+import { categoryData } from '../../assets/data/categoryData';
 
 const UIServiceForm = () => {
   const [popUp, setPopUp] = useState(false);
@@ -82,7 +83,11 @@ const UIServiceForm = () => {
         value={inputs.address}
         onChange={(e) => setInputs({ ...inputs, address: e.target.value })}
       />
-      <Category category={category} setCategory={setCategory} />
+      <Category
+        data={categoryData}
+        category={category}
+        setCategory={setCategory}
+      />
       <Description>
         <Title>매장의 분위기, 디자인 무드나 주요 컬러 등을 설명해주세요.</Title>
         <TextArea
@@ -161,7 +166,7 @@ const TextArea = styled.textarea`
   }
 `;
 
-const BtnContainer = styled.div`
+export const BtnContainer = styled.div`
   display: flex;
   gap: 16px;
   justify-content: center;
