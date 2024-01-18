@@ -5,7 +5,6 @@ import { COLORS } from '../../styles/theme';
 const Button = ({
   text,
   onClickBtn,
-  size,
   color = COLORS.btn_lightgray,
   disabled,
   loading,
@@ -27,13 +26,11 @@ export default Button;
 
 export const Btn = styled.button`
   display: flex;
-  width: 180px;
   height: 52px;
-  padding: 8px 16px;
+  padding: 8px 28px;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  gap: 8px;
   flex-shrink: 0;
   border: none;
   border-radius: 12px;

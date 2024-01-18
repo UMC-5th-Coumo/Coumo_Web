@@ -59,28 +59,36 @@ const UIServiceForm = () => {
         type='text'
         placeholder='쿠폰 타이틀을 입력해주세요.'
         value={inputs.couponTitle}
-        onChange={(e) => setInputs({ ...inputs, couponTitle: e.target.value })}
+        onChange={(e) =>
+          setInputs((prev) => ({ ...prev, couponTitle: e.target.value }))
+        }
       />
       <Input
         label='연락처를 입력해주세요.'
         type='text'
-        placeholder='ex) 01012345678'
+        placeholder='ex) 010-1234-5678'
         value={inputs.number}
-        onChange={(e) => setInputs({ ...inputs, number: e.target.value })}
+        onChange={(e) =>
+          setInputs((prev) => ({ ...prev, number: e.target.value }))
+        }
       />
       <Input
         label='이메일 주소를 입력해주세요.'
         type='text'
         placeholder='a12345678@naver.com'
         value={inputs.email}
-        onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
+        onChange={(e) =>
+          setInputs((prev) => ({ ...prev, email: e.target.value }))
+        }
       />
       <Input
-        label='사업자 주소를 입력해주세요.'
+        label='매장 주소를 입력해주세요.'
         type='text'
-        placeholder='a12345678@naver.com'
+        placeholder='서울시 용산구 청파동 777-777'
         value={inputs.address}
-        onChange={(e) => setInputs({ ...inputs, address: e.target.value })}
+        onChange={(e) =>
+          setInputs((prev) => ({ ...prev, address: e.target.value }))
+        }
       />
       <Category category={category} setCategory={setCategory} />
       <Description>
