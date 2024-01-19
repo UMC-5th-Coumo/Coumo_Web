@@ -4,7 +4,6 @@ import { basicInfoTabs } from '../assets/data/tabData';
 import styled from 'styled-components';
 import BasicInfo from './shop/BasicInfo';
 import StoreInfo from './shop/StoreInfo';
-import { COLORS } from '../styles/theme';
 
 const Shop = () => {
   const [selected, setSelected] = useState(basicInfoTabs[0].key);

@@ -1,19 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../styles/theme';
-import Title from '../../common/Title';
-import { fadeIn } from '../../../styles/GlobalStyle';
+import { COLORS } from '../../styles/theme';
+import Title from './Title';
+import { fadeIn } from '../../styles/GlobalStyle';
 
-const FormPopUp = () => {
+const FormPopUp = ({ title, msg }) => {
   return (
     <Container>
       <Modal>
-        <Title title='신청서가 정상적으로 제출되었습니다.' />
-        <span>
-          담당자가 신청서 확인 후, 개별 연락 드릴
-          <br />
-          예정이오니 참고 부탁드립니다 :)
-        </span>
+        <Title title={title} />
+        <Msg>{msg}</Msg>
       </Modal>
     </Container>
   );
@@ -26,6 +22,7 @@ const Container = styled.div`
   height: 100%;
   position: absolute;
   top: 0;
+  left: 0;
   background-color: #ffffff6d;
 
   display: flex;
@@ -57,4 +54,8 @@ const Modal = styled.div`
     line-height: 168%; /* 40.32px */
     letter-spacing: 0.48px;
   }
+`;
+
+const Msg = styled.span`
+  white-space: pre-wrap;
 `;

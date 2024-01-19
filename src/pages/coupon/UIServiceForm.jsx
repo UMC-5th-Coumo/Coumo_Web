@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
 import Category from '../../components/admin/coupon/Category';
-import FormPopUp from '../../components/admin/coupon/FormPopUp';
+import FormPopUp from '../../components/common/FormPopUp';
+import { categoryData } from '../../assets/data/categoryData';
 
 const UIServiceForm = () => {
   const [popUp, setPopUp] = useState(false);
@@ -90,7 +91,11 @@ const UIServiceForm = () => {
           setInputs((prev) => ({ ...prev, address: e.target.value }))
         }
       />
-      <Category category={category} setCategory={setCategory} />
+      <Category
+        data={categoryData}
+        category={category}
+        setCategory={setCategory}
+      />
       <Description>
         <Title>매장의 분위기, 디자인 무드나 주요 컬러 등을 설명해주세요.</Title>
         <TextArea
@@ -111,7 +116,13 @@ const UIServiceForm = () => {
           onClickBtn={onSubmit}
         />
       </BtnContainer>
-      {popUp && <FormPopUp />}
+      {popUp && (
+        <FormPopUp
+          title='신청서가 정상적으로 제출되었습니다.'
+          msg={`담당자가 신청서 확인 후, 개별 연락 드릴\n예정이오니 참고 부탁드립니다 :)`}
+        />
+      )}
+      ;
     </Content>
   );
 };
@@ -169,7 +180,7 @@ const TextArea = styled.textarea`
   }
 `;
 
-const BtnContainer = styled.div`
+export const BtnContainer = styled.div`
   display: flex;
   gap: 16px;
   justify-content: center;
