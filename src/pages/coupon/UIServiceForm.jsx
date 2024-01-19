@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
 import Category from '../../components/admin/coupon/Category';
-import FormPopUp from '../../components/admin/coupon/FormPopUp';
+import FormPopUp from '../../components/common/FormPopUp';
 import { categoryData } from '../../assets/data/categoryData';
 
 const UIServiceForm = () => {
@@ -116,7 +116,13 @@ const UIServiceForm = () => {
           onClickBtn={onSubmit}
         />
       </BtnContainer>
-      {popUp && <FormPopUp />}
+      {popUp && (
+        <FormPopUp
+          title='신청서가 정상적으로 제출되었습니다.'
+          msg={`담당자가 신청서 확인 후, 개별 연락 드릴\n예정이오니 참고 부탁드립니다 :)`}
+        />
+      )}
+      ;
     </Content>
   );
 };

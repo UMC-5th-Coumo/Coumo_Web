@@ -1,56 +1,64 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Category from '../../components/admin/coupon/Category';
 import { writecategoryData } from '../../assets/data/writecategoryData';
-import Input from '../common/Input';
+import { StyledWriteInput } from '../common/Input';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { COLORS } from '../../styles/theme';
 
-const Edit = () => {
-  const [category, setCategory] = useState('cafe');
-  const [inputs, setInputs] = useState({
-    title: '',
-    content: '',
-  });
-
+const Edit = ({ category, setCategory, inputs, setInputs }) => {
   return (
     <Write>
-      <StyledCategory
+      <Category
         data={writecategoryData}
         category={category}
         setCategory={setCategory}
         containerWidth='1000px'
       />
-      <Input
+      <StyledWriteInput
         label='글의 제목을 작성해 주세요'
         type='text'
         placeholder='제목을 작성해주세요. (0/30)'
+        name='title'
         value={inputs.title}
-        onChange={(e) => setInputs({ ...inputs, title: e.target.value })}
+        $fullwidth='true'
+        onChange={(e) => {
+          setInputs({
+            ...inputs,
+            title: e.target.value,
+          });
+          console.log(inputs && inputs.title);
+        }}
       />
-      <>
+      <div>
         <Label>글의 상세설명을 작성해 주세요</Label>
-        <StyledCKEditor
-          editor={ClassicEditor}
-          config={{
-            placeholder: '손님들의 관심을 끌 수 있는 글을 작성해봐요 (0/200)',
-          }}
-          onReady={(editor) => {
-            console.log('Editor is ready to use!', editor);
-          }}
-          onChange={(event, editor) => {
-            const data = editor.getData();
-            console.log({ event, editor, data });
-          }}
-          onBlur={(event, editor) => {
-            console.log('Blur.', editor);
-          }}
-          onFocus={(event, editor) => {
-            console.log('Focus.', editor);
-          }}
-        />
-      </>
+        <StyledCKEditorContainer>
+          <CKEditor
+            editor={ClassicEditor}
+            config={{
+              placeholder: '손님들의 관심을 끌 수 있는 글을 작성해봐요 (0/200)',
+            }}
+            onReady={(editor) => {
+              console.log('Editor is ready to use!', editor);
+            }}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              setInputs({
+                ...inputs,
+                content: data,
+              });
+              console.log(inputs.content);
+            }}
+            onBlur={(event, editor) => {
+              console.log('Blur.', editor);
+            }}
+            onFocus={(event, editor) => {
+              console.log('Focus.', editor);
+            }}
+          />
+        </StyledCKEditorContainer>
+      </div>
     </Write>
   );
 };
@@ -64,11 +72,6 @@ const Write = styled.div`
   gap: 50px;
 `;
 
-const StyledCategory = styled(Category)`
-  display: flex;
-  flex-direction: row;
-`;
-
 const Label = styled.div`
   color: ${COLORS.coumo_purple};
   font-family: 'Pretendard';
@@ -77,10 +80,15 @@ const Label = styled.div`
   font-weight: 700;
   line-height: 132%; /* 31.68px */
   letter-spacing: 0.72px;
+  margin-bottom: 16px;
 `;
 
-const StyledCKEditor = styled(CKEditor)`
-  & .ck-editor__main .ck-content .ck-editor__editable {
-    width: 600px;
+const StyledCKEditorContainer = styled.div`
+  .ck.ck-editor {
+    min-height: 400px;
+  }
+
+  .ck.ck-editor__editable {
+    min-height: 300px;
   }
 `;

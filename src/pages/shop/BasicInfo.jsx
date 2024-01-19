@@ -4,6 +4,7 @@ import Input from '../../components/common/Input';
 import { COLORS } from '../../styles/theme';
 import Category from '../../components/admin/coupon/Category';
 import Button from '../../components/common/Button';
+import { categoryData } from '../../assets/data/categoryData';
 
 const BasicInfo = () => {
   const [category, setCategory] = useState('cafe');
@@ -47,7 +48,11 @@ const BasicInfo = () => {
           setInputs((prev) => ({ ...prev, number: e.target.value }))
         }
       />
-      <Category category={category} setCategory={setCategory} />
+      <Category
+        data={categoryData}
+        category={category}
+        setCategory={setCategory}
+      />
       <Input
         label='위치정보'
         type='text'

@@ -2,15 +2,25 @@ import React from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../styles/theme';
 
-const Input = ({ label, type, placeholder, value, onChange }) => {
+const Input = ({
+  label,
+  type,
+  placeholder,
+  name,
+  value,
+  onChange,
+  fullwidth,
+}) => {
   return (
     <Element>
       <StyledInputTitle>{label}</StyledInputTitle>
       <StyledInput
         type={type}
+        name={name}
         value={value}
         placeholder={placeholder}
         onChange={onChange}
+        fullwidth={fullwidth}
       ></StyledInput>
     </Element>
   );
@@ -36,7 +46,7 @@ const StyledInputTitle = styled.div`
 
 const StyledInput = styled.input`
   display: flex;
-  width: 344px;
+  max-width: ${({ fullwidth }) => (fullwidth ? '900px' : '344px')};
   height: 42px;
   padding: 8px 12px;
   justify-content: flex-end;
@@ -58,4 +68,9 @@ const StyledInput = styled.input`
   &:focus {
     outline: none;
   }
+`;
+
+/*Edit에서 쓰는 styled*/
+export const StyledWriteInput = styled(Input)`
+  margin-bottom: 50px;
 `;

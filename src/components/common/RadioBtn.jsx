@@ -13,7 +13,7 @@ const RadioBtn = ({ id, value, name, label, selected, onChange }) => {
         checked={id === selected}
         onChange={() => onChange(id)}
       />
-      <RadioSpan for={id}>{label}</RadioSpan>
+      <RadioSpan htmlFor={id}>{label}</RadioSpan>
     </RadioLabel>
   );
 };
