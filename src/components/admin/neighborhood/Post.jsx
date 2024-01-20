@@ -3,15 +3,20 @@ import styled from 'styled-components';
 import { COLORS } from '../../../styles/theme';
 import TagButton from './TagButton';
 
-const Post = ({ data }) => {
+const Post = ({ data, onClick }) => {
+  //html 태그 제거하고 보여줌
+  const removeHtmlTags = (html) => {
+    var doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || '';
+  };
   return (
-    <Container>
+    <Container onClick={onClick}>
       <Content>
         <TitleBox>
-          <TagButton tag={data.tag} />
+          <TagButton label={data.label} />
           <Title>{data.title}</Title>
         </TitleBox>
-        <PostContent>{data.content}</PostContent>
+        <PostContent>{removeHtmlTags(data.content)}</PostContent>
       </Content>
       <Image></Image>
     </Container>
