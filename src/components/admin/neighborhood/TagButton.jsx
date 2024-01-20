@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../../styles/theme';
 
-const TagButton = ({ tag }) => {
-  return <Container>{tag}</Container>;
+const TagButton = ({ label }) => {
+  return <Container>{label}</Container>;
 };
 
 export default TagButton;

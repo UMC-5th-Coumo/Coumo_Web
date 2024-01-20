@@ -39,6 +39,7 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
             config={{
               placeholder: '손님들의 관심을 끌 수 있는 글을 작성해봐요 (0/200)',
             }}
+            data={inputs.content}
             onReady={(editor) => {
               console.log('Editor is ready to use!', editor);
             }}
