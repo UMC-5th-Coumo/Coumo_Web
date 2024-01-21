@@ -26,7 +26,14 @@ export const customerTabMenu = [
 ];
 
 export const indexMenu = [
-  { text: '요일대별', key: 'day' },
+  { text: '요일대별', key: 'daily' },
   { text: '시간대별', key: 'time' },
   { text: '인구통계별', key: 'demographic' },
+];
+
+export const visitTabs = [
+  { text: '오늘', key: 'today' },
+  { text: '이번주', key: 'thisWeek' },
+  { text: '이번달', key: 'thisMonth' },
+  { text: '3개월', key: '3month' },
 ];

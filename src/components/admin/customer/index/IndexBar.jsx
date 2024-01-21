@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Index from './Index';
+import { COLORS } from '../../../../styles/theme';
 
 const IndexBar = ({ tabs, selected, setSelected }) => {
   const handleTabClick = (key) => {
@@ -8,7 +9,8 @@ const IndexBar = ({ tabs, selected, setSelected }) => {
   };
 
   return (
-    <>
+    <Bar>
+      <Span>기준</Span>
       <StyledTab>
         {tabs.map((tab) => (
           <Index
@@ -19,11 +21,30 @@ const IndexBar = ({ tabs, selected, setSelected }) => {
           />
         ))}
       </StyledTab>
-    </>
+    </Bar>
   );
 };
 
 export default IndexBar;
+
+const Bar = styled.div`
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 43px;
+`;
+
+const Span = styled.span`
+  color: ${COLORS.tab_gray};
+  padding-left: 60px;
+  box-sizing: border-box;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: 0.48px;
+`;
 
 const StyledTab = styled.div`
   display: flex;
