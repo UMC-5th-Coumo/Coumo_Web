@@ -8,8 +8,9 @@ export const COLORS = {
   text_btn_darkgray: '#5E586A',
   text_gray: '#545252',
   text_lightgray: '#B1B1B1',
-  btn_lightgray: '#E3E1E8;',
+  btn_lightgray: '#E3E1E8',
   tab_gray: '#7D7788',
   white: '#FCFCFC',
   white_fff: '#FFFFFF',
+  card_lightpurple: '#f0ebff',
 };
