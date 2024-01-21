@@ -1,14 +1,22 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { COLORS } from '../../styles/theme';
 
-const Tab = ({ text, onClickTab, isSelected }) => {
+const Tab = ({ text, tabKey }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const onClickTab = () => {
+    navigate(tabKey);
+  };
+
+  const isSelected = location.pathname.split('/').pop() === tabKey;
+
   return (
-    <>
-      <TabDiv onClick={onClickTab} selected={isSelected}>
-        {text}
-      </TabDiv>
-    </>
+    <TabDiv onClick={onClickTab} selected={isSelected}>
+      {text}
+    </TabDiv>
   );
 };
 

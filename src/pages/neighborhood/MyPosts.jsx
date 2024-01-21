@@ -3,10 +3,12 @@ import Title from '../../components/common/Title';
 import Post from '../../components/admin/neighborhood/Post';
 import styled from 'styled-components';
 import { Line } from '../../assets';
-import MyEdit from './MyEdit';
 import { getLabelByTag } from '../../assets/data/writecategoryData';
+import MyPostView from './MyPostView';
+import { useNavigate } from 'react-router-dom';
 
 const MyPosts = () => {
+  const navigate = useNavigate();
   const [selectedPost, setSelectedPost] = useState(null);
   const [postDummyData, setPostDummyData] = useState([
     {
@@ -48,7 +50,11 @@ const MyPosts = () => {
   ]);
 
   const handlePostClick = (postIndex) => {
+    const postId = postDummyData[postIndex].id;
     setSelectedPost(postDummyData[postIndex]);
+    navigate(`/neighborhood/myPostView/${postId}`, {
+      state: { post: postDummyData[postIndex] },
+    });
   };
 
   const handleUpdatePost = (updatedPost) => {
@@ -72,6 +78,14 @@ const MyPosts = () => {
       );
     }
   };
+
+  handleUpdatePost({
+    category: '신메뉴/신상품',
+    title: '팀메리 1월 신메뉴 출시',
+    content:
+      '2024년 갑진년을 맞이하여 팀메리가 신메뉴를 출시했습니다.\n이번에는 딸기와 초코로 색다른 맛을 표현해봤어요~\n달달한 거 좋아하시는 분들께 강추하는 메뉴입니다! :) 어쩌구 저쩌구 어쩌구 저쩌구',
+    image: '',
+  });
 
   return (
     <>
@@ -97,12 +111,13 @@ const MyPosts = () => {
           </PostContainer>
         </>
       ) : (
-        <MyEdit
+        <MyPostView
           tag={selectedPost.tag}
           title={selectedPost.title}
           content={selectedPost.content}
           onUpdate={handleUpdatePost}
-          setSelectedPost={setSelectedPost}
+          postDummyData={postDummyData}
+          setPostDummyData={setPostDummyData}
         />
       )}
     </>
