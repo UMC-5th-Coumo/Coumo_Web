@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import TabBar from '../components/common/TabBar';
 import { couponTabs } from '../assets/data/tabData';
-import UIServiceForm from './coupon/UIServiceForm';
 import AddCoupon from './coupon/AddCoupon';
+import UIServiceForm from './coupon/UIServiceForm';
 
 const Coupon = () => {
-  const [selected, setSelected] = useState(couponTabs[0].key);
-
   return (
     <Container>
-      <TabBar tabs={couponTabs} selected={selected} setSelected={setSelected} />
-      {selected === 'uiService' && <UIServiceForm />}
-      {selected === 'addCoupon' && <AddCoupon />}
+      <TabBar tabs={couponTabs} />
+
+      <Routes>
+        <Route path='/addCoupon' element={<AddCoupon />} />
+        <Route path='/uiService' element={<UIServiceForm />} />
+      </Routes>
     </Container>
   );
 };

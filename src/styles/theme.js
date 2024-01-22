@@ -12,5 +12,6 @@ export const COLORS = {
   tab_gray: '#7D7788',
   white: '#FCFCFC',
   white_fff: '#FFFFFF',
+  post_lightgray: '#F5F4F7',
   card_lightpurple: '#f0ebff',
 };

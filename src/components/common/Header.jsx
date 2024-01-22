@@ -15,9 +15,9 @@ const Header = () => {
           <Logo />
         </Link>
         <Nav>
-          <StyledLink to='/shop'>매장 관리</StyledLink>
-          <StyledLink to='/neighborhood'>동네 소식</StyledLink>
-          <StyledLink to='/coupon'>쿠폰 관리</StyledLink>
+          <StyledLink to='/shop/basicInfo'>매장 관리</StyledLink>
+          <StyledLink to='/neighborhood/writePost'>동네 소식</StyledLink>
+          <StyledLink to='/coupon/addCoupon'>쿠폰 관리</StyledLink>
           <StyledLink to='/customer'>고객 데이터 관리</StyledLink>
         </Nav>
         <Button

@@ -90,6 +90,6 @@ const StyledCKEditorContainer = styled.div`
   }
 
   .ck.ck-editor__editable {
-    min-height: 300px;
+    height: 300px;
   }
 `;

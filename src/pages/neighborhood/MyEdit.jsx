@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Line } from '../../assets';
 import Title from '../../components/common/Title';
@@ -7,29 +7,70 @@ import Button from '../../components/common/Button';
 import { COLORS } from '../../styles/theme';
 import { BtnContainer } from '../coupon/UIServiceForm';
 import FormPopUp from '../../components/common/FormPopUp';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { getLabelByTag } from '../../assets/data/writecategoryData';
 
-const MyEdit = ({ tag, title, content, onUpdate, setSelectedPost }) => {
-  const [category, setCategory] = useState(tag);
+const MyEdit = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // 선택한 데이터
+  const [selectedPost, setSelectedPost] = useState(location.state.post);
+
+  // 전체 데이터
+  const [postDummyData, setPostDummyData] = useState(
+    location.state.postDummyData
+  );
+
+  // 카테고리, 제목, 내용 상태 관리
+  const [category, setCategory] = useState(selectedPost.tag);
   const [inputs, setInputs] = useState({
-    title: title,
-    content: content,
+    title: selectedPost.title,
+    content: selectedPost.content,
   });
+
+  const onUpdate = (updatedPost) => {
+    console.log('Updated post:', updatedPost);
+    console.log('Updated post:', postDummyData);
+
+    if (selectedPost) {
+      const updatedData = {
+        tag: updatedPost.category, // tag와 category를 동일하게 사용
+        label: getLabelByTag(updatedPost.category),
+        title: updatedPost.title,
+        content: updatedPost.content,
+        image: '',
+      };
+
+      // 선택된 포스트만 변경 사항 update
+      setPostDummyData((postDummyData) =>
+        postDummyData.map((post) =>
+          selectedPost.id === post.id ? updatedData : post
+        )
+      );
+    }
+  };
+
+  useEffect(() => {
+    // (여기서는 postDummyData가 정상 수정됨)
+    console.log('postDummyData after update:', postDummyData);
+  }, [postDummyData]);
 
   const [popUp, setPopUp] = useState(false);
 
   const onSubmit = () => {
     const data = {
-      category,
+      category: category,
       title: inputs.title,
       content: inputs.content,
     };
 
     console.log('Sending data to server:', data);
 
+    onUpdate(data);
+
     // 서버 요청 성공 시 모달
     submitPopUp();
-
-    onUpdate(data);
   };
 
   const submitPopUp = () => {
@@ -37,6 +78,9 @@ const MyEdit = ({ tag, title, content, onUpdate, setSelectedPost }) => {
     setTimeout(() => {
       setPopUp(false);
       setSelectedPost(null);
+      navigate(`/neighborhood/myPosts`, {
+        state: { updatedData: postDummyData },
+      });
     }, 1500);
   };
 
@@ -73,14 +117,17 @@ const MyEdit = ({ tag, title, content, onUpdate, setSelectedPost }) => {
 export default MyEdit;
 
 const StyledWrite = styled.div`
+  display: flex;
+  flex-direction: column;
   max-width: 900px;
+  gap: 30px;
 `;
 
 const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 48px;
-  margin-bottom: 87px;
+  margin-bottom: 55px;
 `;
 
 const Btn = styled(BtnContainer)`
