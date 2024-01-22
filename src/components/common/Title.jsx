@@ -9,7 +9,7 @@ export default Title;
 
 const StyledTitle = styled.h1`
   color: ${COLORS.coumo_purple};
-  font-size: 32px;
+  font-size: 24px;
   font-style: normal;
   font-weight: 700;
   line-height: 132%;
