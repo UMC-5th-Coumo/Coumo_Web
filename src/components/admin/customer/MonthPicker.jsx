@@ -5,22 +5,7 @@ import { ko } from 'date-fns/locale';
 import styled from 'styled-components';
 import { COLORS } from '../../../styles/theme';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import { endOfMonth, getMonth, getYear, startOfMonth } from 'date-fns';
-
-const months = [
-  '1월',
-  '2월',
-  '3월',
-  '4월',
-  '5월',
-  '6월',
-  '7월',
-  '8월',
-  '9월',
-  '10월',
-  '11월',
-  '12월',
-];
+import { getMonth, getYear } from 'date-fns';
 
 const MonthPicker = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
