@@ -1,16 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import Title from '../../components/common/Title';
 import Post from '../../components/admin/neighborhood/Post';
 import styled from 'styled-components';
 import { Line } from '../../assets';
-import { getLabelByTag } from '../../assets/data/writecategoryData';
-import MyPostView from './MyPostView';
 import { useNavigate } from 'react-router-dom';
 
 const MyPosts = () => {
   const navigate = useNavigate();
-  const [selectedPost, setSelectedPost] = useState(null);
-  const [postDummyData, setPostDummyData] = useState([
+  const postDummyData = [
     {
       id: 0,
       tag: 'new',
@@ -47,79 +44,40 @@ const MyPosts = () => {
         '2024년 갑진년을 맞이하여 팀메리가 신메뉴를 출시했습니다.\n이번에는 딸기와 초코로 색다른 맛을 표현해봤어요~\n달달한 거 좋아하시는 분들께 강추하는 메뉴입니다! :) 어쩌구 저쩌구 어쩌구 저쩌구',
       image: '',
     },
-  ]);
+  ];
 
   const handlePostClick = (postIndex) => {
     const postId = postDummyData[postIndex].id;
-    setSelectedPost(postDummyData[postIndex]);
     navigate(`/neighborhood/myPostView/${postId}`, {
-      state: { post: postDummyData[postIndex] },
+      state: { post: postDummyData[postIndex], postDummyData },
     });
   };
 
-  const handleUpdatePost = (updatedPost) => {
-    console.log('Updated post:', updatedPost);
-    console.log('Updated post:', postDummyData);
-
-    if (selectedPost) {
-      const updatedData = {
-        tag: updatedPost.category, // tag와 category를 동일하게 사용
-        label: getLabelByTag(updatedPost.category),
-        title: updatedPost.title,
-        content: updatedPost.content,
-        image: '',
-      };
-
-      // 선택된 포스트만 변경 사항 update
-      setPostDummyData((prevData) =>
-        prevData.map((post) =>
-          selectedPost.id === post.id ? updatedData : post
-        )
-      );
-    }
+  const handleModifyClick = (postIndex) => {
+    const postId = postDummyData[postIndex].id;
+    navigate(`/neighborhood/myEdit/${postId}`, {
+      state: { post: postDummyData[postIndex], postDummyData },
+    });
   };
-
-  handleUpdatePost({
-    category: '신메뉴/신상품',
-    title: '팀메리 1월 신메뉴 출시',
-    content:
-      '2024년 갑진년을 맞이하여 팀메리가 신메뉴를 출시했습니다.\n이번에는 딸기와 초코로 색다른 맛을 표현해봤어요~\n달달한 거 좋아하시는 분들께 강추하는 메뉴입니다! :) 어쩌구 저쩌구 어쩌구 저쩌구',
-    image: '',
-  });
 
   return (
     <>
-      {selectedPost === null ? (
-        <>
-          <TitleBox>
-            <Title title='총 13개의 게시글이 있어요!' />
-            <Line />
-          </TitleBox>
-
-          <PostContainer>
-            {postDummyData.map((data, index) => {
-              return (
-                <Post
-                  key={index}
-                  data={data}
-                  onClick={() => handlePostClick(index)}
-                  onUpdate={handleUpdatePost}
-                  setSelectedPost={setSelectedPost}
-                />
-              );
-            })}
-          </PostContainer>
-        </>
-      ) : (
-        <MyPostView
-          tag={selectedPost.tag}
-          title={selectedPost.title}
-          content={selectedPost.content}
-          onUpdate={handleUpdatePost}
-          postDummyData={postDummyData}
-          setPostDummyData={setPostDummyData}
-        />
-      )}
+      <TitleBox>
+        <Title title='총 13개의 게시글이 있어요!' />
+        <Line />
+      </TitleBox>
+      <PostContainer>
+        {postDummyData.map((data, id) => {
+          return (
+            <Post
+              key={id}
+              data={data}
+              onClick={() => handlePostClick(id)}
+              onModify={() => handleModifyClick(id)}
+            />
+          );
+        })}
+      </PostContainer>
     </>
   );
 };

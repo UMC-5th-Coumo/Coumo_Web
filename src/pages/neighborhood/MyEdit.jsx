@@ -8,25 +8,53 @@ import { COLORS } from '../../styles/theme';
 import { BtnContainer } from '../coupon/UIServiceForm';
 import FormPopUp from '../../components/common/FormPopUp';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { getLabelByTag } from '../../assets/data/writecategoryData';
 
-const MyEdit = ({ onUpdate }) => {
+const MyEdit = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [selectedPost, setSelectedPost] = useState(
-    location.state ? location.state.post : null
+
+  // 선택한 데이터
+  const [selectedPost, setSelectedPost] = useState(location.state.post);
+
+  // 전체 데이터
+  const [postDummyData, setPostDummyData] = useState(
+    location.state.postDummyData
   );
+
+  // 카테고리, 제목, 내용 상태 관리
   const [category, setCategory] = useState(selectedPost.tag);
   const [inputs, setInputs] = useState({
     title: selectedPost.title,
     content: selectedPost.content,
   });
 
-  // location.state.post가 변경될 때마다 selectedPost를 업데이트
-  useEffect(() => {
-    setSelectedPost(location.state ? location.state.post : null);
-  }, [location.state]);
+  const onUpdate = (updatedPost) => {
+    console.log('Updated post:', updatedPost);
+    console.log('Updated post:', postDummyData);
 
-  console.log('MtEdit', selectedPost);
+    if (selectedPost) {
+      const updatedData = {
+        tag: updatedPost.category, // tag와 category를 동일하게 사용
+        label: getLabelByTag(updatedPost.category),
+        title: updatedPost.title,
+        content: updatedPost.content,
+        image: '',
+      };
+
+      // 선택된 포스트만 변경 사항 update
+      setPostDummyData((postDummyData) =>
+        postDummyData.map((post) =>
+          selectedPost.id === post.id ? updatedData : post
+        )
+      );
+    }
+  };
+
+  useEffect(() => {
+    // (여기서는 postDummyData가 정상 수정됨)
+    console.log('postDummyData after update:', postDummyData);
+  }, [postDummyData]);
 
   const [popUp, setPopUp] = useState(false);
 
@@ -50,7 +78,9 @@ const MyEdit = ({ onUpdate }) => {
     setTimeout(() => {
       setPopUp(false);
       setSelectedPost(null);
-      navigate(`/neighborhood/myPosts`);
+      navigate(`/neighborhood/myPosts`, {
+        state: { updatedData: postDummyData },
+      });
     }, 1500);
   };
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Line } from '../../assets';
 import Title from '../../components/common/Title';
@@ -6,25 +6,23 @@ import Button from '../../components/common/Button';
 import { COLORS } from '../../styles/theme';
 import { BtnContainer } from '../coupon/UIServiceForm';
 import { useNavigate, useLocation } from 'react-router-dom';
-import MyEdit from './MyEdit';
 import { getLabelByTag } from '../../assets/data/writecategoryData';
 import RadioBtn from '../../components/common/RadioBtn';
 import { useParams } from 'react-router-dom';
 
-const MyPostView = ({ onUpdate, postDummyData, setPostDummyData }) => {
+const MyPostView = () => {
   const navigate = useNavigate();
   const { postId } = useParams();
-  const [modify, setModify] = useState(false);
+  const location = useLocation();
+  const postDummyData = location.state.postDummyData;
 
   const onClickMod = () => {
-    setModify(true);
     navigate(`/neighborhood/myEdit/${postId}`, {
-      state: { post: selectedPost },
+      state: { post: selectedPost, postDummyData },
     });
   };
 
-  const location = useLocation();
-  const selectedPost = location.state ? location.state.post : null;
+  const selectedPost = location.state.post;
 
   console.log(location);
   console.log(location.state.post);
@@ -35,39 +33,27 @@ const MyPostView = ({ onUpdate, postDummyData, setPostDummyData }) => {
   console.log('Edit', selectedPost.content);
 
   return (
-    <>
-      {modify ? (
-        <MyEdit
-          onUpdate={onUpdate}
-          postDummyData={postDummyData}
-          setPostDummyData={setPostDummyData}
+    <StyledWrite>
+      <TitleBox>
+        <Title title={selectedPost.title} />
+        <Line />
+      </TitleBox>
+      <div>
+        <SubTitle>카테고리</SubTitle>
+        <RadioBtn label={getLabelByTag(selectedPost.tag)} />
+      </div>
+      <div>
+        <Box>{selectedPost.content}</Box>
+      </div>
+      <Btn>
+        <Button text='취소하기' />
+        <Button
+          text='수정하기'
+          color={COLORS.coumo_purple}
+          onClickBtn={onClickMod}
         />
-      ) : (
-        <>
-          <StyledWrite>
-            <TitleBox>
-              <Title title={selectedPost.title} />
-              <Line />
-            </TitleBox>
-            <div>
-              <SubTitle>카테고리</SubTitle>
-              <RadioBtn label={getLabelByTag(selectedPost.tag)} />
-            </div>
-            <div>
-              <Box>{selectedPost.content}</Box>
-            </div>
-            <Btn>
-              <Button text='취소하기' />
-              <Button
-                text='수정하기'
-                color={COLORS.coumo_purple}
-                onClickBtn={onClickMod}
-              />
-            </Btn>
-          </StyledWrite>
-        </>
-      )}
-    </>
+      </Btn>
+    </StyledWrite>
   );
 };
 

@@ -11,7 +11,15 @@ const Tab = ({ text, tabKey }) => {
     navigate(tabKey);
   };
 
-  const isSelected = location.pathname.split('/').pop() === tabKey;
+  var isSelected;
+  if (location.pathname.split('/').pop() === tabKey) {
+    isSelected = { tabKey };
+  } else if (
+    location.pathname.includes(`myPostView`) ||
+    location.pathname.includes(`myEdit`)
+  ) {
+    isSelected = tabKey === 'myPosts';
+  }
 
   return (
     <TabDiv onClick={onClickTab} selected={isSelected}>

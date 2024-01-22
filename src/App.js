@@ -17,10 +17,10 @@ function App() {
       <Routes>
         <Route exact path='/' element={<Home />} />
         <Route path='/shop/*' element={<Shop />} />
-        <Route exact path='/neighborhood/*' element={<Neighborhood />} />
-        <Route exact path='/coupon/*' element={<Coupon />} />
-        <Route exact path='/customer/*' element={<Customer />} />
-        <Route exact path='/login' element={<Login />} />
+        <Route path='/neighborhood/*' element={<Neighborhood />} />
+        <Route path='/coupon/*' element={<Coupon />} />
+        <Route path='/customer/*' element={<Customer />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </>
   );
