@@ -35,7 +35,7 @@ export default Header;
 
 const Head = styled.div`
   width: 100%;
-  height: 100px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,9 +43,10 @@ const Head = styled.div`
   box-sizing: border-box;
   background-color: ${COLORS.white};
   font-family: 'Pretendard';
-  font-size: 20px;
+  font-size: 16px;
   position: absolute;
   top: 0;
+  box-shadow: 0px 13px 21.8px 0px rgba(69, 0, 198, 0.08);
 `;
 
 const HeaderBar = styled.div`
@@ -59,7 +60,7 @@ const HeaderBar = styled.div`
 
 const Nav = styled.div`
   display: flex;
-  width: 592px;
+  width: 550px;
   justify-content: space-between;
   align-items: flex-start;
 `;

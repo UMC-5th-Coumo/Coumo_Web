@@ -24,7 +24,7 @@ export default Stamp;
 const RadioLabel = styled.label`
   display: flex;
   align-items: center;
-  height: 48px;
+  height: 38px;
   padding: 0px 18px;
   align-items: center;
   gap: 8px;
@@ -40,15 +40,15 @@ const RadioLabel = styled.label`
 const RadioInput = styled.input`
   vertical-align: middle;
   appearance: none;
-  border: max(2px, 0.1em) solid gray;
+  border: max(1px, 0.1em) solid gray;
   border-radius: 50%;
-  width: 1.6em;
-  height: 1.6em;
+  width: 1.3em;
+  height: 1.3em;
   transition: border 0.5s ease-in-out;
   display: none;
 
   &:checked {
-    border: 0.8em solid ${COLORS.coumo_purple};
+    border: 0.67em solid ${COLORS.coumo_purple};
   }
 
   &:hover {
@@ -61,7 +61,7 @@ const RadioSpan = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   font-family: 'Pretendard';
-  font-size: 16px;
+  font-size: 12.8px;
   font-style: normal;
   font-weight: 400;
   line-height: 170%; /* 27.2px */
@@ -69,6 +69,6 @@ const RadioSpan = styled.span`
 `;
 
 const StampIcon = styled.img`
-  width: 28px;
-  height: 28px;
+  width: 23px;
+  height: 23px;
 `;

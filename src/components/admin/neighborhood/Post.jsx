@@ -33,33 +33,33 @@ const Post = ({ data, onClick, onModify }) => {
 export default Post;
 
 const Container = styled.div`
-  width: 890px;
-  height: 280px;
+  width: 712px;
+  height: 224px;
   display: flex;
   align-items: center;
   box-sizing: border-box;
   padding-left: 40px;
   justify-content: space-between;
 
-  border-radius: 12px;
+  border-radius: 16px;
   background: ${COLORS.post_lightgray};
 `;
 
 const Content = styled.div`
-  width: 487px;
-  height: 280px;
+  width: 390px;
+  height: 224px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 24px;
+  gap: 19px;
 `;
 
 const PostClick = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 24px;
+  gap: 19px;
 `;
 
 const TitleBox = styled.div`
@@ -69,10 +69,10 @@ const TitleBox = styled.div`
 `;
 
 const Title = styled.h2`
-  width: 325px;
+  width: 260px;
   margin: 0;
-  color: ${COLORS.text_darkgray};
-  font-size: 28.8px;
+  color: #5a5369;
+  font-size: 18px;
   font-style: normal;
   font-weight: 600;
 
@@ -85,8 +85,8 @@ const Title = styled.h2`
 `;
 
 const Image = styled.div`
-  width: 280px;
-  height: 280px;
+  width: 224px;
+  height: 224px;
   border-radius: 0px 12px 12px 0px;
   background:
     url(<path-to-image>),
@@ -95,8 +95,8 @@ const Image = styled.div`
 
 const PostContent = styled.p`
   margin: 0;
-  width: 487px;
-  height: 100px;
+  width: 390px;
+  height: 80px;
   flex-shrink: 0;
 
   overflow: hidden;
@@ -104,7 +104,7 @@ const PostContent = styled.p`
 
   text-overflow: ellipsis;
   white-space: pre-wrap;
-  font-size: 18px;
+  font-size: 14.5px;
   font-style: normal;
   font-weight: 300;
   line-height: 188%;
@@ -123,17 +123,17 @@ const Btns = styled.div`
 
 const PostButton = styled.button`
   display: flex;
-  width: 120px;
-  height: 48px;
+  width: 96px;
+  height: 38px;
   padding: 12px 8px;
   justify-content: center;
   align-items: center;
   gap: 8px;
-  border-radius: 8px;
-  border: 2px solid rgba(144, 133, 165, 0.4);
+  border-radius: 6px;
+  border: 1.5px solid rgba(144, 133, 165, 0.4);
   background: ${COLORS.white_fff};
   color: ${COLORS.text_darkgray};
-  font-size: 16px;
+  font-size: 13px;
   font-style: normal;
   font-weight: 600;
   line-height: 132%; /* 21.12px */

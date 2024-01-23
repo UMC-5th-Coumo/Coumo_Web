@@ -76,8 +76,8 @@ export default MonthPicker;
 
 const CustomInput = styled.input`
   display: flex;
-  width: 250px;
-  height: 40px;
+  width: 230px;
+  height: 32px;
   padding: 12px 8px;
   justify-content: center;
   align-items: center;
@@ -88,14 +88,13 @@ const CustomInput = styled.input`
 
   text-align: center;
   color: ${COLORS.coumo_purple};
-  font-size: 16px;
   font-style: normal;
   font-weight: 600;
   line-height: 132%;
   letter-spacing: 0.48px;
   font-family: 'Pretendard';
-  cursor: pointer;
   caret-color: transparent;
+  cursor: pointer;
 
   &:focus {
     outline: none;
@@ -103,7 +102,7 @@ const CustomInput = styled.input`
 `;
 
 const Header = styled.div`
-  height: 20px;
+  height: 16px;
   display: flex;
   justify-content: space-between;
   background-color: ${COLORS.white_fff};

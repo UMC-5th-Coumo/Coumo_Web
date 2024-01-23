@@ -32,18 +32,18 @@ export default Tab;
 
 const TabDiv = styled.div`
   display: flex;
-  width: 204px;
-  height: 29px;
-  padding: 12px 8px;
+  width: 150px;
+  height: 25px;
+  padding: 8px 6px;
   justify-content: center;
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
-  border-radius: 16px 16px 0px 0px;
+  border-radius: 12px 12px 0px 0px;
   background: ${(props) =>
     props.selected ? COLORS.coumo_purple : COLORS.btn_lightgray};
   color: ${(props) => (props.selected ? COLORS.white_fff : COLORS.tab_gray)};
-  font-size: 16px;
+  font-size: 13px;
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 21.12px */

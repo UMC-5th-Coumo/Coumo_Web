@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Title from '../../components/common/Title';
 import Post from '../../components/admin/neighborhood/Post';
 import styled from 'styled-components';
@@ -87,12 +87,12 @@ export default MyPosts;
 const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 48px;
-  margin-bottom: 87px;
+  gap: 38px;
+  margin-bottom: 70px;
 `;
 
 const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 32px;
 `;
