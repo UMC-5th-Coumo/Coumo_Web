@@ -6,3 +6,6 @@ export { ReactComponent as LoginPw } from './icon/LoginPw.svg';
 export { ReactComponent as LoginSave } from './icon/LoginSave.svg';
 export { ReactComponent as LoginSaveCheck } from './icon/LoginSaveCheck.svg';
 export { ReactComponent as Line } from './icon/line.svg';
+export { ReactComponent as CheckBoxSelected } from './icon/CheckBoxSelected.svg';
+export { ReactComponent as CheckBoxDefault } from './icon/CheckBoxDefault.svg';
+export { ReactComponent as LogoCongratulate } from './icon/LogoCongratulate.svg';

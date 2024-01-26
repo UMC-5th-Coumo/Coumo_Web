@@ -61,6 +61,15 @@ const LoginBox = () => {
         }}
         disabled={!isLoginEnabled()}
       />
+      <Text>
+        <Gap>
+          <More onClick={() => navigate(`/join/one`)}>회원가입</More>
+          <span>|</span>
+          <More onClick={() => navigate(`/findId`)}>아이디 찾기</More>
+          <span>/</span>
+          <More onClick={() => navigate(`/findPw`)}>비밀번호 찾기</More>
+        </Gap>
+      </Text>
     </Box>
   );
 };
@@ -70,11 +79,12 @@ export default LoginBox;
 const Box = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   margin-top: -100px;
   width: 496px;
   height: 362px;
+  padding-top: 60px;
+  box-sizing: border-box;
   border-radius: 16px;
   background: ${COLORS.white_fff};
   box-shadow: 0px 8.978px 14.365px 0px rgba(68, 68, 68, 0.08);
@@ -167,5 +177,20 @@ const LoginBtn = styled(Btn)`
   &:disabled {
     background: ${COLORS.btn_lightgray};
     color: ${COLORS.text_btn_darkgray};
+  }
+`;
+
+const Gap = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  margin-top: 5px;
+`;
+
+const More = styled.div`
+  display: flex;
+
+  &:hover {
+    color: ${COLORS.coumo_purple};
   }
 `;

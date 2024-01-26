@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../styles/theme';
 
-const Input = ({
+const InputJoin = ({
   label,
   type,
   placeholder,
@@ -11,7 +10,7 @@ const Input = ({
   onChange,
   onClick,
   readOnly,
-  fullwidth,
+  width,
 }) => {
   return (
     <Element>
@@ -24,57 +23,50 @@ const Input = ({
         readOnly={readOnly}
         onChange={onChange}
         onClick={onClick}
-        fullwidth={fullwidth}
+        width={width}
       ></StyledInput>
     </Element>
   );
 };
 
-export default Input;
+export default InputJoin;
 
 const Element = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 8px;
+  margin-bottom: 5px;
 `;
 
 const StyledInputTitle = styled.div`
-  color: ${COLORS.coumo_purple};
-  font-family: 'Pretendard';
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 132%; /* 31.68px */
-  letter-spacing: 0.72px;
-  padding-bottom: 16px;
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
 `;
 
 const StyledInput = styled.input`
   display: flex;
-  max-width: ${({ fullwidth }) => (fullwidth ? '900px' : '344px')};
-  height: 42px;
-  padding: 8px 12px;
+  width: ${({ width }) => (width ? width : '337px')};
+  height: 48px;
+  padding: 9.6px 14.4px;
+  box-sizing: border-box;
+  border: none;
   justify-content: flex-end;
   align-items: center;
-  gap: 8px;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${COLORS.coumo_gray};
+  gap: 9.6px;
+  align-self: stretch;
+  border-radius: 8px;
+  background: #e2e0e8;
   overflow: hidden;
-  color: ${COLORS.text_gray};
+  color: #332f3c;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: 'Pretendard';
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 170%; /* 27.2px */
+  line-height: 170%; /* 32.3px */
 
   &:focus {
     outline: none;
   }
-`;
-
-/*Edit에서 쓰는 styled*/
-export const StyledWriteInput = styled(Input)`
-  margin-bottom: 50px;
 `;

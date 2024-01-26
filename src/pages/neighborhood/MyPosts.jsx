@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Title from '../../components/common/Title';
 import Post from '../../components/admin/neighborhood/Post';
 import styled from 'styled-components';
@@ -59,6 +59,10 @@ const MyPosts = () => {
       state: { post: postDummyData[postIndex], postDummyData },
     });
   };
+
+  // const location = useLocation();
+  // const { state: { updatedData } = {} } = location;
+  // console.log('mypost', updatedData);
 
   return (
     <>

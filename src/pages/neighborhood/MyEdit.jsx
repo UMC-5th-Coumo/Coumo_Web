@@ -7,12 +7,13 @@ import Button from '../../components/common/Button';
 import { COLORS } from '../../styles/theme';
 import { BtnContainer } from '../coupon/UIServiceForm';
 import FormPopUp from '../../components/common/FormPopUp';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { getLabelByTag } from '../../assets/data/writecategoryData';
 
 const MyEdit = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { postId } = useParams();
 
   // 선택한 데이터
   const [selectedPost, setSelectedPost] = useState(location.state.post);
@@ -35,6 +36,7 @@ const MyEdit = () => {
 
     if (selectedPost) {
       const updatedData = {
+        id: parseInt(postId),
         tag: updatedPost.category, // tag와 category를 동일하게 사용
         label: getLabelByTag(updatedPost.category),
         title: updatedPost.title,
@@ -52,9 +54,12 @@ const MyEdit = () => {
   };
 
   useEffect(() => {
-    // (여기서는 postDummyData가 정상 수정됨)
+    // (2)(여기서는 postDummyData가 정상 수정됨)
     console.log('postDummyData after update:', postDummyData);
+    setPostDummyData(postDummyData);
   }, [postDummyData]);
+
+  console.log('postDummyData after update2:', postDummyData); // (1)정상
 
   const [popUp, setPopUp] = useState(false);
 
@@ -65,7 +70,7 @@ const MyEdit = () => {
       content: inputs.content,
     };
 
-    console.log('Sending data to server:', data);
+    console.log('Sending data to server:', postDummyData);
 
     onUpdate(data);
 

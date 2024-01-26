@@ -8,6 +8,11 @@ import Neighborhood from './pages/Neighborhood';
 import Coupon from './pages/Coupon';
 import Customer from './pages/Customer';
 import Login from './pages/Login';
+import FindId from './pages/FindId';
+import FindPw from './pages/FindPw';
+import JoinOneStep from './pages/join/JoinOneStep';
+import JoinTwoStep from './pages/join/JoinTwoStep';
+import Congratulate from './pages/join/Congratulate';
 
 function App() {
   return (
@@ -20,7 +25,12 @@ function App() {
         <Route path='/neighborhood/*' element={<Neighborhood />} />
         <Route path='/coupon/*' element={<Coupon />} />
         <Route path='/customer/*' element={<Customer />} />
+        <Route path='/join/one' element={<JoinOneStep />} />
+        <Route path='/join/two' element={<JoinTwoStep />} />
+        <Route path='/join/finish' element={<Congratulate />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/findId' element={<FindId />} />
+        <Route path='/findPw' element={<FindPw />} />
       </Routes>
     </>
   );
