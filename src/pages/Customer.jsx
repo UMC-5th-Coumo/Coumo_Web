@@ -23,8 +23,10 @@ const Customer = () => {
 export default Customer;
 
 const Container = styled.div`
+  width: 100vw;
+  height: calc(100vh - 80px);
   box-sizing: border-box;
-  padding: 70px 120px;
+  padding: 70px 120px 0px 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
