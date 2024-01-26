@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import InputJoin from '../../components/common/InputJoin';
 import { CheckBoxDefault, CheckBoxSelected } from '../../assets';
 import { COLORS } from '../../styles/theme';
+import { Btn } from '../../components/common/Button';
 
 const JoinOneStep = () => {
   const navigate = useNavigate();
@@ -113,12 +114,16 @@ const JoinOneStep = () => {
       <Box>
         <Title>사장님 회원가입</Title>
         <div>
-          <InputJoin
-            label='아이디 *'
-            placeholder='영문/숫자 6자 이상'
-            value={loginId}
-            onChange={onChangeId}
-          />
+          <Row>
+            <InputJoin
+              label='아이디 *'
+              placeholder='영문/숫자 6자 이상'
+              value={loginId}
+              onChange={onChangeId}
+              width='165px'
+            />
+            <NewButton>중복 확인하기</NewButton>
+          </Row>
           <Msg>{loginIdMsg}</Msg>
         </div>
         <div>
@@ -269,4 +274,27 @@ const JoinBtn = styled.button`
     background: ${COLORS.btn_lightgray};
     color: ${COLORS.text_btn_darkgray};
   }
+`;
+
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const NewButton = styled(Btn)`
+  display: flex;
+  width: 170px;
+  height: 48px;
+  padding: 9.6px 14.4px;
+  margin-top: 25px;
+  margin-left: 15px;
+  border-radius: 49px;
+  background-color: ${COLORS.coumo_purple};
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 170%; /* 30.6px */
 `;

@@ -14,7 +14,11 @@ const InputJoin = ({
 }) => {
   return (
     <Element>
-      <StyledInputTitle>{label}</StyledInputTitle>
+      <StyledInputTitle>
+        <span>{label.slice(0, -1)}</span>
+        <span>&nbsp;</span>
+        <span style={{ color: '#9259ff' }}>{label.slice(-1)}</span>
+      </StyledInputTitle>
       <StyledInput
         type={type}
         name={name}
@@ -46,7 +50,7 @@ const StyledInputTitle = styled.div`
 
 const StyledInput = styled.input`
   display: flex;
-  width: ${({ width }) => (width ? width : '337px')};
+  width: ${({ width }) => (width ? width : '350px')};
   height: 48px;
   padding: 9.6px 14.4px;
   box-sizing: border-box;

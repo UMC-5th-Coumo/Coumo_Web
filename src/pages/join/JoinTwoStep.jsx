@@ -161,6 +161,7 @@ const JoinTwoStep = () => {
               placeholder='- 없이'
               value={phone}
               onChange={onChangePhone}
+              width='337px'
             />
             <NewButton>인증 받기</NewButton>
           </Row>
@@ -173,6 +174,7 @@ const JoinTwoStep = () => {
             type='password'
             value={certified}
             onChange={(e) => setCertified(e.target.value)}
+            width='337px'
           />
           <NewButton>인증번호 재발송</NewButton>
         </Row>
@@ -227,7 +229,7 @@ const JoinBtn = styled.button`
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
-  margin-top: 30px;
+  margin-top: 50px;
 
   &:disabled {
     background: ${COLORS.btn_lightgray};
@@ -265,7 +267,6 @@ const NewButton = styled(Btn)`
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: Pretendard;
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
