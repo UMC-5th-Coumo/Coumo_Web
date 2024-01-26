@@ -9,6 +9,8 @@ const Input = ({
   name,
   value,
   onChange,
+  onClick,
+  readOnly,
   fullwidth,
 }) => {
   return (
@@ -19,7 +21,9 @@ const Input = ({
         name={name}
         value={value}
         placeholder={placeholder}
+        readOnly={readOnly}
         onChange={onChange}
+        onClick={onClick}
         fullwidth={fullwidth}
       ></StyledInput>
     </Element>

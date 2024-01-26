@@ -61,6 +61,15 @@ const LoginBox = () => {
         }}
         disabled={!isLoginEnabled()}
       />
+      <Text>
+        <Gap>
+          <More onClick={() => navigate(`/join/one`)}>회원가입</More>
+          <span>|</span>
+          <More onClick={() => navigate(`/findId`)}>아이디 찾기</More>
+          <span>/</span>
+          <More onClick={() => navigate(`/findPw`)}>비밀번호 찾기</More>
+        </Gap>
+      </Text>
     </Box>
   );
 };
@@ -166,5 +175,20 @@ const LoginBtn = styled(Btn)`
   &:disabled {
     background: ${COLORS.btn_lightgray};
     color: ${COLORS.text_btn_darkgray};
+  }
+`;
+
+const Gap = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  margin-top: 5px;
+`;
+
+const More = styled.div`
+  display: flex;
+
+  &:hover {
+    color: ${COLORS.coumo_purple};
   }
 `;

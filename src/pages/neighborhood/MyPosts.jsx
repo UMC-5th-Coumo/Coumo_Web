@@ -60,6 +60,10 @@ const MyPosts = () => {
     });
   };
 
+  // const location = useLocation();
+  // const { state: { updatedData } = {} } = location;
+  // console.log('mypost', updatedData);
+
   return (
     <>
       <TitleBox>
