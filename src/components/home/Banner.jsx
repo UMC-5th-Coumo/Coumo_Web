@@ -16,7 +16,6 @@ const Banner = () => {
           자유롭게 홍보하며, 고객 데이터를 한 눈에 파악해 효과적인 이익 창출이
           가능합니다.
         </Description>
-        <Button>입점 문의하기</Button>
         <Icon>
           <BannerIcon />
         </Icon>
@@ -47,11 +46,11 @@ const Container = styled.div`
 
 const Title = styled.h1`
   margin: 0;
-  margin-top: 162px;
+  margin-top: 180px;
   text-align: center;
   text-shadow: 0px 6px 6.7px rgba(137, 74, 255, 0.3);
   font-family: 'GmarketSans';
-  font-size: 68px;
+  font-size: 60px;
   font-style: normal;
   font-weight: 700;
   line-height: 140%;
@@ -68,34 +67,11 @@ const Description = styled.span`
   font-style: normal;
   font-weight: 300;
   line-height: 180%; /* 28.8px */
-  margin-top: 79px;
-`;
-
-const Button = styled.button`
-  display: flex;
-  width: 180px;
-  height: 52px;
-  padding: 8px 16px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  border-radius: 89px;
-  background: #6023d5;
-  border: none;
-  margin-top: 16px;
-  cursor: pointer;
-
-  color: ${COLORS.white};
-  text-align: center;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 132%;
-  letter-spacing: 0.54px;
+  margin-top: 60px;
 `;
 
 const Icon = styled.div`
   position: absolute;
   bottom: 0;
-  right: 0;
+  right: 100px;
 `;

@@ -134,19 +134,18 @@ const Content = styled.div`
   height: auto;
   color: ${COLORS.tab_gray};
   font-size: 16px;
-  padding: 70px 0px;
   box-sizing: border-box;
   font-weight: 500;
   position: relative;
 
   display: flex;
   flex-direction: column;
-  gap: 88px;
+  gap: 70px;
 `;
 
 const Title = styled.h2`
   color: ${COLORS.coumo_purple};
-  font-size: 24px;
+  font-size: 19px;
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 31.68px */
@@ -161,15 +160,15 @@ const Description = styled.div`
 `;
 
 const TextArea = styled.textarea`
-  width: 754px;
-  height: 172px;
+  width: 600px;
+  height: 138px;
   padding: 8px 12px;
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: ${COLORS.coumo_gray};
 
   color: ${COLORS.text_gray};
-  font-size: 16px;
+  font-size: 13px;
   font-style: normal;
   font-weight: 400;
   line-height: 170%; /* 27.2px */

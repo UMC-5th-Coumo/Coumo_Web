@@ -36,7 +36,7 @@ const Element = styled.div`
 const StyledInputTitle = styled.div`
   color: ${COLORS.coumo_purple};
   font-family: 'Pretendard';
-  font-size: 24px;
+  font-size: 19px;
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 31.68px */
@@ -46,8 +46,8 @@ const StyledInputTitle = styled.div`
 
 const StyledInput = styled.input`
   display: flex;
-  max-width: ${({ fullwidth }) => (fullwidth ? '900px' : '344px')};
-  height: 42px;
+  max-width: ${({ fullwidth }) => (fullwidth ? '720px' : '275px')};
+  height: 30px;
   padding: 8px 12px;
   justify-content: flex-end;
   align-items: center;
@@ -60,7 +60,7 @@ const StyledInput = styled.input`
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: 'Pretendard';
-  font-size: 16px;
+  font-size: 13px;
   font-style: normal;
   font-weight: 400;
   line-height: 170%; /* 27.2px */

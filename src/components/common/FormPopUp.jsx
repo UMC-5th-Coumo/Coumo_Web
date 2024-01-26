@@ -32,7 +32,7 @@ const Container = styled.div`
 
 const Modal = styled.div`
   display: inline-flex;
-  padding: 32px 56px;
+  padding: 25px 45px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -48,10 +48,10 @@ const Modal = styled.div`
     color: ${COLORS.text_darkgray};
     text-align: center;
     text-overflow: ellipsis;
-    font-size: 24px;
+    font-size: 12px;
     font-style: normal;
     font-weight: 300;
-    line-height: 168%; /* 40.32px */
+    line-height: 148%; /* 40.32px */
     letter-spacing: 0.48px;
   }
 `;

@@ -37,7 +37,8 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
           <CKEditor
             editor={ClassicEditor}
             config={{
-              placeholder: '손님들의 관심을 끌 수 있는 글을 작성해봐요 (0/200)',
+              placeholder:
+                '손님들의 관심을 끌 수 있는 글을 작성해봐요. (0/500)',
             }}
             data={inputs.content}
             onReady={(editor) => {
@@ -76,7 +77,7 @@ const Write = styled.div`
 const Label = styled.div`
   color: ${COLORS.coumo_purple};
   font-family: 'Pretendard';
-  font-size: 24px;
+  font-size: 19px;
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 31.68px */
@@ -85,6 +86,7 @@ const Label = styled.div`
 `;
 
 const StyledCKEditorContainer = styled.div`
+  font-size: 14px;
   .ck.ck-editor {
     min-height: 400px;
   }

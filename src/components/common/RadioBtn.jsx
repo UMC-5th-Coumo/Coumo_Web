@@ -13,7 +13,9 @@ const RadioBtn = ({ id, value, name, label, selected, onChange }) => {
         checked={id === selected}
         onChange={() => onChange(id)}
       />
-      <RadioSpan htmlFor={id}>{label}</RadioSpan>
+      <RadioSpan htmlFor={id} selected={id === selected}>
+        {label}
+      </RadioSpan>
     </RadioLabel>
   );
 };
@@ -23,9 +25,9 @@ export default RadioBtn;
 const RadioLabel = styled.label`
   display: flex;
   align-items: center;
-  width: 136px;
-  height: 48px;
-  padding: 0px 18px;
+  width: 110px;
+  height: 40px;
+  padding: 0px 12px;
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
@@ -36,14 +38,15 @@ const RadioLabel = styled.label`
 const RadioInput = styled.input`
   vertical-align: middle;
   appearance: none;
-  border: max(2px, 0.1em) solid gray;
+  border: max(1px, 0.1em) solid gray;
   border-radius: 50%;
-  width: 1.6em;
-  height: 1.6em;
+  width: 1.3em;
+  height: 1.3em;
   transition: border 0.5s ease-in-out;
+  background-color: ${COLORS.white};
 
   &:checked {
-    border: 0.8em solid ${COLORS.coumo_purple};
+    border: 0.67em solid ${COLORS.coumo_purple};
   }
 
   &:hover {
@@ -57,8 +60,8 @@ const RadioSpan = styled.span`
   color: #545252;
   text-overflow: ellipsis;
   font-family: 'Pretendard';
-  font-size: 16px;
+  font-size: 12.8px;
   font-style: normal;
-  font-weight: 600;
   line-height: 170%; /* 27.2px */
+  font-weight: ${(props) => (props.selected ? '600' : '400')};
 `;

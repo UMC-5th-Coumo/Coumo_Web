@@ -30,7 +30,7 @@ const Container = styled.div`
 const Title = styled.h2`
   color: ${COLORS.coumo_purple};
   text-align: center;
-  font-size: 36px;
+  font-size: 28px;
   font-style: normal;
   font-weight: 800;
   line-height: 132%; /* 47.52px */

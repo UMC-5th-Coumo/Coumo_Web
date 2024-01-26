@@ -68,7 +68,7 @@ const StyledWrite = styled.div`
 
 const SubTitle = styled.h2`
   color: ${COLORS.coumo_purple};
-  font-size: 24px;
+  font-size: 19px;
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 31.68px */
@@ -89,6 +89,7 @@ const Box = styled.div`
   max-width: 900px;
   height: 400px;
   padding: 30px;
+  font-size: 14px;
 `;
 
 const Btn = styled(BtnContainer)`

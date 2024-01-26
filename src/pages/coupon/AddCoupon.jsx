@@ -101,12 +101,11 @@ export default AddCoupon;
 const Container = styled.div`
   width: 100%;
   font-size: 16px;
-  padding: 70px 0px;
   box-sizing: border-box;
   font-weight: 500;
   display: flex;
   flex-direction: column;
-  gap: 88px;
+  gap: 70px;
 `;
 
 const DesignContainer = styled.div`
@@ -121,7 +120,7 @@ const TitleBar = styled.div`
 
   & span {
     color: ${COLORS.text_darkgray};
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: 132%; /* 26.4px */
@@ -132,12 +131,12 @@ const DesginForm = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 54px;
+  gap: 43px;
 
   box-sizing: border-box;
-  padding-left: 140px;
-  padding-top: 86px;
-  padding-bottom: 54px;
+  padding-left: 112px;
+  padding-top: 69px;
+  padding-bottom: 43px;
 `;
 
 const Step = styled.div`
@@ -148,7 +147,7 @@ const Step = styled.div`
 
 const StepName = styled.span`
   color: ${COLORS.text_darkgray};
-  font-size: 24px;
+  font-size: 19px;
   font-style: normal;
   font-weight: 700;
   line-height: 132%;
@@ -160,8 +159,8 @@ const StepName = styled.span`
 `;
 
 const CouponExample = styled.div`
-  width: 616px;
-  height: 360px;
+  width: 493px;
+  height: 288px;
   background-color: ${(props) => props.data.color};
 
   display: flex;
@@ -179,8 +178,8 @@ const StepContainer = styled.div`
 `;
 
 const StampBox = styled.div`
-  width: ${(props) => (props.num > 8 ? '500px' : '460px')};
-  height: 172px;
+  width: ${(props) => (props.num > 8 ? '400px' : '368px')};
+  height: 138px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -188,8 +187,8 @@ const StampBox = styled.div`
 `;
 
 const Stamp = styled.div`
-  width: 82px;
-  height: 82px;
+  width: 65px;
+  height: 65px;
   border-radius: 50%;
   background: #f6f6f6;
 `;
@@ -204,7 +203,7 @@ const ButtonGroup = styled.div`
 `;
 
 const CouponContainer = styled.div`
-  width: 616px;
+  width: 493px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -212,7 +211,7 @@ const CouponContainer = styled.div`
 
   & span {
     color: ${COLORS.text_darkgray};
-    font-size: 16px;
+    font-size: 12px;
     font-style: normal;
     font-weight: 300;
     line-height: 132%; /* 21.12px */

@@ -23,41 +23,41 @@ const Plan = ({ data }) => {
 export default Plan;
 
 const Container = styled.div`
-  width: 288px;
-  height: 253px;
-  padding: 40px 30px 30px 30px;
+  width: 230px;
+  height: 202px;
+  padding: 32px 24px 20px 24px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 
-  border-radius: 16px;
+  border-radius: 12px;
   background: ${COLORS.coumo_lightpurple};
 `;
 
 const Title = styled.h2`
   margin: 0;
   color: ${COLORS.coumo_purple};
-  font-size: 32px;
+  font-size: 25px;
   font-style: normal;
   font-weight: 800;
-  line-height: 32px; /* 100% */
-  margin-bottom: 40px;
+  line-height: 25px;
+  margin-bottom: 32px;
 `;
 
 const Term = styled.span`
   color: ${COLORS.text_black};
   text-align: center;
-  font-size: 18.286px;
+  font-size: 15px;
   font-style: normal;
   font-weight: 400;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 `;
 
 const Price = styled.span`
   color: ${COLORS.text_black};
-  font-size: 27.429px;
+  font-size: 22px;
   font-style: normal;
   font-weight: 700;
   letter-spacing: -0.5px;
