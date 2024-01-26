@@ -91,12 +91,12 @@ export default MyPosts;
 const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 48px;
-  margin-bottom: 87px;
+  gap: 38px;
+  margin-bottom: 70px;
 `;
 
 const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 32px;
 `;

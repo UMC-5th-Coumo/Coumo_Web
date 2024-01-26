@@ -25,7 +25,7 @@ const ColorBox = styled.button`
   background: ${COLORS.white_fff};
   border-radius: 4px;
   display: flex;
-  height: 48px;
+  height: 38.5px;
   padding: 8px 12px;
   align-items: center;
   gap: 8px;
@@ -34,7 +34,7 @@ const ColorBox = styled.button`
   color: ${COLORS.text_darkgray};
   text-overflow: ellipsis;
   font-family: 'Pretendard';
-  font-size: 16px;
+  font-size: 13px;
   font-style: normal;
   font-weight: 400;
   line-height: 170%; /* 27.2px */
@@ -48,8 +48,8 @@ const Picker = styled.div`
 `;
 
 const Color = styled.div`
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   background-color: ${(props) => props.color};
 `;
 

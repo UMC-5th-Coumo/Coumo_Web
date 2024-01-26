@@ -13,8 +13,8 @@ const Index = ({ text, onClickTab, isSelected }) => {
 export default Index;
 
 const TabDiv = styled.div`
-  width: ${(props) => (props.selected ? 160 : 136)}px;
-  height: 40px;
+  width: ${(props) => (props.selected ? 128 : 108)}px;
+  height: 35px;
   box-sizing: border-box;
   padding: 12px 8px;
   display: flex;
@@ -27,7 +27,7 @@ const TabDiv = styled.div`
   background: ${(props) =>
     props.selected ? COLORS.coumo_purple : COLORS.btn_lightgray};
   color: ${(props) => (props.selected ? COLORS.white_fff : COLORS.tab_gray)};
-  font-size: 16px;
+  font-size: 13px;
   font-weight: ${(props) => (props.selected ? '700' : '500')};
   line-height: 132%;
   letter-spacing: 0.48px;

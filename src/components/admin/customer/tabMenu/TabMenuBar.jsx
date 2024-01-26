@@ -31,6 +31,7 @@ export default TabMenuBar;
 const StyledTab = styled.div`
   display: flex;
   padding-bottom: 84px;
+  gap: 8px;
 `;
 
 const StyledLink = styled(Link)`

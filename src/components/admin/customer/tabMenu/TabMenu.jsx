@@ -14,8 +14,8 @@ const TabMenu = ({ text, onClickTab, isSelected }) => {
 export default TabMenu;
 
 const TabDiv = styled.div`
-  height: 50px;
-  width: 164px;
+  height: 45px;
+  width: 120px;
   padding: 8px;
   display: flex;
   box-sizing: border-box;
@@ -23,7 +23,7 @@ const TabDiv = styled.div`
   align-items: center;
 
   color: ${(props) => (props.selected ? COLORS.coumo_purple : COLORS.tab_gray)};
-  font-size: 16px;
+  font-size: 13px;
   font-style: normal;
   font-weight: 700;
   line-height: 22px; /* 137.5% */
@@ -34,7 +34,7 @@ const TabDiv = styled.div`
 
 const Selector = styled.div`
   width: 100%;
-  height: 6px;
+  height: 4px;
   background-color: ${(props) =>
     props.selected ? COLORS.coumo_purple : 'none'};
   border-radius: 30px;

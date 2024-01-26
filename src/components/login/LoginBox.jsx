@@ -79,19 +79,22 @@ export default LoginBox;
 const Box = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  justify-content: center;
   align-items: center;
-  margin-top: -100px;
-  width: 496px;
-  height: 362px;
-  padding-top: 60px;
+  margin: 0 auto;
+  width: 430px;
+  height: 315px;
+  border-radius: 12px;
+
   box-sizing: border-box;
-  border-radius: 16px;
+  padding: 0 70px;
   background: ${COLORS.white_fff};
   box-shadow: 0px 8.978px 14.365px 0px rgba(68, 68, 68, 0.08);
 `;
 
 const Group = styled.div`
-  position: relative;
+  width: 100%;
 `;
 
 const Id = styled.div`
@@ -104,15 +107,14 @@ const Pw = styled.div`
 
 const InputId = styled.input`
   display: inline-flex;
-  width: 240px;
-  height: 20px;
-  padding: 20.132px 53.39px 18.316px 53.39px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px 42px 14px 42px;
   align-items: flex-start;
-  border-radius: 8.409px 8.409px 0px 0px;
+  border-radius: 8px 8px 0px 0px;
   border: 1px solid #dadada;
-  font-family: Helvetica;
   color: ${COLORS.text_darkgray};
-  font-size: 19.975px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -129,28 +131,25 @@ const InputId = styled.input`
 `;
 
 const InputPw = styled(InputId)`
-  border-radius: 0px 0px 8.409px 8.409px;
+  border-radius: 0px 0px 8px 8px;
 `;
 
 const StyledLoginId = styled(LoginId)`
   position: absolute;
   top: 50%;
-  left: 20px;
+  left: 15px;
   transform: translateY(-50%);
 `;
 
 const StyledLoginPw = styled(LoginPw)`
   position: absolute;
   top: 50%;
-  left: 20px;
+  left: 18px;
   transform: translateY(-50%);
 `;
 
 const Line = styled.div`
   display: flex;
-  flex-direction: row;
-  position: absolute;
-  left: 0px;
   margin-top: 10px;
 `;
 
@@ -164,9 +163,8 @@ const Text = styled.div`
 `;
 
 const LoginBtn = styled(Btn)`
-  width: 344px;
-  height: 60px;
-  margin-top: 50px;
+  width: 100%;
+  height: 48px;
   padding-top: 20.27px;
   padding-bottom: 21.73px;
   background: ${COLORS.btn_lightgray};

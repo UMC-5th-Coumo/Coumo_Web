@@ -190,7 +190,7 @@ const Content = styled.div`
 
   display: flex;
   flex-direction: column;
-  gap: 88px;
+  gap: 70px;
 `;
 
 const BtnContainer = styled.div`

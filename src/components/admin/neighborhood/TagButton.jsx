@@ -9,19 +9,19 @@ const TagButton = ({ label }) => {
 export default TagButton;
 
 const Container = styled.span`
-  height: 38.4px;
+  height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 21px;
+  padding: 0 17px;
 
   border-radius: 62.4px;
-  background: ${COLORS.coumo_purple};
+  background: #6746a6;
 
   overflow: hidden;
   color: ${COLORS.white};
   text-overflow: ellipsis;
-  font-size: 16.8px;
+  font-size: 13px;
   font-style: normal;
   font-weight: 500;
   line-height: 170%; /* 28.56px */

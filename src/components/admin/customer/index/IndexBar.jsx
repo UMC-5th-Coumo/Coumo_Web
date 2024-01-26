@@ -28,7 +28,7 @@ const IndexBar = ({ tabs, selected, setSelected }) => {
 export default IndexBar;
 
 const Bar = styled.div`
-  width: 300px;
+  width: 250px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -37,9 +37,9 @@ const Bar = styled.div`
 
 const Span = styled.span`
   color: ${COLORS.tab_gray};
-  padding-left: 60px;
+  padding-left: 48px;
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 13px;
   font-style: normal;
   font-weight: 600;
   line-height: 100%;
@@ -49,5 +49,5 @@ const Span = styled.span`
 const StyledTab = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 `;

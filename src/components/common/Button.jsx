@@ -26,21 +26,21 @@ export default Button;
 
 export const Btn = styled.button`
   display: flex;
-  height: 52px;
-  padding: 8px 28px;
+  height: 42px;
+  padding: 8px 24px;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   flex-shrink: 0;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   background: ${(props) => props.color};
   color: ${(props) =>
     props.color === COLORS.btn_lightgray
       ? COLORS.text_btn_darkgray
       : COLORS.white};
   text-align: center;
-  font-size: 18px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 23.76px */
