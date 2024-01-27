@@ -64,6 +64,7 @@ const StyledWrite = styled.div`
   flex-direction: column;
   max-width: 900px;
   gap: 40px;
+  padding: 70px;
 `;
 
 const SubTitle = styled.h2`

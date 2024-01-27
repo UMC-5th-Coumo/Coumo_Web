@@ -17,5 +17,7 @@ export default TabBar;
 const StyledTab = styled.div`
   display: flex;
   flex-direction: row;
-  margin-bottom: 70px;
+  padding-top: 70px;
+  padding-left: 70px;
+  //margin-bottom: 70px;
 `;

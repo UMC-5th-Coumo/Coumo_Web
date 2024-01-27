@@ -126,6 +126,7 @@ const StyledWrite = styled.div`
   flex-direction: column;
   max-width: 900px;
   gap: 30px;
+  padding: 70px;
 `;
 
 const TitleBox = styled.div`

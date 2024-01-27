@@ -9,3 +9,6 @@ export { ReactComponent as Line } from './icon/line.svg';
 export { ReactComponent as CheckBoxSelected } from './icon/CheckBoxSelected.svg';
 export { ReactComponent as CheckBoxDefault } from './icon/CheckBoxDefault.svg';
 export { ReactComponent as LogoCongratulate } from './icon/LogoCongratulate.svg';
+export { ReactComponent as UIArticle } from './icon/UIArticle.svg';
+export { ReactComponent as CouponYellow } from './icon/CouponYellow.svg';
+export { ReactComponent as CouponPeach } from './icon/CouponPeach.svg';

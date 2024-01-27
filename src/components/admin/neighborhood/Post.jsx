@@ -40,7 +40,6 @@ const Container = styled.div`
   box-sizing: border-box;
   padding-left: 40px;
   justify-content: space-between;
-
   border-radius: 16px;
   background: ${COLORS.post_lightgray};
 `;

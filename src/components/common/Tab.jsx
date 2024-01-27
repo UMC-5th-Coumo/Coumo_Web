@@ -19,6 +19,8 @@ const Tab = ({ text, tabKey }) => {
     location.pathname.includes(`myEdit`)
   ) {
     isSelected = tabKey === 'myPosts';
+  } else if (location.pathname.includes(`uiServiceForm`)) {
+    isSelected = tabKey === 'uiService';
   }
 
   return (
