@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../../styles/theme';
 
-const Stamp = ({ id, label, stamp, selected, onChange }) => {
+const Stamp = ({ id, stamp, selected, onChange }) => {
   return (
     <RadioLabel selected={selected}>
       <RadioInput
@@ -13,7 +13,7 @@ const Stamp = ({ id, label, stamp, selected, onChange }) => {
       />
       <StampIcon src={stamp.image} alt={stamp.alt} />
       <RadioSpan htmlFor={id} selected={selected}>
-        {label}
+        {selected ? '선택완료' : '선택하기'}
       </RadioSpan>
     </RadioLabel>
   );
