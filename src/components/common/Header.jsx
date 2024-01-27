@@ -18,7 +18,7 @@ const Header = () => {
           <StyledLink to='/shop/basicInfo'>매장 관리</StyledLink>
           <StyledLink to='/neighborhood/writePost'>동네 소식</StyledLink>
           <StyledLink to='/coupon/addCoupon'>쿠폰 관리</StyledLink>
-          <StyledLink to='/customer'>고객 데이터 관리</StyledLink>
+          <StyledLink to='/customer/manage'>고객 데이터 관리</StyledLink>
         </Nav>
         <Button
           text='로그인/회원가입'
