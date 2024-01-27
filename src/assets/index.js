@@ -12,3 +12,5 @@ export { ReactComponent as LogoCongratulate } from './icon/LogoCongratulate.svg'
 export { ReactComponent as UIArticle } from './icon/UIArticle.svg';
 export { ReactComponent as CouponYellow } from './icon/CouponYellow.svg';
 export { ReactComponent as CouponPeach } from './icon/CouponPeach.svg';
+export { ReactComponent as Plus } from './icon/Plus.svg';
+export { ReactComponent as SmallPlus } from './icon/SmallPlus.svg';

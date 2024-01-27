@@ -97,7 +97,6 @@ const BasicInfo = () => {
 
       // 서버로 좌표 정보 전달
       console.log('Coordinates:', coords);
-      // 여기서 서버로 좌표 정보를 전달할 수 있습니다.
     } catch (error) {
       console.error('Failed to get coordinates:');
     }

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Edit from '../../components/writePost/Edit';
 import Button from '../../components/common/Button';
 import { BtnContainer } from '../coupon/UIServiceForm';
 import parse from 'html-react-parser';
 import { COLORS } from '../../styles/theme';
 import FormPopUp from '../../components/common/FormPopUp';
+import Edit from '../../components/admin/writePost/Edit';
 
 const WritePost = () => {
   const [viewInputs, setViewInputs] = useState([]);
