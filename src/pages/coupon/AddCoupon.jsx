@@ -99,13 +99,14 @@ const AddCoupon = () => {
 export default AddCoupon;
 
 const Container = styled.div`
-  width: 100%;
+  width: 1200px;
   font-size: 16px;
   box-sizing: border-box;
   font-weight: 500;
   display: flex;
   flex-direction: column;
   gap: 70px;
+  padding: 70px;
 `;
 
 const DesignContainer = styled.div`

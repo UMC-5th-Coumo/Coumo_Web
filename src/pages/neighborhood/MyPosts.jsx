@@ -93,10 +93,14 @@ const TitleBox = styled.div`
   flex-direction: column;
   gap: 38px;
   margin-bottom: 70px;
+  padding-left: 70px;
+  padding-top: 70px;
 `;
 
 const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 32px;
+  padding-left: 70px;
+  padding-bottom: 70px;
 `;
