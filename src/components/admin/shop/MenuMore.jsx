@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../../styles/theme';
 import { SmallPlus } from '../../../assets';
-import axios from 'axios';
+// import axios from 'axios';
 
 const MenuMore = () => {
   const [boxCount, setBoxCount] = useState(2);
@@ -25,22 +25,22 @@ const MenuMore = () => {
         const formData = { img: file };
 
         console.log('formData', formData);
-        try {
-          //const response = await axios.post('https://~:8080/api/owner/store/{storeId}/detail', formData);
-          const response = await axios.post('서버주소', formData);
-          console.log('이미지 업로드 성공', response.data);
+        // try {
+        //   //const response = await axios.post('https://~:8080/api/owner/store/{storeId}/detail', formData);
+        //   const response = await axios.post('서버주소', formData);
+        //   console.log('이미지 업로드 성공', response.data);
 
-          setProductDataArray((prevArray) => {
-            const newArray = [...prevArray];
-            newArray[index] = {
-              ...newArray[index],
-              imageUrl: response.data.url,
-            };
-            return newArray;
-          });
-        } catch (error) {
-          console.log('파일 업로드 요청 실패', error);
-        }
+        //   setProductDataArray((prevArray) => {
+        //     const newArray = [...prevArray];
+        //     newArray[index] = {
+        //       ...newArray[index],
+        //       imageUrl: response.data.url,
+        //     };
+        //     return newArray;
+        //   });
+        // } catch (error) {
+        //   console.log('파일 업로드 요청 실패', error);
+        // }
       } else {
         alert('이미지 파일을 업로드 해주세요.');
       }
