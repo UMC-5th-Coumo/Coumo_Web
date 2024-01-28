@@ -99,7 +99,7 @@ const Big1 = styled.div`
   font-size: 36px;
   font-style: normal;
   font-weight: 700;
-  line-height: 100%; /* 36px */
+  line-height: 140%; /* 36px */
   gap: 10px;
   margin-bottom: 50px;
 `;
