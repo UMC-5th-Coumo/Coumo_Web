@@ -10,7 +10,6 @@ const ImageBlock = () => {
   );
 
   const handleBoxClick = (index) => {
-    // 해당 박스를 클릭하면 input 엘리먼트를 활성화
     const fileInput = document.getElementById(`fileInput-${index}`);
     if (fileInput) {
       fileInput.click();
@@ -77,7 +76,7 @@ const ImageBlock = () => {
 export default ImageBlock;
 
 const ImagePreview = styled.img`
-  width: 100%;
+  width: 275px;
   height: 100%;
   object-fit: cover;
   border-radius: 8px;
