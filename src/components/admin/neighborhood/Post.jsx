@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { COLORS } from '../../../styles/theme';
 import TagButton from './TagButton';
 
-const Post = ({ data, onClick, onModify }) => {
+const Post = ({ data, onClick, onModify, onDelete }) => {
   //html 태그 제거하고 보여줌
   const removeHtmlTags = (html) => {
     var doc = new DOMParser().parseFromString(html, 'text/html');
@@ -22,7 +22,7 @@ const Post = ({ data, onClick, onModify }) => {
         </PostClick>
         <Btns>
           <PostButton onClick={onModify}>수정하기</PostButton>
-          <PostButton>삭제하기</PostButton>
+          <PostButton onClick={onDelete}>삭제하기</PostButton>
         </Btns>
       </Content>
       <Image></Image>
