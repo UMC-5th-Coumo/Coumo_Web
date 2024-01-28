@@ -33,8 +33,8 @@ function BarChart() {
 export default BarChart;
 
 const Container = styled.div`
-  width: 550px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
 `;
 
 const data = {
@@ -51,7 +51,7 @@ const data = {
         { x: '일', y: 40 },
       ],
       backgroundColor: ({ chart: { ctx } }) => {
-        const bg = ctx.createLinearGradient(0, 50, 0, 300);
+        const bg = ctx.createLinearGradient(0, 50, 0, 350);
         bg.addColorStop(0, '#9d9d9d');
         bg.addColorStop(1, '#ffffff');
         return bg;

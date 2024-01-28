@@ -1,11 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import BarChart from '../../../components/admin/customer/charts/BarChart';
+import VisitCount from '../../../components/admin/customer/VisitCount';
 
 function DailyVisit() {
   return (
     <Container>
-      <VisitData></VisitData>
+      <VisitData>
+        <VisitCount type='max' />
+        <VisitCount type='min' />
+      </VisitData>
       <ChartContainer>
         <BarChart />
       </ChartContainer>
@@ -24,6 +28,8 @@ const Container = styled.div`
 const VisitData = styled.div`
   width: 100%;
   height: 60px;
+  display: flex;
+  gap: 120px;
 `;
 
 const ChartContainer = styled.div`

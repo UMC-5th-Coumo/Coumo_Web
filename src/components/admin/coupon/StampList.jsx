@@ -11,7 +11,6 @@ const StampList = ({ stamp_id, setStamp }) => {
           <Stamp
             key={data.id}
             id={data.id}
-            label='선택하기'
             stamp={data}
             selected={stamp_id === data.id}
             onChange={() => setStamp(data.id)}

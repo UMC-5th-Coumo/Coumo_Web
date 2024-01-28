@@ -74,17 +74,20 @@ const AddCoupon = () => {
           </StepContainer>
           <CouponContainer>
             <CouponExample data={coupon}>
-              <h2>{coupon.storeName ? coupon.storeName : '가게명'}</h2>
+              <CouponTitle>
+                <h2>{coupon.storeName ? coupon.storeName : '가게명'}</h2>
+                <span>COUPON</span>
+              </CouponTitle>
               <StampBox num={coupon.stamp_max}>
                 {stamps.map((s, i) => {
                   return <Stamp key={i} />;
                 })}
               </StampBox>
             </CouponExample>
-            <span>
+            <Description>
               *본 이미지는 위의 4가지 디자인 요소를 반영한 쿠폰의 이미지를
               미리보기 버전입니다.
-            </span>
+            </Description>
           </CouponContainer>
         </DesginForm>
         <ButtonGroup>
@@ -172,6 +175,24 @@ const CouponExample = styled.div`
   border-radius: 12px;
 `;
 
+const CouponTitle = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & h2 {
+    margin: 0;
+    font-size: 28px;
+  }
+
+  & span {
+    color: black;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 4px;
+  }
+`;
+
 const StepContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -209,12 +230,12 @@ const CouponContainer = styled.div`
   flex-direction: column;
   align-items: flex-end;
   gap: 16px;
+`;
 
-  & span {
-    color: ${COLORS.text_darkgray};
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 300;
-    line-height: 132%; /* 21.12px */
-  }
+const Description = styled.span`
+  color: ${COLORS.text_darkgray};
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 132%; /* 21.12px */
 `;

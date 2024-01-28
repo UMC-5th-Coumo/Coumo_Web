@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { COLORS } from '../../styles/theme';
 import styled from 'styled-components';
 import Button from '../../components/common/Button';
@@ -6,27 +6,23 @@ import Input from '../../components/common/Input';
 import Category from '../../components/admin/coupon/Category';
 import FormPopUp from '../../components/common/FormPopUp';
 import { categoryData } from '../../assets/data/categoryData';
-import DaumPostcode from 'react-daum-postcode';
-import { createRoot } from 'react-dom/client';
 
 const UIServiceForm = () => {
   const [popUp, setPopUp] = useState(false);
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('cafe');
   const [inputs, setInputs] = useState({
-    couponTitle: '',
+    storeName: '',
     number: '',
     email: '',
-    address: '',
     category: '',
   });
 
   const onSubmit = () => {
     const data = {
-      couponTitle: inputs.couponTitle,
+      storeName: inputs.couponTitle,
       number: inputs.number,
       email: inputs.email,
-      address: inputs.address,
       category,
       description,
     };
@@ -45,63 +41,24 @@ const UIServiceForm = () => {
 
   const resetData = () => {
     setInputs({
-      couponTitle: '',
+      storeName: '',
       number: '',
       email: '',
-      address: '',
       category: '',
     });
     setCategory('cafe');
     setDescription('');
   };
 
-  const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
-
-  const handleAddressClick = () => {
-    setIsPostcodeOpen(true);
-  };
-
-  const handleAddressComplete = (data) => {
-    const fullAddress = data.address;
-    setInputs((prev) => ({ ...prev, address: fullAddress }));
-
-    setIsPostcodeOpen(false);
-  };
-
-  const WindowPopup = ({ children }) => {
-    useEffect(() => {
-      const popupWindow = window.open('', '_blank', 'width=415,height=515');
-
-      if (popupWindow) {
-        const doc = popupWindow.document;
-        doc.write('<html><head><title>DaumPostcode Popup</title></head><body>');
-        doc.write('<div id="root"></div>');
-        doc.write('</body></html>');
-
-        // React 컴포넌트 렌더링
-        const root = doc.getElementById('root');
-        const reactRoot = createRoot(root);
-        reactRoot.render(children);
-        return () => {
-          popupWindow.close();
-        };
-      } else {
-        console.error('Failed to open popup window.');
-      }
-    }, [children]);
-
-    return null;
-  };
-
   return (
     <Content>
       <Input
-        label='쿠폰 타이틀'
+        label='매장명'
         type='text'
-        placeholder='쿠폰 타이틀을 입력해주세요.'
-        value={inputs.couponTitle}
+        placeholder='매장명을 입력해주세요.'
+        value={inputs.storeName}
         onChange={(e) =>
-          setInputs((prev) => ({ ...prev, couponTitle: e.target.value }))
+          setInputs((prev) => ({ ...prev, storeName: e.target.value }))
         }
       />
       <Input
@@ -122,30 +79,6 @@ const UIServiceForm = () => {
           setInputs((prev) => ({ ...prev, email: e.target.value }))
         }
       />
-      <Input
-        label='매장 주소를 입력해주세요.'
-        type='text'
-        placeholder='서울시 용산구 청파동 777-777'
-        value={inputs.address}
-        readOnly={true}
-        onChange={(e) =>
-          setInputs((prev) => ({ ...prev, address: e.target.value }))
-        }
-        onClick={handleAddressClick}
-      />
-      {isPostcodeOpen && (
-        <WindowPopup>
-          <DaumPostcode
-            onComplete={handleAddressComplete}
-            autoClose
-            style={{
-              width: '400px',
-              height: '500px',
-              zIndex: 1000,
-            }}
-          />
-        </WindowPopup>
-      )}
       <Category
         data={categoryData}
         category={category}
