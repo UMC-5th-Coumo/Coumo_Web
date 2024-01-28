@@ -18,6 +18,5 @@ const StyledTab = styled.div`
   display: flex;
   flex-direction: row;
   padding-top: 70px;
-  padding-left: 70px;
-  //margin-bottom: 70px;
+  padding-left: 120px;
 `;

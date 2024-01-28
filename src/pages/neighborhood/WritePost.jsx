@@ -92,7 +92,7 @@ export default WritePost;
 
 const StyledWrite = styled.div`
   max-width: 900px;
-  padding: 70px;
+  padding: 70px 120px;
 `;
 
 const PrintContainer = styled.div`

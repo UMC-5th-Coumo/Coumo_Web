@@ -45,7 +45,7 @@ export default StoreInfo;
 const Info = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 70px;
+  padding: 70px 120px;
   gap: 100px;
 `;
 

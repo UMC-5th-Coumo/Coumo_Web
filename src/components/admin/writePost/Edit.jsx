@@ -4,7 +4,7 @@ import Category from '../coupon/Category';
 import { writecategoryData } from '../../../assets/data/writecategoryData';
 import { StyledWriteInput } from '../../common/Input';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { COLORS } from '../../../styles/theme';
 
 const Edit = ({ category, setCategory, inputs, setInputs }) => {

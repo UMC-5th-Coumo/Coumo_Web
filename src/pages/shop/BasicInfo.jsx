@@ -186,7 +186,7 @@ const Content = styled.div`
   box-sizing: border-box;
   font-weight: 500;
   position: relative;
-  padding: 70px;
+  padding: 70px 120px;
   display: flex;
   flex-direction: column;
   gap: 70px;
