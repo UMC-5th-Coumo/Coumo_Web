@@ -16,4 +16,5 @@ export const COLORS = {
   post_lightgray: '#F5F4F7',
   card_lightpurple: '#f0ebff',
   text_shadow: '#6C31DB',
+  image_text: '#7A7A7A',
 };

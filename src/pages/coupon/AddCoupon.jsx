@@ -109,7 +109,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 70px;
-  padding: 70px;
+  padding: 70px 120px;
 `;
 
 const DesignContainer = styled.div`

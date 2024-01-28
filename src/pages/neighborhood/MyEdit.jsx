@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Line } from '../../assets';
 import Title from '../../components/common/Title';
-import Edit from '../../components/writePost/Edit';
 import Button from '../../components/common/Button';
 import { COLORS } from '../../styles/theme';
 import { BtnContainer } from '../coupon/UIServiceForm';
 import FormPopUp from '../../components/common/FormPopUp';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { getLabelByTag } from '../../assets/data/writecategoryData';
+import Edit from '../../components/admin/writePost/Edit';
 
 const MyEdit = () => {
   const navigate = useNavigate();
@@ -126,7 +126,7 @@ const StyledWrite = styled.div`
   flex-direction: column;
   max-width: 900px;
   gap: 30px;
-  padding: 70px;
+  padding: 70px 120px;
 `;
 
 const TitleBox = styled.div`
