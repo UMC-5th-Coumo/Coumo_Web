@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import BarChart from '../../../components/admin/customer/charts/BarChart';
-import VisitCount from '../../../components/admin/customer/VisitCount';
+import BarChart from '../../../components/admin/customer/common/charts/BarChart';
+import VisitCount from '../../../components/admin/customer/visitAnalysis/VisitCount';
 
 function DailyVisit() {
   return (

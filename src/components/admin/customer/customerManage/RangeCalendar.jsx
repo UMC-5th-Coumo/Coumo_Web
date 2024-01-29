@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import styled from 'styled-components';
-import { Calendar } from '../../../assets';
-import { COLORS } from '../../../styles/theme';
+import { Calendar } from '../../../../assets';
+import { COLORS } from '../../../../styles/theme';
 import { ko } from 'date-fns/locale';
 import { getMonth, getYear } from 'date-fns';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
@@ -155,7 +155,7 @@ const Wrapper = styled.div`
 `;
 
 const CustomInput = styled.input`
-  width: 140px;
+  width: 130px;
   text-align: center;
   display: flex;
   padding: 10px 0px;
@@ -163,7 +163,7 @@ const CustomInput = styled.input`
   align-items: center;
   border: 1.5px solid #e1e1e1;
   color: ${COLORS.text_darkgray};
-  font-size: 16px;
+  font-size: 14px;
   font-family: 'Pretendard';
   font-style: normal;
   font-weight: 600;

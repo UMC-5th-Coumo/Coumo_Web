@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import GroupTabBar from '../../../components/admin/customer/groupTab/GroupTabBar';
-import { visitTabs } from '../../../assets/data/tabData';
+import GroupTabBar from '../../../components/admin/customer/visitAnalysis/groupTab/GroupTabBar';
 import styled from 'styled-components';
-import Calendar from '../../../components/admin/customer/Calendar';
-import DoughnutChart from '../../../components/admin/customer/charts/DoughnutChart';
-import BarChart from '../../../components/admin/customer/charts/BarChart';
-import VisitCount from '../../../components/admin/customer/VisitCount';
+import Calendar from '../../../components/admin/customer/visitAnalysis/Calendar';
+import DoughnutChart from '../../../components/admin/customer/common/charts/DoughnutChart';
+import BarChart from '../../../components/admin/customer/common/charts/BarChart';
+import VisitCount from '../../../components/admin/customer/visitAnalysis/VisitCount';
+import { visitTabs } from '../../../assets/data/tabData';
 
 function DemographicVisit() {
   const [selected, setSelected] = useState(visitTabs[0].key);
