@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { COLORS } from '../../../styles/theme';
 
 const CustomerCard = ({ data, selected, setSelected }) => {
-  const { name, number, gender, totalStamp, recentVisit } = data;
+  const { name, number, birthday, gender, totalStamp, visitDate } = data;
   return (
     <Container
       selected={selected === data.id}
