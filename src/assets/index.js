@@ -17,4 +17,6 @@ export { ReactComponent as Plus } from './icon/Plus.svg';
 export { ReactComponent as SmallPlus } from './icon/SmallPlus.svg';
 export { ReactComponent as ArrowUp } from './icon/arrow-up.svg';
 export { ReactComponent as ArrowDown } from './icon/arrow-down.svg';
+export { ReactComponent as DetailArrow } from './icon/detail-arrow.svg';
+export { ReactComponent as CallIcon } from './icon/call.svg';
 export { ReactComponent as Calendar } from './icon/calendar.svg';

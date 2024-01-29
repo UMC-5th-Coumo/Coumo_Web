@@ -110,7 +110,6 @@ const UIServiceForm = () => {
           msg={`담당자가 신청서 확인 후, 개별 연락 드릴\n예정이오니 참고 부탁드립니다 :)`}
         />
       )}
-      ;
     </Content>
   );
 };
@@ -125,8 +124,7 @@ const Content = styled.div`
   box-sizing: border-box;
   font-weight: 500;
   position: relative;
-  padding-left: 70px;
-  padding-top: 70px;
+  padding: 70px 120px;
   display: flex;
   flex-direction: column;
   gap: 70px;
