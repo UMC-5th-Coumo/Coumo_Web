@@ -7,11 +7,9 @@ const GroupTabBar = ({ tabs, selected, setSelected }) => {
     setSelected(key);
   };
 
-  const columns = tabs[0].key === 'today' ? '1fr 1fr 1fr 1fr' : '1fr 1fr 1fr';
-
   return (
     <>
-      <StyledTab columns={columns}>
+      <StyledTab>
         {tabs.map((tab) => (
           <GroupTab
             key={tab.key}
@@ -29,6 +27,6 @@ export default GroupTabBar;
 
 const StyledTab = styled.div`
   display: grid;
-  grid-template-columns: ${(props) => props.columns};
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   width: 440px;
 `;

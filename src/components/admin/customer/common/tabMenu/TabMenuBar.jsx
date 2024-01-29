@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import TabMenu from './TabMenu';
 import { Link } from 'react-router-dom';
-import { customerTabMenu } from '../../../../assets/data/tabData';
+import { customerTabMenu } from '../../../../../assets/data/tabData';
 
 const TabMenuBar = ({ tabs }) => {
   const [selected, setSelected] = useState(customerTabMenu[0].key);

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../../styles/theme';
+import { COLORS } from '../../../../../styles/theme';
 
 const TabMenu = ({ text, onClickTab, isSelected }) => {
   return (

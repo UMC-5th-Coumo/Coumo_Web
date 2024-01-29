@@ -2,9 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../styles/theme';
 
-const RadioBtn = ({ id, value, name, label, selected, onChange }) => {
+const RadioBtn = ({
+  id,
+  value,
+  name,
+  label,
+  selected,
+  onChange,
+  size = 110,
+}) => {
   return (
-    <RadioLabel>
+    <RadioLabel size={size}>
       <RadioInput
         type='radio'
         id={id}
@@ -13,7 +21,7 @@ const RadioBtn = ({ id, value, name, label, selected, onChange }) => {
         checked={id === selected}
         onChange={() => onChange(id)}
       />
-      <RadioSpan htmlFor={id} selected={id === selected}>
+      <RadioSpan htmlFor={id} selected={id === selected} size={size}>
         {label}
       </RadioSpan>
     </RadioLabel>
@@ -25,13 +33,13 @@ export default RadioBtn;
 const RadioLabel = styled.label`
   display: flex;
   align-items: center;
-  width: 110px;
+  width: ${(props) => props.size}px;
   height: 40px;
   padding: 0px 12px;
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
-  border-radius: 4px;
+  border-radius: 5px;
   background: ${COLORS.coumo_gray};
 `;
 
@@ -60,7 +68,7 @@ const RadioSpan = styled.span`
   color: #545252;
   text-overflow: ellipsis;
   font-family: 'Pretendard';
-  font-size: 12.8px;
+  font-size: ${(props) => (props.size === 110 ? '12.8px' : '12px')};
   font-style: normal;
   line-height: 170%; /* 27.2px */
   font-weight: ${(props) => (props.selected ? '600' : '400')};

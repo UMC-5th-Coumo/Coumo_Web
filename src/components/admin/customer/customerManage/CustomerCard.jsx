@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../styles/theme';
+import { COLORS } from '../../../../styles/theme';
 
 const CustomerCard = ({ data, selected, setSelected }) => {
-  const { name, number, gender, totalStamp, recentVisit } = data;
+  const { name, number, birthday, gender, totalStamp, visitDate } = data;
   return (
     <Container
       selected={selected === data.id}
@@ -21,7 +21,7 @@ const CustomerCard = ({ data, selected, setSelected }) => {
           <span>보유 쿠폰 개수: {totalStamp}개</span>
         </InfoLine>
       </InfoBox>
-      <Recent selected={selected === data.id}>최근 방문: {recentVisit}</Recent>
+      <Recent selected={selected === data.id}>최근 방문: {visitDate}</Recent>
     </Container>
   );
 };

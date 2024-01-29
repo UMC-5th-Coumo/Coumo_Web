@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Index from './Index';
-import { COLORS } from '../../../../styles/theme';
+import { COLORS } from '../../../../../styles/theme';
 
 const IndexBar = ({ tabs, selected, setSelected }) => {
   const handleTabClick = (key) => {
