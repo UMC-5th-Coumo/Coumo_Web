@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import MonthPicker from '../../components/admin/customer/MonthPicker';
+import MonthPicker from '../../components/admin/customer/monthlyReport/MonthPicker';
 
 const MonthlyReport = () => {
   return (

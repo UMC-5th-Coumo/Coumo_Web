@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { customerTabMenu } from '../assets/data/tabData';
-import TabMenuBar from '../components/admin/customer/tabMenu/TabMenuBar';
+import TabMenuBar from '../components/admin/customer/common/tabMenu/TabMenuBar';
 import { Route, Routes } from 'react-router-dom';
 import CustomerManage from './customer/CustomerManage';
 import VisitAnalysis from './customer/VisitAnalysis';
@@ -24,7 +24,6 @@ export default Customer;
 
 const Container = styled.div`
   width: 100vw;
-  height: calc(100vh - 80px);
   box-sizing: border-box;
   padding: 70px 120px 0px 120px;
   display: flex;

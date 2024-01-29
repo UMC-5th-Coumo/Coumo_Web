@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import LineChart from '../../../components/admin/customer/charts/LineChart';
-import VisitCount from '../../../components/admin/customer/VisitCount';
+import LineChart from '../../../components/admin/customer/common/charts/LineChart';
+import VisitCount from '../../../components/admin/customer/visitAnalysis/VisitCount';
 
 function TimeVisit() {
   return (

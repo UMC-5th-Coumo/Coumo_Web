@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/locale';
 import styled from 'styled-components';
-import { COLORS } from '../../../styles/theme';
+import { COLORS } from '../../../../styles/theme';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { getMonth, getYear } from 'date-fns';
 

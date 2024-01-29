@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import IndexBar from '../../components/admin/customer/index/IndexBar';
-import { indexMenu } from '../../assets/data/tabData';
+import IndexBar from '../../components/admin/customer/visitAnalysis/index/IndexBar';
 import styled from 'styled-components';
 import DailyVisit from './visitAnalysis/DailyVisit';
 import TimeVisit from './visitAnalysis/TimeVisit';
 import DemographicVisit from './visitAnalysis/DemographicVisit';
+import { indexMenu } from '../../assets/data/tabData';
 
 const VisitAnalysis = () => {
   const [index, setIndex] = useState(indexMenu[0].key);

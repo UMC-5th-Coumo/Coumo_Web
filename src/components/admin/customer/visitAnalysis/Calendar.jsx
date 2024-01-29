@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styled from 'styled-components';
-import { COLORS } from '../../../styles/theme';
+import { COLORS } from '../../../../styles/theme';
 import { ko } from 'date-fns/locale';
 import { getMonth, getYear } from 'date-fns';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
