@@ -2,56 +2,38 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../../styles/theme';
 import { SmallPlus } from '../../../assets';
-// import axios from 'axios';
 
 const MenuMore = () => {
   const [boxCount, setBoxCount] = useState(2);
   const [productDataArray, setProductDataArray] = useState([]);
-  //const [uploadedImages, setUploadedImages] = useState({});
+  const [uploadedImages, setUploadedImages] = useState(
+    Array(boxCount).fill(null)
+  );
 
-  // 사진 미리보기 코드 필요함 (서버 request)
+  const handleBoxClick = (index) => {
+    const fileInput = document.getElementById(`fileInputMenu-${index}`);
+    if (fileInput) {
+      fileInput.click();
+    }
+  };
 
-  const handleBoxClick = async (index) => {
-    // 이미지 파일을 업로드
-    const fileInput = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.accept = 'image/*';
+  const handleFileChange = (event, index) => {
+    const file = event.target.files[0];
+    console.log(file);
 
-    fileInput.addEventListener('change', async (event) => {
-      const file = event.target.files[0];
-      console.log(file);
-
-      if (file && file.type.startsWith('image/')) {
-        const formData = { img: file };
-
-        console.log('formData', formData);
-        // try {
-        //   //const response = await axios.post('https://~:8080/api/owner/store/{storeId}/detail', formData);
-        //   const response = await axios.post('서버주소', formData);
-        //   console.log('이미지 업로드 성공', response.data);
-
-        //   setProductDataArray((prevArray) => {
-        //     const newArray = [...prevArray];
-        //     newArray[index] = {
-        //       ...newArray[index],
-        //       imageUrl: response.data.url,
-        //     };
-        //     return newArray;
-        //   });
-        // } catch (error) {
-        //   console.log('파일 업로드 요청 실패', error);
-        // }
-      } else {
-        alert('이미지 파일을 업로드 해주세요.');
-      }
-    });
-    fileInput.click();
+    if (file && file.type.startsWith('image/')) {
+      // 이미지 파일이 업로드되었을 때, 해당 인덱스의 이미지를 업데이트
+      const updatedImages = [...uploadedImages];
+      updatedImages[index] = URL.createObjectURL(file);
+      setUploadedImages(updatedImages);
+    } else {
+      alert('이미지 파일을 업로드 해주세요.');
+    }
   };
 
   const handleAddBox = () => {
-    // Element 추가 시 빈 객체를 배열에 추가
     setBoxCount(boxCount + 1);
-    setProductDataArray((prevArray) => [...prevArray, {}]);
+    setUploadedImages([...uploadedImages, null]);
   };
 
   const handleProductNameChange = (event, index) => {
@@ -89,13 +71,20 @@ const MenuMore = () => {
               number={index + 1}
               onClick={() => handleBoxClick(index)}
             >
-              {/* 선택된 이미지가 있을 경우 이미지를 렌더링 */}
-              {productDataArray[index]?.imageUrl ? (
-                <img
-                  src={productDataArray[index].imageUrl}
-                  alt={`Product ${index + 1}`}
+              <input
+                type='file'
+                id={`fileInputMenu-${index}`}
+                style={{ display: 'none' }}
+                accept='image/*'
+                onChange={(event) => handleFileChange(event, index)}
+              />
+              {uploadedImages[index] && (
+                <ImagePreview
+                  src={uploadedImages[index]}
+                  alt={`uploadedMenu-${index}`}
                 />
-              ) : (
+              )}
+              {!uploadedImages[index] && (
                 <MyText>
                   <LargeP>
                     <Span>상품 이미지</Span>를 추가해주세요
@@ -107,7 +96,6 @@ const MenuMore = () => {
               )}
             </Box>
             <InfoText>
-              {/* 배열에서 각 상품 정보를 가져와 렌더링 */}
               <ProductInput
                 value={productDataArray[index]?.productName || ''}
                 placeholder='상품명을 입력하세요'
@@ -127,6 +115,13 @@ const MenuMore = () => {
 };
 
 export default MenuMore;
+
+const ImagePreview = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+`;
 
 const Menu = styled.div`
   width: 600px;

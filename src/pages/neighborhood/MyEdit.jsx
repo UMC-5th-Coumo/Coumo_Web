@@ -9,6 +9,7 @@ import FormPopUp from '../../components/common/FormPopUp';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { getLabelByTag } from '../../assets/data/writecategoryData';
 import Edit from '../../components/admin/writePost/Edit';
+import ConfirmModal from '../../components/admin/neighborhood/ConfirmModal';
 
 const MyEdit = () => {
   const navigate = useNavigate();
@@ -29,6 +30,8 @@ const MyEdit = () => {
     title: selectedPost.title,
     content: selectedPost.content,
   });
+
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const onUpdate = (updatedPost) => {
     console.log('Updated post:', updatedPost);
@@ -62,6 +65,7 @@ const MyEdit = () => {
   console.log('postDummyData after update2:', postDummyData); // (1)정상
 
   const [popUp, setPopUp] = useState(false);
+  const [popUpDelete, setPopUpDelete] = useState(false);
 
   const onSubmit = () => {
     const data = {
@@ -78,11 +82,34 @@ const MyEdit = () => {
     submitPopUp();
   };
 
+  const onDeleteConfirm = () => {
+    submitPopUpDelete();
+  };
+
+  const onDelete = () => {
+    setShowConfirmModal(true);
+  };
+
+  const onCancelDelete = () => {
+    setShowConfirmModal(false);
+  };
+
   const submitPopUp = () => {
     setPopUp(true);
     setTimeout(() => {
       setPopUp(false);
       setSelectedPost(null);
+      navigate(`/neighborhood/myPosts`, {
+        state: { updatedData: postDummyData },
+      });
+    }, 1500);
+  };
+
+  const submitPopUpDelete = () => {
+    setShowConfirmModal(false);
+    setPopUpDelete(true);
+    setTimeout(() => {
+      setPopUpDelete(false);
       navigate(`/neighborhood/myPosts`, {
         state: { updatedData: postDummyData },
       });
@@ -102,7 +129,7 @@ const MyEdit = () => {
         setInputs={setInputs}
       />
       <Btn>
-        <Button text='삭제하기' />
+        <Button text='삭제하기' onClickBtn={onDelete} />
         <Button
           text='수정완료'
           color={COLORS.coumo_purple}
@@ -113,6 +140,19 @@ const MyEdit = () => {
         <FormPopUp
           title='글이 수정되었습니다!'
           msg='수정한 글을 내가 쓴 글에서 확인해보세요!'
+        />
+      )}
+      {popUpDelete && (
+        <FormPopUp
+          title='글이 삭제되었습니다!'
+          msg='남아있는 글을 확인해보세요!'
+        />
+      )}
+      {showConfirmModal && (
+        <ConfirmModal
+          title='정말 삭제하시겠습니까?'
+          onCancel={onCancelDelete}
+          onConfirm={onDeleteConfirm}
         />
       )}
     </StyledWrite>

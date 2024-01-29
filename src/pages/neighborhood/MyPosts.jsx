@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Title from '../../components/common/Title';
 import Post from '../../components/admin/neighborhood/Post';
 import styled from 'styled-components';
 import { Line } from '../../assets';
 import { useNavigate } from 'react-router-dom';
+import FormPopUp from '../../components/common/FormPopUp';
+import ConfirmModal from '../../components/admin/neighborhood/ConfirmModal';
 
 const MyPosts = () => {
   const navigate = useNavigate();
@@ -46,6 +48,11 @@ const MyPosts = () => {
     },
   ];
 
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showDeletePopUp, setShowDeletePopUp] = useState(false);
+
+  const [selectedPostIndex, setSelectedPostIndex] = useState(null);
+
   const handlePostClick = (postIndex) => {
     const postId = postDummyData[postIndex].id;
     navigate(`/neighborhood/myPostView/${postId}`, {
@@ -58,6 +65,29 @@ const MyPosts = () => {
     navigate(`/neighborhood/myEdit/${postId}`, {
       state: { post: postDummyData[postIndex], postDummyData },
     });
+  };
+
+  const handleDeleteClick = (postIndex) => {
+    setSelectedPostIndex(postIndex);
+    setShowConfirmModal(true);
+  };
+
+  const onDeleteConfirm = () => {
+    const postId = postDummyData[selectedPostIndex].id;
+    const updatedData = postDummyData.filter((post) => post.id !== postId);
+    console.log('Deleted post with ID:', postId);
+    console.log('Updated data:', updatedData);
+
+    setShowDeletePopUp(true);
+    setTimeout(() => {
+      setShowDeletePopUp(false);
+    }, 1500);
+
+    setShowConfirmModal(false);
+  };
+
+  const onCancelDelete = () => {
+    setShowConfirmModal(false);
   };
 
   // const location = useLocation();
@@ -78,10 +108,24 @@ const MyPosts = () => {
               data={data}
               onClick={() => handlePostClick(id)}
               onModify={() => handleModifyClick(id)}
+              onDelete={() => handleDeleteClick(id)}
             />
           );
         })}
       </PostContainer>
+      {showConfirmModal && (
+        <ConfirmModal
+          title='정말 삭제하시겠습니까?'
+          onCancel={onCancelDelete}
+          onConfirm={onDeleteConfirm}
+        />
+      )}
+      {showDeletePopUp && (
+        <FormPopUp
+          title='글이 삭제되었습니다!'
+          msg='남아있는 글을 확인해보세요!'
+        />
+      )}
     </>
   );
 };

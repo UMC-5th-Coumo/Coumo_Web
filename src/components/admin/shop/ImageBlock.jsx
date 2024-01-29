@@ -5,38 +5,34 @@ import { Plus } from '../../../assets';
 
 const ImageBlock = () => {
   const [boxCount, setBoxCount] = useState(2);
+  const [uploadedImages, setUploadedImages] = useState(
+    Array(boxCount).fill(null)
+  );
 
-  const handleBoxClick = async (index) => {
-    try {
-      // 이미지 파일을 업로드
-      const fileInput = document.createElement('input');
-      fileInput.type = 'file';
-      fileInput.accept = 'image/*';
-
-      fileInput.addEventListener('change', async (event) => {
-        const file = event.target.files[0];
-        console.log(file);
-
-        if (file && file.type.startsWith('image/')) {
-          try {
-            const formData = { img: file };
-            console.log('formData', formData);
-          } catch (error) {
-            console.log('파일 업로드 요청 실패', error);
-          }
-        } else {
-          alert('이미지 파일을 업로드 해주세요.');
-        }
-      });
-
+  const handleBoxClick = (index) => {
+    const fileInput = document.getElementById(`fileInput-${index}`);
+    if (fileInput) {
       fileInput.click();
-    } catch (error) {
-      console.error('에러 발생', error);
+    }
+  };
+
+  const handleFileChange = (event, index) => {
+    const file = event.target.files[0];
+    console.log(file);
+
+    if (file && file.type.startsWith('image/')) {
+      // 이미지 파일이 업로드되었을 때, 해당 인덱스의 이미지를 업데이트
+      const updatedImages = [...uploadedImages];
+      updatedImages[index] = URL.createObjectURL(file);
+      setUploadedImages(updatedImages);
+    } else {
+      alert('이미지 파일을 업로드 해주세요.');
     }
   };
 
   const handleAddBox = () => {
     setBoxCount(boxCount + 1);
+    setUploadedImages([...uploadedImages, null]);
   };
 
   return (
@@ -48,10 +44,25 @@ const ImageBlock = () => {
             number={index + 1}
             onClick={() => handleBoxClick(index)}
           >
-            <MyText>
-              <LargeP>이미지를 추가해주세요</LargeP>
-              <SmallP>(클릭하시면 내 기기에 있는 이미지에 접근합니다)</SmallP>
-            </MyText>
+            <input
+              type='file'
+              id={`fileInput-${index}`}
+              style={{ display: 'none' }}
+              accept='image/*'
+              onChange={(event) => handleFileChange(event, index)}
+            />
+            {uploadedImages[index] && (
+              <ImagePreview
+                src={uploadedImages[index]}
+                alt={`uploaded-${index}`}
+              />
+            )}
+            {!uploadedImages[index] && (
+              <MyText>
+                <LargeP>이미지를 추가해주세요</LargeP>
+                <SmallP>(클릭하시면 내 기기에 있는 이미지에 접근합니다)</SmallP>
+              </MyText>
+            )}
           </Box>
         ))}
       </Scroll>
@@ -63,6 +74,13 @@ const ImageBlock = () => {
 };
 
 export default ImageBlock;
+
+const ImagePreview = styled.img`
+  width: 275px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+`;
 
 const Image = styled.div`
   display: flex;
