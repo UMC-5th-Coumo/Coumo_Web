@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import RangeCalendar from '../../components/admin/customer/customerManage/RangeCalendar';
 import Button from '../../components/common/Button';
 import { COLORS } from '../../styles/theme';
 import { LineLong } from '../../assets';
@@ -10,7 +9,6 @@ import CustomerList from '../../components/admin/customer/customerManage/Custome
 import CustomerDetail from '../../components/admin/customer/customerManage/CustomerDetail';
 
 const CustomerManage = () => {
-  const [id, setId] = useState('');
   const [number, setNumber] = useState('');
   const [filter, setFilter] = useState('all');
 
@@ -21,24 +19,6 @@ const CustomerManage = () => {
     <>
       <FormContainer>
         <InputForm>
-          <Line>
-            <InputLabel>방문 기간</InputLabel>
-            <Wrapper>
-              <RangeCalendar />
-            </Wrapper>
-          </Line>
-          <Line>
-            <InputLabel>고객 아이디</InputLabel>
-            <Wrapper>
-              <StyledInput
-                type='text'
-                name='id'
-                value={id}
-                placeholder='고객 아이디를 입력하세요'
-                onChange={(e) => setId(e.target.value)}
-              />
-            </Wrapper>
-          </Line>
           <Line>
             <InputLabel>고객 전화번호</InputLabel>
             <Wrapper>
