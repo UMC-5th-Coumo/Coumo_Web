@@ -1,18 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Btn } from '../common/Button';
 import { COLORS } from '../../styles/theme';
 import { LoginId, LoginPw, LoginSave, LoginSaveCheck } from '../../assets';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../redux/slices/userSlice';
 
 const LoginBox = () => {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const [save, setSave] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const isLoginEnabled = () => {
     return id.trim() !== '' && pw.trim() !== '';
+  };
+
+  // 마운트 되었을 때 이전에 저장된 id, pw 있는지 확인
+  // useEffect(() => {}, []);
+
+  const handleLoginClick = () => {
+    // 서버 요청 후 예상 데이터
+    const userData = {
+      name: '이름',
+      email: 'admin123@gmail.com',
+      phone: '010-1234-1234',
+      id: 'admin123',
+      pw: 'admin123',
+      token: '1',
+    };
+
+    // 리덕스에 저장
+    dispatch(setUser(userData));
+
+    // 관리자 페이지로 redirect -> 일단 마이페이지로 랜딩
+    navigate('/mypage');
   };
 
   const handleSaveClick = () => {
@@ -46,9 +70,9 @@ const LoginBox = () => {
         <Line>
           <>
             {save ? (
-              <LoginSaveCheck onClick={handleUnsaveClick} />
+              <LoginSaveCheck onClick={handleSaveClick} />
             ) : (
-              <LoginSave onClick={handleSaveClick} />
+              <LoginSave onClick={handleUnsaveClick} />
             )}
           </>
           <Text>로그인 정보 저장하기</Text>
@@ -56,9 +80,7 @@ const LoginBox = () => {
       </Group>
       <LoginBtn
         text='로그인하기'
-        onClick={() => {
-          navigate('/');
-        }}
+        onClick={handleLoginClick}
         disabled={!isLoginEnabled()}
       />
       <Text>
