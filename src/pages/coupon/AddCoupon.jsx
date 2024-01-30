@@ -9,10 +9,12 @@ import StampList from '../../components/admin/coupon/StampList';
 import Button from '../../components/common/Button';
 
 const AddCoupon = () => {
-  const [pickerOpen, setPickerOpen] = useState(false);
+  const [colorPicker, setColorPicker] = useState(false);
+  const [fontPicker, setFontPicker] = useState(false);
   const [coupon, setCoupon] = useState({
     storeName: '',
     color: '#7C43E8',
+    fontColor: '#ffffff',
     stamp_max: '8',
     stamp_image: '',
     stamp_id: '1',
@@ -41,11 +43,24 @@ const AddCoupon = () => {
                 &bull;&nbsp; 쿠폰 <strong>색상</strong> 정하기
               </StepName>
               <ColorPicker
-                open={pickerOpen}
-                setOpen={setPickerOpen}
+                open={colorPicker}
+                setOpen={setColorPicker}
                 color={coupon.color}
                 setColor={(color) =>
                   setCoupon((prev) => ({ ...prev, color: color.hex }))
+                }
+              />
+            </Step>
+            <Step>
+              <StepName>
+                &bull;&nbsp; 폰트 <strong>색상</strong> 정하기
+              </StepName>
+              <ColorPicker
+                open={fontPicker}
+                setOpen={setFontPicker}
+                color={coupon.fontColor}
+                setColor={(color) =>
+                  setCoupon((prev) => ({ ...prev, fontColor: color.hex }))
                 }
               />
             </Step>
@@ -73,8 +88,8 @@ const AddCoupon = () => {
             </Step>
           </StepContainer>
           <CouponContainer>
-            <CouponExample data={coupon}>
-              <CouponTitle>
+            <CouponExample color={coupon.color}>
+              <CouponTitle fontColor={coupon.fontColor}>
                 <h2>{coupon.storeName ? coupon.storeName : '가게명'}</h2>
                 <span>COUPON</span>
               </CouponTitle>
@@ -165,7 +180,7 @@ const StepName = styled.span`
 const CouponExample = styled.div`
   width: 493px;
   height: 288px;
-  background-color: ${(props) => props.data.color};
+  background-color: ${(props) => props.color};
 
   display: flex;
   flex-direction: column;
@@ -179,6 +194,7 @@ const CouponTitle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: ${(props) => props.fontColor};
 
   & h2 {
     margin: 0;
@@ -186,7 +202,6 @@ const CouponTitle = styled.div`
   }
 
   & span {
-    color: black;
     font-size: 20px;
     font-weight: 600;
     letter-spacing: 4px;
