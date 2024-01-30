@@ -4,9 +4,11 @@ import styled from 'styled-components';
 import { COLORS } from '../../styles/theme';
 import { Logo } from '../../assets';
 import Button from './Button';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
   const navigate = useNavigate();
+  const { name, token } = useSelector((state) => state.user);
 
   return (
     <Head>
@@ -14,18 +16,36 @@ const Header = () => {
         <Link to='/'>
           <Logo />
         </Link>
-        <Nav>
-          <StyledLink to='/shop/basicInfo'>매장 관리</StyledLink>
-          <StyledLink to='/neighborhood/writePost'>동네 소식</StyledLink>
-          <StyledLink to='/coupon/addCoupon'>쿠폰 관리</StyledLink>
-          <StyledLink to='/customer/manage'>고객 데이터 관리</StyledLink>
-        </Nav>
-        <Button
-          text='로그인/회원가입'
-          onClickBtn={() => {
-            navigate('/login');
-          }}
-        ></Button>
+        {token ? (
+          <Nav>
+            <StyledLink to='/shop/basicInfo'>매장 관리</StyledLink>
+            <StyledLink to='/neighborhood/writePost'>동네 소식</StyledLink>
+            <StyledLink to='/coupon/addCoupon'>쿠폰 관리</StyledLink>
+            <StyledLink to='/customer/manage'>고객 데이터 관리</StyledLink>
+          </Nav>
+        ) : (
+          <Nav>
+            <StyledLink to='/'>매장 관리</StyledLink>
+            <StyledLink to='/'>동네 소식</StyledLink>
+            <StyledLink to='/'>쿠폰 관리</StyledLink>
+            <StyledLink to='/'>고객 데이터 관리</StyledLink>
+          </Nav>
+        )}
+        {token ? (
+          <Button
+            text={`${name} 사장님`}
+            onClickBtn={() => {
+              navigate('/mypage');
+            }}
+          ></Button>
+        ) : (
+          <Button
+            text='로그인/회원가입'
+            onClickBtn={() => {
+              navigate('/login');
+            }}
+          ></Button>
+        )}
       </HeaderBar>
     </Head>
   );
