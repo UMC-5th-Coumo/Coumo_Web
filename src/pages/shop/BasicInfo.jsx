@@ -16,6 +16,7 @@ const BasicInfo = () => {
     workingHours: '',
     number: '',
     address: '',
+    addressDetail: '',
   });
 
   const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
@@ -23,6 +24,12 @@ const BasicInfo = () => {
 
   const handleAddressClick = () => {
     setIsPostcodeOpen(true);
+  };
+
+  const handleAddressDetailClick = () => {
+    if (inputs.address === '') {
+      setIsPostcodeOpen(true);
+    }
   };
 
   const handleAddressComplete = (data) => {
@@ -139,31 +146,43 @@ const BasicInfo = () => {
         category={category}
         setCategory={setCategory}
       />
-      <Input
-        name='address'
-        label='위치정보'
-        type='text'
-        placeholder='주소를 입력해주세요.'
-        value={inputs.address}
-        readOnly={true}
-        onChange={(e) =>
-          setInputs((prev) => ({ ...prev, address: e.target.value }))
-        }
-        onClick={handleAddressClick}
-      />
-      {isPostcodeOpen && (
-        <WindowPopup>
-          <DaumPostcode
-            onComplete={handleAddressComplete}
-            autoClose
-            style={{
-              width: '400px',
-              height: '500px',
-              zIndex: 1000,
-            }}
-          />
-        </WindowPopup>
-      )}
+      <div>
+        <Input
+          name='address'
+          label='위치정보'
+          type='text'
+          placeholder='주소를 입력해주세요.'
+          value={inputs.address}
+          readOnly={true}
+          onChange={(e) =>
+            setInputs((prev) => ({ ...prev, address: e.target.value }))
+          }
+          onClick={handleAddressClick}
+        />
+        {isPostcodeOpen && (
+          <WindowPopup>
+            <DaumPostcode
+              onComplete={handleAddressComplete}
+              autoClose
+              style={{
+                width: '400px',
+                height: '500px',
+                zIndex: 1000,
+              }}
+            />
+          </WindowPopup>
+        )}
+        <Input
+          name='addressDetail'
+          type='text'
+          placeholder='상세 주소를 입력해주세요.'
+          value={inputs.addressDetail}
+          onChange={(e) =>
+            setInputs((prev) => ({ ...prev, addressDetail: e.target.value }))
+          }
+          onClick={handleAddressDetailClick}
+        />
+      </div>
       <BtnContainer>
         <Button text='취소하기' />
         <Button
