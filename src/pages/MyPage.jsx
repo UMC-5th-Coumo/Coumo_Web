@@ -3,13 +3,15 @@ import styled from 'styled-components';
 import { COLORS } from '../styles/theme';
 import Title from '../components/common/Title';
 import { CallIcon, DetailArrow, Line } from '../assets';
+import { useSelector } from 'react-redux';
 
 function MyPage() {
+  const { name, id, email, phone } = useSelector((state) => state.user);
   return (
     <Container>
       <Tab>마이페이지</Tab>
       <TitleBox>
-        <Title title='안녕하세요, 김다빈님!' size={22} />
+        <Title title={`안녕하세요, ${name}님!`} size={22} />
         <Line />
       </TitleBox>
       <Content>
@@ -21,19 +23,19 @@ function MyPage() {
           <InfoContent>
             <InfoLine>
               <h5>이름</h5>
-              <span>김다빈</span>
+              <span>{name}</span>
             </InfoLine>
             <InfoLine>
               <h5>아이디</h5>
-              <span>ddd12345</span>
+              <span>{id}</span>
             </InfoLine>
             <InfoLine>
               <h5>이메일</h5>
-              <span>abc123@gmail.com</span>
+              <span>{email}</span>
             </InfoLine>
             <InfoLine>
               <h5>전화번호</h5>
-              <span>010-2415-1758</span>
+              <span>{phone}</span>
             </InfoLine>
           </InfoContent>
         </Profile>

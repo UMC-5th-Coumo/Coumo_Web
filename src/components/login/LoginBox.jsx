@@ -24,7 +24,7 @@ const LoginBox = () => {
   const handleLoginClick = () => {
     // 서버 요청 후 예상 데이터
     const userData = {
-      name: '이름',
+      name: '강수빈',
       email: 'admin123@gmail.com',
       phone: '010-1234-1234',
       id: 'admin123',
