@@ -13,7 +13,7 @@ const AddCoupon = () => {
   const [coupon, setCoupon] = useState({
     storeName: '',
     color: '#7C43E8',
-    stamp_max: '7',
+    stamp_max: '8',
     stamp_image: '',
     stamp_id: '1',
   });
@@ -80,7 +80,7 @@ const AddCoupon = () => {
               </CouponTitle>
               <StampBox num={coupon.stamp_max}>
                 {stamps.map((s, i) => {
-                  return <Stamp key={i} />;
+                  return <Stamp key={i} num={coupon.stamp_max} />;
                 })}
               </StampBox>
             </CouponExample>
@@ -127,7 +127,7 @@ const TitleBar = styled.div`
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: 132%; /* 26.4px */
+    line-height: 132%;
   }
 `;
 
@@ -200,17 +200,17 @@ const StepContainer = styled.div`
 `;
 
 const StampBox = styled.div`
-  width: ${(props) => (props.num > 8 ? '400px' : '368px')};
+  width: ${(props) => (props.num > 8 ? '450px' : '368px')};
   height: 138px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px 15px;
+  gap: ${(props) => (props.num > 10 ? '5px 15px' : '10px 15px')};
 `;
 
 const Stamp = styled.div`
-  width: 65px;
-  height: 65px;
+  width: ${(props) => (props.num > 10 ? '58px' : '65px')};
+  height: ${(props) => (props.num > 10 ? '58px' : '65px')};
   border-radius: 50%;
   background: #f6f6f6;
 `;
