@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../styles/theme';
 import { useNavigate } from 'react-router';
 import InputJoin from '../../components/common/InputJoin';
 import { Btn } from '../../components/common/Button';
-import DaumPostcode from 'react-daum-postcode';
-import { createRoot } from 'react-dom/client';
 
 const JoinTwoStep = () => {
   const navigate = useNavigate();
 
   // 초기값
   const [name, setName] = useState('');
-  const [location, setLocation] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [certified, setCertified] = useState('');
@@ -54,15 +51,9 @@ const JoinTwoStep = () => {
     }
   };
 
-  const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
-
   const isJoinTwoEnabled = () => {
     return (
-      name.trim() !== '' &&
-      location.trim() !== '' &&
-      emailValid &&
-      phoneValid &&
-      certified.trim() !== ''
+      name.trim() !== '' && emailValid && phoneValid && certified.trim() !== ''
     );
   };
 
@@ -71,42 +62,6 @@ const JoinTwoStep = () => {
     if (isJoinTwoEnabled()) {
       navigate('/join/finish');
     }
-  };
-
-  const handleAddressClick = () => {
-    setIsPostcodeOpen(true);
-  };
-
-  const handleAddressComplete = (data) => {
-    const fullAddress = data.address;
-    setLocation(fullAddress);
-
-    setIsPostcodeOpen(false);
-  };
-
-  const WindowPopup = ({ children }) => {
-    useEffect(() => {
-      const popupWindow = window.open('', '_blank', 'width=415,height=515');
-
-      if (popupWindow) {
-        const doc = popupWindow.document;
-        doc.write('<html><head><title>DaumPostcode Popup</title></head><body>');
-        doc.write('<div id="root"></div>');
-        doc.write('</body></html>');
-
-        // React 컴포넌트 렌더링
-        const root = doc.getElementById('root');
-        const reactRoot = createRoot(root);
-        reactRoot.render(children);
-        return () => {
-          popupWindow.close();
-        };
-      } else {
-        console.error('Failed to open popup window.');
-      }
-    }, [children]);
-
-    return null;
   };
 
   return (
@@ -121,29 +76,6 @@ const JoinTwoStep = () => {
           onChange={(e) => setName(e.target.value)}
         />
         <Msg />
-        <InputJoin
-          label='주소 *'
-          placeholder='주소 검색하기'
-          readOnly={true}
-          value={location}
-          width='520px'
-          onChange={(e) => setLocation(e.target.value)}
-          onClick={handleAddressClick}
-        />
-        <Msg />
-        {isPostcodeOpen && (
-          <WindowPopup>
-            <DaumPostcode
-              onComplete={handleAddressComplete}
-              autoClose
-              style={{
-                width: '400px',
-                height: '500px',
-                zIndex: 1000,
-              }}
-            />
-          </WindowPopup>
-        )}
         <div>
           <InputJoin
             label='이메일 주소 *'
