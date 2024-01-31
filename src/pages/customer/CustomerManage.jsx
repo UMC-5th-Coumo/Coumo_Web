@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../components/common/Button';
 import { COLORS } from '../../styles/theme';
@@ -7,13 +7,23 @@ import Title from '../../components/common/Title';
 import CustomerGroupButton from '../../components/admin/customer/customerManage/CustomerGroupButton';
 import CustomerList from '../../components/admin/customer/customerManage/CustomerList';
 import CustomerDetail from '../../components/admin/customer/customerManage/CustomerDetail';
+import { useDispatch, useSelector } from 'react-redux';
+import getCustomers from '../../redux/thunks/getCustomers';
 
 const CustomerManage = () => {
   const [number, setNumber] = useState('');
   const [filter, setFilter] = useState('all');
+  const [selected, setSelected] = useState('');
+  const { customers } = useSelector((state) => state.customer);
+  const dispatch = useDispatch();
+
+  // 마운트 될 때 고객 데이터 받아오기
+  useEffect(() => {
+    dispatch(getCustomers('1'));
+  }, [dispatch]);
 
   const searchCustomer = () => {
-    // api 요청
+    // 고객 검색
   };
   return (
     <>
@@ -51,7 +61,11 @@ const CustomerManage = () => {
           <LineLong />
         </LineWrapper>
         <ContentWrapper>
-          <CustomerList />
+          <CustomerList
+            customerData={customers}
+            selected={selected}
+            setSelected={setSelected}
+          />
           <DetailBox>
             <Title title='해당 고객의 데이터입니다' />
             <CustomerDetail />
