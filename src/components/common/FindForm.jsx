@@ -89,7 +89,7 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
               onChange={onChangeNumber}
               width='331px'
             />
-            <NewButton>중복 확인하기</NewButton>
+            <NewButton>인증 확인</NewButton>
           </Row>
         </div>
         <JoinBtn onClick={onSubmit} disabled={!isFindEnabled()}>
