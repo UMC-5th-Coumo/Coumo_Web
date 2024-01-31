@@ -11,14 +11,21 @@ const InputJoin = ({
   onClick,
   readOnly,
   width,
+  star,
 }) => {
   return (
     <Element>
-      <StyledInputTitle>
-        <span>{label.slice(0, -1)}</span>
-        <span>&nbsp;</span>
-        <span style={{ color: '#9259ff' }}>{label.slice(-1)}</span>
-      </StyledInputTitle>
+      {star ? (
+        <StyledInputTitle>
+          <span>{label.slice(0, -1)}</span>
+          <span>&nbsp;</span>
+          <span style={{ color: '#9259ff' }}>{label.slice(-1)}</span>
+        </StyledInputTitle>
+      ) : (
+        <StyledInputTitle>
+          <span>{label}</span>
+        </StyledInputTitle>
+      )}
       <StyledInput
         type={type}
         name={name}
