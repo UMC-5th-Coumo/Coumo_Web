@@ -39,7 +39,7 @@ const Container = styled.div`
 const Title = styled.h2`
   margin: 0;
   color: ${COLORS.coumo_purple};
-  font-size: 25px;
+  font-size: clamp(20px, 2vw, 25px);
   font-style: normal;
   font-weight: 800;
   line-height: 25px;
@@ -57,7 +57,7 @@ const Term = styled.span`
 
 const Price = styled.span`
   color: ${COLORS.text_black};
-  font-size: 22px;
+  font-size: clamp(16px, 2vw, 22px);
   font-style: normal;
   font-weight: 700;
   letter-spacing: -0.5px;

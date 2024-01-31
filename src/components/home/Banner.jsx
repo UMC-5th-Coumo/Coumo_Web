@@ -17,7 +17,7 @@ const Banner = () => {
           가능합니다.
         </Description>
         <Icon>
-          <BannerIcon />
+          <BannerIcon width='100%' height='100%' viewBox='0 0 496 548' />
         </Icon>
       </Container>
     </Back>
@@ -50,7 +50,7 @@ const Title = styled.h1`
   text-align: center;
   text-shadow: 0px 6px 6.7px rgba(137, 74, 255, 0.3);
   font-family: 'GmarketSans';
-  font-size: 60px;
+  font-size: clamp(45px, 4vw, 60px);
   font-style: normal;
   font-weight: 700;
   line-height: 140%;
@@ -63,15 +63,22 @@ const Description = styled.span`
   max-width: 503px;
   color: ${COLORS.white};
   text-align: center;
-  font-size: 16px;
   font-style: normal;
   font-weight: 300;
   line-height: 180%; /* 28.8px */
   margin-top: 60px;
+  font-size: clamp(14px, 1.5vw, 16px);
 `;
 
 const Icon = styled.div`
   position: absolute;
-  bottom: 0;
-  right: 100px;
+  bottom: 10px;
+  right: 70px;
+
+  width: 30%;
+  /* height: 30%; */
+  min-height: 300px;
+  min-width: 300px;
+  max-width: 430px;
+  max-height: 430px;
 `;

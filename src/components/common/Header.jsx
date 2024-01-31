@@ -13,9 +13,9 @@ const Header = () => {
   return (
     <Head>
       <HeaderBar>
-        <Link to='/'>
+        <LogoIcon to='/'>
           <Logo />
-        </Link>
+        </LogoIcon>
         {token ? (
           <Nav>
             <StyledLink to='/shop/basicInfo'>매장 관리</StyledLink>
@@ -70,7 +70,9 @@ const Head = styled.div`
 `;
 
 const HeaderBar = styled.div`
-  max-width: 1200px;
+  max-width: 1300px;
+  box-sizing: border-box;
+  padding: 0 30px;
   width: 100%;
   height: 52px;
   display: flex;
@@ -78,9 +80,15 @@ const HeaderBar = styled.div`
   justify-content: space-between;
 `;
 
+const LogoIcon = styled(Link)`
+  width: 100px;
+  height: 42px;
+  overflow-x: hidden;
+`;
+
 const Nav = styled.div`
   display: flex;
-  width: 550px;
+  width: 50%;
   justify-content: space-between;
   align-items: flex-start;
 `;

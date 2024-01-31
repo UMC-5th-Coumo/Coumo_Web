@@ -21,6 +21,7 @@ export default PricePlan;
 
 const Container = styled.div`
   width: 100%;
+  height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,5 +43,7 @@ const Title = styled.h2`
 
 const PlanBox = styled.div`
   display: flex;
+  justify-content: center;
+  width: 70%;
   gap: 16px;
 `;
