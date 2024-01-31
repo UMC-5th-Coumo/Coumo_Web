@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../../../styles/theme';
 
-function CustomerList() {
+function CustomerList({ customerData, selected, setSelected }) {
   return (
     <Container>
       <Columns>
@@ -12,13 +12,17 @@ function CustomerList() {
         <Column>전화번호</Column>
       </Columns>
       <Customers>
-        {customerDummyData.map((data) => {
+        {customerData.map((data) => {
           return (
-            <Customer key={data.id}>
-              <span>{data.visitDate}</span>
+            <Customer
+              key={data.id}
+              selected={selected === data.id}
+              onClick={() => setSelected(data.id)}
+            >
+              <span>{data.updatedAt}</span>
               <span>{data.id}</span>
               <span>{data.name}</span>
-              <span>{data.number}</span>
+              <span>{data.phone}</span>
             </Customer>
           );
         })}
@@ -74,6 +78,8 @@ const Customer = styled.div`
   gap: 12px;
   border-bottom: 1px solid #e3e1e8;
   cursor: pointer;
+  background-color: ${(props) =>
+    props.selected ? COLORS.card_lightpurple : COLORS.white};
 
   &:hover {
     background-color: ${COLORS.card_lightpurple};
@@ -86,123 +92,3 @@ const Customer = styled.div`
     font-size: 13px;
   }
 `;
-
-const customerDummyData = [
-  {
-    id: '1',
-    name: '강수빈',
-    birthday: '2000.1.1',
-    number: '010-0000-1234',
-    gender: '여성',
-    totalStamp: '4',
-    visitDate: '2023.11.04',
-  },
-  {
-    id: '2',
-    name: '강수빈',
-    birthday: '2000.1.1',
-    number: '010-0000-1234',
-    gender: '여성',
-    totalStamp: '4',
-    visitDate: '2023.11.04',
-  },
-  {
-    id: '3',
-    name: '강수빈',
-    birthday: '2000.1.1',
-    number: '010-0000-1234',
-    gender: '여성',
-    totalStamp: '4',
-    visitDate: '2023.11.04',
-  },
-  {
-    id: '4',
-    name: '강수빈',
-    birthday: '2000.1.1',
-    number: '010-0000-1234',
-    gender: '여성',
-    totalStamp: '4',
-    visitDate: '2023.11.04',
-  },
-  {
-    id: '5',
-    name: '강수빈',
-    birthday: '2000.1.1',
-    number: '010-0000-1234',
-    gender: '여성',
-    totalStamp: '4',
-    visitDate: '2023.11.04',
-  },
-  {
-    id: '6',
-    name: '강수빈',
-    birthday: '2000.1.1',
-    number: '010-0000-1234',
-    gender: '여성',
-    totalStamp: '4',
-    visitDate: '2023.11.04',
-  },
-  {
-    id: '7',
-    name: '강수빈',
-    birthday: '2000.1.1',
-    number: '010-0000-1234',
-    gender: '여성',
-    totalStamp: '4',
-    visitDate: '2023.11.04',
-  },
-  {
-    id: '8',
-    name: '강수빈',
-    birthday: '2000.1.1',
-    number: '010-0000-1234',
-    gender: '여성',
-    totalStamp: '4',
-    visitDate: '2023.11.04',
-  },
-  {
-    id: '9',
-    name: '강수빈',
-    birthday: '2000.1.1',
-    number: '010-0000-1234',
-    gender: '여성',
-    totalStamp: '4',
-    visitDate: '2023.11.04',
-  },
-  {
-    id: '10',
-    name: '강수빈',
-    birthday: '2000.1.1',
-    number: '010-0000-1234',
-    gender: '여성',
-    totalStamp: '4',
-    visitDate: '2023.11.04',
-  },
-  {
-    id: '11',
-    name: '강수빈',
-    birthday: '2000.1.1',
-    number: '010-0000-1234',
-    gender: '여성',
-    totalStamp: '4',
-    visitDate: '2023.11.04',
-  },
-  {
-    id: '12',
-    name: '강수빈',
-    birthday: '2000.1.1',
-    number: '010-0000-1234',
-    gender: '여성',
-    totalStamp: '4',
-    visitDate: '2023.11.04',
-  },
-  {
-    id: '13',
-    name: '강수빈',
-    birthday: '2000.1.1',
-    number: '010-0000-1234',
-    gender: '여성',
-    totalStamp: '4',
-    visitDate: '2023.11.04',
-  },
-];

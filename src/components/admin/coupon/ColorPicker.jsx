@@ -30,6 +30,7 @@ const ColorBox = styled.button`
   align-items: center;
   gap: 8px;
   border: 1px solid #d8d8d8;
+  width: 110px;
 
   color: ${COLORS.text_darkgray};
   text-overflow: ellipsis;
@@ -50,6 +51,7 @@ const Picker = styled.div`
 const Color = styled.div`
   width: 16px;
   height: 16px;
+  border: 0.5px solid lightgray;
   background-color: ${(props) => props.color};
 `;
 
