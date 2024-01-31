@@ -121,6 +121,7 @@ const JoinOneStep = () => {
               value={loginId}
               onChange={onChangeId}
               width='165px'
+              star={true}
             />
             <NewButton>중복 확인하기</NewButton>
           </Row>
@@ -133,6 +134,7 @@ const JoinOneStep = () => {
             type='password'
             value={password}
             onChange={onChangePassword}
+            star={true}
           />
           <Msg>{passwordMsg}</Msg>
         </div>
@@ -143,6 +145,7 @@ const JoinOneStep = () => {
             type='password'
             value={confirmPassword}
             onChange={onChangeConfirmPassword}
+            star={true}
           />
           <Msg>{confirmPasswordMsg}</Msg>
         </div>

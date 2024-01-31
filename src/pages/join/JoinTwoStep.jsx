@@ -74,6 +74,7 @@ const JoinTwoStep = () => {
           value={name}
           width='520px'
           onChange={(e) => setName(e.target.value)}
+          star={true}
         />
         <Msg />
         <div>
@@ -83,6 +84,7 @@ const JoinTwoStep = () => {
             value={email}
             width='520px'
             onChange={onChangeEmail}
+            star={true}
           />
           <Msg>{emailMsg}</Msg>
         </div>
@@ -94,6 +96,7 @@ const JoinTwoStep = () => {
               value={phone}
               onChange={onChangePhone}
               width='337px'
+              star={true}
             />
             <NewButton>인증 받기</NewButton>
           </Row>
@@ -107,6 +110,7 @@ const JoinTwoStep = () => {
             value={certified}
             onChange={(e) => setCertified(e.target.value)}
             width='337px'
+            star={true}
           />
           <NewButton>인증번호 재발송</NewButton>
         </Row>
