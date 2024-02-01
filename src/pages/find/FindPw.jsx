@@ -1,5 +1,5 @@
 import React from 'react';
-import FindForm from '../components/common/FindForm';
+import FindForm from '../../components/find/FindForm';
 
 const FindPw = () => {
   return (

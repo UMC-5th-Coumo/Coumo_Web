@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import InputJoin from './InputJoin';
 import { COLORS } from '../../styles/theme';
-import { Btn } from './Button';
+import { Btn } from '../common/Button';
+import InputJoin from '../common/InputJoin';
 
 const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
   const navigate = useNavigate();
@@ -40,14 +40,23 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
         phone: phone,
       });
 
+      // 임시 코드
+      if (postData === 'name') {
+        navigate('/foundId');
+      } else if (postData === 'loginId') {
+        navigate('/findPw/rePassword');
+      }
+
       try {
         const response = await axios.post(serverEndpoint, {
           [postData]: id,
           phone: phone,
         });
 
-        if (response.data.isSuccess) {
-          navigate('/login');
+        if (response.data.isSuccess && postData === 'name') {
+          navigate('/foundId');
+        } else if (response.data.isSuccess && postData === 'id') {
+          navigate('/findPw/rePassword');
         } else {
           console.error(response.data.message);
         }
@@ -115,6 +124,7 @@ const Box = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 15px;
 `;
 

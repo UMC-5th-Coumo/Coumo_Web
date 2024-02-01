@@ -20,3 +20,4 @@ export { ReactComponent as ArrowDown } from './icon/arrow-down.svg';
 export { ReactComponent as DetailArrow } from './icon/detail-arrow.svg';
 export { ReactComponent as CallIcon } from './icon/call.svg';
 export { ReactComponent as Calendar } from './icon/calendar.svg';
+export { ReactComponent as Profile } from './icon/Profile.svg';
