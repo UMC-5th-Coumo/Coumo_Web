@@ -20,7 +20,6 @@ const BasicInfo = () => {
   });
 
   const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
-  const [coordinates, setCoordinates] = useState(null);
 
   const handleAddressClick = () => {
     setIsPostcodeOpen(true);
@@ -68,44 +67,58 @@ const BasicInfo = () => {
 
   const getAddressCoords = async (address) => {
     // 좌표 변환 API를 통해 주소를 좌표로 변환
+    console.log('주소:', address);
+
     try {
       const response = await axios.get(
-        `https://dapi.kakao.com/v2/local/geo/coord2address.json?query=${encodeURIComponent(address)}`,
+        'https://dapi.kakao.com/v2/local/search/address.json?query=' + address,
         {
           headers: {
-            Authorization: 'a97f4b0a64400c07a19b38e4ec365d80',
+            Authorization: `KakaoAK ${process.env.REACT_APP_KAKAOMAP_API_KEY}`,
           },
         }
       );
 
-      if (!response.ok) {
+      if (!response.data.documents || response.data.documents.length === 0) {
         throw new Error('Failed to fetch coordinates from Kakao Map API');
       }
 
-      const data = await response.json();
-      const coords = data.documents[0].address;
-
+      const coords = response.data.documents[0].address;
+      console.log('lat:', coords.y, 'log:', coords.x);
       return {
         latitude: coords.y,
         longitude: coords.x,
       };
     } catch (error) {
-      console.error('Error getting coordinates:');
+      console.error('Error getting coordinates:', error);
       throw error;
     }
   };
 
   const onSubmit = async () => {
-    // 서버 요청 코드
-    console.log(inputs);
+    // 서버 연동
     try {
+      console.log(inputs);
       const coords = await getAddressCoords(inputs.address);
-      setCoordinates(coords);
 
-      // 서버로 좌표 정보 전달
-      console.log('Coordinates:', coords);
+      const storeData = {
+        name: inputs.storeName,
+        time: [], // time 우선 비워둠
+        telePhone: inputs.number,
+        category: category,
+        location: inputs.address,
+        longitude: coords.longitude,
+        latitude: coords.latitude,
+      };
+
+      console.log('storeData', storeData);
+
+      const storeId = ''; // ??
+      await axios.patch(`/api/owner/store/${storeId}/basic`, storeData);
+
+      console.log('Store data updated successfully!');
     } catch (error) {
-      console.error('Failed to get coordinates:');
+      console.error('Failed to update store data:', error);
     }
   };
 
