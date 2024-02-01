@@ -13,17 +13,51 @@ import getCustomers from '../../redux/thunks/getCustomers';
 const CustomerManage = () => {
   const [number, setNumber] = useState('');
   const [filter, setFilter] = useState('all');
-  const [selected, setSelected] = useState('');
-  const { customers } = useSelector((state) => state.customer);
+  const [selected, setSelected] = useState(null);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+  const { customers, regularCustomers, newCustomers, status } = useSelector(
+    (state) => state.customer
+  );
+  const [filteredData, setFilteredData] = useState(null);
 
   // 마운트 될 때 고객 데이터 받아오기
   useEffect(() => {
     dispatch(getCustomers('1'));
   }, [dispatch]);
 
+  // 가져온 데이터로 렌더링
+  useEffect(() => {
+    if (!status.loading) {
+      setFilteredData(customers);
+      setLoading(false);
+    }
+  }, [status.loading]);
+
   const searchCustomer = () => {
-    // 고객 검색
+    let filterGroup = [];
+    // 그룹 필터링
+    switch (filter) {
+      case 'regular':
+        filterGroup = regularCustomers;
+        break;
+      case 'new':
+        filterGroup = newCustomers;
+        break;
+      default:
+        filterGroup = customers;
+        break;
+    }
+
+    // 입력한 전화번호가 있다면?
+    if (number) {
+      filterGroup = filterGroup.filter(
+        (data) => data.phone.slice(-4) === number
+      );
+    }
+
+    // 필터링 데이터
+    setFilteredData(filterGroup);
   };
   return (
     <>
@@ -56,22 +90,30 @@ const CustomerManage = () => {
           />
         </ButtonContainer>
       </FormContainer>
-      <CustomerContainer>
-        <LineWrapper>
-          <LineLong />
-        </LineWrapper>
-        <ContentWrapper>
-          <CustomerList
-            customerData={customers}
-            selected={selected}
-            setSelected={setSelected}
-          />
-          <DetailBox>
-            <Title title='해당 고객의 데이터입니다' />
-            <CustomerDetail />
-          </DetailBox>
-        </ContentWrapper>
-      </CustomerContainer>
+      {loading ? (
+        'loading...'
+      ) : (
+        <CustomerContainer>
+          <LineWrapper>
+            <LineLong />
+          </LineWrapper>
+          <ContentWrapper>
+            <CustomerList
+              customerData={filteredData}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <DetailBox>
+              {selected && (
+                <>
+                  <Title title='해당 고객의 데이터입니다' />
+                  <CustomerDetail data={selected} />
+                </>
+              )}
+            </DetailBox>
+          </ContentWrapper>
+        </CustomerContainer>
+      )}
     </>
   );
 };
@@ -91,6 +133,7 @@ const CustomerContainer = styled.div`
 
 const DetailBox = styled.div`
   display: flex;
+  width: 400px;
   flex-direction: column;
   align-items: center;
   gap: 20px;

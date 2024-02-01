@@ -11,7 +11,7 @@ const initialState = {
   regularCustomers: [],
   newCustomers: [],
   status: {
-    loading: false,
+    loading: true,
     error: null,
   },
 };
