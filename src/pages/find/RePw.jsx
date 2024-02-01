@@ -55,6 +55,14 @@ const RePw = () => {
   const [popUp, setPopUp] = useState(false);
 
   const onSubmit = async () => {
+    // 임시 코드 (통신되면 삭제)
+    setPopUp(true);
+    setTimeout(() => {
+      setPopUp(false);
+      navigate('/login');
+    }, 1500);
+    //
+
     try {
       const response = await axios.patch('/api/owner/patchpw', {
         password: newPassword,
