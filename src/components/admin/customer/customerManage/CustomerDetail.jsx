@@ -3,26 +3,28 @@ import styled from 'styled-components';
 import { COLORS } from '../../../../styles/theme';
 import userImage from '../../../../assets/image/userImage.png';
 
-function CustomerDetail() {
+function CustomerDetail({ data }) {
   return (
     <Container>
       <Profile>
         <ImgContainer>
           <Image src={userImage} alt='profile image' />
-          <RecentVisit>최근 방문: 2023.1.1</RecentVisit>
+          <RecentVisit>최근 방문: {data.updatedAt.slice(0, 10)}</RecentVisit>
         </ImgContainer>
         <ProfileContent>
-          <h5>강수빈</h5>
-          <span>010-1234-1234</span>
+          <h5>{data.name}</h5>
+          <span>{`${data.phone.slice(0, 3)}-${data.phone.slice(3, 7)}-${data.phone.slice(-4)}`}</span>
         </ProfileContent>
       </Profile>
       <InfoContent>
-        <span>성별: 여자</span>
+        <span>성별: {data.gender === 'MALE' ? '남성' : '여성'}</span>
         <div>
-          <span>연령: 20대</span>
-          <span style={{ fontSize: '14px' }}>(2000.01.01)</span>
+          <span>연령: {data.ageGroup}</span>
+          <span
+            style={{ fontSize: '14px' }}
+          >{`${data.birthday.slice(0, 4)}.${data.birthday.slice(4, 6)}.${data.birthday.slice(-2)}`}</span>
         </div>
-        <span>보유 쿠폰 개수: 4개</span>
+        <span>보유 쿠폰 개수: {data.totalStamp}</span>
       </InfoContent>
     </Container>
   );
@@ -52,7 +54,7 @@ const ImgContainer = styled.div`
   display: flex;
   justify-content: center;
   position: relative;
-  width: 130px;
+  width: 140px;
   height: 135px;
 `;
 
@@ -115,7 +117,7 @@ const RecentVisit = styled.span`
   background: ${COLORS.coumo_purple};
   color: ${COLORS.white_fff};
   text-align: center;
-  font-size: 12px;
+  font-size: 10px;
   font-style: normal;
   font-weight: 500;
   line-height: 100%; /* 16px */

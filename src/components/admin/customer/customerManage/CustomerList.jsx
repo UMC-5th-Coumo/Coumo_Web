@@ -16,13 +16,15 @@ function CustomerList({ customerData, selected, setSelected }) {
           return (
             <Customer
               key={data.id}
-              selected={selected === data.id}
-              onClick={() => setSelected(data.id)}
+              selected={selected === data}
+              onClick={() => setSelected(data)}
             >
-              <span>{data.updatedAt}</span>
+              <span>{data.updatedAt.slice(0, 10)}</span>
               <span>{data.id}</span>
               <span>{data.name}</span>
-              <span>{data.phone}</span>
+              <span>
+                {data.phone.slice(0, 3) + '-****-' + data.phone.slice(-4)}
+              </span>
             </Customer>
           );
         })}
