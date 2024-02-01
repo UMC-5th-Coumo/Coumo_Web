@@ -55,14 +55,14 @@ const MyPosts = () => {
 
   const handlePostClick = (postIndex) => {
     const postId = postDummyData[postIndex].id;
-    navigate(`/neighborhood/myPostView/${postId}`, {
+    navigate(`/neighborhood/myPosts/myPostView/${postId}`, {
       state: { post: postDummyData[postIndex], postDummyData },
     });
   };
 
   const handleModifyClick = (postIndex) => {
     const postId = postDummyData[postIndex].id;
-    navigate(`/neighborhood/myEdit/${postId}`, {
+    navigate(`/neighborhood/myPosts/myEdit/${postId}`, {
       state: { post: postDummyData[postIndex], postDummyData },
     });
   };

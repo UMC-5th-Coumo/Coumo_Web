@@ -1,39 +1,33 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Button from './Button';
 import { COLORS } from '../../styles/theme';
 import { Logo } from '../../assets';
-import Button from './Button';
 
-const Header = () => {
+function AdminHeader() {
   const navigate = useNavigate();
-
+  const { name } = useSelector((state) => state.user);
   return (
     <Head>
       <HeaderBar>
-        <LogoIcon to='/'>
+        <LogoContainer>
           <Logo />
-        </LogoIcon>
-
-        <Nav>
-          <StyledLink to='/shop/basicInfo'>매장 관리</StyledLink>
-          <StyledLink to='/neighborhood/writePost'>동네 소식</StyledLink>
-          <StyledLink to='/coupon/addCoupon'>쿠폰 관리</StyledLink>
-          <StyledLink to='/customer/manage'>고객 데이터 관리</StyledLink>
-        </Nav>
-
+        </LogoContainer>
         <Button
-          text='로그인/회원가입'
+          text={`${name} 사장님`}
+          color={COLORS.coumo_purple}
           onClickBtn={() => {
-            navigate('/login');
+            navigate('/mypage');
           }}
         ></Button>
       </HeaderBar>
     </Head>
   );
-};
+}
 
-export default Header;
+export default AdminHeader;
 
 const Head = styled.div`
   width: 100%;
@@ -43,7 +37,7 @@ const Head = styled.div`
   justify-content: center;
 
   box-sizing: border-box;
-  background-color: ${COLORS.white};
+  background-color: ${COLORS.coumo_lightpurple};
   font-family: 'Pretendard';
   font-size: 16px;
   position: absolute;
@@ -62,21 +56,8 @@ const HeaderBar = styled.div`
   justify-content: space-between;
 `;
 
-const LogoIcon = styled(Link)`
+const LogoContainer = styled.div`
   width: 100px;
   height: 42px;
   overflow-x: hidden;
-`;
-
-const Nav = styled.div`
-  display: flex;
-  width: 50%;
-  justify-content: space-between;
-  align-items: flex-start;
-`;
-
-const StyledLink = styled(Link)`
-  color: ${COLORS.text_darkgray};
-  font-weight: 600;
-  text-decoration-line: none;
 `;
