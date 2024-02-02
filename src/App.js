@@ -8,12 +8,14 @@ import Neighborhood from './pages/Neighborhood';
 import Coupon from './pages/Coupon';
 import Customer from './pages/Customer';
 import Login from './pages/Login';
-import FindId from './pages/FindId';
-import FindPw from './pages/FindPw';
 import JoinOneStep from './pages/join/JoinOneStep';
 import JoinTwoStep from './pages/join/JoinTwoStep';
 import Congratulate from './pages/join/Congratulate';
 import MyPage from './pages/MyPage';
+import FindId from './pages/find/FindId';
+import FindPw from './pages/find/FindPw';
+import FoundId from './pages/find/FoundId';
+import RePw from './pages/find/RePw';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import AdminHeader from './components/common/AdminHeader';
@@ -50,7 +52,9 @@ function App() {
             <Route path='/join/finish' element={<Congratulate />} />
             <Route path='/login' element={<Login />} />
             <Route path='/findId' element={<FindId />} />
+            <Route path='/foundId' element={<FoundId />} />
             <Route path='/findPw' element={<FindPw />} />
+            <Route path='/findPw/rePassword' element={<RePw />} />
           </Routes>
         </>
       )}
