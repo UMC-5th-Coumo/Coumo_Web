@@ -71,4 +71,8 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   width: calc(100vw - 250px);
+
+  @media screen and (max-width: 1280px) {
+    width: calc(100vw - 220px);
+  }
 `;

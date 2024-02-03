@@ -60,7 +60,7 @@ const CustomerManage = () => {
     setFilteredData(filterGroup);
   };
   return (
-    <>
+    <Container>
       <FormContainer>
         <InputForm>
           <Line>
@@ -114,11 +114,17 @@ const CustomerManage = () => {
           </ContentWrapper>
         </CustomerContainer>
       )}
-    </>
+    </Container>
   );
 };
 
 export default CustomerManage;
+
+const Container = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
 
 const FormContainer = styled.div`
   width: 100%;
@@ -137,6 +143,10 @@ const DetailBox = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20px;
+
+  @media screen and (max-width: 1280px) {
+    width: 320px;
+  }
 `;
 
 const LineWrapper = styled.div`
@@ -147,10 +157,16 @@ const LineWrapper = styled.div`
 const ContentWrapper = styled.div`
   width: 100%;
   box-sizing: border-box;
-  padding-top: 40px;
   display: flex;
-  justify-content: space-around;
-  padding: 70px 0px;
+  justify-content: center;
+  gap: 50px;
+  padding: 70px 30px;
+  width: 100%;
+
+  @media screen and (max-width: 1150px) {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 `;
 
 const InputForm = styled.div`
@@ -158,6 +174,10 @@ const InputForm = styled.div`
   display: flex;
   flex-direction: column;
   gap: 25px;
+
+  @media screen and (max-width: 1024px) {
+    width: 400px;
+  }
 `;
 
 const Line = styled.div`
@@ -170,6 +190,10 @@ const Wrapper = styled.div`
   width: 380px;
   display: flex;
   gap: 12px;
+
+  @media screen and (max-width: 1024px) {
+    width: 290px;
+  }
 `;
 
 const InputLabel = styled.span`
@@ -179,6 +203,10 @@ const InputLabel = styled.span`
   font-weight: 700;
   line-height: 100%; /* 24px */
   letter-spacing: 0.72px;
+
+  @media screen and (max-width: 1024px) {
+    font-size: 16px;
+  }
 `;
 
 const StyledInput = styled.input`

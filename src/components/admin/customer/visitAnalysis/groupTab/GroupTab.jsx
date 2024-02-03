@@ -28,4 +28,10 @@ const TabDiv = styled.div`
   font-weight: ${(props) => (props.selected ? '700' : '500')};
   line-height: 132%; /* 21.12px */
   letter-spacing: 0.48px;
+
+  @media screen and (max-width: 1024px) {
+    height: 30px;
+    font-size: 11px;
+    padding: 8px 6px;
+  }
 `;

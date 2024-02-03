@@ -7,8 +7,8 @@ function TimeVisit() {
   return (
     <Container>
       <VisitData>
-        <VisitCount type='max' />
-        <VisitCount type='min' />
+        <VisitCount type='max' text='시간대' />
+        <VisitCount type='min' text='시간대' />
       </VisitData>
       <ChartContainer>
         <LineChart />
@@ -30,9 +30,17 @@ const VisitData = styled.div`
   height: 60px;
   display: flex;
   gap: 120px;
+
+  @media screen and (max-width: 1024px) {
+    gap: 60px;
+  }
 `;
 
 const ChartContainer = styled.div`
-  width: 800px;
-  height: 300px;
+  width: 100%;
+  height: 350px;
+
+  @media screen and (max-width: 1024px) {
+    height: 250px;
+  }
 `;

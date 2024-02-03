@@ -41,6 +41,13 @@ const RadioLabel = styled.label`
   flex-shrink: 0;
   border-radius: 5px;
   background: ${COLORS.coumo_gray};
+
+  @media screen and (max-width: 1024px) {
+    height: 35px;
+    width: auto;
+    padding-right: 15px;
+    padding-left: 10px;
+  }
 `;
 
 const RadioInput = styled.input`
@@ -61,6 +68,18 @@ const RadioInput = styled.input`
     box-shadow: 0 0 0 max(4px, 0.2em) lightgray;
     cursor: pointer;
   }
+
+  @media screen and (max-width: 1024px) {
+    width: 1.1em;
+    height: 1.1em;
+    &:checked {
+      border: 0.57em solid ${COLORS.coumo_purple};
+    }
+    &:hover {
+      box-shadow: 0 0 0 max(2px, 0.1em) lightgray;
+      cursor: pointer;
+    }
+  }
 `;
 
 const RadioSpan = styled.span`
@@ -72,4 +91,8 @@ const RadioSpan = styled.span`
   font-style: normal;
   line-height: 170%; /* 27.2px */
   font-weight: ${(props) => (props.selected ? '600' : '400')};
+
+  @media screen and (max-width: 1024px) {
+    font-size: ${(props) => (props.size === 110 ? '11.8px' : '11px')};
+  }
 `;
