@@ -12,7 +12,7 @@ const Header = () => {
     <Head>
       <HeaderBar>
         <LogoIcon to='/'>
-          <Logo />
+          <Logo to='/' />
         </LogoIcon>
 
         <Nav>
@@ -41,7 +41,6 @@ const Head = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
   box-sizing: border-box;
   background-color: ${COLORS.white};
   font-family: 'Pretendard';
@@ -64,8 +63,6 @@ const HeaderBar = styled.div`
 
 const LogoIcon = styled(Link)`
   width: 100px;
-  height: 42px;
-  overflow-x: hidden;
 `;
 
 const Nav = styled.div`

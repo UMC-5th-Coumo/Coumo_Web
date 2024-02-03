@@ -125,6 +125,11 @@ const CustomInput = styled.input`
   &:focus {
     outline: none;
   }
+  @media screen and (max-width: 1024px) {
+    width: 200px;
+    height: 30px;
+    padding: 12px 8px;
+  }
 `;
 
 const Header = styled.div`

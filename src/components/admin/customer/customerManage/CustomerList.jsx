@@ -38,17 +38,30 @@ export default CustomerList;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  width: 570px;
+
+  @media screen and (max-width: 1280px) {
+    width: 480px;
+  }
+  @media screen and (max-width: 1150px) {
+    width: 600px;
+  }
+  @media screen and (max-width: 1024px) {
+    width: 500px;
+  }
 `;
 
 const Columns = styled.div`
   width: 100%;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 12px;
+  padding-right: 15px;
+  box-sizing: border-box;
 `;
 
 const Column = styled.span`
   display: flex;
-  width: 130px;
   height: 30px;
   justify-content: center;
   align-items: center;
@@ -90,7 +103,13 @@ const Customer = styled.div`
   & span {
     width: 130px;
     text-align: center;
-    padding: 15px 0px;
     font-size: 13px;
+    padding: 15px 0px;
+    margin: 0px 10px;
+    box-sizing: border-box;
+
+    @media screen and (max-width: 1280px) {
+      font-size: 12px;
+    }
   }
 `;

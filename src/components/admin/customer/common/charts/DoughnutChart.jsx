@@ -1,43 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import styled from 'styled-components';
+import { doughnutChartOption } from '../../../../../assets/data/chartOptions';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const data = {
-  labels: ['20대', '그 외'],
-  datasets: [
-    {
-      data: [16, 84],
-      backgroundColor: ['#AF8DF3', '#D9D9D9'],
-    },
-  ],
-};
-
-const options = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      display: false,
-    },
-  },
-  tooltip: {
-    // 툴팁 스타일링
-    bodySpacing: 5, // 툴팁 내부 항목들 간 간격
-    bodyFont: {
-      font: {
-        family: 'Pretendard',
-      },
-    },
-  },
-  cutout: 60,
-};
-
 function DoughnutChart() {
+  const [data, setData] = useState({
+    labels: ['여성', '남성'],
+    datasets: [
+      {
+        data: [16, 84],
+        backgroundColor: ['#AF8DF3', '#D9D9D9'],
+      },
+    ],
+  });
+
+  useEffect(() => {
+    const result = {
+      male: 33.33333333333333,
+      female: 66.66666666666666,
+    };
+
+    const processedData = {
+      male: result.male.toFixed(2),
+      female: 100 - result.male.toFixed(2),
+    };
+
+    setData({
+      labels: ['여성', '남성'],
+      datasets: [
+        {
+          data: [processedData.female, processedData.male],
+          backgroundColor: ['#AF8DF3', '#D9D9D9'],
+        },
+      ],
+    });
+  }, []);
+
   return (
     <Container>
-      <Doughnut data={data} options={options} />
+      <Doughnut data={data} options={doughnutChartOption} />
     </Container>
   );
 }

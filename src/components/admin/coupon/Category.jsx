@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import RadioBtn from '../../common/RadioBtn';
 import { COLORS } from '../../../styles/theme';
 
-const Category = ({ data, category, setCategory, columns }) => {
+const Category = ({ data, category, setCategory, columns, all }) => {
   const onChange = (id) => {
     setCategory(id);
   };
@@ -24,6 +24,28 @@ const Category = ({ data, category, setCategory, columns }) => {
           );
         })}
       </Wrapper>
+      {/* 내가 쓴 글 - 전체 라디오 버튼 */}
+      {all && (
+        <RadioBtn
+          id='all'
+          label='전체'
+          name='category'
+          selected={!category} // category가 null이면 선택
+          onChange={() => onChange('')}
+        />
+      )}
+      {data.map((item) => {
+        return (
+          <RadioBtn
+            key={item.id}
+            id={item.id}
+            label={item.label}
+            name='category'
+            selected={category}
+            onChange={() => onChange(item.id)}
+          />
+        );
+      })}
     </Container>
   );
 };

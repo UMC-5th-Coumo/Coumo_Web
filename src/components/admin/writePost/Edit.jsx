@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import Category from '../coupon/Category';
 import { writecategoryData } from '../../../assets/data/writecategoryData';
 import { StyledWriteInput } from '../../common/Input';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { COLORS } from '../../../styles/theme';
+import ImageBlock from '../shop/ImageBlock';
 
 const Edit = ({ category, setCategory, inputs, setInputs }) => {
   return (
@@ -22,7 +21,7 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
         placeholder='제목을 작성해주세요. (0/30)'
         name='title'
         value={inputs.title}
-        $fullwidth='true'
+        fullwidth='840px'
         onChange={(e) => {
           setInputs({
             ...inputs,
@@ -31,35 +30,27 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
           console.log(inputs && inputs.title);
         }}
       />
+      <Image>
+        <Representative>
+          <Label>대표이미지</Label>
+          <Recommend>*이미지는 1000px, 1000px의 1:1비율을 권장합니다</Recommend>
+        </Representative>
+        <ImageBlock />
+      </Image>
       <div>
         <Label>글의 상세설명을 작성해 주세요</Label>
-        <StyledCKEditorContainer>
-          <CKEditor
-            editor={ClassicEditor}
-            config={{
-              placeholder:
-                '손님들의 관심을 끌 수 있는 글을 작성해봐요. (0/500)',
-            }}
-            data={inputs.content}
-            onReady={(editor) => {
-              console.log('Editor is ready to use!', editor);
-            }}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              setInputs({
-                ...inputs,
-                content: data,
-              });
-              console.log(inputs.content);
-            }}
-            onBlur={(event, editor) => {
-              console.log('Blur.', editor);
-            }}
-            onFocus={(event, editor) => {
-              console.log('Focus.', editor);
-            }}
-          />
-        </StyledCKEditorContainer>
+        <StyledWriteTextarea
+          placeholder='손님들이 궁금해하실 내용을 작성해주세요 (0/500)'
+          name='content'
+          value={inputs.content}
+          onChange={(e) => {
+            setInputs({
+              ...inputs,
+              content: e.target.value,
+            });
+            console.log(inputs && inputs.content);
+          }}
+        />
       </div>
     </Write>
   );
@@ -74,6 +65,17 @@ const Write = styled.div`
   gap: 50px;
 `;
 
+const Image = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Representative = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+`;
+
 const Label = styled.div`
   color: ${COLORS.coumo_purple};
   font-family: 'Pretendard';
@@ -85,13 +87,37 @@ const Label = styled.div`
   margin-bottom: 16px;
 `;
 
-const StyledCKEditorContainer = styled.div`
-  font-size: 14px;
-  .ck.ck-editor {
-    min-height: 400px;
-  }
+const Recommend = styled.div`
+  color: ${COLORS.coumo_purple};
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 200%;
+`;
 
-  .ck.ck-editor__editable {
-    height: 300px;
+const StyledWriteTextarea = styled.textarea`
+  display: flex;
+  max-width: 840px;
+  width: 100%;
+  height: 200px;
+  padding: 8px 12px;
+  resize: none;
+  align-items: top;
+  gap: 8px;
+  border-radius: 4px;
+  border: none;
+  background: ${COLORS.coumo_gray};
+  overflow: hidden;
+  color: ${COLORS.text_gray};
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: 'Pretendard';
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 170%; /* 27.2px */
+
+  &:focus {
+    outline: none;
   }
 `;

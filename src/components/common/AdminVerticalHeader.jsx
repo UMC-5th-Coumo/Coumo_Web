@@ -95,7 +95,7 @@ function AdminVerticalHeader() {
           </SubMenuLink>
           <SubMenuLink
             to='/customer/visit'
-            current={current === '/customer/visit'}
+            current={current.includes('/customer/visit')}
           >
             방문 분석
           </SubMenuLink>
@@ -124,6 +124,11 @@ const Container = styled.div`
   padding-left: 50px;
   overflow: hidden;
   gap: 30px;
+  z-index: 999;
+
+  @media screen and (max-width: 1280px) {
+    width: 220px;
+  }
 `;
 
 const Menu = styled.div`

@@ -56,4 +56,10 @@ export const Btn = styled.button`
   &::before {
     content: '${(props) => (props.text ? props.text : '')}';
   }
+
+  @media screen and (max-width: 1024px) {
+    font-size: 12px;
+    padding: 8px 12px;
+    height: 38px;
+  }
 `;
