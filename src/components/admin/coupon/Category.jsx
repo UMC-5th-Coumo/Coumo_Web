@@ -11,6 +11,16 @@ const Category = ({ data, category, setCategory, columns, all }) => {
     <Container>
       <Title>카테고리</Title>
       <Wrapper columns={columns}>
+        {/* 내가 쓴 글 - 전체 라디오 버튼 */}
+      {all && (
+        <RadioBtn
+          id='all'
+          label='전체'
+          name='category'
+          selected={!category} // category가 null이면 선택
+          onChange={() => onChange('')}
+        />
+      )}
         {data.map((item) => {
           return (
             <RadioBtn
@@ -24,28 +34,6 @@ const Category = ({ data, category, setCategory, columns, all }) => {
           );
         })}
       </Wrapper>
-      {/* 내가 쓴 글 - 전체 라디오 버튼 */}
-      {all && (
-        <RadioBtn
-          id='all'
-          label='전체'
-          name='category'
-          selected={!category} // category가 null이면 선택
-          onChange={() => onChange('')}
-        />
-      )}
-      {data.map((item) => {
-        return (
-          <RadioBtn
-            key={item.id}
-            id={item.id}
-            label={item.label}
-            name='category'
-            selected={category}
-            onChange={() => onChange(item.id)}
-          />
-        );
-      })}
     </Container>
   );
 };
