@@ -3,25 +3,27 @@ import styled from 'styled-components';
 import RadioBtn from '../../common/RadioBtn';
 import { COLORS } from '../../../styles/theme';
 
-const Category = ({ data, category, setCategory, containerWidth }) => {
+const Category = ({ data, category, setCategory, columns }) => {
   const onChange = (id) => {
     setCategory(id);
   };
   return (
-    <Container width={containerWidth}>
+    <Container>
       <Title>카테고리</Title>
-      {data.map((item) => {
-        return (
-          <RadioBtn
-            key={item.id}
-            id={item.id}
-            label={item.label}
-            name='category'
-            selected={category}
-            onChange={onChange}
-          />
-        );
-      })}
+      <Wrapper columns={columns}>
+        {data.map((item) => {
+          return (
+            <RadioBtn
+              key={item.id}
+              id={item.id}
+              label={item.label}
+              name='category'
+              selected={category}
+              onChange={onChange}
+            />
+          );
+        })}
+      </Wrapper>
     </Container>
   );
 };
@@ -29,7 +31,6 @@ const Category = ({ data, category, setCategory, containerWidth }) => {
 export default Category;
 
 const Container = styled.div`
-  width: ${(props) => props.width || '300px'};
   flex-wrap: wrap;
   display: flex;
   gap: 12px;
@@ -44,4 +45,9 @@ const Title = styled.h2`
   letter-spacing: 0.72px;
   width: 100%;
   margin: 0;
+`;
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: ${(props) => props.columns};
+  gap: 12px;
 `;

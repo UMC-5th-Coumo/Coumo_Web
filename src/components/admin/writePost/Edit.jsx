@@ -14,7 +14,7 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
         data={writecategoryData}
         category={category}
         setCategory={setCategory}
-        containerWidth='1000px'
+        columns='1fr 1fr 1fr'
       />
       <StyledWriteInput
         label='글의 제목을 작성해 주세요'

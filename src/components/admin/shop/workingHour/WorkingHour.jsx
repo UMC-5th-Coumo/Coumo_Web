@@ -33,12 +33,20 @@ const Container = styled.div`
   display: flex;
   gap: 16px;
   align-items: center;
+
+  @media screen and (max-width: 1024px) {
+    gap: 14px;
+  }
 `;
 
 const Day = styled.h5`
   margin: 0;
   font-size: 16px;
   color: ${COLORS.coumo_purple};
+
+  @media screen and (max-width: 1024px) {
+    font-size: 14px;
+  }
 `;
 
 const DayOffButton = styled.button`
