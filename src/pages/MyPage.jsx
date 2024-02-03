@@ -9,7 +9,6 @@ function MyPage() {
   const { name, id, email, phone } = useSelector((state) => state.user);
   return (
     <Container>
-      <Tab>마이페이지</Tab>
       <TitleBox>
         <Title title={`안녕하세요, ${name}님!`} size={22} />
         <Line />
@@ -84,27 +83,6 @@ const Content = styled.div`
     font-weight: 600;
     line-height: normal;
   }
-`;
-
-const Tab = styled.div`
-  display: flex;
-  width: 150px;
-  height: 25px;
-  padding: 8px 6px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  border-radius: 12px 12px 0px 0px;
-  background: ${(props) =>
-    props.selected ? COLORS.coumo_purple : COLORS.btn_lightgray};
-  color: ${(props) => (props.selected ? COLORS.white_fff : COLORS.tab_gray)};
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 132%; /* 21.12px */
-  letter-spacing: 0.48px;
-  margin-top: 70px;
 `;
 
 const TitleBox = styled.div`

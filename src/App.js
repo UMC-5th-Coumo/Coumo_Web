@@ -16,30 +16,59 @@ import FindId from './pages/find/FindId';
 import FindPw from './pages/find/FindPw';
 import FoundId from './pages/find/FoundId';
 import RePw from './pages/find/RePw';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import AdminHeader from './components/common/AdminHeader';
+import AdminVerticalHeader from './components/common/AdminVerticalHeader';
 
 function App() {
+  const { token } = useSelector((state) => state.user);
   return (
     <>
       <GlobalStyle />
-      <Header />
-      <Routes>
-        <Route exact path='/' element={<Home />} />
-        <Route path='/shop/*' element={<Shop />} />
-        <Route path='/neighborhood/*' element={<Neighborhood />} />
-        <Route path='/coupon/*' element={<Coupon />} />
-        <Route path='/customer/*' element={<Customer />} />
-        <Route path='/mypage' element={<MyPage />} />
-        <Route path='/join/one' element={<JoinOneStep />} />
-        <Route path='/join/two' element={<JoinTwoStep />} />
-        <Route path='/join/finish' element={<Congratulate />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/findId' element={<FindId />} />
-        <Route path='/foundId' element={<FoundId />} />
-        <Route path='/findPw' element={<FindPw />} />
-        <Route path='/findPw/rePassword' element={<RePw />} />
-      </Routes>
+      {token ? (
+        <>
+          <AdminHeader />
+          <Container>
+            <AdminVerticalHeader />
+            <Wrapper>
+              <Routes>
+                <Route path='/shop/*' element={<Shop />} />
+                <Route path='/neighborhood/*' element={<Neighborhood />} />
+                <Route path='/coupon/*' element={<Coupon />} />
+                <Route path='/customer/*' element={<Customer />} />
+                <Route path='/mypage' element={<MyPage />} />
+              </Routes>
+            </Wrapper>
+          </Container>
+        </>
+      ) : (
+        <>
+          <Header />
+          <Routes>
+            <Route exact path='/' element={<Home />} />
+            <Route path='/join/one' element={<JoinOneStep />} />
+            <Route path='/join/two' element={<JoinTwoStep />} />
+            <Route path='/join/finish' element={<Congratulate />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/findId' element={<FindId />} />
+            <Route path='/findPw' element={<FindPw />} />
+            <Route path='/foundId' element={<FoundId />} />
+            <Route path='/findPw/rePassword' element={<RePw />} />
+          </Routes>
+        </>
+      )}
     </>
   );
 }
 
 export default App;
+
+const Container = styled.div`
+  display: flex;
+  width: 100vw;
+`;
+
+const Wrapper = styled.div`
+  width: calc(100vw - 250px);
+`;

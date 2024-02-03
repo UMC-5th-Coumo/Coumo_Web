@@ -11,6 +11,11 @@ const RadioBtn = ({
   onChange,
   size = 110,
 }) => {
+  console.log('selected:', selected);
+  console.log('id:', id);
+  const handleClick = () => {
+    onChange(id === selected ? '' : id);
+  };
   return (
     <RadioLabel size={size}>
       <RadioInput
@@ -18,8 +23,8 @@ const RadioBtn = ({
         id={id}
         name={name}
         value={value}
-        checked={id === selected}
-        onChange={() => onChange(id)}
+        defaultChecked={id === selected}
+        onClick={handleClick}
       />
       <RadioSpan htmlFor={id} selected={id === selected} size={size}>
         {label}

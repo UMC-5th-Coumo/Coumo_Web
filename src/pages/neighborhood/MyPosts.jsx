@@ -6,9 +6,12 @@ import { Line } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import FormPopUp from '../../components/common/FormPopUp';
 import ConfirmModal from '../../components/admin/neighborhood/ConfirmModal';
+import { writecategoryData } from '../../assets/data/writecategoryData';
+import Category from '../../components/admin/coupon/Category';
 
 const MyPosts = () => {
   const navigate = useNavigate();
+  const [category, setCategory] = useState('');
   const postDummyData = [
     {
       id: 0,
@@ -55,14 +58,14 @@ const MyPosts = () => {
 
   const handlePostClick = (postIndex) => {
     const postId = postDummyData[postIndex].id;
-    navigate(`/neighborhood/myPostView/${postId}`, {
+    navigate(`/neighborhood/myPosts/myPostView/${postId}`, {
       state: { post: postDummyData[postIndex], postDummyData },
     });
   };
 
   const handleModifyClick = (postIndex) => {
     const postId = postDummyData[postIndex].id;
-    navigate(`/neighborhood/myEdit/${postId}`, {
+    navigate(`/neighborhood/myPosts/myEdit/${postId}`, {
       state: { post: postDummyData[postIndex], postDummyData },
     });
   };
@@ -94,14 +97,25 @@ const MyPosts = () => {
   // const { state: { updatedData } = {} } = location;
   // console.log('mypost', updatedData);
 
+  const filteredPosts = category
+    ? postDummyData.filter((post) => post.tag === category)
+    : postDummyData;
+
   return (
     <>
       <TitleBox>
         <Title title='총 13개의 게시글이 있어요!' />
+        <Category
+          data={writecategoryData}
+          category={category}
+          setCategory={setCategory}
+          containerWidth='1000px'
+          all='true'
+        />
         <Line />
       </TitleBox>
       <PostContainer>
-        {postDummyData.map((data, id) => {
+        {filteredPosts.map((data, id) => {
           return (
             <Post
               key={id}
@@ -136,13 +150,12 @@ const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 38px;
-  margin-bottom: 70px;
+  margin-bottom: 50px;
   padding: 70px 120px 0px;
 `;
 
 const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 32px;
   padding: 0px 120px 70px;
 `;

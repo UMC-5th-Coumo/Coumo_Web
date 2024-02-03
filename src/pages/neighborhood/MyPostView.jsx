@@ -17,7 +17,7 @@ const MyPostView = () => {
   const postDummyData = location.state.postDummyData;
 
   const onClickMod = () => {
-    navigate(`/neighborhood/myEdit/${postId}`, {
+    navigate(`/neighborhood/myPosts/myEdit/${postId}`, {
       state: { post: selectedPost, postDummyData },
     });
   };

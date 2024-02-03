@@ -9,6 +9,7 @@ const TagButton = ({ label }) => {
 export default TagButton;
 
 const Container = styled.span`
+  width: 90px;
   height: 30px;
   display: flex;
   justify-content: center;

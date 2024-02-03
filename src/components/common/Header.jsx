@@ -4,48 +4,30 @@ import styled from 'styled-components';
 import { COLORS } from '../../styles/theme';
 import { Logo } from '../../assets';
 import Button from './Button';
-import { useSelector } from 'react-redux';
 
 const Header = () => {
   const navigate = useNavigate();
-  const { name, token } = useSelector((state) => state.user);
 
   return (
     <Head>
       <HeaderBar>
         <LogoIcon to='/'>
-          <Logo />
+          <Logo to='/' />
         </LogoIcon>
-        {token ? (
-          <Nav>
-            <StyledLink to='/shop/basicInfo'>매장 관리</StyledLink>
-            <StyledLink to='/neighborhood/writePost'>동네 소식</StyledLink>
-            <StyledLink to='/coupon/addCoupon'>쿠폰 관리</StyledLink>
-            <StyledLink to='/customer/manage'>고객 데이터 관리</StyledLink>
-          </Nav>
-        ) : (
-          <Nav>
-            <StyledLink to='/'>매장 관리</StyledLink>
-            <StyledLink to='/'>동네 소식</StyledLink>
-            <StyledLink to='/'>쿠폰 관리</StyledLink>
-            <StyledLink to='/'>고객 데이터 관리</StyledLink>
-          </Nav>
-        )}
-        {token ? (
-          <Button
-            text={`${name} 사장님`}
-            onClickBtn={() => {
-              navigate('/mypage');
-            }}
-          ></Button>
-        ) : (
-          <Button
-            text='로그인/회원가입'
-            onClickBtn={() => {
-              navigate('/login');
-            }}
-          ></Button>
-        )}
+
+        <Nav>
+          <StyledLink to='/shop/basicInfo'>매장 관리</StyledLink>
+          <StyledLink to='/neighborhood/writePost'>동네 소식</StyledLink>
+          <StyledLink to='/coupon/addCoupon'>쿠폰 관리</StyledLink>
+          <StyledLink to='/customer/manage'>고객 데이터 관리</StyledLink>
+        </Nav>
+
+        <Button
+          text='로그인/회원가입'
+          onClickBtn={() => {
+            navigate('/login');
+          }}
+        ></Button>
       </HeaderBar>
     </Head>
   );
@@ -59,7 +41,6 @@ const Head = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
   box-sizing: border-box;
   background-color: ${COLORS.white};
   font-family: 'Pretendard';
@@ -82,8 +63,6 @@ const HeaderBar = styled.div`
 
 const LogoIcon = styled(Link)`
   width: 100px;
-  height: 42px;
-  overflow-x: hidden;
 `;
 
 const Nav = styled.div`
