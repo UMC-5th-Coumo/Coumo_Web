@@ -7,16 +7,47 @@ import Button from '../../components/common/Button';
 import { categoryData } from '../../assets/data/categoryData';
 import DaumPostcode from 'react-daum-postcode';
 import { createRoot } from 'react-dom/client';
+import WorkingHour from '../../components/admin/shop/workingHour/WorkingHour';
 import axios from 'axios';
+import { days } from '../../assets/data/workingHourData';
 
 const BasicInfo = () => {
   const [category, setCategory] = useState('cafe');
   const [inputs, setInputs] = useState({
     storeName: '',
-    workingHours: '',
     number: '',
     address: '',
     addressDetail: '',
+  });
+  const [hours, setHours] = useState({
+    MON: {
+      startTime: '',
+      endTime: '',
+    },
+    TUE: {
+      startTime: '',
+      endTime: '',
+    },
+    WED: {
+      startTime: '',
+      endTime: '',
+    },
+    THU: {
+      startTime: '',
+      endTime: '',
+    },
+    FRI: {
+      startTime: '',
+      endTime: '',
+    },
+    SAT: {
+      startTime: '',
+      endTime: '',
+    },
+    SUN: {
+      startTime: '',
+      endTime: '',
+    },
   });
 
   const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
@@ -134,16 +165,15 @@ const BasicInfo = () => {
           setInputs((prev) => ({ ...prev, storeName: e.target.value }))
         }
       />
-      <Input
-        name='workingHours'
-        label='영업시간'
-        type='text'
-        placeholder='임시'
-        value={inputs.workingHours}
-        onChange={(e) =>
-          setInputs((prev) => ({ ...prev, workingHours: e.target.value }))
-        }
-      />
+      <WorkingHours>
+        {Object.keys(hours).map((day, i) => (
+          <WorkingHour
+            key={i}
+            day={days[day]}
+            setData={(hours) => setHours((prev) => ({ ...prev, [day]: hours }))}
+          />
+        ))}
+      </WorkingHours>
       <Input
         name='number'
         label='매장의 전화번호를 입력해주세요.'
@@ -228,4 +258,10 @@ const BtnContainer = styled.div`
   display: flex;
   gap: 16px;
   justify-content: center;
+`;
+
+const WorkingHours = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 `;
