@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../styles/theme';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import InputJoin from '../../components/common/InputJoin';
 import { Btn } from '../../components/common/Button';
+import axios from 'axios';
 
 const JoinTwoStep = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // 초기값
   const [name, setName] = useState('');
@@ -57,10 +59,32 @@ const JoinTwoStep = () => {
     );
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (isJoinTwoEnabled()) {
-      navigate('/join/finish');
+      try {
+        const { loginId, password } = location.state;
+
+        const joinData = {
+          loginId,
+          password,
+          name,
+          email,
+          phone,
+          certified,
+        };
+
+        const response = await axios.post('/api/owner/join', joinData);
+
+        if (response.data.isSuccess) {
+          console.log('회원가입 성공', response.data.result);
+          navigate('/join/finish');
+        } else {
+          console.error('회원가입 실패');
+        }
+      } catch (error) {
+        console.error('Error joining');
+      }
     }
   };
 

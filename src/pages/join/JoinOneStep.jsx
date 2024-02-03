@@ -104,7 +104,7 @@ const JoinOneStep = () => {
     e.preventDefault();
     if (isJoinOneEnabled()) {
       navigate('/join/two', {
-        state: { loginId, password, confirmPassword },
+        state: { loginId, password },
       });
     }
   };
