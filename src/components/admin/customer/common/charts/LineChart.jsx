@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,6 +10,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { lineChartOption } from '../../../../../assets/data/chartOptions';
 
 ChartJS.register(
   CategoryScale,
@@ -21,64 +22,125 @@ ChartJS.register(
   Legend
 );
 
-const data = {
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: [
-        { x: '월', y: 20 },
-        { x: '화', y: 58 },
-        { x: '수', y: 42 },
-        { x: '목', y: 70 },
-        { x: '금', y: 52 },
-        { x: '토', y: 67 },
-        { x: '일', y: 40 },
-      ],
-      borderColor: '#A378F7',
-      borderWidth: 4,
-      backgroundColor: '#A378F7',
-      lineTension: 0.3,
-    },
-  ],
-};
-
-const options = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      display: false,
-      position: 'top',
-    },
-    title: {
-      display: false,
-    },
-  },
-  tooltip: {
-    // 툴팁 스타일링
-    bodySpacing: 5, // 툴팁 내부 항목들 간 간격
-    bodyFont: {
-      font: {
-        family: 'Pretendard',
-      },
-    },
-  },
-  scales: {
-    x: {
-      grid: {
-        display: false,
-      },
-    },
-    y: {
-      grid: {
-        display: false,
-      },
-    },
-  },
-};
-
 function LineChart() {
-  return <Line data={data} options={options} />;
+  const [data, setData] = useState({
+    datasets: [
+      {
+        label: '방문자 수',
+        data: [],
+        borderColor: '#A378F7',
+        borderWidth: 4,
+        backgroundColor: '#A378F7',
+        lineTension: 0.3,
+      },
+    ],
+  });
+
+  const processData = (chartData) => {
+    return chartData.map((data) => ({
+      x: data.startTime.slice(0, 5),
+      y: data.totalCustomer,
+    }));
+  };
+
+  useEffect(() => {
+    const result = [
+      {
+        startTime: '00:00:00',
+        totalCustomer: 1,
+      },
+      {
+        startTime: '01:00:00',
+        totalCustomer: 2,
+      },
+      {
+        startTime: '02:00:00',
+        totalCustomer: 8,
+      },
+      {
+        startTime: '03:00:00',
+        totalCustomer: 4,
+      },
+      {
+        startTime: '04:00:00',
+        totalCustomer: 10,
+      },
+      {
+        startTime: '05:00:00',
+        totalCustomer: 7,
+      },
+      {
+        startTime: '06:00:00',
+        totalCustomer: 8,
+      },
+      {
+        startTime: '07:00:00',
+        totalCustomer: 11,
+      },
+      {
+        startTime: '08:00:00',
+        totalCustomer: 3,
+      },
+      {
+        startTime: '09:00:00',
+        totalCustomer: 6,
+      },
+      {
+        startTime: '10:00:00',
+        totalCustomer: 3,
+      },
+      {
+        startTime: '11:00:00',
+        totalCustomer: 0,
+      },
+      {
+        startTime: '12:00:00',
+        totalCustomer: 5,
+      },
+      {
+        startTime: '13:00:00',
+        totalCustomer: 8,
+      },
+      {
+        startTime: '14:00:00',
+        totalCustomer: 2,
+      },
+      {
+        startTime: '15:00:00',
+        totalCustomer: 8,
+      },
+      {
+        startTime: '16:00:00',
+        totalCustomer: 10,
+      },
+      {
+        startTime: '17:00:00',
+        totalCustomer: 11,
+      },
+      {
+        startTime: '18:00:00',
+        totalCustomer: 3,
+      },
+    ];
+
+    // 데이터 가공
+    const processedData = processData(result);
+
+    setData({
+      datasets: [
+        {
+          label: '방문자 수',
+          data: processedData,
+          borderColor: '#A378F7',
+          borderWidth: 4,
+          backgroundColor: '#A378F7',
+          lineTension: 0.3,
+        },
+      ],
+    });
+  }, []);
+
+  return <Line data={data} options={lineChartOption} />;
 }
 
 export default LineChart;

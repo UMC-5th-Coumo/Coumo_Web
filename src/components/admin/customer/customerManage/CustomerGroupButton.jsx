@@ -6,7 +6,7 @@ function CustomerGroupButton({ selected, onChange }) {
     <>
       <RadioBtn
         id='all'
-        label='전체보기'
+        label='전체'
         name='all'
         size={80}
         selected={selected}

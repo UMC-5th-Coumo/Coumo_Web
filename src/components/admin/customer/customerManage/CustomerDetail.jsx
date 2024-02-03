@@ -20,9 +20,11 @@ function CustomerDetail({ data }) {
         <span>성별: {data.gender === 'MALE' ? '남성' : '여성'}</span>
         <div>
           <span>연령: {data.ageGroup}</span>
-          <span
-            style={{ fontSize: '14px' }}
-          >{`${data.birthday.slice(0, 4)}.${data.birthday.slice(4, 6)}.${data.birthday.slice(-2)}`}</span>
+          <span style={{ fontSize: '14px' }}>
+            (
+            {`${data.birthday.slice(0, 4)}.${data.birthday.slice(4, 6)}.${data.birthday.slice(-2)}`}
+            )
+          </span>
         </div>
         <span>보유 쿠폰 개수: {data.totalStamp}</span>
       </InfoContent>
@@ -42,6 +44,12 @@ const Container = styled.div`
   gap: 32px;
   background-color: ${COLORS.card_lightpurple};
   border-radius: 12px;
+
+  @media screen and (max-width: 1280px) {
+    width: 320px;
+    gap: 24px;
+    padding: 20px 24px;
+  }
 `;
 
 const Profile = styled.div`
@@ -56,6 +64,11 @@ const ImgContainer = styled.div`
   position: relative;
   width: 140px;
   height: 135px;
+
+  @media screen and (max-width: 1280px) {
+    width: 125px;
+    height: 115px;
+  }
 `;
 
 const Image = styled.img`
@@ -63,6 +76,11 @@ const Image = styled.img`
   height: 115px;
   border-radius: 4px;
   background-color: lightgray;
+
+  @media screen and (max-width: 1280px) {
+    width: 105px;
+    height: 105px;
+  }
 `;
 
 const ProfileContent = styled.div`
@@ -78,6 +96,10 @@ const ProfileContent = styled.div`
     font-weight: 700;
     line-height: 132%; /* 31.68px */
     letter-spacing: 0.96px;
+
+    @media screen and (max-width: 1280px) {
+      font-size: 16px;
+    }
   }
 
   & span {
@@ -85,6 +107,10 @@ const ProfileContent = styled.div`
     font-size: 19px;
     font-style: normal;
     line-height: 132%; /* 31.68px */
+
+    @media screen and (max-width: 1280px) {
+      font-size: 14px;
+    }
   }
 `;
 
@@ -105,6 +131,10 @@ const InfoContent = styled.div`
     font-style: normal;
     line-height: 132%; /* 26.4px */
     letter-spacing: 0.2px;
+
+    @media screen and (max-width: 1280px) {
+      font-size: 14px;
+    }
   }
 `;
 
@@ -123,4 +153,8 @@ const RecentVisit = styled.span`
   line-height: 100%; /* 16px */
   position: absolute;
   bottom: 0;
+
+  @media screen and (max-width: 1280px) {
+    padding: 0px 12px;
+  }
 `;
