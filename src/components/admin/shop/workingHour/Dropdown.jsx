@@ -76,6 +76,12 @@ const DropdownInput = styled.div`
   background-color: ${(props) =>
     props.disabled ? '#e9e9e97e' : COLORS.coumo_gray};
   color: ${(props) => (props.disabled ? '#dddddd' : '#666666')};
+  
+  @media screen and (max-width: 1024px) {
+    width: 160px;
+    height: 35px;
+    font-size: 11px;
+  }
 `;
 
 const DropDownPosition = styled.div`
@@ -96,6 +102,10 @@ const DropdownBox = styled.div`
   display: flex;
   flex-direction: column;
   overflow: auto;
+
+  @media screen and (max-width: 1024px) {
+    height: 160px;
+  }
 `;
 
 const Item = styled.span`

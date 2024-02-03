@@ -3,35 +3,37 @@ import styled from 'styled-components';
 import RadioBtn from '../../common/RadioBtn';
 import { COLORS } from '../../../styles/theme';
 
-const Category = ({ data, category, setCategory, containerWidth, all }) => {
+const Category = ({ data, category, setCategory, columns, all }) => {
   const onChange = (id) => {
     setCategory(id);
   };
   return (
-    <Container width={containerWidth}>
+    <Container>
       <Title>카테고리</Title>
-      {/* 내가 쓴 글 - 전체 라디오 버튼 */}
-      {all && (
-        <RadioBtn
-          id='all'
-          label='전체'
-          name='category'
-          selected={!category} // category가 null이면 선택
-          onChange={() => onChange('')}
-        />
-      )}
-      {data.map((item) => {
-        return (
+      <Wrapper columns={columns}>
+        {/* 내가 쓴 글 - 전체 라디오 버튼 */}
+        {all && (
           <RadioBtn
-            key={item.id}
-            id={item.id}
-            label={item.label}
+            id='all'
+            label='전체'
             name='category'
-            selected={category}
-            onChange={() => onChange(item.id)}
+            selected={!category} // category가 null이면 선택
+            onChange={() => onChange('')}
           />
-        );
-      })}
+        )}
+        {data.map((item) => {
+          return (
+            <RadioBtn
+              key={item.id}
+              id={item.id}
+              label={item.label}
+              name='category'
+              selected={category}
+              onChange={onChange}
+            />
+          );
+        })}
+      </Wrapper>
     </Container>
   );
 };
@@ -39,7 +41,6 @@ const Category = ({ data, category, setCategory, containerWidth, all }) => {
 export default Category;
 
 const Container = styled.div`
-  width: ${(props) => props.width || '300px'};
   flex-wrap: wrap;
   display: flex;
   gap: 12px;
@@ -54,4 +55,9 @@ const Title = styled.h2`
   letter-spacing: 0.72px;
   width: 100%;
   margin: 0;
+`;
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: ${(props) => props.columns};
+  gap: 12px;
 `;

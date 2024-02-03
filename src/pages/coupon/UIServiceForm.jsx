@@ -83,6 +83,7 @@ const UIServiceForm = () => {
         data={categoryData}
         category={category}
         setCategory={setCategory}
+        columns='1fr 1fr'
       />
       <Description>
         <Title>매장의 분위기, 디자인 무드나 주요 컬러 등을 설명해주세요.</Title>

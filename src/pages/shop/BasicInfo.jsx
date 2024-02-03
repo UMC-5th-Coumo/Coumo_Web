@@ -10,6 +10,7 @@ import { createRoot } from 'react-dom/client';
 import WorkingHour from '../../components/admin/shop/workingHour/WorkingHour';
 import axios from 'axios';
 import { days } from '../../assets/data/workingHourData';
+import Title from '../../components/common/Title';
 
 const BasicInfo = () => {
   const [category, setCategory] = useState('cafe');
@@ -155,6 +156,7 @@ const BasicInfo = () => {
 
   return (
     <Content>
+      <Wrapper>
       <Input
         name='storeName'
         label='매장명'
@@ -190,50 +192,54 @@ const BasicInfo = () => {
         setCategory={setCategory}
       />
       <div>
-        <Input
-          name='address'
-          label='위치정보'
-          type='text'
-          placeholder='주소를 입력해주세요.'
-          value={inputs.address}
-          readOnly={true}
-          onChange={(e) =>
-            setInputs((prev) => ({ ...prev, address: e.target.value }))
-          }
-          onClick={handleAddressClick}
-        />
-        {isPostcodeOpen && (
-          <WindowPopup>
-            <DaumPostcode
-              onComplete={handleAddressComplete}
-              autoClose
-              style={{
-                width: '400px',
-                height: '500px',
-                zIndex: 1000,
-              }}
-            />
-          </WindowPopup>
-        )}
-        <Input
-          name='addressDetail'
-          type='text'
-          placeholder='상세 주소를 입력해주세요.'
-          value={inputs.addressDetail}
-          onChange={(e) =>
-            setInputs((prev) => ({ ...prev, addressDetail: e.target.value }))
-          }
-          onClick={handleAddressDetailClick}
-        />
-      </div>
-      <BtnContainer>
-        <Button text='취소하기' />
-        <Button
-          text='저장하기'
-          color={COLORS.coumo_purple}
-          onClickBtn={onSubmit}
-        />
-      </BtnContainer>
+        <div>
+          <Input
+            name='address'
+            label='위치정보'
+            type='text'
+            placeholder='주소를 입력해주세요.'
+            value={inputs.address}
+            readOnly={true}
+            onChange={(e) =>
+              setInputs((prev) => ({ ...prev, address: e.target.value }))
+            }
+            onClick={handleAddressClick}
+          />
+          {isPostcodeOpen && (
+            <WindowPopup>
+              <DaumPostcode
+                onComplete={handleAddressComplete}
+                autoClose
+                style={{
+                  width: '400px',
+                  height: '500px',
+                  zIndex: 1000,
+                }}
+              />
+            </WindowPopup>
+          )}
+
+          <Input
+            name='addressDetail'
+            type='text'
+            placeholder='상세 주소를 입력해주세요.'
+            value={inputs.addressDetail}
+            onChange={(e) =>
+              setInputs((prev) => ({ ...prev, addressDetail: e.target.value }))
+            }
+            onClick={handleAddressDetailClick}
+          />
+        </div>
+
+        <BtnContainer>
+          <Button text='취소하기' />
+          <Button
+            text='저장하기'
+            color={COLORS.coumo_purple}
+            onClickBtn={onSubmit}
+          />
+        </BtnContainer>
+      </Wrapper>
     </Content>
   );
 };
@@ -248,10 +254,16 @@ const Content = styled.div`
   box-sizing: border-box;
   font-weight: 500;
   position: relative;
-  padding: 70px 120px;
+  padding: 70px 0px;
+  display: flex;
+  justify-content: center;
+`;
+
+const Wrapper = styled.div`
+  width: 75%;
   display: flex;
   flex-direction: column;
-  gap: 70px;
+  gap: 50px;
 `;
 
 const BtnContainer = styled.div`

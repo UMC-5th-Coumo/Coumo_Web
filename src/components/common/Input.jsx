@@ -48,12 +48,16 @@ const StyledInputTitle = styled.div`
   line-height: 132%; /* 31.68px */
   letter-spacing: 0.72px;
   padding-bottom: 16px;
+
+  @media screen and (max-width: 1024px) {
+    font-size: 16px;
+  }
 `;
 
 const StyledInput = styled.input`
   display: flex;
-  max-width: ${({ fullwidth }) => (fullwidth ? fullwidth : '275px')};
-  height: ${({ fullheight }) => (fullheight ? fullheight : '30px')};
+  width: 100%;
+  height: 30px;
   padding: 8px 12px;
   justify-content: flex-end;
   align-items: top;
@@ -73,6 +77,11 @@ const StyledInput = styled.input`
 
   &:focus {
     outline: none;
+  }
+
+  @media screen and (max-width: 1024px) {
+    font-size: 12px;
+    height: 20px;
   }
 `;
 
