@@ -10,7 +10,6 @@ import { createRoot } from 'react-dom/client';
 import WorkingHour from '../../components/admin/shop/workingHour/WorkingHour';
 import axios from 'axios';
 import { days } from '../../assets/data/workingHourData';
-import Title from '../../components/common/Title';
 
 const BasicInfo = () => {
   const [category, setCategory] = useState('cafe');
@@ -157,41 +156,43 @@ const BasicInfo = () => {
   return (
     <Content>
       <Wrapper>
-      <Input
-        name='storeName'
-        label='매장명'
-        type='text'
-        placeholder='매장명을 입력해주세요.'
-        value={inputs.storeName}
-        onChange={(e) =>
-          setInputs((prev) => ({ ...prev, storeName: e.target.value }))
-        }
-      />
-      <WorkingHours>
-        {Object.keys(hours).map((day, i) => (
-          <WorkingHour
-            key={i}
-            day={days[day]}
-            setData={(hours) => setHours((prev) => ({ ...prev, [day]: hours }))}
-          />
-        ))}
-      </WorkingHours>
-      <Input
-        name='number'
-        label='매장의 전화번호를 입력해주세요.'
-        type='text'
-        placeholder='ex) 010-1234-5678'
-        value={inputs.number}
-        onChange={(e) =>
-          setInputs((prev) => ({ ...prev, number: e.target.value }))
-        }
-      />
-      <Category
-        data={categoryData}
-        category={category}
-        setCategory={setCategory}
-      />
-      <div>
+        <Input
+          name='storeName'
+          label='매장명'
+          type='text'
+          placeholder='매장명을 입력해주세요.'
+          value={inputs.storeName}
+          onChange={(e) =>
+            setInputs((prev) => ({ ...prev, storeName: e.target.value }))
+          }
+        />
+        <Category
+          data={categoryData}
+          category={category}
+          setCategory={setCategory}
+          columns='1fr 1fr 1fr'
+        />
+        <WorkingHours>
+          {Object.keys(hours).map((day, i) => (
+            <WorkingHour
+              key={i}
+              day={days[day]}
+              setData={(hours) =>
+                setHours((prev) => ({ ...prev, [day]: hours }))
+              }
+            />
+          ))}
+        </WorkingHours>
+        <Input
+          name='number'
+          label='매장의 전화번호를 입력해주세요.'
+          type='text'
+          placeholder='ex) 010-1234-5678'
+          value={inputs.number}
+          onChange={(e) =>
+            setInputs((prev) => ({ ...prev, number: e.target.value }))
+          }
+        />
         <div>
           <Input
             name='address'
