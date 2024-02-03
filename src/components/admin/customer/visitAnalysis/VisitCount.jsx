@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import { COLORS } from '../../../../styles/theme';
 import { ArrowDown, ArrowUp } from '../../../../assets';
 
-function VisitCount({ type }) {
+function VisitCount({ type, text }) {
   return (
     <Container>
       {type === 'max' ? <ArrowUp /> : <ArrowDown />}
       <Content>
         <span>
           방문자 수가 가장 <strong>{type === 'max' ? '많은' : '적은'}</strong>{' '}
-          요일은?
+          {text}
         </span>
         <h5>금요일 (128명)</h5>
       </Content>
@@ -21,14 +21,13 @@ function VisitCount({ type }) {
 export default VisitCount;
 
 const Container = styled.div`
-  width: 210px;
   height: 45px;
   display: flex;
-  justify-content: center;
   gap: 8px;
 `;
 
 const Content = styled.div`
+  width: 160px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,11 +44,19 @@ const Content = styled.div`
     & strong {
       color: ${COLORS.coumo_purple};
     }
+
+    @media screen and (max-width: 1024px) {
+      font-size: 11px;
+    }
   }
 
   & h5 {
     margin: 0;
     font-size: 19px;
     color: ${COLORS.coumo_purple};
+
+    @media screen and (max-width: 1024px) {
+      font-size: 16px;
+    }
   }
 `;

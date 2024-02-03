@@ -7,8 +7,8 @@ function DailyVisit() {
   return (
     <Container>
       <VisitData>
-        <VisitCount type='max' />
-        <VisitCount type='min' />
+        <VisitCount type='max' text='요일' />
+        <VisitCount type='min' text='요일' />
       </VisitData>
       <ChartContainer>
         <BarChart />
@@ -21,7 +21,7 @@ export default DailyVisit;
 
 const Container = styled.div`
   width: 100%;
-  height: 400px;
+  height: 100%;
   box-sizing: border-box;
 `;
 
@@ -30,9 +30,17 @@ const VisitData = styled.div`
   height: 60px;
   display: flex;
   gap: 120px;
+
+  @media screen and (max-width: 1024px) {
+    gap: 60px;
+  }
 `;
 
 const ChartContainer = styled.div`
-  width: 800px;
-  height: 300px;
+  width: 100%;
+  height: 400px;
+
+  @media screen and (max-width: 1024px) {
+    height: 300px;
+  }
 `;
