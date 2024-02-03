@@ -34,6 +34,12 @@ const Container = styled.div`
   padding: 20px 40px 20px;
   justify-content: space-between;
   background: ${COLORS.white_fff};
+  border-top: 2px solid #e0e0e0;
+  border-bottom: 2px solid #e0e0e0;
+
+  &:not(:first-child) {
+    border-top: none;
+  }
 
   &:hover {
     background: ${COLORS.post_lightgray};
@@ -41,8 +47,6 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  width: 390px;
-  height: 224px;
   display: flex;
   flex-direction: column;
   justify-content: center;
