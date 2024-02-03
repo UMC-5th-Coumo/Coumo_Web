@@ -4,12 +4,6 @@ import { COLORS } from '../../../styles/theme';
 import TagButton from './TagButton';
 
 const Post = ({ data, onClick, onModify, onDelete }) => {
-  //html 태그 제거하고 보여줌
-  // const removeHtmlTags = (html) => {
-  //   var doc = new DOMParser().parseFromString(html, 'text/html');
-  //   return doc.body.textContent || '';
-  // };
-
   return (
     <Container>
       <Content>

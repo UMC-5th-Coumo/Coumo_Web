@@ -10,7 +10,7 @@ const Customer = () => {
     <Container>
       <Routes>
         <Route exact path='manage' element={<CustomerManage />} />
-        <Route exact path='visit' element={<VisitAnalysis />} />
+        <Route exact path='visit/*' element={<VisitAnalysis />} />
         <Route exact path='report' element={<MonthlyReport />} />
       </Routes>
     </Container>
@@ -21,8 +21,7 @@ export default Customer;
 
 const Container = styled.div`
   box-sizing: border-box;
-  padding: 70px 120px 0px 120px;
+  padding: 70px 0px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 `;

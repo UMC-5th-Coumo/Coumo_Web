@@ -3,9 +3,9 @@ import GroupTabBar from '../../../components/admin/customer/visitAnalysis/groupT
 import styled from 'styled-components';
 import Calendar from '../../../components/admin/customer/visitAnalysis/Calendar';
 import DoughnutChart from '../../../components/admin/customer/common/charts/DoughnutChart';
-import BarChart from '../../../components/admin/customer/common/charts/BarChart';
 import VisitCount from '../../../components/admin/customer/visitAnalysis/VisitCount';
 import { visitTabs } from '../../../assets/data/tabData';
+import AgeGroupChart from '../../../components/admin/customer/common/charts/AgeGroupChart';
 
 function DemographicVisit() {
   const [selected, setSelected] = useState(visitTabs[0].key);
@@ -19,14 +19,16 @@ function DemographicVisit() {
         />
         <Calendar />
       </Header>
-      <VisitData>
-        <VisitCount type='max' />
-        <VisitCount type='min' />
-      </VisitData>
       <ChartContainer>
-        <DoughnutChart />
+        <Doughnut>
+          <VisitCount type='max' text='성별' />
+          <DoughnutWrapper>
+            <DoughnutChart />
+          </DoughnutWrapper>
+        </Doughnut>
         <Bar>
-          <BarChart />
+          <VisitCount type='max' text='연령대' />
+          <AgeGroupChart />
         </Bar>
       </ChartContainer>
     </>
@@ -41,23 +43,50 @@ const Header = styled.div`
   justify-content: space-between;
 `;
 
-const VisitData = styled.div`
-  width: 100%;
-  height: 60px;
-  display: flex;
-  gap: 120px;
-  margin: 28px 0px 19px 0px;
-`;
-
 const ChartContainer = styled.div`
   width: 100%;
-  height: 300px;
+  height: 400px;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 30px 0px;
+
+  @media screen and (max-width: 1000px) {
+    flex-direction: column;
+    height: auto;
+  }
 `;
 
 const Bar = styled.div`
-  width: 600px;
+  width: 60%;
   height: 320px;
+
+  @media screen and (max-width: 1100px) {
+    width: 400px;
+    height: 300px;
+  }
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+  }
+`;
+
+const DoughnutWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 1000px) {
+    align-items: flex-start;
+  }
+`;
+
+const Doughnut = styled.div`
+  width: 30%;
+  height: 320px;
+
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+  }
 `;

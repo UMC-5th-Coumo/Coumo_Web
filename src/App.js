@@ -52,8 +52,8 @@ function App() {
             <Route path='/join/finish' element={<Congratulate />} />
             <Route path='/login' element={<Login />} />
             <Route path='/findId' element={<FindId />} />
-            <Route path='/findPw' element={<FindPw />} />
             <Route path='/foundId' element={<FoundId />} />
+            <Route path='/findPw' element={<FindPw />} />
             <Route path='/findPw/rePassword' element={<RePw />} />
           </Routes>
         </>
@@ -71,4 +71,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   width: calc(100vw - 250px);
+  @media screen and (max-width: 1280px) {
+    width: calc(100vw - 220px);
+  }
 `;
