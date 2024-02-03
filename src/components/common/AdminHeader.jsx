@@ -58,6 +58,4 @@ const HeaderBar = styled.div`
 
 const LogoContainer = styled.div`
   width: 100px;
-  height: 42px;
-  overflow-x: hidden;
 `;

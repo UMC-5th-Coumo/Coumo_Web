@@ -68,18 +68,22 @@ const MyEdit = () => {
   const [popUpDelete, setPopUpDelete] = useState(false);
 
   const onSubmit = () => {
-    const data = {
-      category: category,
-      title: inputs.title,
-      content: inputs.content,
-    };
+    if (category && inputs.title && inputs.content) {
+      const data = {
+        category: category,
+        title: inputs.title,
+        content: inputs.content,
+      };
 
-    console.log('Sending data to server:', postDummyData);
+      console.log('Sending data to server:', postDummyData);
 
-    onUpdate(data);
+      onUpdate(data);
 
-    // 서버 요청 성공 시 모달
-    submitPopUp();
+      // 서버 요청 성공 시 모달
+      submitPopUp();
+    } else {
+      console.error('모든 항목을 입력해주세요.');
+    }
   };
 
   const onDeleteConfirm = () => {

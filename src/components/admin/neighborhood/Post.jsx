@@ -4,12 +4,6 @@ import { COLORS } from '../../../styles/theme';
 import TagButton from './TagButton';
 
 const Post = ({ data, onClick, onModify, onDelete }) => {
-  //html 태그 제거하고 보여줌
-  // const removeHtmlTags = (html) => {
-  //   var doc = new DOMParser().parseFromString(html, 'text/html');
-  //   return doc.body.textContent || '';
-  // };
-
   return (
     <Container>
       <Content>
@@ -40,6 +34,12 @@ const Container = styled.div`
   padding: 20px 40px 20px;
   justify-content: space-between;
   background: ${COLORS.white_fff};
+  border-top: 2px solid #e0e0e0;
+  border-bottom: 2px solid #e0e0e0;
+
+  &:not(:first-child) {
+    border-top: none;
+  }
 
   &:hover {
     background: ${COLORS.post_lightgray};
@@ -47,8 +47,6 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  width: 390px;
-  height: 224px;
   display: flex;
   flex-direction: column;
   justify-content: center;

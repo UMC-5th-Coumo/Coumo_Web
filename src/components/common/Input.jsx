@@ -12,6 +12,7 @@ const Input = ({
   onClick,
   readOnly,
   fullwidth,
+  fullheight,
 }) => {
   return (
     <Element>
@@ -25,6 +26,7 @@ const Input = ({
         onChange={onChange}
         onClick={onClick}
         fullwidth={fullwidth}
+        fullheight={fullheight}
       ></StyledInput>
     </Element>
   );
@@ -50,11 +52,11 @@ const StyledInputTitle = styled.div`
 
 const StyledInput = styled.input`
   display: flex;
-  max-width: ${({ fullwidth }) => (fullwidth ? '720px' : '275px')};
-  height: 30px;
+  max-width: ${({ fullwidth }) => (fullwidth ? fullwidth : '275px')};
+  height: ${({ fullheight }) => (fullheight ? fullheight : '30px')};
   padding: 8px 12px;
   justify-content: flex-end;
-  align-items: center;
+  align-items: top;
   gap: 8px;
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.1);

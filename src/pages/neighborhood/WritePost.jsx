@@ -17,19 +17,23 @@ const WritePost = () => {
   });
 
   const onSubmit = () => {
-    const data = {
-      category,
-      title: inputs.title,
-      content: inputs.content,
-    };
+    if (category && inputs.title && inputs.content) {
+      const data = {
+        category,
+        title: inputs.title,
+        content: inputs.content,
+      };
 
-    console.log('Sending data to server:', data);
+      console.log('Sending data to server:', data);
 
-    setViewInputs((prevInputs) => [...prevInputs, data]);
+      setViewInputs((prevInputs) => [...prevInputs, data]);
 
-    // 서버 요청 성공 시 모달
-    submitPopUp();
-    resetData();
+      // 서버 요청 성공 시 모달
+      submitPopUp();
+      resetData();
+    } else {
+      alert('모든 항목을 입력해주세요.');
+    }
   };
 
   const submitPopUp = () => {
