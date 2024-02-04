@@ -6,7 +6,7 @@ import postReducer from './slices/postSlice';
 const rootReducer = combineReducers({
   user: userReducer,
   customer: customerReducer,
-  posts: postReducer,
+  post: postReducer,
 });
 
 export default rootReducer;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Line } from '../../assets';
 import Title from '../../components/common/Title';
@@ -9,20 +10,28 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { getLabelByTag } from '../../assets/data/writecategoryData';
 import RadioBtn from '../../components/common/RadioBtn';
 import { useParams } from 'react-router-dom';
+import { setSelectedPost } from '../../redux/slices/postSlice';
 
 const MyPostView = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const { postId } = useParams();
   const location = useLocation();
-  const postDummyData = location.state.postDummyData;
+
+  const postDummyData = useSelector((state) => state.posts.postDummyData);
+  const selectedPost = location.state.post;
+
+  // dispatch를 이용하여 선택된 글을 Redux 스토어에 저장
+  React.useEffect(() => {
+    dispatch(setSelectedPost(selectedPost));
+  }, [dispatch, selectedPost]);
 
   const onClickMod = () => {
     navigate(`/neighborhood/myPosts/myEdit/${postId}`, {
       state: { post: selectedPost, postDummyData },
     });
   };
-
-  const selectedPost = location.state.post;
 
   console.log(location);
   console.log(location.state.post);

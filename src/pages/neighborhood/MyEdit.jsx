@@ -6,36 +6,43 @@ import Button from '../../components/common/Button';
 import { COLORS } from '../../styles/theme';
 import { BtnContainer } from '../coupon/UIServiceForm';
 import FormPopUp from '../../components/common/FormPopUp';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getLabelByTag } from '../../assets/data/writecategoryData';
 import Edit from '../../components/admin/writePost/Edit';
 import ConfirmModal from '../../components/admin/neighborhood/ConfirmModal';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setPostDummyData,
+  setSelectedPost,
+  setShowConfirmModal,
+  setPopUp,
+  setPopUpDelete,
+} from '../../redux/slices/postSlice';
 
 const MyEdit = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const location = useLocation();
   const { postId } = useParams();
 
-  // 선택한 데이터
-  const [selectedPost, setSelectedPost] = useState(location.state.post);
+  const selectedPost1 = location.state.post;
 
-  // 전체 데이터
-  const [postDummyData, setPostDummyData] = useState(
-    location.state.postDummyData
-  );
+  const postDummyData = useSelector((state) => state.post.postDummyData);
+  const selectedPost = useSelector((state) => state.post.selectedPost);
+  const showConfirmModal = useSelector((state) => state.post.showConfirmModal);
+  const popUp = useSelector((state) => state.post.popUp);
+  const popUpDelete = useSelector((state) => state.post.popUpDelete);
 
   // 카테고리, 제목, 내용 상태 관리
-  const [category, setCategory] = useState(selectedPost.tag);
+  const [category, setCategory] = useState(selectedPost1.tag);
   const [inputs, setInputs] = useState({
-    title: selectedPost.title,
-    content: selectedPost.content,
+    title: selectedPost1.title,
+    content: selectedPost1.content,
   });
-
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const onUpdate = (updatedPost) => {
     console.log('Updated post:', updatedPost);
-    console.log('Updated post:', postDummyData);
 
     if (selectedPost) {
       const updatedData = {
@@ -47,25 +54,18 @@ const MyEdit = () => {
         image: '',
       };
 
-      // 선택된 포스트만 변경 사항 update
-      setPostDummyData((postDummyData) =>
-        postDummyData.map((post) =>
-          selectedPost.id === post.id ? updatedData : post
-        )
-      );
+      console.log('selected!');
+      console.log('Updated post!:', updatedData);
+      dispatch(setSelectedPost(updatedData));
+
+      // updatePostDummyData(selectedPost, updatedData);
     }
   };
 
-  useEffect(() => {
-    // (2)(여기서는 postDummyData가 정상 수정됨)
-    console.log('postDummyData after update:', postDummyData);
-    setPostDummyData(postDummyData);
-  }, [postDummyData]);
-
-  console.log('postDummyData after update2:', postDummyData); // (1)정상
-
-  const [popUp, setPopUp] = useState(false);
-  const [popUpDelete, setPopUpDelete] = useState(false);
+  const updatedSelectedPost = useSelector((state) => state.post.selectedPost);
+  console.log('updatedSelectedPost!:', updatedSelectedPost);
+  const updatedPostDummyData = useSelector((state) => state.post.postDummyData);
+  console.log('updatedPostDummyData!:', updatedPostDummyData);
 
   const onSubmit = () => {
     if (category && inputs.title && inputs.content) {
@@ -91,18 +91,18 @@ const MyEdit = () => {
   };
 
   const onDelete = () => {
-    setShowConfirmModal(true);
+    dispatch(setShowConfirmModal(true));
   };
 
   const onCancelDelete = () => {
-    setShowConfirmModal(false);
+    dispatch(setShowConfirmModal(false));
   };
 
   const submitPopUp = () => {
-    setPopUp(true);
+    dispatch(setPopUp(true));
     setTimeout(() => {
-      setPopUp(false);
-      setSelectedPost(null);
+      dispatch(setPopUp(false));
+      dispatch(setSelectedPost(null));
       navigate(`/neighborhood/myPosts`, {
         state: { updatedData: postDummyData },
       });
@@ -110,10 +110,10 @@ const MyEdit = () => {
   };
 
   const submitPopUpDelete = () => {
-    setShowConfirmModal(false);
-    setPopUpDelete(true);
+    dispatch(setShowConfirmModal(false));
+    dispatch(setPopUpDelete(true));
     setTimeout(() => {
-      setPopUpDelete(false);
+      dispatch(setPopUpDelete(false));
       navigate(`/neighborhood/myPosts`, {
         state: { updatedData: postDummyData },
       });
