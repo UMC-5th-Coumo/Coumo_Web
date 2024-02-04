@@ -72,7 +72,7 @@ const MyPosts = () => {
     : postDummyData;
 
   return (
-    <>
+    <Container>
       <TitleBox>
         <Title title='총 13개의 게시글이 있어요!' />
         <Category
@@ -111,11 +111,19 @@ const MyPosts = () => {
           msg='남아있는 글을 확인해보세요!'
         />
       )}
-    </>
+    </Container>
   );
 };
 
 export default MyPosts;
+
+const Container = styled.div`
+  max-width: 840px;
+
+  @media screen and (max-width: 1024px) {
+    max-width: 500px;
+  }
+`;
 
 const TitleBox = styled.div`
   display: flex;

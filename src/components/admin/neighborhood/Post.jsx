@@ -30,9 +30,6 @@ const Container = styled.div`
   height: 110px;
   display: flex;
   align-items: center;
-  box-sizing: border-box;
-  padding: 20px 40px 20px;
-  justify-content: space-between;
   background: ${COLORS.white_fff};
   border-top: 2px solid #e0e0e0;
   border-bottom: 2px solid #e0e0e0;
@@ -80,6 +77,10 @@ const Title = styled.h2`
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   overflow: hidden;
+
+  @media screen and (max-width: 1024px) {
+    font-size: 16px;
+  }
 `;
 
 const Date = styled.div`
@@ -108,4 +109,10 @@ const PostButton = styled.button`
   font-style: normal;
   font-weight: 600;
   line-height: 132%; /* 21.12px */
+
+  @media screen and (max-width: 1024px) {
+    font-size: 11px;
+    width: 76px;
+    height: 30px;
+  }
 `;

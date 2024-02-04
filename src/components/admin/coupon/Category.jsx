@@ -55,6 +55,10 @@ const Title = styled.h2`
   letter-spacing: 0.72px;
   width: 100%;
   margin: 0;
+
+  @media screen and (max-width: 1024px) {
+    font-size: 16px;
+  }
 `;
 const Wrapper = styled.div`
   display: grid;

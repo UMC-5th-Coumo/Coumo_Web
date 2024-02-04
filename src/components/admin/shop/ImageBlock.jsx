@@ -94,6 +94,7 @@ const Scroll = styled.div`
   flex-direction: row;
   gap: 20px;
   overflow-x: auto;
+  height: 260px;
 `;
 
 const Box = styled.div`
