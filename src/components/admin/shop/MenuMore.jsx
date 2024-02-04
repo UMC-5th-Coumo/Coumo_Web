@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../../styles/theme';
 import { SmallPlus } from '../../../assets';
+import Input from '../../common/Input';
+import RadioBtn from '../../common/RadioBtn';
 
 const MenuMore = () => {
   const [boxCount, setBoxCount] = useState(2);
   const [productDataArray, setProductDataArray] = useState([]);
+  const [newRadio, setNewRadio] = useState(false);
   const [uploadedImages, setUploadedImages] = useState(
     Array(boxCount).fill(null)
   );
@@ -54,6 +57,10 @@ const MenuMore = () => {
     });
   };
 
+  const handleNewClick = () => {
+    setNewRadio((prevValue) => !prevValue);
+  };
+
   return (
     <Menu>
       <MenuTop>
@@ -96,16 +103,27 @@ const MenuMore = () => {
               )}
             </Box>
             <InfoText>
-              <ProductInput
+              <Input
                 value={productDataArray[index]?.productName || ''}
-                placeholder='상품명을 입력하세요'
+                label='상품명'
+                fullwidth='307px'
                 onChange={(event) => handleProductNameChange(event, index)}
               />
-              <PriceInput
-                value={productDataArray[index]?.priceInfo || ''}
-                placeholder='가격에 대한 정보를&#13;&#10;입력해주세요'
-                onChange={(event) => handlePriceInfoChange(event, index)}
-              />
+              <Bottom>
+                <Input
+                  value={productDataArray[index]?.priceInfo || ''}
+                  label='상품 가격'
+                  fullwidth='150px'
+                  onChange={(event) => handlePriceInfoChange(event, index)}
+                />
+                <StyledRadioBtn
+                  id='new'
+                  value={newRadio}
+                  label='신메뉴'
+                  onChange={handleNewClick}
+                  height='50px'
+                />
+              </Bottom>
             </InfoText>
           </Element>
         ))}
@@ -168,12 +186,26 @@ const Scroll = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* 2열로 배치 */
   gap: 20px;
+
+  @media screen and (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const Element = styled.div`
   display: flex;
   flex-direction: row;
   gap: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+  border-bottom: solid 2px #d2d2d4;
+  margin-right: 50px;
+
+  @media screen and (max-width: 1024px) {
+    margin-right: 0px;
+  }
 `;
 
 const Box = styled.div`
@@ -187,6 +219,11 @@ const Box = styled.div`
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: ${COLORS.coumo_gray};
+
+  @media screen and (max-width: 1024px) {
+    width: 220px;
+    height: 190px;
+  }
 `;
 
 const MyText = styled.div`
@@ -205,88 +242,39 @@ const LargeP = styled.div`
   font-style: normal;
   font-weight: 600;
   line-height: 170%; /* 34px */
+
+  @media screen and (max-width: 1024px) {
+    font-size: 13px;
+  }
 `;
 
 const SmallP = styled(LargeP)`
   font-size: 13px;
   font-weight: 500;
+
+  @media screen and (max-width: 1024px) {
+    font-size: 10px;
+  }
 `;
 
 const InfoText = styled.div`
   display: flex;
+  width: 350px;
   flex-direction: column;
-  text-align: center;
-  gap: 10px;
+  gap: 30px;
 `;
 
-const ProductInput = styled.input`
+const Bottom = styled.div`
   display: flex;
-  width: 176px;
-  height: 70px;
-  padding: 8px 12px;
-  box-sizing: border-box;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${COLORS.coumo_gray};
-  font-family: 'Pretendard';
-  font-size: 15px;
-
-  &:focus {
-    outline: none;
-  }
-
-  &::placeholder {
-    overflow: hidden;
-    text-align: center;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    color: ${COLORS.image_text};
-    text-overflow: ellipsis;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 87px;
-  }
-`;
-
-const PriceInput = styled.textarea`
-  display: flex;
-  width: 176px;
-  height: 160px;
-  padding: 8px 12px;
-  box-sizing: border-box;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${COLORS.coumo_gray};
-  resize: none;
-  line-height: 1.6;
-  font-family: 'Pretendard';
-  font-size: 14px;
-
-  &:focus {
-    outline: none;
-  }
-
-  &::placeholder {
-    padding-top: 50px;
-    text-align: center;
-    color: ${COLORS.image_text};
-    text-overflow: ellipsis;
-    font-family: 'Pretendard';
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 600;
-    vertical-align: middle;
-    line-height: 1.6;
-  }
+  width: 380px;
+  flex-direction: row;
+  gap: 20px;
 `;
 
 const Span = styled.span`
   color: ${COLORS.coumo_purple};
+`;
+
+const StyledRadioBtn = styled(RadioBtn)`
+  display: flex;
 `;

@@ -22,7 +22,6 @@ const StoreInfo = () => {
       <Description>
         <Title>매장 상세설명</Title>
         <DescripInput
-          type='text'
           name='description'
           placeholder='매장에 대한 설명글을 간단히 적어주세요 (0/100)'
         />
@@ -55,6 +54,7 @@ const Image = styled.div`
 `;
 
 const Representative = styled.div`
+  width: 500px;
   display: flex;
   flex-direction: row;
   gap: 30px;
@@ -62,6 +62,7 @@ const Representative = styled.div`
 `;
 
 const Title = styled.div`
+  width: 110px;
   color: ${COLORS.coumo_purple};
   font-size: 19px;
   font-style: normal;
@@ -84,7 +85,7 @@ const Description = styled.div`
   gap: 20px;
 `;
 
-const DescripInput = styled.input`
+const DescripInput = styled.textarea`
   display: flex;
   width: 567px;
   height: 180px;
@@ -98,13 +99,19 @@ const DescripInput = styled.input`
   color: ${COLORS.text_gray};
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-family: 'Pretendard';
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 170%; /* 27.2px */
+  resize: none;
 
   &:focus {
     outline: none;
+  }
+
+  @media screen and (max-width: 1024px) {
+    width: 500px;
   }
 `;
 

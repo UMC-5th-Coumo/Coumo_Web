@@ -10,21 +10,20 @@ const RadioBtn = ({
   selected,
   onChange,
   size = 110,
+  height,
 }) => {
-  console.log('selected:', selected);
-  console.log('id:', id);
   const handleClick = () => {
     onChange(id === selected ? '' : id);
   };
   return (
-    <RadioLabel size={size}>
+    <RadioLabel size={size} height={height}>
       <RadioInput
         type='radio'
         id={id}
         name={name}
         value={value}
         defaultChecked={id === selected}
-        onClick={handleClick}
+        onChange={onChange}
       />
       <RadioSpan htmlFor={id} selected={id === selected} size={size}>
         {label}
@@ -37,19 +36,19 @@ export default RadioBtn;
 
 const RadioLabel = styled.label`
   display: flex;
-  align-items: center;
   width: ${(props) => props.size}px;
-  height: 40px;
+  height: ${({ height }) => (height ? height : '40px')};
   padding: 0px 12px;
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
   border-radius: 5px;
   background: ${COLORS.coumo_gray};
+  align-self: flex-end;
 
   @media screen and (max-width: 1024px) {
-    height: 35px;
-    width: auto;
+    height: 40px;
+    width: 78px;
     padding-right: 15px;
     padding-left: 10px;
   }
