@@ -72,7 +72,7 @@ const StyledInput = styled.input`
   color: #332f3c;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 400;
   line-height: 170%; /* 32.3px */

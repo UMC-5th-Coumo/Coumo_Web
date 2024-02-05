@@ -2,7 +2,6 @@ import React from 'react';
 import Plan from './Plan';
 import { priceData } from '../../assets/data/priceData';
 import styled from 'styled-components';
-import { COLORS } from '../../styles/theme';
 
 const PricePlan = () => {
   return (
@@ -29,9 +28,9 @@ const Container = styled.div`
 `;
 
 const Title = styled.h2`
-  color: ${COLORS.coumo_purple};
+  color: ${({ theme }) => theme.colors.coumo_purple};
   text-align: center;
-  font-size: 28px;
+  font-size: ${({ theme }) => theme.fontSize.xl};
   font-style: normal;
   font-weight: 800;
   line-height: 132%; /* 47.52px */

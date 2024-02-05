@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { COLORS } from '../../styles/theme';
 import { Btn } from '../common/Button';
 import InputJoin from '../common/InputJoin';
 
@@ -132,7 +131,7 @@ const Title = styled.div`
   width: 890px;
   color: #333;
   text-align: center;
-  font-size: 36px;
+  font-size: ${({ theme }) => theme.fontSize.xl};
   font-style: normal;
   font-weight: 700;
   line-height: 100%;
@@ -148,17 +147,17 @@ const JoinBtn = styled.button`
   align-items: center;
   border: none;
   border-radius: 8px;
-  background: ${COLORS.coumo_purple};
-  color: ${COLORS.white};
+  background: ${({ theme }) => theme.colors.coumo_purple};
+  color: ${({ theme }) => theme.colors.white};
   text-align: center;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
   font-weight: 700;
   margin-top: 60px;
 
   &:disabled {
-    background: ${COLORS.btn_lightgray};
-    color: ${COLORS.text_btn_darkgray};
+    background: ${({ theme }) => theme.colors.btn_lightgray};
+    color: ${({ theme }) => theme.colors.text_btn_darkgray};
   }
 `;
 
@@ -175,11 +174,11 @@ const NewButton = styled(Btn)`
   margin-top: 25px;
   margin-left: 10px;
   border-radius: 49px;
-  background-color: ${COLORS.coumo_purple};
+  background-color: ${({ theme }) => theme.colors.coumo_purple};
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSize.md};
   font-style: normal;
   font-weight: 500;
   line-height: 170%;

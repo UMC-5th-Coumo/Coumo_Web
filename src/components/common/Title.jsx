@@ -1,21 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../styles/theme';
-const Title = ({ title, size = 19 }) => {
-  return <StyledTitle size={size}>{title}</StyledTitle>;
+const Title = ({ title }) => {
+  return <StyledTitle>{title}</StyledTitle>;
 };
 
 export default Title;
 
 const StyledTitle = styled.h1`
-  color: ${COLORS.coumo_purple};
-  font-size: ${(props) => props.size}px;
+  color: ${({ theme }) => theme.colors.coumo_purple};
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
   font-weight: 700;
   line-height: 132%;
   margin: 0;
 
   @media screen and (max-width: 1024px) {
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.fontSize.md};
   }
 `;

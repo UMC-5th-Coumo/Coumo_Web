@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { COLORS } from '../../styles/theme';
 
 const Tab = ({ text, tabKey }) => {
   const navigate = useNavigate();
@@ -42,10 +41,11 @@ const TabDiv = styled.div`
   gap: 8px;
   flex-shrink: 0;
   border-radius: 12px 12px 0px 0px;
-  background: ${(props) =>
-    props.selected ? COLORS.coumo_purple : COLORS.btn_lightgray};
-  color: ${(props) => (props.selected ? COLORS.white_fff : COLORS.tab_gray)};
-  font-size: 13px;
+  background: ${({ theme, selected }) =>
+    selected ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
+  color: ${({ theme, selected }) =>
+    selected ? theme.colors.white_fff : theme.colors.tab_gray};
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 21.12px */

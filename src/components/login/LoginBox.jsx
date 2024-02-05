@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Btn } from '../common/Button';
-import { COLORS } from '../../styles/theme';
 import { LoginId, LoginPw, LoginSave, LoginSaveCheck } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -111,7 +110,7 @@ const Box = styled.div`
 
   box-sizing: border-box;
   padding: 0 70px;
-  background: ${COLORS.white_fff};
+  background: ${({ theme }) => theme.colors.white_fff};
   box-shadow: 0px 8.978px 14.365px 0px rgba(68, 68, 68, 0.08);
 `;
 
@@ -135,20 +134,20 @@ const InputId = styled.input`
   align-items: flex-start;
   border-radius: 8px 8px 0px 0px;
   border: 1px solid #dadada;
-  color: ${COLORS.text_darkgray};
-  font-size: 16px;
+  color: ${({ theme }) => theme.colors.text_darkgray};
+  font-size: ${({ theme }) => theme.fontSize.md};
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.629px;
 
   &::placeholder {
-    color: ${COLORS.text_lightgray};
+    color: ${({ theme }) => theme.colors.text_lightgray};
   }
 
   &:focus {
     outline: none;
-    border: 1px solid ${COLORS.coumo_purple};
+    border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
   }
 `;
 
@@ -176,9 +175,9 @@ const Line = styled.div`
 `;
 
 const Text = styled.div`
-  color: ${COLORS.text_lightgray};
+  color: ${({ theme }) => theme.colors.text_lightgray};
   padding-left: 10px;
-  font-size: 14.015px;
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 500;
   line-height: 26.738px; /* 190.788% */
@@ -187,16 +186,16 @@ const Text = styled.div`
 const LoginBtn = styled(Btn)`
   width: 100%;
   height: 48px;
-  padding-top: 20.27px;
-  padding-bottom: 21.73px;
-  background: ${COLORS.btn_lightgray};
-  color: ${COLORS.white_fff};
-  background: ${COLORS.coumo_purple};
-  color: ${COLORS.white};
+  padding-top: 20px;
+  padding-bottom: 21px;
+  background: ${({ theme }) => theme.colors.btn_lightgray};
+  color: ${({ theme }) => theme.colors.white_fff};
+  background: ${({ theme }) => theme.colors.coumo_purple};
+  color: ${({ theme }) => theme.colors.white};
 
   &:disabled {
-    background: ${COLORS.btn_lightgray};
-    color: ${COLORS.text_btn_darkgray};
+    background: ${({ theme }) => theme.colors.btn_lightgray};
+    color: ${({ theme }) => theme.colors.text_btn_darkgray};
   }
 `;
 
@@ -211,6 +210,6 @@ const More = styled.div`
   display: flex;
 
   &:hover {
-    color: ${COLORS.coumo_purple};
+    color: ${({ theme }) => theme.colors.coumo_purple};
   }
 `;

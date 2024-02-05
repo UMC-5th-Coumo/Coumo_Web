@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import RadioBtn from '../../common/RadioBtn';
-import { COLORS } from '../../../styles/theme';
 
 const Category = ({ data, category, setCategory, columns, all }) => {
   const onChange = (id) => {
@@ -47,8 +46,8 @@ const Container = styled.div`
 `;
 
 const Title = styled.h2`
-  color: ${COLORS.coumo_purple};
-  font-size: 19px;
+  color: ${({ theme }) => theme.colors.coumo_purple};
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 31.68px */

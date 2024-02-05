@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../styles/theme';
 
 const CouponStep = ({ id, step, description }) => {
   return (
@@ -35,9 +34,9 @@ const Number = styled.div`
   align-items: center;
   flex-shrink: 0;
   border-radius: 20px;
-  background: ${COLORS.coumo_purple};
-  color: ${COLORS.white_fff};
-  font-size: 14px;
+  background: ${({ theme }) => theme.colors.coumo_purple};
+  color: ${({ theme }) => theme.colors.white_fff};
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 700;
   line-height: 23.8px; /* 170% */
@@ -51,15 +50,15 @@ const Divider = styled.div`
   left: 100%;
   width: 260px;
   height: 1px;
-  background-color: ${COLORS.coumo_purple};
+  background-color: ${({ theme }) => theme.colors.coumo_purple};
   transform: translateY(-50%);
   z-index: 0;
 `;
 
 const Title = styled.div`
-  color: ${COLORS.coumo_purple};
+  color: ${({ theme }) => theme.colors.coumo_purple};
   text-align: center;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
   font-weight: 700;
   line-height: 28px; /* 140% */
@@ -67,9 +66,9 @@ const Title = styled.div`
 `;
 
 const Text = styled.div`
-  color: ${COLORS.text_darkgray};
+  color: ${({ theme }) => theme.colors.text_darkgray};
   text-align: center;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSize.md};
   font-style: normal;
   font-weight: 600;
   line-height: 28px; /* 175% */

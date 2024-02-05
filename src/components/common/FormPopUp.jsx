@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../styles/theme';
 import Title from './Title';
 import { fadeIn } from '../../styles/GlobalStyle';
 
@@ -39,16 +38,16 @@ const Modal = styled.div`
   gap: 8px;
 
   border-radius: 12px;
-  background: ${COLORS.coumo_lightpurple};
+  background: ${({ theme }) => theme.colors.coumo_lightpurple};
 
   animation: ${fadeIn} 1s;
 
   & span {
     overflow: hidden;
-    color: ${COLORS.text_darkgray};
+    color: ${({ theme }) => theme.colors.text_darkgray};
     text-align: center;
     text-overflow: ellipsis;
-    font-size: 12px;
+    font-size: ${({ theme }) => theme.fontSize.sm};
     font-style: normal;
     font-weight: 300;
     line-height: 148%; /* 40.32px */

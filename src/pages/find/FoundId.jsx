@@ -29,7 +29,7 @@ const Title = styled.div`
   width: 890px;
   color: #333;
   text-align: center;
-  font-size: 36px;
+  font-size: ${({ theme }) => theme.fontSize.title};
   font-style: normal;
   font-weight: 700;
   line-height: 100%;
@@ -48,5 +48,5 @@ const Text = styled.div`
   width: 100px;
   display: flex;
   flex-direction: row;
-  font-size: 36px;
+  font-size: ${({ theme }) => theme.fontSize.title};
 `;

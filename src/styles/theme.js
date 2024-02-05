@@ -1,4 +1,4 @@
-export const COLORS = {
+const colors = {
   banner_gradient: 'linear-gradient(331deg, #7733F9 6.83%, #E6D9FF 114.92%)',
   coumo_purple: '#7C43E8',
   coumo_lightpurple: '#EDE4FC',
@@ -17,4 +17,19 @@ export const COLORS = {
   card_lightpurple: '#f0ebff',
   text_shadow: '#6C31DB',
   image_text: '#7A7A7A',
+};
+
+const fontSize = {
+  xs: '10px',
+  sm: '12px',
+  base: '14px',
+  md: '16px',
+  lg: '18px',
+  title: '20px',
+  xl: '24px',
+};
+
+export const theme = {
+  colors,
+  fontSize,
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Index from './Index';
-import { COLORS } from '../../../../../styles/theme';
 
 const IndexBar = ({ tabs, selected, setSelected }) => {
   const handleTabClick = (key) => {
@@ -36,10 +35,10 @@ const Bar = styled.div`
 `;
 
 const Span = styled.span`
-  color: ${COLORS.tab_gray};
+  color: ${({ theme }) => theme.colors.tab_gray};
   padding-left: 48px;
   box-sizing: border-box;
-  font-size: 13px;
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   font-weight: 600;
   line-height: 100%;

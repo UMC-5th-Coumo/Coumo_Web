@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../styles/theme';
 import { SmallPlus } from '../../../assets';
 import Input from '../../common/Input';
 import RadioBtn from '../../common/RadioBtn';
@@ -155,8 +154,8 @@ const MenuTop = styled.div`
 `;
 
 const MenuTitle = styled.div`
-  color: ${COLORS.coumo_purple};
-  font-size: 19px;
+  color: ${({ theme }) => theme.colors.coumo_purple};
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
   font-weight: 700;
   line-height: 170%; /* 31.68px */
@@ -170,11 +169,11 @@ const PlusButton = styled.button`
   align-items: center;
   border: none;
   border-radius: 42px;
-  background: ${COLORS.white_fff};
+  background: ${({ theme }) => theme.colors.white_fff};
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.25);
   color: #565656;
   text-align: center;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   font-weight: 600;
   line-height: 100%; /* 21.12px */
@@ -218,7 +217,7 @@ const Box = styled.div`
   align-items: center;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${COLORS.coumo_gray};
+  background: ${({ theme }) => theme.colors.coumo_gray};
 
   @media screen and (max-width: 1024px) {
     width: 220px;
@@ -234,27 +233,23 @@ const MyText = styled.div`
 
 const LargeP = styled.div`
   overflow: hidden;
-  color: ${COLORS.image_text};
+  color: ${({ theme }) => theme.colors.image_text};
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 600;
   line-height: 170%; /* 34px */
 
   @media screen and (max-width: 1024px) {
-    font-size: 13px;
+    font-size: ${({ theme }) => theme.fontSize.sm};
   }
 `;
 
 const SmallP = styled(LargeP)`
-  font-size: 13px;
+  font-size: ${({ theme }) => theme.fontSize.xs};
   font-weight: 500;
-
-  @media screen and (max-width: 1024px) {
-    font-size: 10px;
-  }
 `;
 
 const InfoText = styled.div`
@@ -272,7 +267,7 @@ const Bottom = styled.div`
 `;
 
 const Span = styled.span`
-  color: ${COLORS.coumo_purple};
+  color: ${({ theme }) => theme.colors.coumo_purple};
 `;
 
 const StyledRadioBtn = styled(RadioBtn)`

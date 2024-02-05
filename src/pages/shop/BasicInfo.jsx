@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Input from '../../components/common/Input';
-import { COLORS } from '../../styles/theme';
 import Category from '../../components/admin/coupon/Category';
 import Button from '../../components/common/Button';
 import { categoryData } from '../../assets/data/categoryData';
@@ -234,11 +233,7 @@ const BasicInfo = () => {
 
         <BtnContainer>
           <Button text='취소하기' />
-          <Button
-            text='저장하기'
-            color={COLORS.coumo_purple}
-            onClickBtn={onSubmit}
-          />
+          <Button text='저장하기' type={true} onClickBtn={onSubmit} />
         </BtnContainer>
       </Wrapper>
     </Content>
@@ -250,8 +245,8 @@ export default BasicInfo;
 const Content = styled.div`
   width: 100%;
   height: auto;
-  color: ${COLORS.tab_gray};
-  font-size: 16px;
+  color: ${({ theme }) => theme.colors.tab_gray};
+  font-size: ${({ theme }) => theme.fontSize.base};
   box-sizing: border-box;
   font-weight: 500;
   position: relative;

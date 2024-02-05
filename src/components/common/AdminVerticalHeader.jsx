@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../styles/theme';
 import { Link, useLocation } from 'react-router-dom';
 
 function AdminVerticalHeader() {
@@ -135,7 +134,7 @@ const Menu = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  color: ${COLORS.text_darkgray};
+  color: ${({ theme }) => theme.colors.text_darkgray};
   padding-left: 40px;
   border-bottom: 1px solid lightgray;
   overflow: hidden;
@@ -146,7 +145,7 @@ const Menu = styled.div`
 
 const MenuTitle = styled.h5`
   margin: 0;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSize.md};
 `;
 
 const SubMenu = styled.div`
@@ -159,9 +158,9 @@ const SubMenu = styled.div`
 const SubMenuLink = styled(Link)`
   width: 100%;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSize.base};
   text-decoration: none;
-  color: ${(props) =>
-    props.current ? COLORS.coumo_purple : COLORS.text_darkgray};
+  color: ${({ theme, current }) =>
+    current ? theme.colors.coumo_purple : theme.colors.text_darkgray};
   font-weight: 600;
 `;

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../../styles/theme';
 import { IoIosArrowDown } from 'react-icons/io';
 import { timeData } from '../../../../assets/data/workingHourData';
 
@@ -67,20 +66,20 @@ const DropdownInput = styled.div`
   border-radius: 7px;
   font-weight: 400;
   font-family: 'Pretendard';
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSize.sm};
   box-sizing: border-box;
   padding: 0px 15px;
   cursor: pointer;
 
   pointer-events: ${(props) => (props.disabled ? 'none' : 'all')};
-  background-color: ${(props) =>
-    props.disabled ? '#e9e9e97e' : COLORS.coumo_gray};
+  background-color: ${({ theme, disabled }) =>
+    disabled ? '#e9e9e97e' : theme.colors.coumo_gray};
   color: ${(props) => (props.disabled ? '#dddddd' : '#666666')};
 
   @media screen and (max-width: 1024px) {
     width: 160px;
     height: 35px;
-    font-size: 11px;
+    font-size: ${({ theme }) => theme.fontSize.xs};
   }
 `;
 
@@ -97,7 +96,7 @@ const DropdownBox = styled.div`
   width: 100%;
   height: 200px;
   border-radius: 6px;
-  background-color: ${COLORS.coumo_gray};
+  background-color: ${({ theme }) => theme.colors.coumo_gray};
 
   display: flex;
   flex-direction: column;
@@ -112,7 +111,7 @@ const Item = styled.span`
   width: 100%;
   box-sizing: border-box;
   padding: 10px 20px;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSize.sm};
   color: #333333;
   cursor: pointer;
 

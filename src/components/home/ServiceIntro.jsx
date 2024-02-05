@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import TitleChip from './TitleChip';
-import { COLORS } from '../../styles/theme';
 
 const ServiceIntro = ({ data }) => {
   return (
@@ -34,7 +33,7 @@ const Content = styled.div`
 const Description = styled.span`
   color: #636166;
   text-align: center;
-  font-size: 22px;
+  font-size: ${({ theme }) => theme.fontSize.title};
   font-style: normal;
   font-weight: 300;
   line-height: 180%;
@@ -43,6 +42,6 @@ const Description = styled.span`
   white-space: pre-wrap;
 
   & strong {
-    color: ${COLORS.coumo_purple};
+    color: ${({ theme }) => theme.colors.coumo_purple};
   }
 `;

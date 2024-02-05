@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../../styles/theme';
 import userImage from '../../../../assets/image/userImage.png';
 
 function CustomerDetail({ data }) {
@@ -42,7 +41,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 32px;
-  background-color: ${COLORS.card_lightpurple};
+  background-color: ${({ theme }) => theme.colors.card_lightpurple};
   border-radius: 12px;
 
   @media screen and (max-width: 1280px) {
@@ -91,25 +90,25 @@ const ProfileContent = styled.div`
   & h5 {
     margin: 0;
     color: #565160;
-    font-size: 19px;
+    font-size: ${({ theme }) => theme.fontSize.md};
     font-style: normal;
     font-weight: 700;
     line-height: 132%; /* 31.68px */
     letter-spacing: 0.96px;
 
     @media screen and (max-width: 1280px) {
-      font-size: 16px;
+      font-size: ${({ theme }) => theme.fontSize.base};
     }
   }
 
   & span {
     color: #565160;
-    font-size: 19px;
+    font-size: ${({ theme }) => theme.fontSize.base};
     font-style: normal;
     line-height: 132%; /* 31.68px */
 
     @media screen and (max-width: 1280px) {
-      font-size: 14px;
+      font-size: ${({ theme }) => theme.fontSize.sm};
     }
   }
 `;
@@ -127,13 +126,13 @@ const InfoContent = styled.div`
 
   & span {
     color: #565160;
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.fontSize.base};
     font-style: normal;
     line-height: 132%; /* 26.4px */
     letter-spacing: 0.2px;
 
     @media screen and (max-width: 1280px) {
-      font-size: 14px;
+      font-size: ${({ theme }) => theme.fontSize.sm};
     }
   }
 `;
@@ -144,10 +143,10 @@ const RecentVisit = styled.span`
   padding: 0px 16px;
   align-items: center;
   border-radius: 46px;
-  background: ${COLORS.coumo_purple};
-  color: ${COLORS.white_fff};
+  background: ${({ theme }) => theme.colors.coumo_purple};
+  color: ${({ theme }) => theme.colors.white_fff};
   text-align: center;
-  font-size: 10px;
+  font-size: ${({ theme }) => theme.fontSize.xs};
   font-style: normal;
   font-weight: 500;
   line-height: 100%; /* 16px */

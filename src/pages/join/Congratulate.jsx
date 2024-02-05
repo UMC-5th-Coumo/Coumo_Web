@@ -38,7 +38,7 @@ const Card = styled.div`
 const Comment = styled.div`
   color: #333;
   text-align: center;
-  font-size: 36px;
+  font-size: ${({ theme }) => theme.fontSize.title};
   font-style: normal;
   font-weight: 700;
   line-height: 57.6px; /* 160% */
@@ -47,7 +47,7 @@ const Comment = styled.div`
 const LittleComment = styled.div`
   color: #212529;
   text-align: center;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
   font-weight: 600;
   line-height: 32.4px; /* 180% */
