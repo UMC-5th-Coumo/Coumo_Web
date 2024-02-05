@@ -5,20 +5,19 @@ import styled from 'styled-components';
 import { Line } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import TwoBtnPopUp from '../../components/common/popUp/TwoBtnPopUp';
-import { writecategoryData } from '../../assets/data/writecategoryData';
 import Category from '../../components/admin/coupon/Category';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedPost } from '../../redux/slices/postSlice';
 import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
+import { postCategoryData } from '../../assets/data/categoryData';
 
 const MyPosts = () => {
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [confirmPopUp, setConfirmPopUp] = useState(false);
+  const [category, setCategory] = useState('all');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const [category, setCategory] = useState('');
 
   const postDummyData = useSelector((state) => state.post.postDummyData);
   const selectedPost = useSelector((state) => state.post.selectedPost);
@@ -56,20 +55,20 @@ const MyPosts = () => {
     setConfirmPopUp(true);
   };
 
-  const filteredPosts = category
-    ? postDummyData.filter((post) => post.tag === category)
-    : postDummyData;
+  const filteredPosts =
+    category === 'all'
+      ? postDummyData
+      : postDummyData.filter((post) => post.tag === category);
 
   return (
     <>
       <TitleBox>
         <Title title='총 13개의 게시글이 있어요!' />
         <Category
-          data={writecategoryData}
+          data={postCategoryData}
           category={category}
           setCategory={setCategory}
           containerWidth='1000px'
-          all='true'
           columns='1fr 1fr 1fr 1fr'
         />
         <Line />

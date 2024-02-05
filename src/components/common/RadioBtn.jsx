@@ -15,16 +15,16 @@ const RadioBtn = ({
     onChange(id === selected ? '' : id);
   };
   return (
-    <RadioLabel size={size} height={height}>
+    <RadioLabel size={size} height={height} isSelected={id === selected}>
       <RadioInput
         type='radio'
         id={id}
         name={name}
         value={value}
-        defaultChecked={id === selected}
-        onChange={onChange}
+        checked={selected}
+        onChange={() => onChange(id)}
       />
-      <RadioSpan htmlFor={id} selected={id === selected} size={size}>
+      <RadioSpan htmlFor={id} isSelected={id === selected} size={size}>
         {label}
       </RadioSpan>
     </RadioLabel>
@@ -42,7 +42,10 @@ const RadioLabel = styled.label`
   gap: 8px;
   flex-shrink: 0;
   border-radius: 5px;
-  background: ${({ theme }) => theme.colors.coumo_gray};
+  background: ${({ theme }) => theme.colors.white_fefe};
+  border: 1px solid
+    ${({ theme, isSelected }) =>
+      isSelected ? theme.colors.coumo_purple : theme.colors.tab_gray};
   align-self: flex-end;
 
   @media screen and (max-width: 1024px) {
@@ -93,7 +96,7 @@ const RadioSpan = styled.span`
   font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   line-height: 170%; /* 27.2px */
-  font-weight: ${(props) => (props.selected ? '600' : '400')};
+  font-weight: ${(props) => (props.isSelected ? '600' : '400')};
 
   @media screen and (max-width: 1024px) {
     font-size: ${({ theme }) => theme.fontSize.xs};

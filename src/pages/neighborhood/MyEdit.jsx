@@ -5,7 +5,6 @@ import Title from '../../components/common/Title';
 import Button from '../../components/common/Button';
 import { BtnContainer } from '../coupon/UIServiceForm';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { getLabelByTag } from '../../assets/data/writecategoryData';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setPostDummyData,
@@ -14,6 +13,7 @@ import {
 import Edit from '../../components/admin/neighborhood/Edit';
 import TwoBtnPopUp from '../../components/common/popUp/TwoBtnPopUp';
 import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
+import { getLabelByTag } from '../../assets/data/categoryData';
 
 const MyEdit = () => {
   const navigate = useNavigate();

@@ -9,8 +9,9 @@ const RadioButton = ({ id, label, selected, onChange }) => {
         id={id}
         checked={selected}
         onChange={() => onChange(id)}
+        selected={id === selected}
       />
-      <RadioSpan htmlFor={id} selected={selected}>
+      <RadioSpan htmlFor={id} selected={id === selected}>
         {label}
       </RadioSpan>
     </RadioLabel>
@@ -28,9 +29,10 @@ const RadioLabel = styled.label`
   gap: 8px;
   flex-shrink: 0;
   border-radius: 4px;
-  background: ${({ theme, selected }) =>
-    selected ? theme.colors.coumo_gray : theme.colors.white_fff};
-  border: 1px solid #d8d8d8;
+  background: ${({ theme }) => theme.colors.white_fefe};
+  border: 1px solid
+    ${({ theme, selected }) =>
+      selected ? theme.colors.coumo_purple : theme.colors.tab_gray};
   cursor: pointer;
 `;
 

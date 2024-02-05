@@ -69,6 +69,7 @@ const CustomerManage = () => {
                 type='text'
                 name='number'
                 value={number}
+                isEmpty={number.length === 0}
                 placeholder='고객의 전화번호 끝 4자리를 입력하세요'
                 onChange={(e) => setNumber(e.target.value)}
               />
@@ -217,8 +218,10 @@ const StyledInput = styled.input`
   justify-content: flex-end;
   align-items: center;
   border-radius: 7px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: #e2e0e8;
+  background: ${({ theme }) => theme.colors.white_fefe};
+  border: 1px solid
+    ${({ theme, isEmpty }) =>
+      isEmpty ? theme.colors.tab_gray : theme.colors.coumo_purple};
   overflow: hidden;
   color: #332f3c;
   text-overflow: ellipsis;

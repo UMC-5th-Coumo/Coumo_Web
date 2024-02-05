@@ -6,7 +6,7 @@ import Title from '../../components/common/Title';
 import Button from '../../components/common/Button';
 import { BtnContainer } from '../coupon/UIServiceForm';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { getLabelByTag } from '../../assets/data/writecategoryData';
+import { getLabelByTag } from '../../assets/data/categoryData';
 import RadioBtn from '../../components/common/RadioBtn';
 import { useParams } from 'react-router-dom';
 import { setSelectedPost } from '../../redux/slices/postSlice';

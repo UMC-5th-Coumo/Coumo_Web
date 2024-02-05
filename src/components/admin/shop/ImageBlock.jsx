@@ -106,10 +106,11 @@ const Box = styled.div`
   align-items: center;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${({ theme }) => theme.colors.coumo_gray};
+  background: ${({ theme }) => theme.colors.coumo_lightpurple};
 `;
 
 const MyText = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -140,5 +141,5 @@ const PlusButton = styled.button`
   padding: 8px 12px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${({ theme }) => theme.colors.coumo_gray};
+  background: ${({ theme }) => theme.colors.coumo_lightpurple};
 `;
