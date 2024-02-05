@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../../../styles/theme';
 import Dropdown from './Dropdown';
+import { days } from '../../../../assets/data/workingHourData';
 
 function WorkingHours({ day, setData }) {
   const [startTime, setStartTime] = useState('0:00 AM');
@@ -9,15 +10,23 @@ function WorkingHours({ day, setData }) {
   const [dayOff, setDayOff] = useState(false);
 
   useEffect(() => {
-    setData({
-      startTime,
-      endTime,
-    });
+    if (dayOff) {
+      setData({
+        day: day,
+        startTime: 'none',
+        endTime: 'none',
+      });
+    } else {
+      setData({
+        startTime,
+        endTime,
+      });
+    }
   }, [startTime, endTime]);
 
   return (
     <Container>
-      <Day>{day}</Day>
+      <Day>{days[day]}</Day>
       <Dropdown value={startTime} setValue={setStartTime} disabled={dayOff} />
       <Dropdown value={endTime} setValue={setEndTime} disabled={dayOff} />
       <DayOffButton dayOff={dayOff} onClick={() => setDayOff((prev) => !prev)}>
