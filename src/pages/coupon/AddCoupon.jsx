@@ -7,19 +7,28 @@ import ColorPicker from '../../components/admin/coupon/ColorPicker';
 import StampCount from '../../components/admin/coupon/StampCount';
 import StampList from '../../components/admin/coupon/StampList';
 import Button from '../../components/common/Button';
+import { authInstance } from '../../api/axios';
 
 const AddCoupon = () => {
-  const [colorPicker, setColorPicker] = useState(false);
-  const [fontPicker, setFontPicker] = useState(false);
+  const [selectedStamp, setSelectedStamp] = useState('1');
   const [coupon, setCoupon] = useState({
     storeName: '',
-    color: '#7C43E8',
+    couponColor: '#7C43E8',
     fontColor: '#ffffff',
-    stamp_max: '8',
-    stamp_image: '',
-    stamp_id: '1',
+    stampMax: '8',
+    stampImage: '',
   });
-  const stamps = Array(coupon.stamp_max * 1).fill(0);
+  const stamps = Array(coupon.stampMax * 1).fill(0);
+
+  // 서버 요청
+  const registerCoupon = async () => {
+    const ownerId = '';
+
+    await authInstance
+      .post(`/api/coupon/register/${ownerId}`, coupon)
+      .then((res) => console.log(res.data));
+  };
+
   return (
     <Container>
       <Input
@@ -43,11 +52,9 @@ const AddCoupon = () => {
                 &bull;&nbsp; 쿠폰 <strong>색상</strong> 정하기
               </StepName>
               <ColorPicker
-                open={colorPicker}
-                setOpen={setColorPicker}
-                color={coupon.color}
+                color={coupon.couponColor}
                 setColor={(color) =>
-                  setCoupon((prev) => ({ ...prev, color: color.hex }))
+                  setCoupon((prev) => ({ ...prev, couponColor: color.hex }))
                 }
               />
             </Step>
@@ -56,8 +63,6 @@ const AddCoupon = () => {
                 &bull;&nbsp; 폰트 <strong>색상</strong> 정하기
               </StepName>
               <ColorPicker
-                open={fontPicker}
-                setOpen={setFontPicker}
                 color={coupon.fontColor}
                 setColor={(color) =>
                   setCoupon((prev) => ({ ...prev, fontColor: color.hex }))
@@ -69,9 +74,9 @@ const AddCoupon = () => {
                 &bull;&nbsp; 쿠폰 <strong>도장 개수</strong> 정하기
               </StepName>
               <StampCount
-                stamp_max={coupon.stamp_max}
+                stamp_max={coupon.stampMax}
                 setMax={(max) =>
-                  setCoupon((prev) => ({ ...prev, stamp_max: max }))
+                  setCoupon((prev) => ({ ...prev, stampMax: max }))
                 }
               />
             </Step>
@@ -80,22 +85,20 @@ const AddCoupon = () => {
                 &bull;&nbsp; 쿠폰 <strong>도장 이미지</strong> 정하기
               </StepName>
               <StampList
-                stamp_id={coupon.stamp_id}
-                setStamp={(id) =>
-                  setCoupon((prev) => ({ ...prev, stamp_id: id }))
-                }
+                stamp_id={selectedStamp}
+                setStamp={(id) => setSelectedStamp(id)}
               />
             </Step>
           </StepContainer>
           <CouponContainer>
-            <CouponExample color={coupon.color}>
+            <CouponExample color={coupon.couponColor}>
               <CouponTitle fontColor={coupon.fontColor}>
                 <h2>{coupon.storeName ? coupon.storeName : '가게명'}</h2>
                 <span>COUPON</span>
               </CouponTitle>
-              <StampBox num={coupon.stamp_max}>
+              <StampBox num={coupon.stampMax}>
                 {stamps.map((s, i) => {
-                  return <Stamp key={i} num={coupon.stamp_max} />;
+                  return <Stamp key={i} num={coupon.stampMax} />;
                 })}
               </StampBox>
             </CouponExample>
@@ -107,7 +110,11 @@ const AddCoupon = () => {
         </DesginForm>
         <ButtonGroup>
           <Button text='취소하기' />
-          <Button text='쿠폰 만들기' color={COLORS.coumo_purple} />
+          <Button
+            text='쿠폰 만들기'
+            color={COLORS.coumo_purple}
+            onClickBtn={registerCoupon}
+          />
         </ButtonGroup>
       </DesignContainer>
     </Container>

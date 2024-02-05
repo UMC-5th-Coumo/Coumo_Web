@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../../styles/theme';
 import { ChromePicker } from 'react-color';
 
-const ColorPicker = ({ open, setOpen, color, setColor }) => {
+const ColorPicker = ({ color, setColor }) => {
+  const [open, setOpen] = useState(false);
+  const outsideRef = useRef(null);
+
+  // picker 바깥 클릭 시 닫힘
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (outsideRef.current && !outsideRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [outsideRef]);
+
   return (
-    <Container>
+    <Container ref={outsideRef}>
       <ColorBox onClick={() => setOpen((prev) => !prev)}>
         <Color color={color} />
         <span>{color}</span>

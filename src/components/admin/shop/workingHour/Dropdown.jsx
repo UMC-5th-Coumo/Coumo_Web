@@ -14,7 +14,6 @@ function Dropdown({ value, setValue, disabled }) {
   };
 
   useEffect(() => {
-    // 현재 document에서 mousedown 이벤트가 동작하면 호출되는 함수입니다.
     function handleClickOutside(event) {
       if (outsideRef.current && !outsideRef.current.contains(event.target)) {
         setOpen(false);
