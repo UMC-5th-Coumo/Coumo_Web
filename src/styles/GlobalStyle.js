@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Pretendard";
     box-sizing: border-box;
     padding-top: 80px;
+    position: relative;
     
     &::-webkit-scrollbar {
       display: none;

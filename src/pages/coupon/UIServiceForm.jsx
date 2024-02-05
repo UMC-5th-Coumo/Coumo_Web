@@ -5,6 +5,8 @@ import Input from '../../components/common/Input';
 import Category from '../../components/admin/coupon/Category';
 import FormPopUp from '../../components/common/FormPopUp';
 import { categoryData } from '../../assets/data/categoryData';
+import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
+import { useNavigate } from 'react-router-dom';
 
 const UIServiceForm = () => {
   const [popUp, setPopUp] = useState(false);
@@ -16,6 +18,7 @@ const UIServiceForm = () => {
     email: '',
     category: '',
   });
+  const navigate = useNavigate();
 
   const onSubmit = () => {
     const data = {
@@ -27,15 +30,13 @@ const UIServiceForm = () => {
     };
 
     // 서버 요청 성공 시 모달
-    submitPopUp();
+    setPopUp(true);
     resetData();
   };
 
   const submitPopUp = () => {
-    setPopUp(true);
-    setTimeout(() => {
-      setPopUp(false);
-    }, 3000);
+    setPopUp(false);
+    navigate('/mypage'); // 신청 내역 페이지로 랜딩할 예정
   };
 
   const resetData = () => {
@@ -101,9 +102,10 @@ const UIServiceForm = () => {
         <Button text='신청서 제출하기' type={true} onClickBtn={onSubmit} />
       </BtnContainer>
       {popUp && (
-        <FormPopUp
+        <OneBtnPopUp
           title='신청서가 정상적으로 제출되었습니다.'
-          msg={`담당자가 신청서 확인 후, 개별 연락 드릴\n예정이오니 참고 부탁드립니다 :)`}
+          text='담당자가 신청서 확인 후, 개별 연락 드릴예정이오니 참고 부탁드립니다 :)'
+          onClick={submitPopUp}
         />
       )}
     </Content>
