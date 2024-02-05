@@ -8,10 +8,10 @@ import DaumPostcode from 'react-daum-postcode';
 import { createRoot } from 'react-dom/client';
 import WorkingHour from '../../components/admin/shop/workingHour/WorkingHour';
 import axios from 'axios';
-import { days } from '../../assets/data/workingHourData';
 
 const BasicInfo = () => {
   const [category, setCategory] = useState('cafe');
+  const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
   const [inputs, setInputs] = useState({
     storeName: '',
     number: '',
@@ -19,37 +19,42 @@ const BasicInfo = () => {
     addressDetail: '',
   });
   const [hours, setHours] = useState({
-    MON: {
+    mon: {
+      day: '',
       startTime: '',
       endTime: '',
     },
-    TUE: {
+    tue: {
+      day: '',
       startTime: '',
       endTime: '',
     },
-    WED: {
+    wed: {
+      day: '',
       startTime: '',
       endTime: '',
     },
-    THU: {
+    thu: {
+      day: '',
       startTime: '',
       endTime: '',
     },
-    FRI: {
+    fri: {
+      day: '',
       startTime: '',
       endTime: '',
     },
-    SAT: {
+    sat: {
+      day: '',
       startTime: '',
       endTime: '',
     },
-    SUN: {
+    sun: {
+      day: '',
       startTime: '',
       endTime: '',
     },
   });
-
-  const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
 
   const handleAddressClick = () => {
     setIsPostcodeOpen(true);
@@ -133,15 +138,13 @@ const BasicInfo = () => {
 
       const storeData = {
         name: inputs.storeName,
-        time: [], // time 우선 비워둠
+        time: Object.keys(hours).map((day) => hours[day]),
         telePhone: inputs.number,
         category: category,
-        location: inputs.address,
+        location: inputs.address + ' ' + inputs.addressDetail,
         longitude: coords.longitude,
         latitude: coords.latitude,
       };
-
-      console.log('storeData', storeData);
 
       const storeId = ''; // ??
       await axios.patch(`/api/owner/store/${storeId}/basic`, storeData);
@@ -175,7 +178,7 @@ const BasicInfo = () => {
           {Object.keys(hours).map((day, i) => (
             <WorkingHour
               key={i}
-              day={days[day]}
+              day={day}
               setData={(hours) =>
                 setHours((prev) => ({ ...prev, [day]: hours }))
               }
