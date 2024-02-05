@@ -3,9 +3,11 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/locale';
 import styled from 'styled-components';
-import { COLORS } from '../../../../styles/theme';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { getMonth, getYear } from 'date-fns';
+import { theme } from '../../../../styles/theme';
+
+const { colors } = theme;
 
 const MonthPicker = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -50,7 +52,7 @@ const MonthPicker = () => {
           >
             <IoIosArrowBack
               style={{ height: '20px', width: '20px' }}
-              fill={COLORS.text_darkgray}
+              fill={colors.text_darkgray}
             />
           </Button>
           <TextBox>
@@ -63,7 +65,7 @@ const MonthPicker = () => {
           >
             <IoIosArrowForward
               style={{ height: '20px', width: '20px' }}
-              fill={COLORS.text_darkgray}
+              fill={colors.text_darkgray}
             />
           </Button>
         </Header>
@@ -84,10 +86,10 @@ const CustomInput = styled.input`
   box-sizing: border-box;
   border: none;
   border-radius: 16px 16px 0px 0px;
-  background: ${COLORS.btn_lightgray};
+  background: ${({ theme }) => theme.colors.btn_lightgray};
 
   text-align: center;
-  color: ${COLORS.coumo_purple};
+  color: ${({ theme }) => theme.colors.coumo_purple};
   font-style: normal;
   font-weight: 600;
   line-height: 132%;
@@ -105,7 +107,7 @@ const Header = styled.div`
   height: 16px;
   display: flex;
   justify-content: space-between;
-  background-color: ${COLORS.white_fff};
+  background-color: ${({ theme }) => theme.colors.white_fff};
   font-family: 'Pretendard';
 `;
 

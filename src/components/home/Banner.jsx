@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../styles/theme';
 import { BannerIcon } from '../../assets';
 
 const Banner = () => {
@@ -29,7 +28,7 @@ export default Banner;
 const Back = styled.div`
   width: 100%;
   height: 735px;
-  background: ${COLORS.banner_gradient};
+  background: ${({ theme }) => theme.colors.banner_gradient};
 `;
 
 const Container = styled.div`
@@ -55,13 +54,13 @@ const Title = styled.h1`
   font-weight: 700;
   line-height: 140%;
   letter-spacing: 0.952px;
-  color: ${COLORS.white};
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 const Description = styled.span`
   width: 100%;
   max-width: 503px;
-  color: ${COLORS.white};
+  color: ${({ theme }) => theme.colors.white};
   text-align: center;
   font-style: normal;
   font-weight: 300;
@@ -76,7 +75,6 @@ const Icon = styled.div`
   right: 70px;
 
   width: 30%;
-  /* height: 30%; */
   min-height: 300px;
   min-width: 300px;
   max-width: 430px;

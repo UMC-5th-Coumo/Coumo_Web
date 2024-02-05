@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../components/common/Button';
-import { COLORS } from '../../styles/theme';
 import { LineLong } from '../../assets';
 import Title from '../../components/common/Title';
 import CustomerGroupButton from '../../components/admin/customer/customerManage/CustomerGroupButton';
@@ -86,7 +85,7 @@ const CustomerManage = () => {
           <Button
             text='필터 적용하기'
             onClickBtn={searchCustomer}
-            color={COLORS.coumo_purple}
+            type={true}
           />
         </ButtonContainer>
       </FormContainer>
@@ -197,15 +196,15 @@ const Wrapper = styled.div`
 `;
 
 const InputLabel = styled.span`
-  color: ${COLORS.coumo_purple};
-  font-size: 19px;
+  color: ${({ theme }) => theme.colors.coumo_purple};
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
   font-weight: 700;
   line-height: 100%; /* 24px */
   letter-spacing: 0.72px;
 
   @media screen and (max-width: 1024px) {
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.fontSize.md};
   }
 `;
 
@@ -225,7 +224,7 @@ const StyledInput = styled.input`
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: 'Pretendard';
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   font-weight: 400;
   line-height: 170%; /* 27.2px */

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../styles/theme';
 import Title from '../components/common/Title';
 import { CallIcon, DetailArrow, Line } from '../assets';
 import { useSelector } from 'react-redux';
@@ -78,7 +77,7 @@ const Content = styled.div`
 
   & h4 {
     margin: 0;
-    font-size: 20px;
+    font-size: ${({ theme }) => theme.fontSize.md};
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -125,7 +124,7 @@ const InfoLine = styled.div`
 
   & h5 {
     margin: 0;
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.fontSize.base};
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -134,6 +133,7 @@ const InfoLine = styled.div`
 
   & span {
     width: 180px;
+    font-size: ${({ theme }) => theme.fontSize.base};
   }
 `;
 
@@ -148,7 +148,7 @@ const Box = styled.div`
   border-radius: 12px;
   background: #f5efff;
   color: #2f2a37;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSize.md};
 
   & div {
     display: flex;

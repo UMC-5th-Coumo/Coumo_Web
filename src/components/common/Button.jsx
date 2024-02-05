@@ -1,21 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../styles/theme';
 
-const Button = ({
-  text,
-  onClickBtn,
-  color = COLORS.btn_lightgray,
-  disabled,
-  loading,
-}) => {
+const Button = ({ text, onClickBtn, type = false, disabled, loading }) => {
   return (
     <Btn
       title={text}
       onClick={onClickBtn}
       disabled={disabled || loading}
       loading={loading}
-      color={color}
+      type={type}
     >
       {loading ? 'Loading...' : text}
     </Btn>
@@ -34,23 +27,22 @@ export const Btn = styled.button`
   flex-shrink: 0;
   border: none;
   border-radius: 10px;
-  background: ${(props) => props.color};
-  color: ${(props) =>
-    props.color === COLORS.btn_lightgray
-      ? COLORS.text_btn_darkgray
-      : COLORS.white};
+  background: ${({ theme, type }) =>
+    type ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
+  color: ${({ theme, type }) =>
+    type ? theme.colors.white : theme.colors.text_btn_darkgray};
   text-align: center;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 23.76px */
   letter-spacing: 0.54px;
 
   &:hover {
-    background: ${COLORS.btn_lightgray};
-    color: ${COLORS.text_btn_darkgray};
-    background: ${COLORS.coumo_purple};
-    color: ${COLORS.white};
+    background: ${({ theme }) => theme.colors.btn_lightgray};
+    color: ${({ theme }) => theme.colors.text_btn_darkgray};
+    background: ${({ theme }) => theme.colors.coumo_purple};
+    color: ${({ theme }) => theme.colors.white};
   }
 
   &::before {
@@ -58,7 +50,7 @@ export const Btn = styled.button`
   }
 
   @media screen and (max-width: 1024px) {
-    font-size: 12px;
+    font-size: ${({ theme }) => theme.fontSize.sm};
     padding: 8px 12px;
     height: 38px;
   }

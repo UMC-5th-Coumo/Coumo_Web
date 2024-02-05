@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../styles/theme';
 
 const Input = ({
   label,
@@ -40,9 +39,9 @@ const Element = styled.div`
 `;
 
 const StyledInputTitle = styled.div`
-  color: ${COLORS.coumo_purple};
+  color: ${({ theme }) => theme.colors.coumo_purple};
   font-family: 'Pretendard';
-  font-size: 19px;
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 31.68px */
@@ -50,7 +49,7 @@ const StyledInputTitle = styled.div`
   padding-bottom: 16px;
 
   @media screen and (max-width: 1024px) {
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.fontSize.md};
   }
 `;
 
@@ -64,13 +63,13 @@ const StyledInput = styled.input`
   gap: 8px;
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${COLORS.coumo_gray};
+  background: ${({ theme }) => theme.colors.coumo_gray};
   overflow: hidden;
-  color: ${COLORS.text_gray};
+  color: ${({ theme }) => theme.colors.text_gray};
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: 'Pretendard';
-  font-size: 13px;
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 400;
   line-height: 170%; /* 27.2px */
@@ -80,7 +79,7 @@ const StyledInput = styled.input`
   }
 
   @media screen and (max-width: 1024px) {
-    font-size: 12px;
+    font-size: ${({ theme }) => theme.fontSize.sm};
     width: 80%;
     height: 20px;
   }

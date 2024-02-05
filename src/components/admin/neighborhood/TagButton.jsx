@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../styles/theme';
 
 const TagButton = ({ label }) => {
   return <Container>{label}</Container>;
@@ -20,9 +19,9 @@ const Container = styled.span`
   background: #6746a6;
 
   overflow: hidden;
-  color: ${COLORS.white};
+  color: ${({ theme }) => theme.colors.white};
   text-overflow: ellipsis;
-  font-size: 13px;
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   font-weight: 500;
   line-height: 170%; /* 28.56px */

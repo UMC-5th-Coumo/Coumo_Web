@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../../styles/theme';
 
 function CustomerList({ customerData, selected, setSelected }) {
   return (
@@ -69,10 +68,10 @@ const Column = styled.span`
   border-radius: 34px;
   background: #e2e0e8;
 
-  color: ${COLORS.coumo_purple};
+  color: ${({ theme }) => theme.colors.coumo_purple};
   text-align: center;
   font-family: 'Pretendard';
-  font-size: 13px;
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   font-weight: 600;
   line-height: 132%; /* 21.12px */
@@ -93,23 +92,23 @@ const Customer = styled.div`
   gap: 12px;
   border-bottom: 1px solid #e3e1e8;
   cursor: pointer;
-  background-color: ${(props) =>
-    props.selected ? COLORS.card_lightpurple : COLORS.white};
+  background-color: ${({ theme, selected }) =>
+    selected ? theme.colors.card_lightpurple : theme.colors.white};
 
   &:hover {
-    background-color: ${COLORS.card_lightpurple};
+    background-color: ${({ theme }) => theme.colors.card_lightpurple};
   }
 
   & span {
     width: 130px;
     text-align: center;
-    font-size: 13px;
+    font-size: ${({ theme }) => theme.fontSize.sm};
     padding: 15px 0px;
     margin: 0px 10px;
     box-sizing: border-box;
 
     @media screen and (max-width: 1280px) {
-      font-size: 12px;
+      font-size: ${({ theme }) => theme.fontSize.xs};
     }
   }
 `;

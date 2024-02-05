@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../styles/theme';
 
 const TitleChip = ({ title }) => {
   return <Container>{title}</Container>;
@@ -19,9 +18,9 @@ const Container = styled.span`
   border-radius: 89px;
   background: linear-gradient(331deg, #7733f9 20.34%, #e6d9ff 107.96%);
 
-  color: ${COLORS.white};
+  color: ${({ theme }) => theme.colors.white};
   text-align: center;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSize.title};
   font-style: normal;
   font-weight: 600;
   line-height: 132%;

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../../styles/theme';
 import { ArrowDown, ArrowUp } from '../../../../assets';
 
 function VisitCount({ type, text }) {
@@ -34,7 +33,7 @@ const Content = styled.div`
   gap: 8px;
 
   & span {
-    font-size: 12.8px;
+    font-size: ${({ theme }) => theme.fontSize.sm};
     color: #7d7788;
     font-style: normal;
     font-weight: 500;
@@ -42,21 +41,21 @@ const Content = styled.div`
     letter-spacing: 0.16px;
 
     & strong {
-      color: ${COLORS.coumo_purple};
+      color: ${({ theme }) => theme.colors.coumo_purple};
     }
 
     @media screen and (max-width: 1024px) {
-      font-size: 11px;
+      font-size: ${({ theme }) => theme.fontSize.xs};
     }
   }
 
   & h5 {
     margin: 0;
-    font-size: 19px;
-    color: ${COLORS.coumo_purple};
+    font-size: ${({ theme }) => theme.fontSize.lg};
+    color: ${({ theme }) => theme.colors.coumo_purple};
 
     @media screen and (max-width: 1024px) {
-      font-size: 16px;
+      font-size: ${({ theme }) => theme.fontSize.md};
     }
   }
 `;

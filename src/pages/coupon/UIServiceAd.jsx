@@ -1,5 +1,4 @@
 import React from 'react';
-import { COLORS } from '../../styles/theme';
 import styled from 'styled-components';
 import UIArticle from '../../assets/icon/UIArticle.svg';
 import ReasonCard from '../../components/admin/coupon/ReasonCard';
@@ -94,9 +93,9 @@ const Article = styled.div`
 `;
 
 const Big1 = styled.div`
-  color: ${COLORS.white_fefe};
-  text-shadow: 0px 4px 4.7px ${COLORS.text_shadow};
-  font-size: 36px;
+  color: ${({ theme }) => theme.colors.white_fefe};
+  text-shadow: 0px 4px 4.7px ${({ theme }) => theme.colors.text_shadow};
+  font-size: ${({ theme }) => theme.fontSize.xl};
   font-style: normal;
   font-weight: 700;
   line-height: 140%; /* 36px */
@@ -107,7 +106,7 @@ const Big1 = styled.div`
 const P = styled.p`
   padding-top: 50px;
   color: #27016f;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
   font-weight: 600;
   line-height: 156%; /* 24.96px */
@@ -127,9 +126,9 @@ const WhiteButton = styled.button`
   flex-shrink: 0;
   border: none;
   border-radius: 8px;
-  background: ${COLORS.white_fff};
-  color: ${COLORS.coumo_purple};
-  font-size: 18px;
+  background: ${({ theme }) => theme.colors.white_fff};
+  color: ${({ theme }) => theme.colors.coumo_purple};
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
   font-weight: 800;
   line-height: 30.6px; /* 170% */
@@ -155,7 +154,7 @@ const Step = styled.div`
 const Big2 = styled.div`
   color: #333;
   text-align: center;
-  font-size: 36px;
+  font-size: ${({ theme }) => theme.fontSize.xl};
   font-style: normal;
   font-weight: 700;
   line-height: 57.6px; /* 160% */
@@ -186,9 +185,9 @@ const Reason = styled.div`
 `;
 
 const Big3 = styled.div`
-  color: ${COLORS.coumo_purple};
-  font-family: 'Pretendard Variable';
-  font-size: 36px;
+  color: ${({ theme }) => theme.colors.coumo_purple};
+  font-family: 'Pretendard';
+  font-size: ${({ theme }) => theme.fontSize.xl};
   font-style: normal;
   font-weight: 700;
   line-height: 23.8px; /* 66.111% */
@@ -196,7 +195,7 @@ const Big3 = styled.div`
 `;
 
 const PGray = styled(P)`
-  color: ${COLORS.text_darkgray};
+  color: ${({ theme }) => theme.colors.text_darkgray};
   margin-right: 300px;
 `;
 
@@ -220,10 +219,10 @@ const PurpleButton = styled.button`
   flex-shrink: 0;
   border: none;
   border-radius: 18px;
-  background: ${COLORS.coumo_purple};
-  color: ${COLORS.white_fff};
+  background: ${({ theme }) => theme.colors.coumo_purple};
+  color: ${({ theme }) => theme.colors.white_fff};
   text-align: center;
-  font-size: 22px;
+  font-size: ${({ theme }) => theme.fontSize.title};
   font-style: normal;
   font-weight: 700;
   line-height: 100%; /* 32px */

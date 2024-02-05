@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../styles/theme';
 import TagButton from './TagButton';
 
 const Post = ({ data, onClick, onModify, onDelete }) => {
@@ -33,7 +32,7 @@ const Container = styled.div`
   box-sizing: border-box;
   padding: 20px 40px 20px;
   justify-content: space-between;
-  background: ${COLORS.white_fff};
+  background: ${({ theme }) => theme.colors.white_fff};
   border-top: 2px solid #e0e0e0;
   border-bottom: 2px solid #e0e0e0;
 
@@ -42,7 +41,7 @@ const Container = styled.div`
   }
 
   &:hover {
-    background: ${COLORS.post_lightgray};
+    background: ${({ theme }) => theme.colors.post_lightgray};
   }
 `;
 
@@ -70,7 +69,7 @@ const Title = styled.h2`
   width: 260px;
   margin: 0;
   color: #5a5369;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
   font-weight: 600;
 
@@ -83,7 +82,7 @@ const Title = styled.h2`
 `;
 
 const Date = styled.div`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSize.md};
   color: #3b3648;
 `;
 
@@ -102,9 +101,9 @@ const PostButton = styled.button`
   gap: 8px;
   border-radius: 6px;
   border: 1.5px solid rgba(144, 133, 165, 0.4);
-  background: ${COLORS.white_fff};
-  color: ${COLORS.text_darkgray};
-  font-size: 13px;
+  background: ${({ theme }) => theme.colors.white_fff};
+  color: ${({ theme }) => theme.colors.text_darkgray};
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   font-weight: 600;
   line-height: 132%; /* 21.12px */

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../styles/theme';
 
 const Stamp = ({ id, stamp, selected, onChange }) => {
   return (
@@ -30,8 +29,8 @@ const RadioLabel = styled.label`
   gap: 8px;
   flex-shrink: 0;
   border-radius: 4px;
-  background: ${(props) =>
-    props.selected ? COLORS.coumo_purple : COLORS.white_fff};
+  background: ${({ theme, selected }) =>
+    selected ? theme.colors.coumo_purple : theme.colors.white_fff};
 
   border: 1px solid #d8d8d8;
   cursor: pointer;
@@ -48,7 +47,7 @@ const RadioInput = styled.input`
   display: none;
 
   &:checked {
-    border: 0.67em solid ${COLORS.coumo_purple};
+    border: 0.67em solid ${({ theme }) => theme.colors.coumo_purple};
   }
 
   &:hover {
@@ -61,11 +60,12 @@ const RadioSpan = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   font-family: 'Pretendard';
-  font-size: 12.8px;
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   font-weight: 400;
   line-height: 170%; /* 27.2px */
-  color: ${(props) => (props.selected ? COLORS.white_fff : '#545252')};
+  color: ${({ theme, selected }) =>
+    selected ? theme.colors.white_fff : '#545252'};
 `;
 
 const StampIcon = styled.img`
