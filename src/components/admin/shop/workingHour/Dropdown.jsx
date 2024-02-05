@@ -28,6 +28,7 @@ function Dropdown({ value, setValue, disabled }) {
   return (
     <Container ref={outsideRef}>
       <DropdownInput
+        isOpen={open}
         onClick={() => setOpen((prev) => !prev)}
         disabled={disabled}
       >
@@ -72,8 +73,14 @@ const DropdownInput = styled.div`
   cursor: pointer;
 
   pointer-events: ${(props) => (props.disabled ? 'none' : 'all')};
-  background-color: ${({ theme, disabled }) =>
-    disabled ? '#e9e9e97e' : theme.colors.coumo_gray};
+  background: ${({ theme }) => theme.colors.white_fefe};
+  border: 1px solid
+    ${({ theme, disabled, isOpen }) =>
+      disabled
+        ? '#dddddd'
+        : isOpen
+          ? theme.colors.coumo_purple
+          : theme.colors.tab_gray};
   color: ${(props) => (props.disabled ? '#dddddd' : '#666666')};
 
   @media screen and (max-width: 1024px) {
@@ -93,10 +100,11 @@ const DropDownPosition = styled.div`
 `;
 
 const DropdownBox = styled.div`
-  width: 100%;
+  width: 99%;
   height: 200px;
   border-radius: 6px;
-  background-color: ${({ theme }) => theme.colors.coumo_gray};
+  background: ${({ theme }) => theme.colors.white_fefe};
+  border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
 
   display: flex;
   flex-direction: column;
@@ -120,6 +128,6 @@ const Item = styled.span`
   }
 
   &:hover {
-    background-color: #dadada;
+    background-color: ${({ theme }) => theme.colors.coumo_lightpurple};
   }
 `;
