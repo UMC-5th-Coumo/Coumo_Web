@@ -6,7 +6,7 @@ import Button from '../../components/common/Button';
 import { BtnContainer } from '../coupon/UIServiceForm';
 import FormPopUp from '../../components/common/FormPopUp';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { getLabelByTag } from '../../assets/data/writecategoryData';
+import { getLabelByTag } from '../../assets/data/categoryData';
 import Edit from '../../components/admin/writePost/Edit';
 import ConfirmModal from '../../components/admin/neighborhood/ConfirmModal';
 import { useDispatch, useSelector } from 'react-redux';

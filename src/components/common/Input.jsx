@@ -17,6 +17,7 @@ const Input = ({
     <Element>
       <StyledInputTitle>{label}</StyledInputTitle>
       <StyledInput
+        isEmpty={value.length === 0}
         type={type}
         name={name}
         value={value}
@@ -56,14 +57,16 @@ const StyledInputTitle = styled.div`
 const StyledInput = styled.input`
   display: flex;
   width: ${({ fullwidth }) => (fullwidth ? fullwidth : '100%')};
-  height: 30px;
+  height: 25px;
   padding: 8px 12px;
   justify-content: flex-end;
   align-items: top;
   gap: 8px;
   border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${({ theme }) => theme.colors.coumo_gray};
+  border: 1px solid
+    ${({ theme, isEmpty }) =>
+      isEmpty ? theme.colors.tab_gray : theme.colors.coumo_purple};
+  background: ${({ theme }) => theme.colors.white_fefe};
   overflow: hidden;
   color: ${({ theme }) => theme.colors.text_gray};
   text-overflow: ellipsis;

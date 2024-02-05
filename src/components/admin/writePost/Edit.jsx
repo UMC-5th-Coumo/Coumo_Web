@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import Category from '../coupon/Category';
-import { writecategoryData } from '../../../assets/data/writecategoryData';
 import { StyledWriteInput } from '../../common/Input';
 import ImageBlock from '../shop/ImageBlock';
+import { writecategoryData } from '../../../assets/data/categoryData';
 
 const Edit = ({ category, setCategory, inputs, setInputs }) => {
   return (
@@ -105,7 +105,7 @@ const StyledWriteTextarea = styled.textarea`
   gap: 8px;
   border-radius: 4px;
   border: none;
-  background: ${({ theme }) => theme.colors.coumo_gray};
+  background: ${({ theme }) => theme.colors.coumo_lightpurple};
   overflow: hidden;
   color: ${({ theme }) => theme.colors.text_gray};
   text-overflow: ellipsis;

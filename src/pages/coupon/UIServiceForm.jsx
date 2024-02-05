@@ -148,7 +148,7 @@ const TextArea = styled.textarea`
   padding: 8px 12px;
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${({ theme }) => theme.colors.coumo_gray};
+  background: ${({ theme }) => theme.colors.coumo_lightpurple};
 
   color: ${({ theme }) => theme.colors.text_gray};
   font-size: ${({ theme }) => theme.fontSize.base};
