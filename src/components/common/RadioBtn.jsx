@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../styles/theme';
 
 const RadioBtn = ({
   id,
@@ -12,20 +11,17 @@ const RadioBtn = ({
   size = 110,
   height,
 }) => {
-  const handleClick = () => {
-    onChange(id === selected ? '' : id);
-  };
   return (
-    <RadioLabel size={size} height={height}>
+    <RadioLabel size={size} height={height} isSelected={id === selected}>
       <RadioInput
         type='radio'
         id={id}
         name={name}
         value={value}
-        defaultChecked={id === selected}
-        onChange={onChange}
+        checked={id === selected}
+        onChange={() => onChange(id)}
       />
-      <RadioSpan htmlFor={id} selected={id === selected} size={size}>
+      <RadioSpan htmlFor={id} isSelected={id === selected} size={size}>
         {label}
       </RadioSpan>
     </RadioLabel>
@@ -43,7 +39,10 @@ const RadioLabel = styled.label`
   gap: 8px;
   flex-shrink: 0;
   border-radius: 5px;
-  background: ${COLORS.coumo_gray};
+  background: ${({ theme }) => theme.colors.white_fefe};
+  border: 1px solid
+    ${({ theme, isSelected }) =>
+      isSelected ? theme.colors.coumo_purple : theme.colors.tab_gray};
   align-self: flex-end;
 
   @media screen and (max-width: 1024px) {
@@ -60,10 +59,10 @@ const RadioInput = styled.input`
   width: 1.3em;
   height: 1.3em;
   transition: border 0.5s ease-in-out;
-  background-color: ${COLORS.white};
+  background-color: ${({ theme }) => theme.colors.white};
 
   &:checked {
-    border: 0.67em solid ${COLORS.coumo_purple};
+    border: 0.67em solid ${({ theme }) => theme.colors.coumo_purple};
   }
 
   &:hover {
@@ -75,7 +74,7 @@ const RadioInput = styled.input`
     width: 1.1em;
     height: 1.1em;
     &:checked {
-      border: 0.57em solid ${COLORS.coumo_purple};
+      border: 0.57em solid ${({ theme }) => theme.colors.coumo_purple};
     }
     &:hover {
       box-shadow: 0 0 0 max(2px, 0.1em) lightgray;
@@ -89,12 +88,12 @@ const RadioSpan = styled.span`
   color: #545252;
   text-overflow: ellipsis;
   font-family: 'Pretendard';
-  font-size: ${(props) => (props.size === 110 ? '12.8px' : '12px')};
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   line-height: 170%; /* 27.2px */
-  font-weight: ${(props) => (props.selected ? '600' : '400')};
+  font-weight: ${(props) => (props.isSelected ? '600' : '400')};
 
   @media screen and (max-width: 1024px) {
-    font-size: ${(props) => (props.size === 110 ? '11.8px' : '11px')};
+    font-size: ${({ theme }) => theme.fontSize.xs};
   }
 `;

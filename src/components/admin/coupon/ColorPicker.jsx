@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../styles/theme';
 import { ChromePicker } from 'react-color';
 
-const ColorPicker = ({ open, setOpen, color, setColor }) => {
+const ColorPicker = ({ color, setColor }) => {
+  const [open, setOpen] = useState(false);
+  const outsideRef = useRef(null);
+
+  // picker 바깥 클릭 시 닫힘
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (outsideRef.current && !outsideRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [outsideRef]);
+
   return (
-    <Container>
+    <Container ref={outsideRef}>
       <ColorBox onClick={() => setOpen((prev) => !prev)}>
         <Color color={color} />
         <span>{color}</span>
@@ -22,7 +37,7 @@ const ColorPicker = ({ open, setOpen, color, setColor }) => {
 export default ColorPicker;
 
 const ColorBox = styled.button`
-  background: ${COLORS.white_fff};
+  background: ${({ theme }) => theme.colors.white_fff};
   border-radius: 4px;
   display: flex;
   height: 38.5px;
@@ -32,10 +47,10 @@ const ColorBox = styled.button`
   border: 1px solid #d8d8d8;
   width: 110px;
 
-  color: ${COLORS.text_darkgray};
+  color: ${({ theme }) => theme.colors.text_darkgray};
   text-overflow: ellipsis;
   font-family: 'Pretendard';
-  font-size: 13px;
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   font-weight: 400;
   line-height: 170%; /* 27.2px */

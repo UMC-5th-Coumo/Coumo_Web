@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../styles/theme';
 import { fadeIn } from '../../../styles/GlobalStyle';
 
 const ConfirmModal = ({ title, onCancel, onConfirm }) => {
@@ -38,15 +37,15 @@ const Modal = styled.div`
   align-items: center;
   gap: 8px;
   border-radius: 12px;
-  background: ${COLORS.coumo_lightpurple};
+  background: ${({ theme }) => theme.colors.coumo_lightpurple};
   animation: ${fadeIn} 1s;
 `;
 
 const Title = styled.span`
   overflow: hidden;
-  color: ${COLORS.coumo_purple};
+  color: ${({ theme }) => theme.colors.coumo_purple};
   text-align: center;
-  font-size: 19px;
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
   font-weight: 600;
   line-height: 132%;
@@ -64,20 +63,20 @@ const BaseButton = styled.button`
   flex: 1;
   padding: 10px;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-weight: 600;
   transition: box-shadow 0.4s;
 `;
 
 const CancelButton = styled(BaseButton)`
-  background-color: ${COLORS.coumo_lightpurple};
-  color: ${COLORS.coumo_purple};
+  background-color: ${({ theme }) => theme.colors.coumo_lightpurple};
+  color: ${({ theme }) => theme.colors.coumo_purple};
   border: none;
 `;
 
 const DeleteButton = styled(BaseButton)`
-  background-color: ${COLORS.coumo_purple};
-  color: ${COLORS.white_fff};
+  background-color: ${({ theme }) => theme.colors.coumo_purple};
+  color: ${({ theme }) => theme.colors.white_fff};
   border: none;
 
   &:hover {

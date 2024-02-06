@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { COLORS } from '../../styles/theme';
 import styled from 'styled-components';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
 import Category from '../../components/admin/coupon/Category';
 import FormPopUp from '../../components/common/FormPopUp';
 import { categoryData } from '../../assets/data/categoryData';
+import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
+import { useNavigate } from 'react-router-dom';
 
 const UIServiceForm = () => {
   const [popUp, setPopUp] = useState(false);
@@ -13,36 +14,36 @@ const UIServiceForm = () => {
   const [category, setCategory] = useState('cafe');
   const [inputs, setInputs] = useState({
     storeName: '',
-    number: '',
+    phone: '',
     email: '',
     category: '',
   });
+  const navigate = useNavigate();
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const data = {
-      storeName: inputs.couponTitle,
-      number: inputs.number,
+      storeId: '',
+      couponTitle: inputs.storeName,
+      phone: inputs.phone,
+      storeType: inputs.category,
       email: inputs.email,
-      category,
-      description,
+      couponDescription: description,
     };
 
     // 서버 요청 성공 시 모달
-    submitPopUp();
+    setPopUp(true);
     resetData();
   };
 
   const submitPopUp = () => {
-    setPopUp(true);
-    setTimeout(() => {
-      setPopUp(false);
-    }, 3000);
+    setPopUp(false);
+    navigate('/mypage'); // 신청 내역 페이지로 랜딩할 예정
   };
 
   const resetData = () => {
     setInputs({
       storeName: '',
-      number: '',
+      phone: '',
       email: '',
       category: '',
     });
@@ -65,9 +66,9 @@ const UIServiceForm = () => {
         label='연락처를 입력해주세요.'
         type='text'
         placeholder='ex) 010-1234-5678'
-        value={inputs.number}
+        value={inputs.phone}
         onChange={(e) =>
-          setInputs((prev) => ({ ...prev, number: e.target.value }))
+          setInputs((prev) => ({ ...prev, phone: e.target.value }))
         }
       />
       <Input
@@ -99,16 +100,13 @@ const UIServiceForm = () => {
       </Description>
       <BtnContainer>
         <Button text='취소하기' />
-        <Button
-          text='신청서 제출하기'
-          color={COLORS.coumo_purple}
-          onClickBtn={onSubmit}
-        />
+        <Button text='신청서 제출하기' type={true} onClickBtn={onSubmit} />
       </BtnContainer>
       {popUp && (
-        <FormPopUp
+        <OneBtnPopUp
           title='신청서가 정상적으로 제출되었습니다.'
-          msg={`담당자가 신청서 확인 후, 개별 연락 드릴\n예정이오니 참고 부탁드립니다 :)`}
+          text='담당자가 신청서 확인 후, 개별 연락 드릴예정이오니 참고 부탁드립니다 :)'
+          onClick={submitPopUp}
         />
       )}
     </Content>
@@ -120,8 +118,8 @@ export default UIServiceForm;
 const Content = styled.div`
   width: 100%;
   height: auto;
-  color: ${COLORS.tab_gray};
-  font-size: 16px;
+  color: ${({ theme }) => theme.colors.tab_gray};
+  font-size: ${({ theme }) => theme.fontSize.base};
   box-sizing: border-box;
   font-weight: 500;
   position: relative;
@@ -132,8 +130,8 @@ const Content = styled.div`
 `;
 
 const Title = styled.h2`
-  color: ${COLORS.coumo_purple};
-  font-size: 19px;
+  color: ${({ theme }) => theme.colors.coumo_purple};
+  font-size: ${({ theme }) => theme.fontSize.title};
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 31.68px */
@@ -153,10 +151,10 @@ const TextArea = styled.textarea`
   padding: 8px 12px;
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${COLORS.coumo_gray};
+  background: ${({ theme }) => theme.colors.coumo_lightpurple};
 
-  color: ${COLORS.text_gray};
-  font-size: 13px;
+  color: ${({ theme }) => theme.colors.text_gray};
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 400;
   line-height: 170%; /* 27.2px */

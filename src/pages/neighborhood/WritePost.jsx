@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../components/common/Button';
 import { BtnContainer } from '../coupon/UIServiceForm';
-import { COLORS } from '../../styles/theme';
 import FormPopUp from '../../components/common/FormPopUp';
-import Edit from '../../components/admin/writePost/Edit';
+import Edit from '../../components/admin/neighborhood/Edit';
 
 const WritePost = () => {
   const [popUp, setPopUp] = useState(false);
@@ -57,11 +56,7 @@ const WritePost = () => {
       />
       <Btn>
         <Button text='취소하기' onClickBtn={() => resetData()} />
-        <Button
-          text='저장하기'
-          color={COLORS.coumo_purple}
-          onClickBtn={() => onSubmit()}
-        />
+        <Button text='저장하기' typee={true} onClickBtn={() => onSubmit()} />
       </Btn>
       {popUp && (
         <FormPopUp

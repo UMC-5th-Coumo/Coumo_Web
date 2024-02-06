@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../styles/theme';
 
 const Input = ({
   label,
@@ -18,6 +17,7 @@ const Input = ({
     <Element>
       <StyledInputTitle>{label}</StyledInputTitle>
       <StyledInput
+        isEmpty={value.length === 0}
         type={type}
         name={name}
         value={value}
@@ -40,9 +40,9 @@ const Element = styled.div`
 `;
 
 const StyledInputTitle = styled.div`
-  color: ${COLORS.coumo_purple};
+  color: ${({ theme }) => theme.colors.coumo_purple};
   font-family: 'Pretendard';
-  font-size: 19px;
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 31.68px */
@@ -50,7 +50,7 @@ const StyledInputTitle = styled.div`
   padding-bottom: 16px;
 
   @media screen and (max-width: 1024px) {
-    font-size: 16px;
+    font-size: ${({ theme }) => theme.fontSize.md};
   }
 `;
 
@@ -63,14 +63,16 @@ const StyledInput = styled.input`
   align-items: top;
   gap: 8px;
   border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${COLORS.coumo_gray};
+  border: 1px solid
+    ${({ theme, isEmpty }) =>
+      isEmpty ? theme.colors.tab_gray : theme.colors.coumo_purple};
+  background: ${({ theme }) => theme.colors.white_fefe};
   overflow: hidden;
-  color: ${COLORS.text_gray};
+  color: ${({ theme }) => theme.colors.text_gray};
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: 'Pretendard';
-  font-size: 13px;
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 400;
   line-height: 170%; /* 27.2px */
@@ -80,8 +82,10 @@ const StyledInput = styled.input`
   }
 
   @media screen and (max-width: 1024px) {
-    font-size: 12px;
-    width: 100%;
+    /* font-size: 12px;
+    width: 100%; */
+    font-size: ${({ theme }) => theme.fontSize.sm};
+    width: 80%;
     height: 20px;
   }
 `;

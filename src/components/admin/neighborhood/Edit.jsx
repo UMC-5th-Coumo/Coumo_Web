@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import Category from '../coupon/Category';
-import { writecategoryData } from '../../../assets/data/writecategoryData';
 import { StyledWriteInput } from '../../common/Input';
-import { COLORS } from '../../../styles/theme';
 import ImageBlock from '../shop/ImageBlock';
+import { writecategoryData } from '../../../assets/data/categoryData';
 
 const Edit = ({ category, setCategory, inputs, setInputs }) => {
   return (
@@ -87,10 +86,9 @@ const Representative = styled.div`
 `;
 
 const Label = styled.div`
-  /* width: 100px; */
-  color: ${COLORS.coumo_purple};
+  color: ${({ theme }) => theme.colors.coumo_purple};
   font-family: 'Pretendard';
-  font-size: 19px;
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 31.68px */
@@ -110,8 +108,8 @@ const ImageLabel = styled(Label)`
 `;
 
 const Recommend = styled.div`
-  color: ${COLORS.coumo_purple};
-  font-size: 13px;
+  color: ${({ theme }) => theme.colors.coumo_purple};
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   font-weight: 400;
   line-height: 200%;
@@ -132,13 +130,13 @@ const StyledWriteTextarea = styled.textarea`
   gap: 8px;
   border-radius: 4px;
   border: none;
-  background: ${COLORS.coumo_gray};
+  background: ${({ theme }) => theme.colors.coumo_lightpurple};
   overflow: hidden;
-  color: ${COLORS.text_gray};
+  color: ${({ theme }) => theme.colors.text_gray};
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: 'Pretendard';
-  font-size: 13px;
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   font-weight: 400;
   line-height: 170%; /* 27.2px */

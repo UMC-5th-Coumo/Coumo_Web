@@ -4,10 +4,9 @@ import styled from 'styled-components';
 import { Line } from '../../assets';
 import Title from '../../components/common/Title';
 import Button from '../../components/common/Button';
-import { COLORS } from '../../styles/theme';
 import { BtnContainer } from '../coupon/UIServiceForm';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { getLabelByTag } from '../../assets/data/writecategoryData';
+import { getLabelByTag } from '../../assets/data/categoryData';
 import RadioBtn from '../../components/common/RadioBtn';
 import { useParams } from 'react-router-dom';
 import { setSelectedPost } from '../../redux/slices/postSlice';
@@ -56,11 +55,7 @@ const MyPostView = () => {
       </div>
       <Btn>
         <Button text='취소하기' />
-        <Button
-          text='수정하기'
-          color={COLORS.coumo_purple}
-          onClickBtn={onClickMod}
-        />
+        <Button text='수정하기' type={true} onClickBtn={onClickMod} />
       </Btn>
     </StyledWrite>
   );
@@ -77,8 +72,8 @@ const StyledWrite = styled.div`
 `;
 
 const SubTitle = styled.h2`
-  color: ${COLORS.coumo_purple};
-  font-size: 19px;
+  color: ${({ theme }) => theme.colors.coumo_purple};
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 31.68px */
@@ -94,12 +89,12 @@ const TitleBox = styled.div`
 `;
 
 const Box = styled.div`
-  border: 1px solid ${COLORS.text_lightgray};
+  border: 1px solid ${({ theme }) => theme.colors.text_lightgray};
   border-radius: 5px;
   max-width: 900px;
   height: 400px;
   padding: 30px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSize.base};
 `;
 
 const Btn = styled(BtnContainer)`

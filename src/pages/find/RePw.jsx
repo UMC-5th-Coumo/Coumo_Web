@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { COLORS } from '../../styles/theme';
 import InputJoin from '../../components/common/InputJoin';
 import FormPopUp from '../../components/common/FormPopUp';
 import axios from 'axios';
@@ -129,7 +128,7 @@ const Title = styled.div`
   width: 890px;
   color: #333;
   text-align: center;
-  font-size: 36px;
+  font-size: ${({ theme }) => theme.fontSize.title};
   font-style: normal;
   font-weight: 700;
   line-height: 100%; /* 36px */
@@ -139,7 +138,7 @@ const Title = styled.div`
 const Msg = styled.div`
   height: 15px;
   color: #fc0f0f;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.3px;
@@ -159,16 +158,16 @@ const JoinBtn = styled.button`
   align-items: center;
   border: none;
   border-radius: 8px;
-  background: ${COLORS.coumo_purple};
-  color: ${COLORS.white};
+  background: ${({ theme }) => theme.colors.coumo_purple};
+  color: ${({ theme }) => theme.colors.white};
   text-align: center;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSize.title};
   font-style: normal;
   font-weight: 700;
   margin-top: 30px;
 
   &:disabled {
-    background: ${COLORS.btn_lightgray};
-    color: ${COLORS.text_btn_darkgray};
+    background: ${({ theme }) => theme.colors.btn_lightgray};
+    color: ${({ theme }) => theme.colors.text_btn_darkgray};
   }
 `;

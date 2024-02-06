@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../styles/theme';
 import TagButton from './TagButton';
 
 const Post = ({ data, onClick, onModify, onDelete }) => {
@@ -10,14 +9,16 @@ const Post = ({ data, onClick, onModify, onDelete }) => {
         <PostClick onClick={onClick}>
           <TitleBox>
             <TagButton label={data.label} />
-            <Title>{data.title}</Title>
+            <Text>
+              <Title>{data.title}</Title>
+              <Date>2024-01-01 16:32</Date>
+            </Text>
           </TitleBox>
-          <Date>2024-01-01 16:32</Date>
         </PostClick>
       </Content>
       <Btns>
-        <PostButton onClick={onModify}>수정하기</PostButton>
-        <PostButton onClick={onDelete}>삭제하기</PostButton>
+        <PostButton onClick={onModify} isModify={true} />
+        <PostButton onClick={onDelete} isModify={false} />
       </Btns>
     </Container>
   );
@@ -26,20 +27,23 @@ const Post = ({ data, onClick, onModify, onDelete }) => {
 export default Post;
 
 const Container = styled.div`
-  max-width: 900px;
-  height: 110px;
+  min-width: 600px;
+  height: 60px;
   display: flex;
   align-items: center;
-  background: ${COLORS.white_fff};
-  border-top: 2px solid #e0e0e0;
-  border-bottom: 2px solid #e0e0e0;
+  box-sizing: border-box;
+  padding: 20px 40px 20px;
+  justify-content: space-between;
+  background: ${({ theme }) => theme.colors.white_fff};
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
 
   &:not(:first-child) {
     border-top: none;
   }
 
   &:hover {
-    background: ${COLORS.post_lightgray};
+    background: ${({ theme }) => theme.colors.post_lightgray};
   }
 `;
 
@@ -63,11 +67,16 @@ const TitleBox = styled.div`
   gap: 14px;
 `;
 
-const Title = styled.h2`
+const Text = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Title = styled.div`
   width: 260px;
   margin: 0;
   color: #5a5369;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 600;
 
@@ -78,13 +87,13 @@ const Title = styled.h2`
   -webkit-line-clamp: 1;
   overflow: hidden;
 
-  @media screen and (max-width: 1024px) {
+  /* @media screen and (max-width: 1024px) {
     font-size: 16px;
-  }
+  } */
 `;
 
 const Date = styled.div`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSize.sm};
   color: #3b3648;
 `;
 
@@ -95,24 +104,36 @@ const Btns = styled.div`
 
 const PostButton = styled.button`
   display: flex;
-  width: 96px;
-  height: 38px;
+  width: 76px;
+  height: 30px;
   padding: 12px 8px;
   justify-content: center;
   align-items: center;
   gap: 8px;
   border-radius: 6px;
   border: 1.5px solid rgba(144, 133, 165, 0.4);
-  background: ${COLORS.white_fff};
-  color: ${COLORS.text_darkgray};
-  font-size: 13px;
+  background: ${({ theme }) => theme.colors.white_fff};
+  color: ${({ theme }) => theme.colors.text_darkgray};
+  font-size: ${({ theme }) => theme.fontSize.xs};
   font-style: normal;
   font-weight: 600;
   line-height: 132%; /* 21.12px */
 
+  &:hover {
+    border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
+  }
+
+  &:after {
+    content: '${(props) => (props.isModify ? '수정하기' : '삭제하기')}';
+  }
+
   @media screen and (max-width: 1024px) {
-    font-size: 11px;
-    width: 76px;
-    height: 30px;
+    font-size: ${({ theme }) => theme.fontSize.xs};
+    width: 40px;
+    height: 20px;
+
+    &:after {
+      content: '${(props) => (props.isModify ? '수정' : '삭제')}';
+    }
   }
 `;

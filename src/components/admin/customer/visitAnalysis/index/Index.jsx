@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../../../styles/theme';
 
 const Index = ({ text, onClickTab, isSelected }) => {
   return (
@@ -24,10 +23,11 @@ const TabDiv = styled.div`
 
   cursor: pointer;
   border-radius: 0px 24px 24px 0px;
-  background: ${(props) =>
-    props.selected ? COLORS.coumo_purple : COLORS.btn_lightgray};
-  color: ${(props) => (props.selected ? COLORS.white_fff : COLORS.tab_gray)};
-  font-size: 13px;
+  background: ${({ theme, selected }) =>
+    selected ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
+  color: ${({ theme, selected }) =>
+    selected ? theme.colors.white_fff : theme.colors.tab_gray};
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-weight: ${(props) => (props.selected ? '700' : '500')};
   line-height: 132%;
   letter-spacing: 0.48px;

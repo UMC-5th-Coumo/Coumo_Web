@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../styles/theme';
 
 const ReasonCard = ({ id, img, title, description }) => {
   return (
@@ -23,7 +22,7 @@ const Card = styled.div`
   padding: 24px;
   gap: 8px;
   border-radius: 24px;
-  background: ${COLORS.white_fefe};
+  background: ${({ theme }) => theme.colors.white_fefe};
   box-shadow: 12px 15px 14.8px 0px rgba(87, 76, 108, 0.1);
   backdrop-filter: blur(4px);
 `;
@@ -34,9 +33,9 @@ const CardImage = styled.div`
 `;
 
 const Reason = styled.div`
-  color: ${COLORS.coumo_purple};
+  color: ${({ theme }) => theme.colors.coumo_purple};
   text-align: center;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
   font-weight: 800;
   line-height: 100%; /* 20px */
@@ -47,7 +46,7 @@ const Reason = styled.div`
 const Text = styled.div`
   color: #635f6a;
   text-align: center;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 400;
   line-height: 22px; /* 157.143% */

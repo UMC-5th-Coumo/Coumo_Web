@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { COLORS } from '../../styles/theme';
 import { Logo } from '../../assets';
 import Button from './Button';
 
@@ -42,9 +41,9 @@ const Head = styled.div`
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  background-color: ${COLORS.white};
+  background-color: ${({ theme }) => theme.colors.white};
   font-family: 'Pretendard';
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSize.md};
   position: absolute;
   top: 0;
   box-shadow: 0px 13px 21.8px 0px rgba(69, 0, 198, 0.08);
@@ -73,7 +72,7 @@ const Nav = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  color: ${COLORS.text_darkgray};
+  color: ${({ theme }) => theme.colors.text_darkgray};
   font-weight: 600;
   text-decoration-line: none;
 `;
