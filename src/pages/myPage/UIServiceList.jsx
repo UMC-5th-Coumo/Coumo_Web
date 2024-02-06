@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Title from '../../components/common/Title';
-import { Line } from '../../assets';
 import ListBox from '../../components/admin/myPage/ListBox';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +10,6 @@ function UIServiceList() {
     <Container>
       <TitleBox>
         <Title title='쿠폰 UI 서비스 신청내역' />
-        <Line />
       </TitleBox>
       <List>
         {dummyData.map((data) => {
@@ -39,12 +37,17 @@ const Container = styled.div`
   min-height: calc(100vh - 80px);
   box-sizing: border-box;
   padding: 70px 100px;
+
+  @media screen and (max-width: 1024px) {
+    padding: 70px 50px;
+  }
 `;
 
 const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  border-bottom: 2px solid #d2d2d4;
+  padding-bottom: 30px;
 `;
 
 const List = styled.div`

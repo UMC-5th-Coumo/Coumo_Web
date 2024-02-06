@@ -1,18 +1,15 @@
 import React from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Title from '../../components/common/Title';
-import { Line } from '../../assets';
 import styled from 'styled-components';
 
 function UIServiceDetail() {
-  const { id } = useParams();
   const { state: data } = useLocation();
   return (
     <Container>
       <Wrapper>
         <TitleBox>
           <Title title='쿠폰 UI 서비스 신청내역' />
-          <Line />
         </TitleBox>
         <Content>
           <TagContainer>
@@ -40,7 +37,6 @@ function UIServiceDetail() {
       <Wrapper>
         <TitleBox>
           <Title title='완성된 디자인 이미지' />
-          <Line />
         </TitleBox>
         <DesignContent>
           <DesignBox>
@@ -67,6 +63,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media screen and (max-width: 1024px) {
+    padding: 70px 50px;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -78,6 +78,8 @@ const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 32px;
+  border-bottom: 2px solid #d2d2d4;
+  padding-bottom: 30px;
 `;
 
 const Content = styled.div`
@@ -115,6 +117,10 @@ const DesignContent = styled.div`
   display: flex;
   padding: 30px 0px;
   gap: 40px;
+
+  @media screen and (max-width: 880px) {
+    flex-direction: column;
+  }
 `;
 
 const DesignBox = styled.div`
