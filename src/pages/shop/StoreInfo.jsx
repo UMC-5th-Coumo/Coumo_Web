@@ -39,8 +39,13 @@ export default StoreInfo;
 const Info = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 70px 120px;
+  padding: 70px 100px;
   gap: 100px;
+  box-sizing: border-box;
+
+  @media screen and (max-width: 1024px) {
+    padding: 70px 50px;
+  }
 `;
 
 const Image = styled.div`
