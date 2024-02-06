@@ -17,16 +17,32 @@ export default ListBox;
 
 const Container = styled.div`
   width: 450px;
-  height: 65px;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 38px;
+  padding: 0px 34px;
   box-sizing: border-box;
   border-radius: 12px;
   background: #f5efff;
   color: #2f2a37;
   font-size: ${({ theme }) => theme.fontSize.md};
+
+  & h4 {
+    font-weight: 600;
+    color: #2f2a37;
+    font-size: ${({ theme }) => theme.fontSize.md};
+    margin: 0;
+  }
+
+  @media screen and (max-width: 1024px) {
+    width: 400px;
+    height: 50px;
+
+    & h4 {
+      font-size: ${({ theme }) => theme.fontSize.base};
+    }
+  }
 `;
 
 const Button = styled.button`
