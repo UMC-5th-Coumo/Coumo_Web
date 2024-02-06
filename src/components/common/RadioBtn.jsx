@@ -21,10 +21,9 @@ const RadioBtn = ({
         id={id}
         name={name}
         value={value}
-        defaultChecked={id === selected}
+        checked={selected}
         onChange={() => onChange(id)}
       />
-      {console.log('id=', id, id === selected)}
       <RadioSpan htmlFor={id} isSelected={id === selected} size={size}>
         {label}
       </RadioSpan>

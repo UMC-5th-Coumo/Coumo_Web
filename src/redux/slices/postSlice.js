@@ -45,9 +45,6 @@ const postSlice = createSlice({
     postDummyData: initialPostDummyData, // 글 목록 배열
     selectedPost: null, // 현재 선택된 글
     category: '', // 카테고리 필터
-    showConfirmModal: false, // 삭제 확인 모달 표시 여부 (삭제할건가요?)
-    popUp: false, // 일반 팝업 표시 여부 (수정됨)
-    popUpDelete: false, // 삭제 팝업 표시 여부 (삭제됨)
   },
   reducers: {
     setPostDummyData: (state, action) => {
@@ -59,25 +56,10 @@ const postSlice = createSlice({
     setCategory: (state, action) => {
       state.category = action.payload;
     },
-    setShowConfirmModal: (state, action) => {
-      state.showConfirmModal = action.payload;
-    },
-    setPopUp: (state, action) => {
-      state.popUp = action.payload;
-    },
-    setPopUpDelete: (state, action) => {
-      state.popUpDelete = action.payload;
-    },
   },
 });
 
-export const {
-  setPostDummyData,
-  setSelectedPost,
-  setCategory,
-  setShowConfirmModal,
-  setPopUp,
-  setPopUpDelete,
-} = postSlice.actions;
+export const { setPostDummyData, setSelectedPost, setCategory } =
+  postSlice.actions;
 
 export default postSlice.reducer;

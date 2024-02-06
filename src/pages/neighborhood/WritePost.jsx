@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Button from '../../components/common/Button';
 import { BtnContainer } from '../coupon/UIServiceForm';
 import FormPopUp from '../../components/common/FormPopUp';
-import Edit from '../../components/admin/writePost/Edit';
+import Edit from '../../components/admin/neighborhood/Edit';
 
 const WritePost = () => {
   const [popUp, setPopUp] = useState(false);

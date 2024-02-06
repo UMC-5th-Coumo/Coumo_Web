@@ -1,13 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Title from '../components/common/Title';
 import { CallIcon, DetailArrow, Line } from '../assets';
 import { useSelector } from 'react-redux';
+import TwoBtnPopUp from '../components/common/popUp/TwoBtnPopUp';
 
 function MyPage() {
   const { name, id, email, phone } = useSelector((state) => state.user);
+  const [logOut, setLogOut] = useState(false);
+  const [withdrawal, setWithdrawal] = useState(false);
+
+  if (logOut || withdrawal) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
+
+  const handleLogOut = () => {
+    //
+  };
+
+  const handleWithdrawal = () => {
+    //
+  };
+
   return (
     <Container>
+      {logOut && (
+        <TwoBtnPopUp
+          title='로그아웃 하기'
+          text='로그아웃 시, 재인증이 필요합니다'
+          btnLabel='로그아웃'
+          setOpen={setLogOut}
+          onClick={handleLogOut}
+        />
+      )}
+      {withdrawal && (
+        <TwoBtnPopUp
+          title='탈퇴하기'
+          text='정말 탈퇴하시겠습니까?'
+          btnLabel='탈퇴하기'
+          setOpen={setWithdrawal}
+          onClick={handleWithdrawal}
+        />
+      )}
       <TitleBox>
         <Title title={`안녕하세요, ${name}님!`} size={22} />
         <Line />
@@ -46,13 +82,13 @@ function MyPage() {
         </Box>
         <Box>
           <h4>로그아웃</h4>
-          <Button>
+          <Button onClick={() => setLogOut(true)}>
             <DetailArrow />
           </Button>
         </Box>
         <Box>
           <h4>탈퇴하기</h4>
-          <Button>
+          <Button onClick={() => setWithdrawal(true)}>
             <DetailArrow />
           </Button>
         </Box>

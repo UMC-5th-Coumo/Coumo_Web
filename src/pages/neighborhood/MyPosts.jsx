@@ -4,27 +4,23 @@ import Post from '../../components/admin/neighborhood/Post';
 import styled from 'styled-components';
 import { Line } from '../../assets';
 import { useNavigate } from 'react-router-dom';
-import FormPopUp from '../../components/common/FormPopUp';
-import ConfirmModal from '../../components/admin/neighborhood/ConfirmModal';
+import TwoBtnPopUp from '../../components/common/popUp/TwoBtnPopUp';
 import Category from '../../components/admin/coupon/Category';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  setSelectedPost,
-  setShowConfirmModal,
-  setPopUpDelete,
-} from '../../redux/slices/postSlice';
+import { setSelectedPost } from '../../redux/slices/postSlice';
+import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 import { postCategoryData } from '../../assets/data/categoryData';
 
 const MyPosts = () => {
+  const [deletePopUp, setDeletePopUp] = useState(false);
+  const [confirmPopUp, setConfirmPopUp] = useState(false);
+  const [category, setCategory] = useState('all');
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [category, setCategory] = useState('all');
-
   const postDummyData = useSelector((state) => state.post.postDummyData);
   const selectedPost = useSelector((state) => state.post.selectedPost);
-  const showConfirmModal = useSelector((state) => state.post.showConfirmModal);
-  const popUpDelete = useSelector((state) => state.post.popUpDelete);
 
   const handlePostClick = (postIndex) => {
     dispatch(setSelectedPost(postDummyData[postIndex]));
@@ -46,7 +42,7 @@ const MyPosts = () => {
 
   const handleDeleteClick = (postIndex) => {
     dispatch(setSelectedPost(postDummyData[postIndex]));
-    dispatch(setShowConfirmModal(true));
+    setDeletePopUp(true);
   };
 
   const onDeleteConfirm = () => {
@@ -55,16 +51,8 @@ const MyPosts = () => {
     console.log('Deleted post with ID:', postId);
     console.log('Updated data:', updatedData);
 
-    dispatch(setPopUpDelete(true));
-    setTimeout(() => {
-      dispatch(setPopUpDelete(false));
-    }, 1500);
-
-    dispatch(setShowConfirmModal(false));
-  };
-
-  const onCancelDelete = () => {
-    dispatch(setShowConfirmModal(false));
+    setDeletePopUp(false);
+    setConfirmPopUp(true);
   };
 
   const filteredPosts =
@@ -98,17 +86,20 @@ const MyPosts = () => {
           );
         })}
       </PostContainer>
-      {showConfirmModal && (
-        <ConfirmModal
-          title='정말 삭제하시겠습니까?'
-          onCancel={onCancelDelete}
-          onConfirm={onDeleteConfirm}
+      {deletePopUp && (
+        <TwoBtnPopUp
+          title='글 삭제하기'
+          text='정말 삭제하시겠습니까?'
+          btnLabel='삭제하기'
+          setOpen={setDeletePopUp}
+          onClick={onDeleteConfirm}
         />
       )}
-      {popUpDelete && (
-        <FormPopUp
+      {confirmPopUp && (
+        <OneBtnPopUp
           title='글이 삭제되었습니다!'
-          msg='남아있는 글을 확인해보세요!'
+          text='남아있는 글을 확인해보세요.'
+          setOpen={setConfirmPopUp}
         />
       )}
     </>

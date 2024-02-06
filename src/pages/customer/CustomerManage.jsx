@@ -8,8 +8,6 @@ import CustomerList from '../../components/admin/customer/customerManage/Custome
 import CustomerDetail from '../../components/admin/customer/customerManage/CustomerDetail';
 import { useDispatch, useSelector } from 'react-redux';
 import getCustomers from '../../redux/thunks/getCustomers';
-import { customerCategoryData } from '../../assets/data/categoryData';
-import Category from '../../components/admin/coupon/Category';
 
 const CustomerManage = () => {
   const [number, setNumber] = useState('');
