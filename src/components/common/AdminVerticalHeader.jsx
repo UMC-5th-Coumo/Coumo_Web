@@ -123,7 +123,7 @@ const Container = styled.div`
   padding-left: 50px;
   overflow: hidden;
   gap: 30px;
-  z-index: 999;
+  z-index: 10;
 
   @media screen and (max-width: 1280px) {
     width: 220px;

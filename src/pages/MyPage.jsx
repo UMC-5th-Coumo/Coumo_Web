@@ -10,7 +10,7 @@ import ListBox from '../components/admin/myPage/ListBox';
 function MyPage() {
   const { name, id, email, phone } = useSelector((state) => state.user);
   const [logOut, setLogOut] = useState(false);
-  const [withdrawal, setWithdrawal] = useState(false);
+  const [withdrawal, setWithdrawal] = useState(true);
   const navigate = useNavigate();
 
   if (logOut || withdrawal) {
@@ -40,8 +40,8 @@ function MyPage() {
       )}
       {withdrawal && (
         <TwoBtnPopUp
-          title='탈퇴하기'
-          text='정말 탈퇴하시겠습니까?'
+          title='정말 탈퇴하시겠습니까?'
+          text='복구가 불가능합니다.'
           btnLabel='탈퇴하기'
           setOpen={setWithdrawal}
           onClick={handleWithdrawal}

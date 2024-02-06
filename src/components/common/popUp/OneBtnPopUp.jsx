@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { fadeIn } from '../../../styles/GlobalStyle';
 
 function OneBtnPopUp({ title, text, onClick }) {
   return (
@@ -45,6 +46,12 @@ const PopUp = styled.div`
   gap: 20px;
   box-sizing: border-box;
   padding: 30px;
+  animation: ${fadeIn} 0.7s;
+
+  @media screen and (max-width: 1024px) {
+    width: 330px;
+    padding: 25px;
+  }
 `;
 
 const TextBox = styled.div`
@@ -58,12 +65,22 @@ const TextBox = styled.div`
     font-size: ${({ theme }) => theme.fontSize.sm};
     color: ${({ theme }) => theme.colors.text_gray};
   }
+
+  @media screen and (max-width: 1024px) {
+    & span {
+      font-size: ${({ theme }) => theme.fontSize.xs};
+    }
+  }
 `;
 
 const PopUpTitle = styled.h3`
   margin: 0;
   font-size: ${({ theme }) => theme.fontSize.title};
   color: ${({ theme }) => theme.colors.text_black};
+
+  @media screen and (max-width: 1024px) {
+    font-size: ${({ theme }) => theme.fontSize.lg};
+  }
 `;
 
 const Button = styled.button`
@@ -79,4 +96,8 @@ const Button = styled.button`
   color: ${({ ok, theme }) =>
     ok ? theme.colors.white : theme.colors.text_darkgray};
   cursor: pointer;
+
+  @media screen and (max-width: 1024px) {
+    height: 40px;
+  }
 `;
