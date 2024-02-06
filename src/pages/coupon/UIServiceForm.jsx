@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { COLORS } from '../../styles/theme';
 import styled from 'styled-components';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
@@ -104,11 +103,7 @@ const UIServiceForm = () => {
       </Description>
       <BtnContainer>
         <Button text='취소하기' />
-        <Button
-          text='신청서 제출하기'
-          color={COLORS.coumo_purple}
-          onClickBtn={onSubmit}
-        />
+        <Button text='신청서 제출하기' type={true} onClickBtn={onSubmit} />
       </BtnContainer>
       {popUp && (
         <FormPopUp
@@ -125,8 +120,8 @@ export default UIServiceForm;
 const Content = styled.div`
   width: 100%;
   height: auto;
-  color: ${COLORS.tab_gray};
-  font-size: 16px;
+  color: ${({ theme }) => theme.colors.tab_gray};
+  font-size: ${({ theme }) => theme.fontSize.base};
   box-sizing: border-box;
   font-weight: 500;
   position: relative;
@@ -137,8 +132,8 @@ const Content = styled.div`
 `;
 
 const Title = styled.h2`
-  color: ${COLORS.coumo_purple};
-  font-size: 19px;
+  color: ${({ theme }) => theme.colors.coumo_purple};
+  font-size: ${({ theme }) => theme.fontSize.title};
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 31.68px */
@@ -158,10 +153,10 @@ const TextArea = styled.textarea`
   padding: 8px 12px;
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${COLORS.coumo_gray};
+  background: ${({ theme }) => theme.colors.coumo_lightpurple};
 
-  color: ${COLORS.text_gray};
-  font-size: 13px;
+  color: ${({ theme }) => theme.colors.text_gray};
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 400;
   line-height: 170%; /* 27.2px */

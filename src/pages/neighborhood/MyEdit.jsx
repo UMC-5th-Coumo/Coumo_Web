@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Line } from '../../assets';
 import Title from '../../components/common/Title';
 import Button from '../../components/common/Button';
-import { COLORS } from '../../styles/theme';
 import { BtnContainer } from '../coupon/UIServiceForm';
 import FormPopUp from '../../components/common/FormPopUp';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { getLabelByTag } from '../../assets/data/writecategoryData';
+import { getLabelByTag } from '../../assets/data/categoryData';
 import Edit from '../../components/admin/writePost/Edit';
 import ConfirmModal from '../../components/admin/neighborhood/ConfirmModal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -134,11 +133,7 @@ const MyEdit = () => {
       />
       <Btn>
         <Button text='삭제하기' onClickBtn={onDelete} />
-        <Button
-          text='수정완료'
-          color={COLORS.coumo_purple}
-          onClickBtn={onSubmit}
-        />
+        <Button text='수정완료' type={true} onClickBtn={onSubmit} />
       </Btn>
       {popUp && (
         <FormPopUp

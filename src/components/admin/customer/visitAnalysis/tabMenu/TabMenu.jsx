@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../../../styles/theme';
 
 const TabMenu = ({ text, onClickTab, isSelected }) => {
   return (
@@ -22,8 +21,9 @@ const TabDiv = styled.div`
   justify-content: center;
   align-items: center;
 
-  color: ${(props) => (props.selected ? COLORS.coumo_purple : COLORS.tab_gray)};
-  font-size: 13px;
+  color: ${({ theme, selected }) =>
+    selected ? theme.colors.coumo_purple : theme.colors.tab_gray};
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   font-weight: 700;
   line-height: 22px; /* 137.5% */
@@ -35,8 +35,8 @@ const TabDiv = styled.div`
 const Selector = styled.div`
   width: 100%;
   height: 4px;
-  background-color: ${(props) =>
-    props.selected ? COLORS.coumo_purple : 'none'};
+  background-color: ${({ theme, selected }) =>
+    selected ? theme.colors.coumo_purple : 'none'};
   border-radius: 30px;
 
   position: absolute;

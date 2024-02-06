@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../../styles/theme';
 import { IoIosArrowDown } from 'react-icons/io';
 import { timeData } from '../../../../assets/data/workingHourData';
 
@@ -28,6 +27,7 @@ function Dropdown({ value, setValue, disabled }) {
   return (
     <Container ref={outsideRef}>
       <DropdownInput
+        isOpen={open}
         onClick={() => setOpen((prev) => !prev)}
         disabled={disabled}
       >
@@ -66,20 +66,26 @@ const DropdownInput = styled.div`
   border-radius: 7px;
   font-weight: 400;
   font-family: 'Pretendard';
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSize.sm};
   box-sizing: border-box;
   padding: 0px 15px;
   cursor: pointer;
 
   pointer-events: ${(props) => (props.disabled ? 'none' : 'all')};
-  background-color: ${(props) =>
-    props.disabled ? '#e9e9e97e' : COLORS.coumo_gray};
+  background: ${({ theme }) => theme.colors.white_fefe};
+  border: 1px solid
+    ${({ theme, disabled, isOpen }) =>
+      disabled
+        ? '#dddddd'
+        : isOpen
+          ? theme.colors.coumo_purple
+          : theme.colors.tab_gray};
   color: ${(props) => (props.disabled ? '#dddddd' : '#666666')};
 
   @media screen and (max-width: 1024px) {
     width: 160px;
     height: 35px;
-    font-size: 11px;
+    font-size: ${({ theme }) => theme.fontSize.xs};
   }
 `;
 
@@ -93,10 +99,11 @@ const DropDownPosition = styled.div`
 `;
 
 const DropdownBox = styled.div`
-  width: 100%;
+  width: 99%;
   height: 200px;
   border-radius: 6px;
-  background-color: ${COLORS.coumo_gray};
+  background: ${({ theme }) => theme.colors.white_fefe};
+  border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
 
   display: flex;
   flex-direction: column;
@@ -111,7 +118,7 @@ const Item = styled.span`
   width: 100%;
   box-sizing: border-box;
   padding: 10px 20px;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSize.sm};
   color: #333333;
   cursor: pointer;
 
@@ -120,6 +127,6 @@ const Item = styled.span`
   }
 
   &:hover {
-    background-color: #dadada;
+    background-color: ${({ theme }) => theme.colors.coumo_lightpurple};
   }
 `;

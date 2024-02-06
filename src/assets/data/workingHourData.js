@@ -1,11 +1,11 @@
 export const days = {
-  MON: '월',
-  TUE: '화',
-  WED: '수',
-  THU: '목',
-  FRI: '금',
-  SAT: '토',
-  SUN: '일',
+  mon: '월',
+  tue: '화',
+  wed: '수',
+  thu: '목',
+  fri: '금',
+  sat: '토',
+  sun: '일',
 };
 
 export const timeData = [

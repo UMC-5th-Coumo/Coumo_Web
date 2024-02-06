@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import InputJoin from '../../components/common/InputJoin';
 import { CheckBoxDefault, CheckBoxSelected } from '../../assets';
-import { COLORS } from '../../styles/theme';
 import { Btn } from '../../components/common/Button';
 
 const JoinOneStep = () => {
@@ -202,7 +201,7 @@ const Title = styled.div`
   width: 890px;
   color: #333;
   text-align: center;
-  font-size: 36px;
+  font-size: ${({ theme }) => theme.fontSize.title};
   font-style: normal;
   font-weight: 700;
   line-height: 100%; /* 36px */
@@ -212,7 +211,7 @@ const Title = styled.div`
 const Msg = styled.div`
   height: 15px;
   color: #fc0f0f;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.3px;
@@ -238,7 +237,7 @@ const Agree = styled.div`
 const CheckTitle = styled.div`
   color: #212529;
   text-align: center;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSize.md};
   font-style: normal;
   font-weight: 600;
   line-height: 32.4px; /* 180% */
@@ -248,7 +247,7 @@ const CheckTitle = styled.div`
 const CheckMore = styled.div`
   color: rgba(33, 37, 41, 0.5);
   text-align: center;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSize.md};
   font-style: normal;
   font-weight: 400;
   line-height: 32.4px; /* 180% */
@@ -265,17 +264,17 @@ const JoinBtn = styled.button`
   align-items: center;
   border: none;
   border-radius: 8px;
-  background: ${COLORS.coumo_purple};
-  color: ${COLORS.white};
+  background: ${({ theme }) => theme.colors.coumo_purple};
+  color: ${({ theme }) => theme.colors.white};
   text-align: center;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
   font-weight: 700;
   margin-top: 30px;
 
   &:disabled {
-    background: ${COLORS.btn_lightgray};
-    color: ${COLORS.text_btn_darkgray};
+    background: ${({ theme }) => theme.colors.btn_lightgray};
+    color: ${({ theme }) => theme.colors.text_btn_darkgray};
   }
 `;
 
@@ -292,11 +291,11 @@ const NewButton = styled(Btn)`
   margin-top: 25px;
   margin-left: 15px;
   border-radius: 49px;
-  background-color: ${COLORS.coumo_purple};
+  background-color: ${({ theme }) => theme.colors.coumo_purple};
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSize.md};
   font-style: normal;
   font-weight: 500;
   line-height: 170%; /* 30.6px */

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../styles/theme';
 import { Arrow } from '../../assets';
 
 const Plan = ({ data }) => {
@@ -33,12 +32,12 @@ const Container = styled.div`
   align-items: center;
 
   border-radius: 12px;
-  background: ${COLORS.coumo_lightpurple};
+  background: ${({ theme }) => theme.colors.coumo_lightpurple};
 `;
 
 const Title = styled.h2`
   margin: 0;
-  color: ${COLORS.coumo_purple};
+  color: ${({ theme }) => theme.colors.coumo_purple};
   font-size: clamp(20px, 2vw, 25px);
   font-style: normal;
   font-weight: 800;
@@ -47,16 +46,16 @@ const Title = styled.h2`
 `;
 
 const Term = styled.span`
-  color: ${COLORS.text_black};
+  color: ${({ theme }) => theme.colors.text_black};
   text-align: center;
-  font-size: 15px;
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 400;
   margin-bottom: 7px;
 `;
 
 const Price = styled.span`
-  color: ${COLORS.text_black};
+  color: ${({ theme }) => theme.colors.text_black};
   font-size: clamp(16px, 2vw, 22px);
   font-style: normal;
   font-weight: 700;

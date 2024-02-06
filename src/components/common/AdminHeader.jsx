@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from './Button';
-import { COLORS } from '../../styles/theme';
 import { Logo } from '../../assets';
 
 function AdminHeader() {
@@ -17,7 +16,7 @@ function AdminHeader() {
         </LogoContainer>
         <Button
           text={`${name} 사장님`}
-          color={COLORS.coumo_purple}
+          type={true}
           onClickBtn={() => {
             navigate('/mypage');
           }}
@@ -37,9 +36,9 @@ const Head = styled.div`
   justify-content: center;
 
   box-sizing: border-box;
-  background-color: ${COLORS.coumo_lightpurple};
+  background-color: ${({ theme }) => theme.colors.coumo_lightpurple};
   font-family: 'Pretendard';
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSize.md};
   position: absolute;
   top: 0;
   box-shadow: 0px 13px 21.8px 0px rgba(69, 0, 198, 0.08);

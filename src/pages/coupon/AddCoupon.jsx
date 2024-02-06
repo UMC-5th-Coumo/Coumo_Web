@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Input from '../../components/common/Input';
 import Title from '../../components/common/Title';
-import { COLORS } from '../../styles/theme';
 import ColorPicker from '../../components/admin/coupon/ColorPicker';
 import StampCount from '../../components/admin/coupon/StampCount';
 import StampList from '../../components/admin/coupon/StampList';
@@ -125,7 +124,7 @@ export default AddCoupon;
 
 const Container = styled.div`
   width: 1200px;
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.fontSize.base};
   box-sizing: border-box;
   font-weight: 500;
   display: flex;
@@ -145,8 +144,8 @@ const TitleBar = styled.div`
   gap: 24px;
 
   & span {
-    color: ${COLORS.text_darkgray};
-    font-size: 14px;
+    color: ${({ theme }) => theme.colors.text_darkgray};
+    font-size: ${({ theme }) => theme.fontSize.base};
     font-style: normal;
     font-weight: 400;
     line-height: 132%;
@@ -172,15 +171,15 @@ const Step = styled.div`
 `;
 
 const StepName = styled.span`
-  color: ${COLORS.text_darkgray};
-  font-size: 19px;
+  color: ${({ theme }) => theme.colors.text_darkgray};
+  font-size: ${({ theme }) => theme.fontSize.md};
   font-style: normal;
   font-weight: 700;
   line-height: 132%;
   letter-spacing: 0.72px;
 
   & strong {
-    color: ${COLORS.coumo_purple};
+    color: ${({ theme }) => theme.colors.coumo_purple};
   }
 `;
 
@@ -255,8 +254,8 @@ const CouponContainer = styled.div`
 `;
 
 const Description = styled.span`
-  color: ${COLORS.text_darkgray};
-  font-size: 12px;
+  color: ${({ theme }) => theme.colors.text_darkgray};
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   font-weight: 300;
   line-height: 132%; /* 21.12px */

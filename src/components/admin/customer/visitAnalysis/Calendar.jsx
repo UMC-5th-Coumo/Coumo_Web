@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styled from 'styled-components';
-import { COLORS } from '../../../../styles/theme';
 import { ko } from 'date-fns/locale';
 import { getMonth, getYear } from 'date-fns';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { theme } from '../../../../styles/theme';
 
 const months = [
   '1월',
@@ -21,6 +21,8 @@ const months = [
   '11월',
   '12월',
 ];
+
+const { colors } = theme;
 
 const Calendar = () => {
   const [dateRange, setDateRange] = useState([null, null]);
@@ -69,7 +71,7 @@ const Calendar = () => {
             >
               <IoIosArrowBack
                 style={{ height: '20px', width: '20px' }}
-                fill={COLORS.text_darkgray}
+                fill={colors.text_darkgray}
               />
             </Button>
             <TextBox>
@@ -83,7 +85,7 @@ const Calendar = () => {
             >
               <IoIosArrowForward
                 style={{ height: '20px', width: '20px' }}
-                fill={COLORS.text_darkgray}
+                fill={colors.text_darkgray}
               />
             </Button>
           </Header>
@@ -97,7 +99,7 @@ export default Calendar;
 
 const Container = styled.div`
   width: 230px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSize.base};
 `;
 
 const CustomInput = styled.input`
@@ -110,10 +112,10 @@ const CustomInput = styled.input`
   box-sizing: border-box;
   border: none;
   border-radius: 16px 16px 0px 0px;
-  background: ${COLORS.btn_lightgray};
+  background: ${({ theme }) => theme.colors.btn_lightgray};
 
   text-align: center;
-  color: ${COLORS.coumo_purple};
+  color: ${({ theme }) => theme.colors.coumo_purple};
   font-style: normal;
   font-weight: 600;
   line-height: 132%;
@@ -136,7 +138,7 @@ const Header = styled.div`
   height: 16px;
   display: flex;
   justify-content: space-between;
-  background-color: ${COLORS.white_fff};
+  background-color: ${({ theme }) => theme.colors.white_fff};
   font-family: 'Pretendard';
 `;
 

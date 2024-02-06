@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../../styles/theme';
 import { Plus } from '../../../assets';
 
 const ImageBlock = () => {
@@ -107,10 +106,11 @@ const Box = styled.div`
   align-items: center;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${COLORS.coumo_gray};
+  background: ${({ theme }) => theme.colors.coumo_lightpurple};
 `;
 
 const MyText = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -118,18 +118,18 @@ const MyText = styled.div`
 
 const LargeP = styled.div`
   overflow: hidden;
-  color: ${COLORS.image_text};
+  color: ${({ theme }) => theme.colors.image_text};
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 600;
   line-height: 170%; /* 34px */
 `;
 
 const SmallP = styled(LargeP)`
-  font-size: 13px;
+  font-size: ${({ theme }) => theme.fontSize.xs};
   font-weight: 500;
 `;
 
@@ -141,5 +141,5 @@ const PlusButton = styled.button`
   padding: 8px 12px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${COLORS.coumo_gray};
+  background: ${({ theme }) => theme.colors.coumo_lightpurple};
 `;
