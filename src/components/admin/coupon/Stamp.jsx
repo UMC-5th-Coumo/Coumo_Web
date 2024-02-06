@@ -34,6 +34,17 @@ const RadioLabel = styled.label`
 
   border: 1px solid #d8d8d8;
   cursor: pointer;
+
+  @media screen and (max-width: 1224px) {
+    height: 34px;
+    padding: 0px 10px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    & span {
+      display: none;
+    }
+  }
 `;
 
 const RadioInput = styled.input`
