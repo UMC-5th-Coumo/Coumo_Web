@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Plus } from '../../../assets';
 
-const ImageBlock = () => {
-  const [boxCount, setBoxCount] = useState(2);
-  const [uploadedImages, setUploadedImages] = useState(
-    Array(boxCount).fill(null)
-  );
+const ImageBlock = ({ image, onChange }) => {
+  const [boxCount, setBoxCount] = useState(image ? image.length : 2);
+  const [uploadedImages, setUploadedImages] = useState(image ? image : []);
 
   const handleBoxClick = (index) => {
     const fileInput = document.getElementById(`fileInput-${index}`);
@@ -21,9 +19,9 @@ const ImageBlock = () => {
 
     if (file && file.type.startsWith('image/')) {
       // 이미지 파일이 업로드되었을 때, 해당 인덱스의 이미지를 업데이트
-      const updatedImages = [...uploadedImages];
-      updatedImages[index] = URL.createObjectURL(file);
-      setUploadedImages(updatedImages);
+      const imageURL = URL.createObjectURL(file);
+      setUploadedImages([...uploadedImages, imageURL]);
+      onChange([...uploadedImages, imageURL]);
     } else {
       alert('이미지 파일을 업로드 해주세요.');
     }
@@ -65,9 +63,11 @@ const ImageBlock = () => {
           </Box>
         ))}
       </Scroll>
-      <PlusButton onClick={handleAddBox}>
-        <Plus />
-      </PlusButton>
+      {boxCount < 5 && (
+        <PlusButton onClick={handleAddBox}>
+          <Plus />
+        </PlusButton>
+      )}
     </Image>
   );
 };

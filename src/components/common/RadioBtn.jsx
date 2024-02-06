@@ -47,7 +47,7 @@ const RadioLabel = styled.label`
 
   @media screen and (max-width: 1024px) {
     height: 35px;
-    width: 78px;
+    width: 90px;
     padding-right: 15px;
     padding-left: 10px;
   }

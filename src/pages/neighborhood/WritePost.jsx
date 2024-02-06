@@ -4,13 +4,16 @@ import Button from '../../components/common/Button';
 import { BtnContainer } from '../coupon/UIServiceForm';
 import FormPopUp from '../../components/common/FormPopUp';
 import Edit from '../../components/admin/neighborhood/Edit';
+import { useNavigate } from 'react-router-dom';
 
 const WritePost = () => {
+  const navigate = useNavigate();
   const [popUp, setPopUp] = useState(false);
   const [category, setCategory] = useState('');
   const [inputs, setInputs] = useState({
     title: '',
     content: '',
+    image: [],
   });
 
   const onSubmit = () => {
@@ -19,9 +22,11 @@ const WritePost = () => {
         category,
         title: inputs.title,
         content: inputs.content,
+        image: inputs.image,
       };
 
       console.log('Sending data to server:', data);
+      navigate('/neighborhood/myPosts');
 
       // 서버 요청 성공 시 모달
       submitPopUp();
@@ -43,6 +48,7 @@ const WritePost = () => {
     setInputs({
       title: '',
       content: '',
+      image: [],
     });
   };
 

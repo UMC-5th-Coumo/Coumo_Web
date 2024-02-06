@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Title from '../../components/common/Title';
 import Post from '../../components/admin/neighborhood/Post';
 import styled from 'styled-components';
-import { Line } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import TwoBtnPopUp from '../../components/common/popUp/TwoBtnPopUp';
 import Category from '../../components/admin/coupon/Category';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedPost } from '../../redux/slices/postSlice';
 import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 import { postCategoryData } from '../../assets/data/categoryData';
+import { setSelectedPost } from '../../redux/slices/postSlice';
 
 const MyPosts = () => {
   const [deletePopUp, setDeletePopUp] = useState(false);
@@ -22,26 +21,27 @@ const MyPosts = () => {
   const postDummyData = useSelector((state) => state.post.postDummyData);
   const selectedPost = useSelector((state) => state.post.selectedPost);
 
-  const handlePostClick = (postIndex) => {
-    dispatch(setSelectedPost(postDummyData[postIndex]));
-    console.log('here dispatch', 'postIndex:', postIndex);
-    console.log('here dispatch', 'selectedPost:', selectedPost);
-    const postId = postDummyData[postIndex].id;
-    navigate(`/neighborhood/myPosts/myPostView/${postId}`, {
-      state: { post: postDummyData[postIndex], postDummyData },
-    });
+  // selectedPost 변경 시 즉시 업데이트
+  useEffect(() => {
+    dispatch(setSelectedPost(selectedPost));
+  }, [dispatch, selectedPost]);
+
+  const handlePostClick = (post) => {
+    dispatch(setSelectedPost(post));
+    // post 정보 확인해보기 (선택된 데이터)
+    console.log('post:', post);
+    const postId = selectedPost.id;
+    navigate(`/neighborhood/myPosts/myPostView/${postId}`);
   };
 
-  const handleModifyClick = (postIndex) => {
-    dispatch(setSelectedPost(postDummyData[postIndex]));
-    const postId = postDummyData[postIndex].id;
-    navigate(`/neighborhood/myPosts/myEdit/${postId}`, {
-      state: { post: postDummyData[postIndex], postDummyData },
-    });
+  const handleModifyClick = (post) => {
+    dispatch(setSelectedPost(post));
+    const postId = selectedPost.id;
+    navigate(`/neighborhood/myPosts/myEdit/${postId}`);
   };
 
-  const handleDeleteClick = (postIndex) => {
-    dispatch(setSelectedPost(postDummyData[postIndex]));
+  const handleDeleteClick = (post) => {
+    dispatch(setSelectedPost(post));
     setDeletePopUp(true);
   };
 
@@ -79,9 +79,9 @@ const MyPosts = () => {
             <Post
               key={id}
               data={data}
-              onClick={() => handlePostClick(id)}
-              onModify={() => handleModifyClick(id)}
-              onDelete={() => handleDeleteClick(id)}
+              onClick={() => handlePostClick(data)}
+              onModify={() => handleModifyClick(data)}
+              onDelete={() => handleDeleteClick(data)}
             />
           );
         })}
@@ -110,6 +110,13 @@ export default MyPosts;
 
 const Container = styled.div`
   padding-right: 120px;
+`;
+
+const Line = styled.div`
+  max-width: 840px;
+  min-width: 620px;
+  height: 2px;
+  background-color: #d2d2d4;
 `;
 
 const TitleBox = styled.div`
