@@ -5,6 +5,7 @@ import Input from '../../components/common/Input';
 import Category from '../../components/admin/coupon/Category';
 import FormPopUp from '../../components/common/FormPopUp';
 import { categoryData } from '../../assets/data/categoryData';
+import { authInstance } from '../../api/axios';
 
 const UIServiceForm = () => {
   const [popUp, setPopUp] = useState(false);
@@ -12,23 +13,27 @@ const UIServiceForm = () => {
   const [category, setCategory] = useState('cafe');
   const [inputs, setInputs] = useState({
     storeName: '',
-    number: '',
+    phone: '',
     email: '',
     category: '',
   });
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const data = {
-      storeName: inputs.couponTitle,
-      number: inputs.number,
+      storeId: '',
+      couponTitle: inputs.storeName,
+      phone: inputs.phone,
+      storeType: inputs.category,
       email: inputs.email,
-      category,
-      description,
+      couponDescription: description,
     };
 
-    // 서버 요청 성공 시 모달
-    submitPopUp();
-    resetData();
+    // 서버 요청 코드
+    await authInstance.post('/api/owner/design-receipts', data).then((res) => {
+      // 서버 요청 성공 시 모달
+      submitPopUp();
+      resetData();
+    });
   };
 
   const submitPopUp = () => {
@@ -41,7 +46,7 @@ const UIServiceForm = () => {
   const resetData = () => {
     setInputs({
       storeName: '',
-      number: '',
+      phone: '',
       email: '',
       category: '',
     });
@@ -64,9 +69,9 @@ const UIServiceForm = () => {
         label='연락처를 입력해주세요.'
         type='text'
         placeholder='ex) 010-1234-5678'
-        value={inputs.number}
+        value={inputs.phone}
         onChange={(e) =>
-          setInputs((prev) => ({ ...prev, number: e.target.value }))
+          setInputs((prev) => ({ ...prev, phone: e.target.value }))
         }
       />
       <Input
