@@ -30,15 +30,17 @@ const AddCoupon = () => {
 
   return (
     <Container>
-      <Input
-        label='가게명 입력하기'
-        type='text'
-        placeholder='가게명 (ex.위시커피)'
-        value={coupon.storeName}
-        onChange={(e) =>
-          setCoupon((prev) => ({ ...prev, storeName: e.target.value }))
-        }
-      />
+      <InputWrapper>
+        <Input
+          label='가게명 입력하기'
+          type='text'
+          placeholder='가게명 (ex.위시커피)'
+          value={coupon.storeName}
+          onChange={(e) =>
+            setCoupon((prev) => ({ ...prev, storeName: e.target.value }))
+          }
+        />
+      </InputWrapper>
       <DesignContainer>
         <TitleBar>
           <Title title='쿠폰 디자인하기' />
@@ -119,18 +121,28 @@ const AddCoupon = () => {
 export default AddCoupon;
 
 const Container = styled.div`
-  width: 1200px;
+  width: 100%;
   font-size: ${({ theme }) => theme.fontSize.base};
   box-sizing: border-box;
   font-weight: 500;
   display: flex;
   flex-direction: column;
   gap: 70px;
-  padding: 70px 120px;
+  padding: 70px 100px;
+
+  @media screen and (max-width: 1224px) {
+    padding: 70px 50px;
+  }
 `;
 
 const DesignContainer = styled.div`
   width: 100%;
+  max-width: 900px;
+`;
+
+const InputWrapper = styled.div`
+  width: 100%;
+  max-width: 700px;
 `;
 
 const TitleBar = styled.div`
@@ -155,9 +167,7 @@ const DesginForm = styled.div`
   gap: 43px;
 
   box-sizing: border-box;
-  padding-left: 112px;
-  padding-top: 69px;
-  padding-bottom: 43px;
+  padding: 40px 0px 40px 20px;
 `;
 
 const Step = styled.div`
@@ -177,6 +187,10 @@ const StepName = styled.span`
   & strong {
     color: ${({ theme }) => theme.colors.coumo_purple};
   }
+
+  @media screen and (max-width: 1224px) {
+    font-size: ${({ theme }) => theme.fontSize.base};
+  }
 `;
 
 const CouponExample = styled.div`
@@ -190,6 +204,11 @@ const CouponExample = styled.div`
   justify-content: center;
   gap: 18px;
   border-radius: 12px;
+
+  @media screen and (max-width: 1024px) {
+    width: 440px;
+    height: 245px;
+  }
 `;
 
 const CouponTitle = styled.div`
@@ -208,6 +227,17 @@ const CouponTitle = styled.div`
     font-weight: 600;
     letter-spacing: 4px;
   }
+
+  @media screen and (max-width: 1024px) {
+    & h2 {
+      font-size: 24px;
+    }
+
+    & span {
+      font-size: 16px;
+      letter-spacing: 3px;
+    }
+  }
 `;
 
 const StepContainer = styled.div`
@@ -223,6 +253,11 @@ const StampBox = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: ${(props) => (props.num > 10 ? '5px 15px' : '10px 15px')};
+
+  @media screen and (max-width: 1024px) {
+    width: ${(props) => (props.num > 8 ? '430px' : '350px')};
+    gap: ${(props) => (props.num > 10 ? '0px 12px' : '10px 15px')};
+  }
 `;
 
 const Stamp = styled.div`
@@ -230,23 +265,29 @@ const Stamp = styled.div`
   height: ${(props) => (props.num > 10 ? '58px' : '65px')};
   border-radius: 50%;
   background: #f6f6f6;
+
+  @media screen and (max-width: 1024px) {
+    width: ${(props) => (props.num > 10 ? '52px' : '60px')};
+    height: ${(props) => (props.num > 10 ? '52px' : '60px')};
+  }
 `;
 
 const ButtonGroup = styled.div`
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 16px;
-  box-sizing: border-box;
-  padding-right: 220px;
 `;
 
 const CouponContainer = styled.div`
-  width: 493px;
+  width: fit-content;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
   gap: 16px;
+
+  & span {
+    text-align: end;
+  }
 `;
 
 const Description = styled.span`
