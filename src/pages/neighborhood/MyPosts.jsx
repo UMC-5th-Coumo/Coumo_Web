@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Title from '../../components/common/Title';
 import Post from '../../components/admin/neighborhood/Post';
 import styled from 'styled-components';
-import { Line } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import TwoBtnPopUp from '../../components/common/popUp/TwoBtnPopUp';
 import Category from '../../components/admin/coupon/Category';
@@ -110,6 +109,13 @@ export default MyPosts;
 
 const Container = styled.div`
   padding-right: 120px;
+`;
+
+const Line = styled.div`
+  max-width: 840px;
+  min-width: 620px;
+  height: 2px;
+  background-color: #d2d2d4;
 `;
 
 const TitleBox = styled.div`
