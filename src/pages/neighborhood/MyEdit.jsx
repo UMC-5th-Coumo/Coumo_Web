@@ -37,6 +37,13 @@ const MyEdit = () => {
     content: selectedPost1.content,
   });
 
+  // 팝업 등장 시 스크롤 방지
+  if (modifyPopUp || deletePopUp || confirmPopUp) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
+
   const onUpdate = (updatedPost) => {
     console.log('Updated post:', updatedPost);
 

@@ -4,11 +4,14 @@ import Title from '../components/common/Title';
 import { CallIcon, DetailArrow, Line } from '../assets';
 import { useSelector } from 'react-redux';
 import TwoBtnPopUp from '../components/common/popUp/TwoBtnPopUp';
+import { useNavigate } from 'react-router-dom';
+import ListBox from '../components/admin/myPage/ListBox';
 
 function MyPage() {
   const { name, id, email, phone } = useSelector((state) => state.user);
   const [logOut, setLogOut] = useState(false);
   const [withdrawal, setWithdrawal] = useState(false);
+  const navigate = useNavigate();
 
   if (logOut || withdrawal) {
     document.body.style.overflow = 'hidden';
@@ -73,6 +76,10 @@ function MyPage() {
             </InfoLine>
           </InfoContent>
         </Profile>
+        <ListBox
+          text='쿠폰 UI 서비스 신청내역'
+          onClick={() => navigate('/mypage/uiServiceList')}
+        />
         <Box>
           <h4>쿠모 고객센터</h4>
           <div>
@@ -80,18 +87,8 @@ function MyPage() {
             <span>1577-9999</span>
           </div>
         </Box>
-        <Box>
-          <h4>로그아웃</h4>
-          <Button onClick={() => setLogOut(true)}>
-            <DetailArrow />
-          </Button>
-        </Box>
-        <Box>
-          <h4>탈퇴하기</h4>
-          <Button onClick={() => setWithdrawal(true)}>
-            <DetailArrow />
-          </Button>
-        </Box>
+        <ListBox text='로그아웃' onClick={() => setLogOut(true)} />
+        <ListBox text='탈퇴하기' onClick={() => setWithdrawal(true)} />
       </Content>
     </Container>
   );
@@ -102,13 +99,13 @@ export default MyPage;
 const Container = styled.div`
   width: 100%;
   box-sizing: border-box;
-  padding: 0px 120px;
+  padding: 70px 100px;
 `;
 
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 70px 0px;
+  padding: 50px 0px;
   gap: 30px;
 
   & h4 {
@@ -124,7 +121,6 @@ const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 32px;
-  margin-top: 70px;
 `;
 
 const Profile = styled.div`

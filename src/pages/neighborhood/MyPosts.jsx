@@ -22,6 +22,12 @@ const MyPosts = () => {
   const postDummyData = useSelector((state) => state.post.postDummyData);
   const selectedPost = useSelector((state) => state.post.selectedPost);
 
+  if (deletePopUp || confirmPopUp) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
+
   const handlePostClick = (postIndex) => {
     dispatch(setSelectedPost(postDummyData[postIndex]));
     console.log('here dispatch', 'postIndex:', postIndex);

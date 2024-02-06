@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Button from '../../components/common/Button';
 import Input from '../../components/common/Input';
 import Category from '../../components/admin/coupon/Category';
-import FormPopUp from '../../components/common/FormPopUp';
 import { categoryData } from '../../assets/data/categoryData';
 import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +18,12 @@ const UIServiceForm = () => {
     category: '',
   });
   const navigate = useNavigate();
+
+  if (popUp) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
 
   const onSubmit = async () => {
     const data = {

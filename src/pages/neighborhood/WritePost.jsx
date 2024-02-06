@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../components/common/Button';
 import { BtnContainer } from '../coupon/UIServiceForm';
-import FormPopUp from '../../components/common/FormPopUp';
 import Edit from '../../components/admin/neighborhood/Edit';
+import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 
 const WritePost = () => {
   const [popUp, setPopUp] = useState(false);
@@ -12,6 +12,12 @@ const WritePost = () => {
     title: '',
     content: '',
   });
+
+  if (popUp) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
 
   const onSubmit = () => {
     if (category && inputs.title && inputs.content) {
@@ -59,9 +65,9 @@ const WritePost = () => {
         <Button text='저장하기' typee={true} onClickBtn={() => onSubmit()} />
       </Btn>
       {popUp && (
-        <FormPopUp
+        <OneBtnPopUp
           title='글이 성공적으로 작성되었습니다!'
-          msg='방금 작성한 글을 내가 쓴 글에서 확인해보세요!'
+          onClick={() => setPopUp(false)}
         />
       )}
       ;
