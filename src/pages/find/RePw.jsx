@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import InputJoin from '../../components/common/InputJoin';
-import FormPopUp from '../../components/common/FormPopUp';
 import axios from 'axios';
+import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 
 const RePw = () => {
   const navigate = useNavigate();
@@ -52,6 +52,12 @@ const RePw = () => {
   };
 
   const [popUp, setPopUp] = useState(false);
+
+  if (popUp) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
 
   const onSubmit = async () => {
     // 임시 코드 (통신되면 삭제)
@@ -108,7 +114,12 @@ const RePw = () => {
       <JoinBtn onClick={onSubmit} disabled={!isResetEnabled()}>
         확인
       </JoinBtn>
-      {popUp && <FormPopUp title='비밀번호가 정상적으로 재설정 되었습니다!' />}
+      {popUp && (
+        <OneBtnPopUp
+          title='비밀번호가 정상적으로 재설정 되었습니다!'
+          onClick={() => setPopUp(false)}
+        />
+      )}
     </Container>
   );
 };
