@@ -87,6 +87,10 @@ const DropdownInput = styled.div`
     height: 35px;
     font-size: ${({ theme }) => theme.fontSize.xs};
   }
+
+  @media screen and (max-width: 870px) {
+    width: 140px;
+  }
 `;
 
 const DropDownPosition = styled.div`
@@ -128,5 +132,9 @@ const Item = styled.span`
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.coumo_lightpurple};
+  }
+
+  @media screen and (max-width: 1024px) {
+    font-size: ${({ theme }) => theme.fontSize.xs};
   }
 `;

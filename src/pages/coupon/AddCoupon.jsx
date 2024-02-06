@@ -109,11 +109,7 @@ const AddCoupon = () => {
         </DesginForm>
         <ButtonGroup>
           <Button text='취소하기' />
-          <Button
-            text='쿠폰 만들기'
-            color={COLORS.coumo_purple}
-            onClickBtn={registerCoupon}
-          />
+          <Button text='쿠폰 만들기' type={true} onClickBtn={registerCoupon} />
         </ButtonGroup>
       </DesignContainer>
     </Container>
