@@ -31,7 +31,7 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
       />
       <Image>
         <Representative>
-          <Label>대표이미지</Label>
+          <ImageLabel>대표이미지</ImageLabel>
           <Recommend>*이미지는 1000px, 1000px의 1:1비율을 권장합니다</Recommend>
         </Representative>
         <ImageBlock />
@@ -58,6 +58,7 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
 export default Edit;
 
 const Write = styled.div`
+  min-width: 370px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -67,12 +68,21 @@ const Write = styled.div`
 const Image = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: 1024px) {
+    gap: 10px;
+  }
 `;
 
 const Representative = styled.div`
   display: flex;
   flex-direction: row;
   gap: 30px;
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    gap: 0px;
+  }
 `;
 
 const Label = styled.div`
@@ -84,6 +94,17 @@ const Label = styled.div`
   line-height: 132%; /* 31.68px */
   letter-spacing: 0.72px;
   margin-bottom: 16px;
+
+  @media screen and (max-width: 1024px) {
+    font-size: 16px;
+  }
+`;
+
+const ImageLabel = styled(Label)`
+  @media screen and (max-width: 1024px) {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
 `;
 
 const Recommend = styled.div`
@@ -92,6 +113,10 @@ const Recommend = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 200%;
+
+  @media screen and (max-width: 1024px) {
+    line-height: 150%;
+  }
 `;
 
 const StyledWriteTextarea = styled.textarea`

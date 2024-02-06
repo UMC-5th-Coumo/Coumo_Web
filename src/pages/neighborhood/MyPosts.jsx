@@ -61,7 +61,7 @@ const MyPosts = () => {
       : postDummyData.filter((post) => post.tag === category);
 
   return (
-    <>
+    <Container>
       <TitleBox>
         <Title title='총 13개의 게시글이 있어요!' />
         <Category
@@ -102,22 +102,27 @@ const MyPosts = () => {
           setOpen={setConfirmPopUp}
         />
       )}
-    </>
+    </Container>
   );
 };
 
 export default MyPosts;
+
+const Container = styled.div`
+  padding-right: 120px;
+`;
 
 const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 38px;
   margin-bottom: 50px;
-  padding: 70px 120px 0px;
+  padding: 70px 0px 0px 120px;
 `;
 
 const PostContainer = styled.div`
+  max-width: 840px;
   display: flex;
   flex-direction: column;
-  padding: 0px 120px 70px;
+  padding-left: 120px;
 `;

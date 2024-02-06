@@ -11,9 +11,6 @@ const RadioBtn = ({
   size = 110,
   height,
 }) => {
-  const handleClick = () => {
-    onChange(id === selected ? '' : id);
-  };
   return (
     <RadioLabel size={size} height={height} isSelected={id === selected}>
       <RadioInput
@@ -21,7 +18,7 @@ const RadioBtn = ({
         id={id}
         name={name}
         value={value}
-        checked={selected}
+        checked={id === selected}
         onChange={() => onChange(id)}
       />
       <RadioSpan htmlFor={id} isSelected={id === selected} size={size}>

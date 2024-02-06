@@ -83,6 +83,8 @@ const StyledInput = styled.input`
   }
 
   @media screen and (max-width: 1024px) {
+    /* font-size: 12px;
+    width: 100%; */
     font-size: ${({ theme }) => theme.fontSize.sm};
     width: 100%;
     height: 35px;
