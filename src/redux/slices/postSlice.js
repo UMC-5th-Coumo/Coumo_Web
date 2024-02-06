@@ -1,4 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import getMyPosts from '../thunks/getMyPosts';
+import getMyPostView from '../thunks/getMyPostView';
+import getMyEdit from '../thunks/getMyEdit';
+import patchMyEdit from '../thunks/patchMyEdit';
+import deleteMyPost from '../thunks/deleteMyPost';
 
 const initialPostDummyData = [
   {
@@ -70,6 +75,64 @@ const postSlice = createSlice({
     setSelectedPost: (state, action) => {
       state.selectedPost = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getMyPosts.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getMyPosts.fulfilled, (state, action) => {
+        state.loading = false; // 요청이 성공시 로딩 상태 변경
+        state.postDummyData = action.payload; // 받아온 데이터로 상태 업데이트
+      })
+      .addCase(getMyPosts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload.message; // 실패 메시지로 상태 업데이트
+      })
+      .addCase(getMyPostView.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getMyPostView.fulfilled, (state, action) => {
+        state.loading = false;
+        state.postDummyData = action.payload;
+      })
+      .addCase(getMyPostView.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload.message;
+      })
+      .addCase(getMyEdit.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getMyEdit.fulfilled, (state, action) => {
+        state.loading = false;
+        state.postDummyData = action.payload;
+      })
+      .addCase(getMyEdit.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload.message;
+      })
+      .addCase(patchMyEdit.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(patchMyEdit.fulfilled, (state, action) => {
+        state.loading = false;
+        state.postDummyData = action.payload;
+      })
+      .addCase(patchMyEdit.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload.message;
+      })
+      .addCase(deleteMyPost.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteMyPost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.postDummyData = action.payload;
+      })
+      .addCase(deleteMyPost.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload.message;
+      });
   },
 });
 

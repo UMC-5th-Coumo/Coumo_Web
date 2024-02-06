@@ -13,6 +13,9 @@ import Edit from '../../components/admin/neighborhood/Edit';
 import TwoBtnPopUp from '../../components/common/popUp/TwoBtnPopUp';
 import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 import { getLabelByTag } from '../../assets/data/categoryData';
+import getMyEdit from '../../redux/thunks/getMyEdit';
+import deleteMyPost from '../../redux/thunks/deleteMyPost';
+// import patchMyEdit from '../../redux/thunks/patchMyEdit';
 
 const MyEdit = () => {
   const navigate = useNavigate();
@@ -25,6 +28,11 @@ const MyEdit = () => {
 
   const postDummyData = useSelector((state) => state.post.postDummyData);
   const selectedPost = useSelector((state) => state.post.selectedPost);
+
+  // 컴포넌트가 마운트될 때 받아오기
+  useEffect(() => {
+    dispatch(getMyEdit({ ownerId: 'coumo123', noticeId: '1' }));
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(setSelectedPost(selectedPost));
@@ -66,6 +74,8 @@ const MyEdit = () => {
       // postDummyData 업데이트
       dispatch(setPostDummyData(updatedDummyData));
       console.log('postDummyData!:', postDummyData);
+
+      // dispatch(patchMyEdit({ ownerId, noticeId, updatedData }));
     }
   };
 
@@ -91,6 +101,7 @@ const MyEdit = () => {
 
   const onDelete = () => {
     setDeletePopUp(true);
+    dispatch(deleteMyPost({ ownerId: 'coumo123', noticeId: '1' }));
   };
 
   const onModifyConfirm = () => {

@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 import { postCategoryData } from '../../assets/data/categoryData';
 import { setSelectedPost } from '../../redux/slices/postSlice';
+import getMyPosts from '../../redux/thunks/getMyPosts';
+import deleteMyPost from '../../redux/thunks/deleteMyPost';
 
 const MyPosts = () => {
   const [deletePopUp, setDeletePopUp] = useState(false);
@@ -20,6 +22,12 @@ const MyPosts = () => {
 
   const postDummyData = useSelector((state) => state.post.postDummyData);
   const selectedPost = useSelector((state) => state.post.selectedPost);
+
+  // 컴포넌트가 마운트될 때 받아오기
+  useEffect(() => {
+    // dispatch(getMyPostView({ ownerId: ownerId, noticeId: noticeId }));
+    dispatch(getMyPosts({ ownerId: 'coumo123', noticeId: '1' }));
+  }, [dispatch]);
 
   // selectedPost 변경 시 즉시 업데이트
   useEffect(() => {
@@ -43,6 +51,7 @@ const MyPosts = () => {
   const handleDeleteClick = (post) => {
     dispatch(setSelectedPost(post));
     setDeletePopUp(true);
+    dispatch(deleteMyPost({ ownerId: 'coumo123', noticeId: '1' }));
   };
 
   const onDeleteConfirm = () => {

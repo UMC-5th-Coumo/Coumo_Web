@@ -9,6 +9,7 @@ import { getLabelByTag } from '../../assets/data/categoryData';
 import RadioBtn from '../../components/common/RadioBtn';
 import { useParams } from 'react-router-dom';
 import { setSelectedPost } from '../../redux/slices/postSlice';
+import getMyPostView from '../../redux/thunks/getMyPostView';
 
 const MyPostView = () => {
   const navigate = useNavigate();
@@ -16,6 +17,12 @@ const MyPostView = () => {
 
   const { postId } = useParams();
   const selectedPost = useSelector((state) => state.post.selectedPost);
+
+  // 컴포넌트가 마운트될 때 받아오기
+  useEffect(() => {
+    // dispatch(getMyPostView({ ownerId: ownerId, noticeId: noticeId }));
+    dispatch(getMyPostView({ ownerId: 'coumo123', noticeId: '1' }));
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(setSelectedPost(selectedPost));
@@ -56,7 +63,10 @@ const MyPostView = () => {
         <Box>{selectedPost.content}</Box>
       </div>
       <Btn>
-        <Button text='취소하기' />
+        <Button
+          text='취소하기'
+          onClickBtn={() => navigate(`/neighborhood/myPosts`)}
+        />
         <Button text='수정하기' type={true} onClickBtn={onClickMod} />
       </Btn>
     </StyledWrite>
