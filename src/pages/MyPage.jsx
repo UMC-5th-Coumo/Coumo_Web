@@ -4,11 +4,14 @@ import Title from '../components/common/Title';
 import { CallIcon, DetailArrow, Line } from '../assets';
 import { useSelector } from 'react-redux';
 import TwoBtnPopUp from '../components/common/popUp/TwoBtnPopUp';
+import { useNavigate } from 'react-router-dom';
+import ListBox from '../components/admin/myPage/ListBox';
 
 function MyPage() {
   const { name, id, email, phone } = useSelector((state) => state.user);
   const [logOut, setLogOut] = useState(false);
-  const [withdrawal, setWithdrawal] = useState(false);
+  const [withdrawal, setWithdrawal] = useState(true);
+  const navigate = useNavigate();
 
   if (logOut || withdrawal) {
     document.body.style.overflow = 'hidden';
@@ -37,8 +40,8 @@ function MyPage() {
       )}
       {withdrawal && (
         <TwoBtnPopUp
-          title='탈퇴하기'
-          text='정말 탈퇴하시겠습니까?'
+          title='정말 탈퇴하시겠습니까?'
+          text='복구가 불가능합니다.'
           btnLabel='탈퇴하기'
           setOpen={setWithdrawal}
           onClick={handleWithdrawal}
@@ -46,7 +49,6 @@ function MyPage() {
       )}
       <TitleBox>
         <Title title={`안녕하세요, ${name}님!`} size={22} />
-        <Line />
       </TitleBox>
       <Content>
         <Profile>
@@ -73,25 +75,22 @@ function MyPage() {
             </InfoLine>
           </InfoContent>
         </Profile>
+        <ListBox
+          text='쿠폰 UI 서비스 신청내역'
+          onClick={() => navigate('/mypage/uiServiceList')}
+        />
         <Box>
           <h4>쿠모 고객센터</h4>
           <div>
-            <CallIcon />
+            <Icon>
+              <CallIcon />
+            </Icon>
+
             <span>1577-9999</span>
           </div>
         </Box>
-        <Box>
-          <h4>로그아웃</h4>
-          <Button onClick={() => setLogOut(true)}>
-            <DetailArrow />
-          </Button>
-        </Box>
-        <Box>
-          <h4>탈퇴하기</h4>
-          <Button onClick={() => setWithdrawal(true)}>
-            <DetailArrow />
-          </Button>
-        </Box>
+        <ListBox text='로그아웃' onClick={() => setLogOut(true)} />
+        <ListBox text='탈퇴하기' onClick={() => setWithdrawal(true)} />
       </Content>
     </Container>
   );
@@ -102,13 +101,17 @@ export default MyPage;
 const Container = styled.div`
   width: 100%;
   box-sizing: border-box;
-  padding: 0px 120px;
+  padding: 70px 100px;
+
+  @media screen and (max-width: 1024px) {
+    padding: 70px 50px;
+  }
 `;
 
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 70px 0px;
+  padding: 50px 0px;
   gap: 30px;
 
   & h4 {
@@ -124,13 +127,14 @@ const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 32px;
-  margin-top: 70px;
+  border-bottom: 2px solid #d2d2d4;
+  padding-bottom: 30px;
 `;
 
 const Profile = styled.div`
   width: 450px;
   display: flex;
-  padding: 24px 38px;
+  padding: 24px 34px;
   box-sizing: border-box;
   flex-direction: column;
   align-items: flex-start;
@@ -138,6 +142,10 @@ const Profile = styled.div`
   border-radius: 12px;
   background: #f5efff;
   color: #2f2a37;
+
+  @media screen and (max-width: 1024px) {
+    width: 400px;
+  }
 `;
 
 const ProfileTitle = styled.div`
@@ -175,11 +183,11 @@ const InfoLine = styled.div`
 
 const Box = styled.div`
   width: 450px;
-  height: 65px;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 38px;
+  padding: 0px 34px;
   box-sizing: border-box;
   border-radius: 12px;
   background: #f5efff;
@@ -191,11 +199,27 @@ const Box = styled.div`
     align-items: center;
     gap: 8px;
   }
+
+  @media screen and (max-width: 1024px) {
+    width: 400px;
+    height: 50px;
+
+    & h4 {
+      font-size: ${({ theme }) => theme.fontSize.base};
+    }
+
+    & span {
+      font-size: ${({ theme }) => theme.fontSize.base};
+    }
+  }
 `;
 
-const Button = styled.button`
-  border: none;
-  background: none;
-  padding: 0;
-  cursor: pointer;
+const Icon = styled.div`
+  width: 25px;
+  height: 25px;
+
+  @media screen and (max-width: 1024px) {
+    width: 20px;
+    height: 20px;
+  }
 `;

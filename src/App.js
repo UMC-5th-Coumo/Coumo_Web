@@ -20,6 +20,8 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import AdminHeader from './components/common/AdminHeader';
 import AdminVerticalHeader from './components/common/AdminVerticalHeader';
+import UIServiceList from './pages/myPage/UIServiceList';
+import UIServiceDetail from './pages/myPage/UIServiceDetail';
 
 function App() {
   const { token } = useSelector((state) => state.user);
@@ -38,6 +40,14 @@ function App() {
                 <Route path='/coupon/*' element={<Coupon />} />
                 <Route path='/customer/*' element={<Customer />} />
                 <Route path='/mypage' element={<MyPage />} />
+                <Route
+                  path='/mypage/uiServiceList'
+                  element={<UIServiceList />}
+                />
+                <Route
+                  path='/mypage/uiServiceList/:id'
+                  element={<UIServiceDetail />}
+                />
               </Routes>
             </Wrapper>
           </Container>

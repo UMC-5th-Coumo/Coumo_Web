@@ -50,6 +50,13 @@ const MyEdit = () => {
     content: selectedPost.content,
   });
 
+  // 팝업 등장 시 스크롤 방지
+  if (modifyPopUp || deletePopUp || confirmPopUp) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
+
   const onUpdate = (updatedPost) => {
     if (selectedPost) {
       const updatedData = {
@@ -179,9 +186,14 @@ export default MyEdit;
 const StyledWrite = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 900px;
+  width: 100%;
   gap: 30px;
-  padding: 70px 120px;
+  padding: 70px 100px;
+  box-sizing: border-box;
+
+  @media screen and (max-width: 1024px) {
+    padding: 70px 50px;
+  }
 `;
 
 const Line = styled.div`
@@ -199,6 +211,7 @@ const TitleBox = styled.div`
 `;
 
 const Btn = styled(BtnContainer)`
-  justify-content: right;
+  display: flex;
+  justify-content: flex-end;
   margin-top: 50px;
 `;

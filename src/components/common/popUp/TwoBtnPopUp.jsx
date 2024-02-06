@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { fadeIn } from '../../../styles/GlobalStyle';
 
 function TwoBtnPopUp({ title, text, btnLabel, setOpen, onClick }) {
   return (
@@ -31,6 +32,7 @@ const Container = styled.div`
   top: 0;
   left: 0;
   background-color: #93939317;
+  z-index: 15;
 `;
 
 const PopUp = styled.div`
@@ -38,6 +40,7 @@ const PopUp = styled.div`
   height: auto;
   background-color: ${({ theme }) => theme.colors.white_fefe};
   border-radius: 12px;
+  z-index: 20;
 
   position: fixed;
   top: 50%;
@@ -50,6 +53,12 @@ const PopUp = styled.div`
   gap: 20px;
   box-sizing: border-box;
   padding: 30px;
+  animation: ${fadeIn} 0.7s;
+
+  @media screen and (max-width: 1024px) {
+    width: 330px;
+    padding: 25px;
+  }
 `;
 
 const TextBox = styled.div`
@@ -61,12 +70,22 @@ const TextBox = styled.div`
     font-size: ${({ theme }) => theme.fontSize.sm};
     color: ${({ theme }) => theme.colors.text_gray};
   }
+
+  @media screen and (max-width: 1024px) {
+    & span {
+      font-size: ${({ theme }) => theme.fontSize.xs};
+    }
+  }
 `;
 
 const PopUpTitle = styled.h3`
   margin: 0;
   font-size: ${({ theme }) => theme.fontSize.title};
   color: ${({ theme }) => theme.colors.text_black};
+
+  @media screen and (max-width: 1024px) {
+    font-size: ${({ theme }) => theme.fontSize.lg};
+  }
 `;
 
 const BtnContainer = styled.div`
@@ -88,4 +107,8 @@ const Button = styled.button`
   color: ${({ ok, theme }) =>
     ok ? theme.colors.white : theme.colors.text_darkgray};
   cursor: pointer;
+
+  @media screen and (max-width: 1024px) {
+    height: 40px;
+  }
 `;

@@ -27,7 +27,7 @@ const Post = ({ data, onClick, onModify, onDelete }) => {
 export default Post;
 
 const Container = styled.div`
-  min-width: 600px;
+  min-width: 620px;
   height: 60px;
   display: flex;
   align-items: center;

@@ -42,6 +42,12 @@ const MyPosts = () => {
     navigate(`/neighborhood/myPosts/myPostView/${postId}`);
   };
 
+  if (deletePopUp || confirmPopUp) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
+
   const handleModifyClick = (post) => {
     dispatch(setSelectedPost(post));
     const postId = selectedPost.id;
@@ -118,7 +124,13 @@ const MyPosts = () => {
 export default MyPosts;
 
 const Container = styled.div`
-  padding-right: 120px;
+  width: 100%;
+  padding: 70px 100px;
+  box-sizing: border-box;
+
+  @media screen and (max-width: 1024px) {
+    padding: 70px 50px;
+  }
 `;
 
 const Line = styled.div`
@@ -133,12 +145,10 @@ const TitleBox = styled.div`
   flex-direction: column;
   gap: 38px;
   margin-bottom: 50px;
-  padding: 70px 0px 0px 120px;
 `;
 
 const PostContainer = styled.div`
   max-width: 840px;
   display: flex;
   flex-direction: column;
-  padding-left: 120px;
 `;
