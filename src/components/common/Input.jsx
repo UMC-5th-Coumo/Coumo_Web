@@ -57,8 +57,9 @@ const StyledInputTitle = styled.div`
 const StyledInput = styled.input`
   display: flex;
   width: ${({ fullwidth }) => (fullwidth ? fullwidth : '100%')};
-  height: 25px;
+  height: 40px;
   padding: 8px 12px;
+  box-sizing: border-box;
   justify-content: flex-end;
   align-items: top;
   gap: 8px;
@@ -83,8 +84,8 @@ const StyledInput = styled.input`
 
   @media screen and (max-width: 1024px) {
     font-size: ${({ theme }) => theme.fontSize.sm};
-    width: 80%;
-    height: 20px;
+    width: 100%;
+    height: 35px;
   }
 `;
 

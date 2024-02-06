@@ -8,6 +8,7 @@ import DaumPostcode from 'react-daum-postcode';
 import { createRoot } from 'react-dom/client';
 import WorkingHour from '../../components/admin/shop/workingHour/WorkingHour';
 import axios from 'axios';
+import Title from '../../components/common/Title';
 
 const BasicInfo = () => {
   const [category, setCategory] = useState('cafe');
@@ -175,6 +176,7 @@ const BasicInfo = () => {
           columns='1fr 1fr 1fr'
         />
         <WorkingHours>
+          <Title title='영업시간' />
           {Object.keys(hours).map((day, i) => (
             <WorkingHour
               key={i}
@@ -253,13 +255,17 @@ const Content = styled.div`
   box-sizing: border-box;
   font-weight: 500;
   position: relative;
-  padding: 70px 0px;
+  padding: 70px 100px;
   display: flex;
-  justify-content: center;
+
+  @media screen and (max-width: 870px) {
+    padding: 70px 50px;
+  }
 `;
 
 const Wrapper = styled.div`
-  width: 75%;
+  width: 100%;
+  max-width: 900px;
   display: flex;
   flex-direction: column;
   gap: 50px;
@@ -268,7 +274,7 @@ const Wrapper = styled.div`
 const BtnContainer = styled.div`
   display: flex;
   gap: 16px;
-  justify-content: center;
+  justify-content: flex-end;
 `;
 
 const WorkingHours = styled.div`
