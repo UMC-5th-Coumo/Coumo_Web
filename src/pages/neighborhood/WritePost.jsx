@@ -72,8 +72,13 @@ const WritePost = () => {
 export default WritePost;
 
 const StyledWrite = styled.div`
-  max-width: 900px;
-  padding: 70px 120px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 70px 100px;
+
+  @media screen and (max-width: 1024px) {
+    padding: 70px 50px;
+  }
 `;
 
 const Btn = styled(BtnContainer)`
