@@ -11,7 +11,7 @@ const Post = ({ data, onClick, onModify, onDelete }) => {
             <TagButton label={data.label} />
             <Text>
               <Title>{data.title}</Title>
-              <Date>2024-01-01 16:32</Date>
+              <Date>{data.time}</Date>
             </Text>
           </TitleBox>
         </PostClick>

@@ -8,6 +8,7 @@ import { Logo } from '../../assets';
 function AdminHeader() {
   const navigate = useNavigate();
   const { name } = useSelector((state) => state.user);
+
   return (
     <Head>
       <HeaderBar>

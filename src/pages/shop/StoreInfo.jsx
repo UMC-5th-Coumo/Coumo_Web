@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ImageBlock from '../../components/admin/shop/ImageBlock';
 import MenuMore from '../../components/admin/shop/MenuMore';
 import Button from '../../components/common/Button';
 
 const StoreInfo = () => {
+  const [inputs, setInputs] = useState({
+    image: [],
+    Description: '',
+  });
+
+  const handleImageChange = (image) => {
+    setInputs({
+      ...inputs,
+      image: image,
+    });
+    console.log(inputs && inputs.image);
+  };
+
   const onSubmit = async () => {
     // 서버 요청 코드
   };
@@ -16,7 +29,7 @@ const StoreInfo = () => {
           <Title>대표이미지</Title>
           <Recommend>*이미지는 1000px, 1000px의 1:1비율을 권장합니다</Recommend>
         </Representative>
-        <ImageBlock />
+        <ImageBlock onChange={handleImageChange} />
       </Image>
       <Description>
         <Title>매장 상세설명</Title>

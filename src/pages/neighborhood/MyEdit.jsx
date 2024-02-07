@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Line } from '../../assets';
 import Title from '../../components/common/Title';
 import Button from '../../components/common/Button';
 import { BtnContainer } from '../coupon/UIServiceForm';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setPostDummyData,
@@ -14,6 +13,9 @@ import Edit from '../../components/admin/neighborhood/Edit';
 import TwoBtnPopUp from '../../components/common/popUp/TwoBtnPopUp';
 import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 import { getLabelByTag } from '../../assets/data/categoryData';
+import getMyEdit from '../../redux/thunks/getMyEdit';
+import deleteMyPost from '../../redux/thunks/deleteMyPost';
+// import patchMyEdit from '../../redux/thunks/patchMyEdit';
 
 const MyEdit = () => {
   const navigate = useNavigate();
@@ -22,19 +24,30 @@ const MyEdit = () => {
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [confirmPopUp, setConfirmPopUp] = useState(false);
 
-  const location = useLocation();
   const { postId } = useParams();
-
-  const selectedPost1 = location.state.post;
 
   const postDummyData = useSelector((state) => state.post.postDummyData);
   const selectedPost = useSelector((state) => state.post.selectedPost);
 
+  // 컴포넌트가 마운트될 때 받아오기
+  useEffect(() => {
+    dispatch(getMyEdit({ ownerId: 'coumo123', noticeId: '1' }));
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(setSelectedPost(selectedPost));
+  }, [dispatch, selectedPost]);
+
+  useEffect(() => {
+    dispatch(setPostDummyData(postDummyData));
+  }, [dispatch, postDummyData]);
+
   // 카테고리, 제목, 내용 상태 관리
-  const [category, setCategory] = useState(selectedPost1.tag);
+  const [category, setCategory] = useState(selectedPost.tag);
   const [inputs, setInputs] = useState({
-    title: selectedPost1.title,
-    content: selectedPost1.content,
+    title: selectedPost.title,
+    image: selectedPost.image,
+    content: selectedPost.content,
   });
 
   // 팝업 등장 시 스크롤 방지
@@ -45,8 +58,6 @@ const MyEdit = () => {
   }
 
   const onUpdate = (updatedPost) => {
-    console.log('Updated post:', updatedPost);
-
     if (selectedPost) {
       const updatedData = {
         id: parseInt(postId),
@@ -54,27 +65,33 @@ const MyEdit = () => {
         label: getLabelByTag(updatedPost.category),
         title: updatedPost.title,
         content: updatedPost.content,
-        image: '',
+        image: updatedPost.image,
       };
 
-      console.log('selected!');
-      console.log('Updated post!:', updatedData);
-      dispatch(setSelectedPost(updatedData));
+      console.log('Updated post:', updatedData);
 
-      // updatePostDummyData(selectedPost, updatedData);
+      // selectedPost 업데이트
+      dispatch(setSelectedPost(updatedData));
+      console.log('selectded post!:', selectedPost);
+
+      const updatedDummyData = postDummyData.map((post) =>
+        post.id === updatedData.id ? updatedData : post
+      );
+
+      // postDummyData 업데이트
+      dispatch(setPostDummyData(updatedDummyData));
+      console.log('postDummyData!:', postDummyData);
+
+      // dispatch(patchMyEdit({ ownerId, noticeId, updatedData }));
     }
   };
-
-  const updatedSelectedPost = useSelector((state) => state.post.selectedPost);
-  console.log('updatedSelectedPost!:', updatedSelectedPost);
-  const updatedPostDummyData = useSelector((state) => state.post.postDummyData);
-  console.log('updatedPostDummyData!:', updatedPostDummyData);
 
   const onSubmit = () => {
     if (category && inputs.title && inputs.content) {
       const data = {
         category: category,
         title: inputs.title,
+        image: inputs.image,
         content: inputs.content,
       };
 
@@ -91,6 +108,7 @@ const MyEdit = () => {
 
   const onDelete = () => {
     setDeletePopUp(true);
+    dispatch(deleteMyPost({ ownerId: 'coumo123', noticeId: '1' }));
   };
 
   const onModifyConfirm = () => {
@@ -101,7 +119,6 @@ const MyEdit = () => {
     });
   };
 
-  // 수정
   const submitPopUpDelete = () => {
     setDeletePopUp(false);
     setConfirmPopUp(true);
@@ -125,6 +142,13 @@ const MyEdit = () => {
         setCategory={setCategory}
         inputs={inputs}
         setInputs={setInputs}
+        image={inputs.image}
+        onImageChange={(image) =>
+          setInputs({
+            ...inputs,
+            image: image,
+          })
+        }
       />
       <Btn>
         <Button text='삭제하기' onClickBtn={onDelete} />
@@ -170,6 +194,13 @@ const StyledWrite = styled.div`
   @media screen and (max-width: 1024px) {
     padding: 70px 50px;
   }
+`;
+
+const Line = styled.div`
+  max-width: 840px;
+  min-width: 620px;
+  height: 2px;
+  background-color: #d2d2d4;
 `;
 
 const TitleBox = styled.div`

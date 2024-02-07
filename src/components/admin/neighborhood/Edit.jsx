@@ -5,7 +5,7 @@ import { StyledWriteInput } from '../../common/Input';
 import ImageBlock from '../shop/ImageBlock';
 import { writecategoryData } from '../../../assets/data/categoryData';
 
-const Edit = ({ category, setCategory, inputs, setInputs }) => {
+const Edit = ({ category, setCategory, inputs, setInputs, image }) => {
   return (
     <Write>
       <Category
@@ -34,7 +34,7 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
           <ImageLabel>대표이미지</ImageLabel>
           <Recommend>*이미지는 1000px, 1000px의 1:1비율을 권장합니다</Recommend>
         </Representative>
-        <ImageBlock />
+        <ImageBlock image={image} />
       </Image>
       <div>
         <Label>글의 상세설명을 작성해 주세요</Label>

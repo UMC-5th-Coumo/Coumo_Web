@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
+import { setSelectedPost } from '../../redux/slices/postSlice';
+import { useDispatch } from 'react-redux';
 
 function AdminVerticalHeader() {
   const [selected, setSelected] = useState('');
   const [current, setCurrent] = useState('/mypage');
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setCurrent(pathname);
-  }, [pathname]);
+    // 다른 탭 클릭시 selectedPost 값 null로 변경
+    dispatch(setSelectedPost(null));
+  }, [pathname, dispatch]);
 
   const handleSelectMenu = (menu) => {
     if (selected === menu) {
