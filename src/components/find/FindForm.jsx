@@ -67,43 +67,40 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
 
   return (
     <Container>
-      <Box>
-        <Title>{title}</Title>
-        <div>
-          <InputJoin
-            label={idLabel}
-            value={id}
-            onChange={onChangeId}
-            width='510px'
-          />
-        </div>
-        <div>
-          <Row>
-            <InputJoin
-              label='휴대전화 번호'
-              placeholder='- 없이'
-              value={phone}
-              onChange={onChangePhone}
-              width='331px'
-            />
-            <NewButton onClick={onCertified}>인증받기</NewButton>
-          </Row>
-        </div>
-        <div>
-          <Row>
-            <InputJoin
-              label='인증번호'
-              value={number}
-              onChange={onChangeNumber}
-              width='331px'
-            />
-            <NewButton>인증 확인</NewButton>
-          </Row>
-        </div>
-        <JoinBtn onClick={onSubmit} disabled={!isFindEnabled()}>
-          확인
-        </JoinBtn>
-      </Box>
+      <Wrapper>
+        <Box>
+          <Title>{title}</Title>
+          <div>
+            <InputJoin label={idLabel} value={id} onChange={onChangeId} />
+          </div>
+          <div>
+            <Row>
+              <InputJoin
+                label='휴대전화 번호'
+                placeholder='- 없이'
+                value={phone}
+                onChange={onChangePhone}
+                width='250px'
+              />
+              <NewButton onClick={onCertified}>인증받기</NewButton>
+            </Row>
+          </div>
+          <div>
+            <Row>
+              <InputJoin
+                label='인증번호'
+                value={number}
+                onChange={onChangeNumber}
+                width='250px'
+              />
+              <NewButton>인증 확인</NewButton>
+            </Row>
+          </div>
+          <JoinBtn onClick={onSubmit} disabled={!isFindEnabled()}>
+            확인
+          </JoinBtn>
+        </Box>
+      </Wrapper>
     </Container>
   );
 };
@@ -112,10 +109,16 @@ export default FindForm;
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 80px);
   display: flex;
   align-items: center;
-  margin-top: 100px;
+  justify-content: center;
+`;
+
+const Wrapper = styled.div`
+  width: 370px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Box = styled.div`
@@ -128,7 +131,6 @@ const Box = styled.div`
 `;
 
 const Title = styled.div`
-  width: 890px;
   color: #333;
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.xl};
@@ -140,9 +142,8 @@ const Title = styled.div`
 
 const JoinBtn = styled.button`
   display: flex;
-  width: 337px;
-  height: 64px;
-  padding: 14px 10px;
+  width: 100%;
+  height: 55px;
   justify-content: center;
   align-items: center;
   border: none;
@@ -150,10 +151,10 @@ const JoinBtn = styled.button`
   background: ${({ theme }) => theme.colors.coumo_purple};
   color: ${({ theme }) => theme.colors.white};
   text-align: center;
-  font-size: ${({ theme }) => theme.fontSize.lg};
+  font-size: ${({ theme }) => theme.fontSize.md};
   font-style: normal;
   font-weight: 700;
-  margin-top: 60px;
+  margin-top: 20px;
 
   &:disabled {
     background: ${({ theme }) => theme.colors.btn_lightgray};
@@ -163,23 +164,23 @@ const JoinBtn = styled.button`
 
 const Row = styled.div`
   display: flex;
-  flex-direction: row;
+  align-items: flex-end;
+  gap: 10px;
 `;
 
 const NewButton = styled(Btn)`
   display: flex;
-  width: 170px;
-  height: 48px;
-  padding: 9.6px 14.4px;
-  margin-top: 25px;
-  margin-left: 10px;
+  width: 110px;
+  height: 35px;
   border-radius: 49px;
+  margin-bottom: 6px;
   background-color: ${({ theme }) => theme.colors.coumo_purple};
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: ${({ theme }) => theme.fontSize.md};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
-  font-weight: 500;
-  line-height: 170%;
+  font-weight: 600;
+  line-height: 170%; /* 30.6px */
 `;

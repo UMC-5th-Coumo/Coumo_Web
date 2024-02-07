@@ -89,58 +89,58 @@ const JoinTwoStep = () => {
 
   return (
     <Container>
-      <Box>
-        <Title>사장님 회원가입</Title>
-        <InputJoin
-          label='사장님 성함 *'
-          placeholder='예) 홍길동'
-          value={name}
-          width='520px'
-          onChange={(e) => setName(e.target.value)}
-          star={true}
-        />
-        <Msg />
-        <div>
+      <Wrapper>
+        <Box>
+          <Title>사장님 회원가입</Title>
           <InputJoin
-            label='이메일 주소 *'
-            placeholder='coumo123@naver.com'
-            value={email}
-            width='520px'
-            onChange={onChangeEmail}
+            label='사장님 성함 *'
+            placeholder='예) 홍길동'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             star={true}
           />
-          <Msg>{emailMsg}</Msg>
-        </div>
-        <div>
-          <Row>
+          <Msg />
+          <div>
             <InputJoin
-              label='휴대전화 번호 *'
-              placeholder='- 없이'
-              value={phone}
-              onChange={onChangePhone}
-              width='337px'
+              label='이메일 주소 *'
+              placeholder='coumo123@naver.com'
+              value={email}
+              onChange={onChangeEmail}
               star={true}
             />
-            <NewButton>인증 받기</NewButton>
+            <Msg>{emailMsg}</Msg>
+          </div>
+          <div>
+            <Row>
+              <InputJoin
+                label='휴대전화 번호 *'
+                placeholder='- 없이'
+                value={phone}
+                onChange={onChangePhone}
+                width='250px'
+                star={true}
+              />
+              <NewButton>인증 받기</NewButton>
+            </Row>
+            <Msg>{phoneMsg}</Msg>
+          </div>
+          <Row>
+            <InputJoin
+              label='인증번호 입력 *'
+              placeholder='숫자 4자리'
+              type='password'
+              value={certified}
+              onChange={(e) => setCertified(e.target.value)}
+              width='250px'
+              star={true}
+            />
+            <NewButton>인증번호 재발송</NewButton>
           </Row>
-          <Msg>{phoneMsg}</Msg>
-        </div>
-        <Row>
-          <InputJoin
-            label='인증번호 입력 *'
-            placeholder='숫자 4자리'
-            type='password'
-            value={certified}
-            onChange={(e) => setCertified(e.target.value)}
-            width='337px'
-            star={true}
-          />
-          <NewButton>인증번호 재발송</NewButton>
-        </Row>
-        <JoinBtn onClick={onSubmit} disabled={!isJoinTwoEnabled()}>
-          확인
-        </JoinBtn>
-      </Box>
+          <JoinBtn onClick={onSubmit} disabled={!isJoinTwoEnabled()}>
+            확인
+          </JoinBtn>
+        </Box>
+      </Wrapper>
     </Container>
   );
 };
@@ -152,7 +152,14 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-top: 100px;
+`;
+
+const Wrapper = styled.div`
+  width: 370px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Box = styled.div`
@@ -163,10 +170,9 @@ const Box = styled.div`
 `;
 
 const Title = styled.div`
-  width: 890px;
   color: #333;
   text-align: center;
-  font-size: ${({ theme }) => theme.fontSize.title};
+  font-size: ${({ theme }) => theme.fontSize.xl};
   font-style: normal;
   font-weight: 700;
   line-height: 100%; /* 36px */
@@ -175,9 +181,8 @@ const Title = styled.div`
 
 const JoinBtn = styled.button`
   display: flex;
-  width: 337px;
-  height: 64px;
-  padding: 14px 10px;
+  width: 100%;
+  height: 55px;
   justify-content: center;
   align-items: center;
   border: none;
@@ -185,10 +190,10 @@ const JoinBtn = styled.button`
   background: ${({ theme }) => theme.colors.coumo_purple};
   color: ${({ theme }) => theme.colors.white};
   text-align: center;
-  font-size: ${({ theme }) => theme.fontSize.lg};
+  font-size: ${({ theme }) => theme.fontSize.md};
   font-style: normal;
   font-weight: 700;
-  margin-top: 50px;
+  margin-top: 30px;
 
   &:disabled {
     background: ${({ theme }) => theme.colors.btn_lightgray};
@@ -198,36 +203,36 @@ const JoinBtn = styled.button`
 
 const Row = styled.div`
   display: flex;
-  flex-direction: row;
+  align-items: flex-end;
+  gap: 10px;
 `;
 
 const Msg = styled.div`
   height: 15px;
   color: #fc0f0f;
-  font-size: ${({ theme }) => theme.fontSize.base};
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.3px;
   display: flex;
   margin-right: auto;
   margin-left: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 `;
 
 const NewButton = styled(Btn)`
   display: flex;
-  width: 170px;
-  height: 48px;
-  padding: 9.6px 14.4px;
-  margin-top: 25px;
-  margin-left: 15px;
+  width: 110px;
+  height: 35px;
   border-radius: 49px;
+  margin-bottom: 6px;
   background-color: ${({ theme }) => theme.colors.coumo_purple};
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: ${({ theme }) => theme.fontSize.md};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 170%; /* 30.6px */
 `;
