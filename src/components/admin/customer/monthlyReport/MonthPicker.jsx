@@ -97,9 +97,16 @@ const CustomInput = styled.input`
   font-family: 'Pretendard';
   caret-color: transparent;
   cursor: pointer;
+  font-size: ${({ theme }) => theme.fontSize.base};
 
   &:focus {
     outline: none;
+  }
+
+  @media screen and (max-width: 1024px) {
+    width: 200px;
+    height: 30px;
+    font-size: ${({ theme }) => theme.fontSize.sm};
   }
 `;
 

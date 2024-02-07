@@ -28,7 +28,7 @@ function DemographicVisit() {
         </Doughnut>
         <Bar>
           <VisitCount type='max' text='연령대' />
-          <AgeGroupChart />
+          <AgeGroupChart type='normal' />
         </Bar>
       </ChartContainer>
     </>
