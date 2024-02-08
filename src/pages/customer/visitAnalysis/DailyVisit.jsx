@@ -11,7 +11,7 @@ function DailyVisit() {
         <VisitCount type='min' text='요일' />
       </VisitData>
       <ChartContainer>
-        <BarChart />
+        <BarChart type='weekly' />
       </ChartContainer>
     </Container>
   );

@@ -123,6 +123,7 @@ const CustomInput = styled.input`
   font-family: 'Pretendard';
   caret-color: transparent;
   cursor: pointer;
+  font-size: ${({ theme }) => theme.fontSize.base};
 
   &:focus {
     outline: none;
@@ -131,6 +132,7 @@ const CustomInput = styled.input`
     width: 200px;
     height: 30px;
     padding: 12px 8px;
+    font-size: ${({ theme }) => theme.fontSize.sm};
   }
 `;
 

@@ -11,7 +11,10 @@ import {
   plugins,
 } from 'chart.js';
 import styled from 'styled-components';
-import { barChartoption } from '../../../../../assets/data/chartOptions';
+import {
+  barChartoption,
+  smallBarChartoption,
+} from '../../../../../assets/data/chartOptions';
 
 ChartJS.register(
   CategoryScale,
@@ -23,7 +26,8 @@ ChartJS.register(
   plugins
 );
 
-function AgeGroupChart() {
+function AgeGroupChart({ type }) {
+  let option = {};
   const [data, setData] = useState({
     datasets: [
       {
@@ -84,7 +88,7 @@ function AgeGroupChart() {
       }
 
       // 방문자 수 추가
-      newData.x += ` ${data.total}명`;
+      newData.x += ` (${data.total}명)`;
 
       return newData;
     });
@@ -95,45 +99,45 @@ function AgeGroupChart() {
     const result = [
       {
         ageGroup: '10s',
-        maleRatio: 0,
-        femaleRatio: 100,
+        male: 0,
+        female: 3,
         total: 3,
       },
       {
         ageGroup: '20s',
-        maleRatio: 25,
-        femaleRatio: 75,
+        male: 1,
+        female: 3,
         total: 4,
       },
       {
         ageGroup: '30s',
-        maleRatio: 66.66666666666666,
-        femaleRatio: 33.33333333333333,
+        male: 2,
+        female: 1,
         total: 3,
       },
       {
         ageGroup: '40s',
-        maleRatio: 0,
-        femaleRatio: 100,
+        male: 0,
+        female: 1,
         total: 1,
       },
       {
         ageGroup: '50s',
-        maleRatio: 50,
-        femaleRatio: 50,
+        male: 1,
+        female: 1,
         total: 2,
       },
       {
         ageGroup: '60s',
-        maleRatio: 33.33333333333333,
-        femaleRatio: 66.66666666666666,
+        male: 1,
+        female: 2,
         total: 3,
       },
     ];
 
     // 데이터 가공
-    const maleData = processData('maleRatio', result);
-    const femaleData = processData('femaleRatio', result);
+    const maleData = processData('male', result);
+    const femaleData = processData('female', result);
 
     setData({
       datasets: [
@@ -163,9 +167,15 @@ function AgeGroupChart() {
     });
   }, []);
 
+  if (type === 'normal') {
+    option = barChartoption;
+  } else if (type === 'small') {
+    option = smallBarChartoption;
+  }
+
   return (
     <Container>
-      <Bar data={data} options={barChartoption} />
+      <Bar data={data} options={option} />
     </Container>
   );
 }
