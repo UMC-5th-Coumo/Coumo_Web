@@ -109,7 +109,7 @@ const DescripInput = styled.textarea`
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: ${({ theme }) => theme.colors.coumo_lightpurple};
   overflow: hidden;
-  color: ${({ theme }) => theme.colors.text_gray};
+  color: ${({ theme }) => theme.colors.text_darkgray};
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: 'Pretendard';

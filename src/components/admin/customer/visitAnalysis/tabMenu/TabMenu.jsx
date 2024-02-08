@@ -22,7 +22,7 @@ const TabDiv = styled.div`
   align-items: center;
 
   color: ${({ theme, selected }) =>
-    selected ? theme.colors.coumo_purple : theme.colors.tab_gray};
+    selected ? theme.colors.coumo_purple : theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   font-weight: 700;

@@ -34,7 +34,7 @@ const Content = styled.div`
 
   & span {
     font-size: ${({ theme }) => theme.fontSize.sm};
-    color: #7d7788;
+    color: ${({ theme }) => theme.colors.text};
     font-style: normal;
     font-weight: 500;
     line-height: 100%; /* 16px */

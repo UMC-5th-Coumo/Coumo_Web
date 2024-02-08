@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { theme } from '../../styles/theme';
 
 const RadioBtn = ({
   id,
@@ -42,7 +43,7 @@ const RadioLabel = styled.label`
   background: ${({ theme }) => theme.colors.white_fefe};
   border: 1px solid
     ${({ theme, isSelected }) =>
-      isSelected ? theme.colors.coumo_purple : theme.colors.tab_gray};
+      isSelected ? theme.colors.coumo_purple : theme.colors.text};
   align-self: flex-end;
 
   @media screen and (max-width: 1024px) {
@@ -68,7 +69,7 @@ const RadioInput = styled.input`
   }
 
   &:hover {
-    box-shadow: 0 0 0 max(4px, 0.2em) lightgray;
+    box-shadow: 0 0 0 max(4px, 0.2em) ${theme.colors.btn_lightgray};
     cursor: pointer;
   }
 
@@ -79,7 +80,7 @@ const RadioInput = styled.input`
       border: 0.57em solid ${({ theme }) => theme.colors.coumo_purple};
     }
     &:hover {
-      box-shadow: 0 0 0 max(2px, 0.1em) lightgray;
+      box-shadow: 0 0 0 max(2px, 0.1em) ${theme.colors.btn_lightgray};
       cursor: pointer;
     }
   }
@@ -87,7 +88,7 @@ const RadioInput = styled.input`
 
 const RadioSpan = styled.span`
   overflow: hidden;
-  color: #545252;
+  color: ${theme.colors.text_darkgray};
   text-overflow: ellipsis;
   font-family: 'Pretendard';
   font-size: ${({ theme }) => theme.fontSize.sm};

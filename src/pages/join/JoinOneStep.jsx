@@ -211,7 +211,7 @@ const Box = styled.div`
 `;
 
 const Title = styled.div`
-  color: #333;
+  color: ${({ theme }) => theme.colors.text_black};
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.xl};
   font-style: normal;
@@ -248,7 +248,7 @@ const Agree = styled.div`
 `;
 
 const CheckTitle = styled.div`
-  color: #212529;
+  color: ${({ theme }) => theme.colors.text_black};
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
@@ -284,7 +284,7 @@ const JoinBtn = styled.button`
 
   &:disabled {
     background: ${({ theme }) => theme.colors.btn_lightgray};
-    color: ${({ theme }) => theme.colors.text_btn_darkgray};
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 

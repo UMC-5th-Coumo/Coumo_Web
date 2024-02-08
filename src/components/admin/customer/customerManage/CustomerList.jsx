@@ -66,7 +66,7 @@ const Column = styled.span`
   align-items: center;
   gap: 8px;
   border-radius: 34px;
-  background: #e2e0e8;
+  background: ${({ theme }) => theme.colors.btn_lightgray};
 
   color: ${({ theme }) => theme.colors.coumo_purple};
   text-align: center;
@@ -90,7 +90,7 @@ const Customers = styled.div`
 const Customer = styled.div`
   display: flex;
   gap: 12px;
-  border-bottom: 1px solid #e3e1e8;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
   cursor: pointer;
   background-color: ${({ theme, selected }) =>
     selected ? theme.colors.card_lightpurple : theme.colors.white};

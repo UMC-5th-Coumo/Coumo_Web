@@ -62,9 +62,9 @@ const DayOffButton = styled.button`
   height: 30px;
   border: none;
   background-color: ${({ theme, dayOff }) =>
-    dayOff ? '#6746a6' : theme.colors.coumo_gray};
+    dayOff ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
   color: ${({ theme, dayOff }) =>
-    dayOff ? theme.colors.white_fff : '#BABABA'};
+    dayOff ? theme.colors.white : theme.colors.text};
   border-radius: 60px;
   font-size: ${({ theme }) => theme.fontSize.sm};
   font-weight: 600;

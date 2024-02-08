@@ -21,5 +21,4 @@ export default Coupon;
 
 const Container = styled.div`
   box-sizing: border-box;
-  /* padding: 70px 120px; */
 `;

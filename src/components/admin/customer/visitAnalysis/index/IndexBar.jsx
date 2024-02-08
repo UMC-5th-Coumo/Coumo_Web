@@ -35,7 +35,7 @@ const Bar = styled.div`
 `;
 
 const Span = styled.span`
-  color: ${({ theme }) => theme.colors.tab_gray};
+  color: ${({ theme }) => theme.colors.text_darkgray};
   padding-left: 48px;
   box-sizing: border-box;
   font-size: ${({ theme }) => theme.fontSize.sm};

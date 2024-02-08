@@ -30,9 +30,10 @@ const RadioLabel = styled.label`
   flex-shrink: 0;
   border-radius: 4px;
   background: ${({ theme, selected }) =>
-    selected ? theme.colors.coumo_purple : theme.colors.white_fff};
-
-  border: 1px solid #d8d8d8;
+    selected ? theme.colors.coumo_purple : theme.colors.white};
+  color: ${({ theme, selected }) =>
+    selected ? theme.colors.white : theme.colors.text};
+  border: 1px solid ${({ theme }) => theme.colors.btn_lightgray};
   cursor: pointer;
 
   @media screen and (max-width: 1224px) {
@@ -50,7 +51,7 @@ const RadioLabel = styled.label`
 const RadioInput = styled.input`
   vertical-align: middle;
   appearance: none;
-  border: max(1px, 0.1em) solid gray;
+  border: max(1px, 0.1em) solid ${({ theme }) => theme.colors.text};
   border-radius: 50%;
   width: 1.3em;
   height: 1.3em;
@@ -76,7 +77,7 @@ const RadioSpan = styled.span`
   font-weight: 400;
   line-height: 170%; /* 27.2px */
   color: ${({ theme, selected }) =>
-    selected ? theme.colors.white_fff : '#545252'};
+    selected ? theme.colors.white : theme.colors.text_darkgray};
 `;
 
 const StampIcon = styled.img`

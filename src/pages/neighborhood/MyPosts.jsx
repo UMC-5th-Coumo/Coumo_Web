@@ -137,7 +137,7 @@ const Line = styled.div`
   max-width: 840px;
   min-width: 620px;
   height: 2px;
-  background-color: #d2d2d4;
+  background-color: ${({ theme }) => theme.colors.line};
 `;
 
 const TitleBox = styled.div`

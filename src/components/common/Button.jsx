@@ -30,7 +30,7 @@ export const Btn = styled.button`
   background: ${({ theme, type }) =>
     type ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
   color: ${({ theme, type }) =>
-    type ? theme.colors.white : theme.colors.text_btn_darkgray};
+    type ? theme.colors.white : theme.colors.text_darkgray};
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
@@ -40,7 +40,7 @@ export const Btn = styled.button`
 
   &:hover {
     background: ${({ theme }) => theme.colors.btn_lightgray};
-    color: ${({ theme }) => theme.colors.text_btn_darkgray};
+    color: ${({ theme }) => theme.colors.text};
     background: ${({ theme }) => theme.colors.coumo_purple};
     color: ${({ theme }) => theme.colors.white};
   }
