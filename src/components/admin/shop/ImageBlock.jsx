@@ -42,27 +42,31 @@ const ImageBlock = ({ image, onChange }) => {
             number={index + 1}
             onClick={() => handleBoxClick(index)}
           >
-            <input
-              type='file'
-              id={`fileInput-${index}`}
-              style={{ display: 'none' }}
-              accept='image/*'
-              onChange={(event) => handleFileChange(event, index)}
-            />
-            {uploadedImages[index] && (
-              <ImagePreview
-                src={uploadedImages[index]}
-                alt={`uploaded-${index}`}
+            <InnerBox>
+              <input
+                type='file'
+                id={`fileInput-${index}`}
+                style={{ display: 'none' }}
+                accept='image/*'
+                onChange={(event) => handleFileChange(event, index)}
               />
-            )}
-            {!uploadedImages[index] && (
-              <MyText>
-                <LargeP>
-                  <Span>이미지</Span>를 추가해주세요
-                </LargeP>
-                <SmallP>(클릭하시면 내 기기에 있는 이미지에 접근합니다)</SmallP>
-              </MyText>
-            )}
+              {uploadedImages[index] && (
+                <ImagePreview
+                  src={uploadedImages[index]}
+                  alt={`uploaded-${index}`}
+                />
+              )}
+              {!uploadedImages[index] && (
+                <MyText>
+                  <LargeP>
+                    <Span>이미지</Span>를 추가해주세요
+                  </LargeP>
+                  <SmallP>
+                    (클릭하시면 내 기기에 있는 이미지에 접근합니다)
+                  </SmallP>
+                </MyText>
+              )}
+            </InnerBox>
           </Box>
         ))}
       </Scroll>
@@ -78,8 +82,8 @@ const ImageBlock = ({ image, onChange }) => {
 export default ImageBlock;
 
 const ImagePreview = styled.img`
-  width: 275px;
-  height: 100%;
+  width: 90%;
+  height: 90%;
   object-fit: cover;
   border-radius: 8px;
 `;
@@ -101,16 +105,22 @@ const Scroll = styled.div`
 
 const Box = styled.div`
   display: flex;
-  flex: 1;
   width: 275px;
   height: 237px;
-  padding: 8px 12px;
   box-sizing: border-box;
   justify-content: flex-end;
   align-items: center;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: ${({ theme }) => theme.colors.coumo_lightpurple};
+`;
+
+const InnerBox = styled.div`
+  display: flex;
+  width: 275px;
+  height: 237px;
+  align-items: center;
+  justify-content: center;
 `;
 
 const MyText = styled.div`

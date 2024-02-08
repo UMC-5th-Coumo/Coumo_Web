@@ -100,29 +100,31 @@ const MenuMore = () => {
                 number={index + 1}
                 onClick={() => handleBoxClick(index)}
               >
-                <input
-                  type='file'
-                  id={`fileInputMenu-${index}`}
-                  style={{ display: 'none' }}
-                  accept='image/*'
-                  onChange={(event) => handleFileChange(event, index)}
-                />
-                {uploadedImages[index] && (
-                  <ImagePreview
-                    src={uploadedImages[index]}
-                    alt={`uploadedMenu-${index}`}
+                <InnerBox>
+                  <input
+                    type='file'
+                    id={`fileInputMenu-${index}`}
+                    style={{ display: 'none' }}
+                    accept='image/*'
+                    onChange={(event) => handleFileChange(event, index)}
                   />
-                )}
-                {!uploadedImages[index] && (
-                  <MyText>
-                    <LargeP>
-                      <Span>상품 이미지</Span>를 추가해주세요
-                    </LargeP>
-                    <SmallP>
-                      (클릭하시면 내 기기에 있는 이미지에 접근합니다)
-                    </SmallP>
-                  </MyText>
-                )}
+                  {uploadedImages[index] && (
+                    <ImagePreview
+                      src={uploadedImages[index]}
+                      alt={`uploadedMenu-${index}`}
+                    />
+                  )}
+                  {!uploadedImages[index] && (
+                    <MyText>
+                      <LargeP>
+                        <Span>상품 이미지</Span>를 추가해주세요
+                      </LargeP>
+                      <SmallP>
+                        (클릭하시면 내 기기에 있는 이미지에 접근합니다)
+                      </SmallP>
+                    </MyText>
+                  )}
+                </InnerBox>
               </Box>
               <InfoText>
                 <Input
@@ -165,8 +167,8 @@ const MenuMore = () => {
 export default MenuMore;
 
 const ImagePreview = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 90%;
   object-fit: cover;
   border-radius: 8px;
 `;
@@ -252,18 +254,20 @@ const Box = styled.div`
   display: flex;
   width: 220px;
   height: 190px;
-  padding: 8px 12px;
   box-sizing: border-box;
   justify-items: center;
   align-items: center;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: ${({ theme }) => theme.colors.coumo_lightpurple};
+`;
 
-  @media screen and (max-width: 1024px) {
-    width: 220px;
-    height: 190px;
-  }
+const InnerBox = styled.div`
+  display: flex;
+  width: 220px;
+  height: 190px;
+  align-items: center;
+  justify-content: center;
 `;
 
 const MyText = styled(Column)`
