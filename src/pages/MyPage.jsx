@@ -10,7 +10,7 @@ import ListBox from '../components/admin/myPage/ListBox';
 function MyPage() {
   const { name, id, email, phone } = useSelector((state) => state.user);
   const [logOut, setLogOut] = useState(false);
-  const [withdrawal, setWithdrawal] = useState(true);
+  const [withdrawal, setWithdrawal] = useState(false);
   const navigate = useNavigate();
 
   if (logOut || withdrawal) {

@@ -9,7 +9,7 @@ const Congratulate = () => {
     <Page>
       <Card onClick={() => navigate('/')}>
         <LogoCongratulate />
-        <Comment>쿠모 회원이 되신 것을 축하드려요</Comment>
+        <Comment>쿠모 회원이 되신 것을 축하드려요.</Comment>
         <LittleComment>
           쿠모를 통해 더 편리하게 매장을 관리해보세요!
         </LittleComment>
@@ -21,15 +21,14 @@ const Congratulate = () => {
 export default Congratulate;
 
 const Page = styled.div`
+  width: 100%;
+  height: calc(100vh - 80px);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  margin-top: 10%;
+  justify-content: center;
 `;
 
 const Card = styled.div`
-  width: 892px;
-  height: 580px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,17 +37,17 @@ const Card = styled.div`
 const Comment = styled.div`
   color: #333;
   text-align: center;
-  font-size: ${({ theme }) => theme.fontSize.title};
+  font-size: ${({ theme }) => theme.fontSize.xl};
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 57.6px; /* 160% */
 `;
 
 const LittleComment = styled.div`
   color: #212529;
   text-align: center;
-  font-size: ${({ theme }) => theme.fontSize.lg};
+  font-size: ${({ theme }) => theme.fontSize.md};
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 32.4px; /* 180% */
 `;

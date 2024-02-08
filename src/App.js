@@ -33,7 +33,7 @@ function App() {
           <AdminHeader />
           <Container>
             <AdminVerticalHeader />
-            <Wrapper>
+            <AdminWrapper>
               <Routes>
                 <Route path='/shop/*' element={<Shop />} />
                 <Route path='/neighborhood/*' element={<Neighborhood />} />
@@ -49,23 +49,25 @@ function App() {
                   element={<UIServiceDetail />}
                 />
               </Routes>
-            </Wrapper>
+            </AdminWrapper>
           </Container>
         </>
       ) : (
         <>
           <Header />
-          <Routes>
-            <Route exact path='/' element={<Home />} />
-            <Route path='/join/one' element={<JoinOneStep />} />
-            <Route path='/join/two' element={<JoinTwoStep />} />
-            <Route path='/join/finish' element={<Congratulate />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/findId' element={<FindId />} />
-            <Route path='/foundId' element={<FoundId />} />
-            <Route path='/findPw' element={<FindPw />} />
-            <Route path='/findPw/rePassword' element={<RePw />} />
-          </Routes>
+          <Wrapper>
+            <Routes>
+              <Route exact path='/' element={<Home />} />
+              <Route path='/join/one' element={<JoinOneStep />} />
+              <Route path='/join/two' element={<JoinTwoStep />} />
+              <Route path='/join/finish' element={<Congratulate />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/findId' element={<FindId />} />
+              <Route path='/foundId' element={<FoundId />} />
+              <Route path='/findPw' element={<FindPw />} />
+              <Route path='/findPw/rePassword' element={<RePw />} />
+            </Routes>
+          </Wrapper>
         </>
       )}
     </>
@@ -80,6 +82,11 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
+  width: 100vw;
+  min-height: calc(100vh-80px);
+`;
+
+const AdminWrapper = styled.div`
   width: calc(100vw - 250px);
   @media screen and (max-width: 1280px) {
     width: calc(100vw - 220px);

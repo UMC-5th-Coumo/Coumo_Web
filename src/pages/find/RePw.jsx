@@ -90,36 +90,36 @@ const RePw = () => {
 
   return (
     <Container>
-      <Title>비밀번호 재설정</Title>
-      <div>
-        <InputJoin
-          label='새 비밀번호를 입력해주세요'
-          type='password'
-          value={newPassword}
-          onChange={onChangeNewPassword}
-          width='510px'
-        />
-        <Msg>{newPasswordMsg}</Msg>
-      </div>
-      <div>
-        <InputJoin
-          label='한 번 더 입력해주세요'
-          type='password'
-          value={rePassword}
-          onChange={onChangeRePassword}
-          width='510px'
-        />
-        <Msg>{rePasswordMsg}</Msg>
-      </div>
-      <JoinBtn onClick={onSubmit} disabled={!isResetEnabled()}>
-        확인
-      </JoinBtn>
-      {popUp && (
-        <OneBtnPopUp
-          title='비밀번호가 정상적으로 재설정 되었습니다!'
-          onClick={() => setPopUp(false)}
-        />
-      )}
+      <Wrapper>
+        <Title>비밀번호 재설정</Title>
+        <div>
+          <InputJoin
+            label='새 비밀번호를 입력해주세요.'
+            type='password'
+            value={newPassword}
+            onChange={onChangeNewPassword}
+          />
+          <Msg>{newPasswordMsg}</Msg>
+        </div>
+        <div>
+          <InputJoin
+            label='한 번 더 입력해주세요.'
+            type='password'
+            value={rePassword}
+            onChange={onChangeRePassword}
+          />
+          <Msg>{rePasswordMsg}</Msg>
+        </div>
+        <JoinBtn onClick={onSubmit} disabled={!isResetEnabled()}>
+          확인
+        </JoinBtn>
+        {popUp && (
+          <OneBtnPopUp
+            title='비밀번호가 정상적으로 재설정 되었습니다!'
+            onClick={() => setPopUp(false)}
+          />
+        )}
+      </Wrapper>
     </Container>
   );
 };
@@ -128,18 +128,23 @@ export default RePw;
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
+  justify-content: center;
+`;
+
+const Wrapper = styled.div`
+  width: 370px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Title = styled.div`
-  width: 890px;
   color: #333;
   text-align: center;
-  font-size: ${({ theme }) => theme.fontSize.title};
+  font-size: ${({ theme }) => theme.fontSize.xl};
   font-style: normal;
   font-weight: 700;
   line-height: 100%; /* 36px */
@@ -149,7 +154,7 @@ const Title = styled.div`
 const Msg = styled.div`
   height: 15px;
   color: #fc0f0f;
-  font-size: ${({ theme }) => theme.fontSize.base};
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.3px;
@@ -162,9 +167,8 @@ const Msg = styled.div`
 
 const JoinBtn = styled.button`
   display: flex;
-  width: 337px;
-  height: 64px;
-  padding: 14px 10px;
+  width: 100%;
+  height: 55px;
   justify-content: center;
   align-items: center;
   border: none;
@@ -172,7 +176,7 @@ const JoinBtn = styled.button`
   background: ${({ theme }) => theme.colors.coumo_purple};
   color: ${({ theme }) => theme.colors.white};
   text-align: center;
-  font-size: ${({ theme }) => theme.fontSize.title};
+  font-size: ${({ theme }) => theme.fontSize.md};
   font-style: normal;
   font-weight: 700;
   margin-top: 30px;

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Btn } from '../common/Button';
-import { LoginId, LoginPw, LoginSave, LoginSaveCheck } from '../../assets';
+import { LoginId, LoginPw } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/slices/userSlice';
+import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 
 const LoginBox = () => {
   const [id, setId] = useState('');
@@ -67,13 +68,10 @@ const LoginBox = () => {
           <StyledLoginPw />
         </Pw>
         <Line>
-          <>
-            {save ? (
-              <LoginSaveCheck onClick={handleSaveClick} />
-            ) : (
-              <LoginSave onClick={handleUnsaveClick} />
-            )}
-          </>
+          <Icon
+            save={save}
+            onClick={save ? handleSaveClick : handleUnsaveClick}
+          />
           <Text>로그인 정보 저장하기</Text>
         </Line>
       </Group>
@@ -112,6 +110,12 @@ const Box = styled.div`
   padding: 0 70px;
   background: ${({ theme }) => theme.colors.white_fff};
   box-shadow: 0px 8.978px 14.365px 0px rgba(68, 68, 68, 0.08);
+
+  @media screen and (max-width: 1024px) {
+    width: 390px;
+    height: 275px;
+    padding: 0 60px;
+  }
 `;
 
 const Group = styled.div`
@@ -149,6 +153,11 @@ const InputId = styled.input`
     outline: none;
     border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
   }
+
+  @media screen and (max-width: 1024px) {
+    padding: 12px 38px 10px 38px;
+    font-size: ${({ theme }) => theme.fontSize.base};
+  }
 `;
 
 const InputPw = styled(InputId)`
@@ -171,23 +180,40 @@ const StyledLoginPw = styled(LoginPw)`
 
 const Line = styled.div`
   display: flex;
+  align-items: center;
   margin-top: 10px;
+`;
+
+const Icon = styled(IoIosCheckmarkCircleOutline)`
+  width: 25px;
+  height: 25px;
+  color: ${({ theme, save }) =>
+    save ? theme.colors.coumo_purple : theme.colors.text_lightgray};
+  padding: 0px 10px 0px 5px;
+  cursor: pointer;
+
+  @media screen and (max-width: 1024px) {
+    width: 22px;
+    height: 22px;
+    padding: 0px 7px 0px 4px;
+  }
 `;
 
 const Text = styled.div`
   color: ${({ theme }) => theme.colors.text_lightgray};
-  padding-left: 10px;
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 500;
   line-height: 26.738px; /* 190.788% */
+
+  @media screen and (max-width: 1024px) {
+    font-size: ${({ theme }) => theme.fontSize.sm};
+  }
 `;
 
 const LoginBtn = styled(Btn)`
   width: 100%;
   height: 48px;
-  padding-top: 20px;
-  padding-bottom: 21px;
   background: ${({ theme }) => theme.colors.btn_lightgray};
   color: ${({ theme }) => theme.colors.white_fff};
   background: ${({ theme }) => theme.colors.coumo_purple};
@@ -197,17 +223,22 @@ const LoginBtn = styled(Btn)`
     background: ${({ theme }) => theme.colors.btn_lightgray};
     color: ${({ theme }) => theme.colors.text_btn_darkgray};
   }
+
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+    height: 38px;
+  }
 `;
 
 const Gap = styled.div`
   display: flex;
   flex-direction: row;
   gap: 5px;
-  margin-top: 5px;
 `;
 
 const More = styled.div`
   display: flex;
+  cursor: pointer;
 
   &:hover {
     color: ${({ theme }) => theme.colors.coumo_purple};

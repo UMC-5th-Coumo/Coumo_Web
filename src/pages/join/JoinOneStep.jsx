@@ -110,72 +110,78 @@ const JoinOneStep = () => {
 
   return (
     <Container>
-      <Box>
-        <Title>사장님 회원가입</Title>
-        <div>
-          <Row>
+      <Wrapper>
+        <Box>
+          <Title>사장님 회원가입</Title>
+          <div>
+            <Row>
+              <InputJoin
+                label='아이디 *'
+                placeholder='영문/숫자 6자 이상'
+                value={loginId}
+                onChange={onChangeId}
+                width='250px'
+                star={true}
+              />
+              <NewButton>중복 확인하기</NewButton>
+            </Row>
+            <Msg>{loginIdMsg}</Msg>
+          </div>
+          <div>
             <InputJoin
-              label='아이디 *'
-              placeholder='영문/숫자 6자 이상'
-              value={loginId}
-              onChange={onChangeId}
-              width='165px'
+              label='비밀번호 *'
+              placeholder='영문/숫자 8자 이상'
+              type='password'
+              value={password}
+              onChange={onChangePassword}
               star={true}
             />
-            <NewButton>중복 확인하기</NewButton>
-          </Row>
-          <Msg>{loginIdMsg}</Msg>
-        </div>
-        <div>
-          <InputJoin
-            label='비밀번호 *'
-            placeholder='영문/숫자 8자 이상'
-            type='password'
-            value={password}
-            onChange={onChangePassword}
-            star={true}
-          />
-          <Msg>{passwordMsg}</Msg>
-        </div>
-        <div>
-          <InputJoin
-            label='비밀번호 확인하기 *'
-            placeholder='비밀번호 확인'
-            type='password'
-            value={confirmPassword}
-            onChange={onChangeConfirmPassword}
-            star={true}
-          />
-          <Msg>{confirmPasswordMsg}</Msg>
-        </div>
-        <CheckList>
-          <Agree>
-            <>
-              {check1 ? (
-                <CheckBoxSelected onClick={handleUnCheck1Click} />
-              ) : (
-                <CheckBoxDefault onClick={handleCheck1Click} />
-              )}
-            </>
-            <CheckTitle>쿠모 서비스 이용 약관 동의</CheckTitle>
-            <CheckMore>보기</CheckMore>
-          </Agree>
-          <Agree>
-            <>
-              {check2 ? (
-                <CheckBoxSelected onClick={handleUnCheck2Click} />
-              ) : (
-                <CheckBoxDefault onClick={handleCheck2Click} />
-              )}
-            </>
-            <CheckTitle>개인정보 정책 동의</CheckTitle>
-            <CheckMore>보기</CheckMore>
-          </Agree>
-        </CheckList>
-        <JoinBtn onClick={onSubmit} disabled={!isJoinOneEnabled()}>
-          다음으로 넘어가기
-        </JoinBtn>
-      </Box>
+            <Msg>{passwordMsg}</Msg>
+          </div>
+          <div>
+            <InputJoin
+              label='비밀번호 확인하기 *'
+              placeholder='비밀번호 확인'
+              type='password'
+              value={confirmPassword}
+              onChange={onChangeConfirmPassword}
+              star={true}
+            />
+            <Msg>{confirmPasswordMsg}</Msg>
+          </div>
+          <CheckList>
+            <Agree>
+              <CheckWrapper>
+                <>
+                  {check1 ? (
+                    <CheckBoxSelected onClick={handleUnCheck1Click} />
+                  ) : (
+                    <CheckBoxDefault onClick={handleCheck1Click} />
+                  )}
+                </>
+                <CheckTitle>쿠모 서비스 이용 약관 동의</CheckTitle>
+              </CheckWrapper>
+              <CheckMore>보기</CheckMore>
+            </Agree>
+            <Agree>
+              <CheckWrapper>
+                <>
+                  {check2 ? (
+                    <CheckBoxSelected onClick={handleUnCheck2Click} />
+                  ) : (
+                    <CheckBoxDefault onClick={handleCheck2Click} />
+                  )}
+                </>
+                <CheckTitle>개인정보 정책 동의</CheckTitle>
+              </CheckWrapper>
+              <CheckMore>보기</CheckMore>
+            </Agree>
+          </CheckList>
+          <JoinBtn onClick={onSubmit} disabled={!isJoinOneEnabled()}>
+            다음으로 넘어가기
+          </JoinBtn>
+        </Box>
+      </Wrapper>
     </Container>
   );
 };
@@ -187,7 +193,14 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-top: 100px;
+`;
+
+const Wrapper = styled.div`
+  width: 370px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Box = styled.div`
@@ -198,10 +211,9 @@ const Box = styled.div`
 `;
 
 const Title = styled.div`
-  width: 890px;
   color: #333;
   text-align: center;
-  font-size: ${({ theme }) => theme.fontSize.title};
+  font-size: ${({ theme }) => theme.fontSize.xl};
   font-style: normal;
   font-weight: 700;
   line-height: 100%; /* 36px */
@@ -211,7 +223,7 @@ const Title = styled.div`
 const Msg = styled.div`
   height: 15px;
   color: #fc0f0f;
-  font-size: ${({ theme }) => theme.fontSize.base};
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.3px;
@@ -223,21 +235,22 @@ const Msg = styled.div`
 `;
 
 const CheckList = styled.div`
-  margin-top: 20px;
+  padding: 10px 0px;
+  width: 100%;
+  gap: 5px;
 `;
 
 const Agree = styled.div`
-  width: 330px;
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  margin-bottom: 8px;
-  position: relative;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const CheckTitle = styled.div`
   color: #212529;
   text-align: center;
-  font-size: ${({ theme }) => theme.fontSize.md};
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 600;
   line-height: 32.4px; /* 180% */
@@ -247,19 +260,16 @@ const CheckTitle = styled.div`
 const CheckMore = styled.div`
   color: rgba(33, 37, 41, 0.5);
   text-align: center;
-  font-size: ${({ theme }) => theme.fontSize.md};
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 400;
   line-height: 32.4px; /* 180% */
-  position: absolute;
-  right: 10px;
 `;
 
 const JoinBtn = styled.button`
   display: flex;
-  width: 337px;
-  height: 64px;
-  padding: 14px 10px;
+  width: 100%;
+  height: 55px;
   justify-content: center;
   align-items: center;
   border: none;
@@ -267,10 +277,10 @@ const JoinBtn = styled.button`
   background: ${({ theme }) => theme.colors.coumo_purple};
   color: ${({ theme }) => theme.colors.white};
   text-align: center;
-  font-size: ${({ theme }) => theme.fontSize.lg};
+  font-size: ${({ theme }) => theme.fontSize.md};
   font-style: normal;
   font-weight: 700;
-  margin-top: 30px;
+  margin-top: 20px;
 
   &:disabled {
     background: ${({ theme }) => theme.colors.btn_lightgray};
@@ -280,23 +290,28 @@ const JoinBtn = styled.button`
 
 const Row = styled.div`
   display: flex;
-  flex-direction: row;
+  align-items: flex-end;
+  gap: 10px;
+`;
+
+const CheckWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const NewButton = styled(Btn)`
   display: flex;
-  width: 170px;
-  height: 48px;
-  padding: 9.6px 14.4px;
-  margin-top: 25px;
-  margin-left: 15px;
+  width: 110px;
+  height: 35px;
   border-radius: 49px;
+  margin-bottom: 6px;
   background-color: ${({ theme }) => theme.colors.coumo_purple};
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: ${({ theme }) => theme.fontSize.md};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 170%; /* 30.6px */
 `;
