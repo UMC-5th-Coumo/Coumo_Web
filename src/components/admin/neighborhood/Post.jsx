@@ -34,7 +34,7 @@ const Container = styled.div`
   box-sizing: border-box;
   padding: 20px 40px 20px;
   justify-content: space-between;
-  background: ${({ theme }) => theme.colors.white_fff};
+  background: ${({ theme }) => theme.colors.white};
   border-top: 1px solid #e0e0e0;
   border-bottom: 1px solid #e0e0e0;
 
@@ -43,7 +43,7 @@ const Container = styled.div`
   }
 
   &:hover {
-    background: ${({ theme }) => theme.colors.post_lightgray};
+    background: ${({ theme }) => theme.colors.hover};
   }
 `;
 
@@ -108,7 +108,7 @@ const PostButton = styled.button`
   gap: 8px;
   border-radius: 6px;
   border: 1.5px solid rgba(144, 133, 165, 0.4);
-  background: ${({ theme }) => theme.colors.white_fff};
+  background: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.xs};
   font-style: normal;

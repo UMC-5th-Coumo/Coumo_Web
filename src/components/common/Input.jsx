@@ -66,10 +66,10 @@ const StyledInput = styled.input`
   border-radius: 4px;
   border: 1px solid
     ${({ theme, isEmpty }) =>
-      isEmpty ? theme.colors.tab_gray : theme.colors.coumo_purple};
-  background: ${({ theme }) => theme.colors.white_fefe};
+      isEmpty ? theme.colors.text : theme.colors.coumo_purple};
+  background: ${({ theme }) => theme.colors.white};
   overflow: hidden;
-  color: ${({ theme }) => theme.colors.text_gray};
+  color: ${({ theme }) => theme.colors.text_darkgray};
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: 'Pretendard';

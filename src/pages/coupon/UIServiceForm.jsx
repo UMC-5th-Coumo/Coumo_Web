@@ -128,7 +128,7 @@ export default UIServiceForm;
 const Content = styled.div`
   width: 100%;
   height: auto;
-  color: ${({ theme }) => theme.colors.tab_gray};
+  color: ${({ theme }) => theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.base};
   box-sizing: border-box;
   position: relative;
@@ -177,11 +177,12 @@ const TextArea = styled.textarea`
   border: 1px solid
     ${({ theme, isEmpty }) =>
       isEmpty ? theme.colors.tab_gray : theme.colors.coumo_purple};
-  background: ${({ theme }) => theme.colors.white_fefe};
+  background: ${({ theme }) => theme.colors.white};
 
-  color: ${({ theme }) => theme.colors.text_gray};
+  color: ${({ theme }) => theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
+  font-family: 'Pretendard';
   font-weight: 400;
   line-height: 170%; /* 27.2px */
   resize: none;

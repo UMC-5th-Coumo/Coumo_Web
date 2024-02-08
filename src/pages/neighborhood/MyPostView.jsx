@@ -108,7 +108,7 @@ const Line = styled.div`
   max-width: 840px;
   min-width: 620px;
   height: 2px;
-  background-color: #d2d2d4;
+  background-color: ${({ theme }) => theme.colors.line};
 `;
 
 const ImagePreview = styled.div`
@@ -139,7 +139,7 @@ const Img = styled.img`
 `;
 
 const Box = styled.div`
-  border: 1px solid ${({ theme }) => theme.colors.text_lightgray};
+  border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
   border-radius: 5px;
   max-width: 790px;
   height: 400px;

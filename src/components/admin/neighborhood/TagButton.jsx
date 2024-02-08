@@ -16,7 +16,7 @@ const Container = styled.span`
   padding: 0 17px;
 
   border-radius: 62.4px;
-  background: #6746a6;
+  background: ${({ theme }) => theme.colors.coumo_purple};
 
   overflow: hidden;
   color: ${({ theme }) => theme.colors.white};

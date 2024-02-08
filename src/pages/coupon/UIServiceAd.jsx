@@ -93,7 +93,7 @@ const Article = styled.div`
 `;
 
 const Big1 = styled.div`
-  color: ${({ theme }) => theme.colors.white_fefe};
+  color: ${({ theme }) => theme.colors.white};
   text-shadow: 0px 4px 4.7px ${({ theme }) => theme.colors.text_shadow};
   font-size: ${({ theme }) => theme.fontSize.xl};
   font-style: normal;
@@ -126,7 +126,7 @@ const WhiteButton = styled.button`
   flex-shrink: 0;
   border: none;
   border-radius: 8px;
-  background: ${({ theme }) => theme.colors.white_fff};
+  background: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.coumo_purple};
   font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
@@ -220,7 +220,7 @@ const PurpleButton = styled.button`
   border: none;
   border-radius: 18px;
   background: ${({ theme }) => theme.colors.coumo_purple};
-  color: ${({ theme }) => theme.colors.white_fff};
+  color: ${({ theme }) => theme.colors.white};
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.title};
   font-style: normal;

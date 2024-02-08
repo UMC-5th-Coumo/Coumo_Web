@@ -169,7 +169,7 @@ const PlusButton = styled.button`
   align-items: center;
   border: none;
   border-radius: 42px;
-  background: ${({ theme }) => theme.colors.white_fff};
+  background: ${({ theme }) => theme.colors.white};
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.25);
   color: #565656;
   text-align: center;
@@ -199,7 +199,7 @@ const Element = styled.div`
   padding-top: 20px;
   padding-bottom: 20px;
   box-sizing: border-box;
-  border-bottom: solid 2px #d2d2d4;
+  border-bottom: solid 2px ${({ theme }) => theme.colors.line};
   margin-right: 50px;
 
   @media screen and (max-width: 1024px) {
@@ -234,7 +234,7 @@ const MyText = styled.div`
 
 const LargeP = styled.div`
   overflow: hidden;
-  color: ${({ theme }) => theme.colors.image_text};
+  color: ${({ theme }) => theme.colors.text};
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { theme } from '../../styles/theme';
 
 const InputJoin = ({
   label,
@@ -19,7 +20,9 @@ const InputJoin = ({
         <StyledInputTitle>
           <span>{label.slice(0, -1)}</span>
           <span>&nbsp;</span>
-          <span style={{ color: '#9259ff' }}>{label.slice(-1)}</span>
+          <span style={{ color: theme.colors.coumo_purple }}>
+            {label.slice(-1)}
+          </span>
         </StyledInputTitle>
       ) : (
         <StyledInputTitle>
@@ -69,9 +72,9 @@ const StyledInput = styled.input`
   gap: 9.6px;
   align-self: stretch;
   border-radius: 8px;
-  background: #e2e0e8;
+  background: ${({ theme }) => theme.colors.white};
   overflow: hidden;
-  color: #332f3c;
+  color: ${({ theme }) => theme.colors.text_darkgray};
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: ${({ theme }) => theme.fontSize.base};
@@ -81,8 +84,8 @@ const StyledInput = styled.input`
 
   border: 1px solid
     ${({ theme, isEmpty }) =>
-      isEmpty ? theme.colors.tab_gray : theme.colors.coumo_purple};
-  background: ${({ theme }) => theme.colors.white_fefe};
+      isEmpty ? theme.colors.text : theme.colors.coumo_purple};
+  background: ${({ theme }) => theme.colors.white};
 
   &:focus {
     outline: none;
