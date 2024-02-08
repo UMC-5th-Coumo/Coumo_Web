@@ -11,7 +11,7 @@ const Neighborhood = () => {
     <Container>
       <Routes>
         <Route path='/writePost' element={<WritePost />} />
-        <Route path='/myPosts' element={<MyPosts />} />
+        <Route path='/myPosts/:pageId' element={<MyPosts />} />
         <Route path='/myPosts/myPostView/:postId' element={<MyPostView />} />
         <Route path='/myPosts/myEdit/:postId' element={<MyEdit />} />
       </Routes>
