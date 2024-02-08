@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Plus } from '../../../assets';
+import { Span } from './MenuMore';
 
 const ImageBlock = ({ image, onChange }) => {
   const [boxCount, setBoxCount] = useState(image ? image.length : 2);
@@ -56,7 +57,9 @@ const ImageBlock = ({ image, onChange }) => {
             )}
             {!uploadedImages[index] && (
               <MyText>
-                <LargeP>이미지를 추가해주세요</LargeP>
+                <LargeP>
+                  <Span>이미지</Span>를 추가해주세요
+                </LargeP>
                 <SmallP>(클릭하시면 내 기기에 있는 이미지에 접근합니다)</SmallP>
               </MyText>
             )}

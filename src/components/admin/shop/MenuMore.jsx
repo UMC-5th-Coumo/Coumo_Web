@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { SmallPlus } from '../../../assets';
+import { Cancel, SmallPlus } from '../../../assets';
 import Input from '../../common/Input';
-import RadioBtn from '../../common/RadioBtn';
 
 const MenuMore = () => {
   const [boxCount, setBoxCount] = useState(2);
   const [productDataArray, setProductDataArray] = useState([]);
-  const [newRadio, setNewRadio] = useState(false);
+  const [newCheck, setNewCheck] = useState(Array(boxCount).fill(false));
   const [uploadedImages, setUploadedImages] = useState(
     Array(boxCount).fill(null)
   );
@@ -56,8 +55,31 @@ const MenuMore = () => {
     });
   };
 
-  const handleNewClick = () => {
-    setNewRadio((prevValue) => !prevValue);
+  const handleNewClick = (index) => {
+    setNewCheck((prevValue) => {
+      const updatedCheck = [...prevValue];
+      updatedCheck[index] = !updatedCheck[index];
+      return updatedCheck;
+    });
+  };
+
+  const handleMenuDelete = (index) => {
+    setProductDataArray((prevArray) => {
+      const newArray = [...prevArray];
+      newArray.splice(index, 1);
+      return newArray;
+    });
+    setUploadedImages((prevImages) => {
+      const newImages = [...prevImages];
+      newImages.splice(index, 1);
+      return newImages;
+    });
+    setNewCheck((prevCheck) => {
+      const newCheck = [...prevCheck];
+      newCheck.splice(index, 1);
+      return newCheck;
+    });
+    setBoxCount(boxCount - 1);
   };
 
   return (
@@ -72,58 +94,67 @@ const MenuMore = () => {
       <Scroll>
         {[...Array(boxCount)].map((_, index) => (
           <Element key={index}>
-            <Box
-              key={index}
-              number={index + 1}
-              onClick={() => handleBoxClick(index)}
-            >
-              <input
-                type='file'
-                id={`fileInputMenu-${index}`}
-                style={{ display: 'none' }}
-                accept='image/*'
-                onChange={(event) => handleFileChange(event, index)}
-              />
-              {uploadedImages[index] && (
-                <ImagePreview
-                  src={uploadedImages[index]}
-                  alt={`uploadedMenu-${index}`}
+            <Top>
+              <Box
+                key={index}
+                number={index + 1}
+                onClick={() => handleBoxClick(index)}
+              >
+                <input
+                  type='file'
+                  id={`fileInputMenu-${index}`}
+                  style={{ display: 'none' }}
+                  accept='image/*'
+                  onChange={(event) => handleFileChange(event, index)}
                 />
-              )}
-              {!uploadedImages[index] && (
-                <MyText>
-                  <LargeP>
-                    <Span>상품 이미지</Span>를 추가해주세요
-                  </LargeP>
-                  <SmallP>
-                    (클릭하시면 내 기기에 있는 이미지에 접근합니다)
-                  </SmallP>
-                </MyText>
-              )}
-            </Box>
-            <InfoText>
-              <Input
-                value={productDataArray[index]?.productName || ''}
-                label='상품명'
-                fullwidth='307px'
-                onChange={(event) => handleProductNameChange(event, index)}
-              />
-              <Bottom>
+                {uploadedImages[index] && (
+                  <ImagePreview
+                    src={uploadedImages[index]}
+                    alt={`uploadedMenu-${index}`}
+                  />
+                )}
+                {!uploadedImages[index] && (
+                  <MyText>
+                    <LargeP>
+                      <Span>상품 이미지</Span>를 추가해주세요
+                    </LargeP>
+                    <SmallP>
+                      (클릭하시면 내 기기에 있는 이미지에 접근합니다)
+                    </SmallP>
+                  </MyText>
+                )}
+              </Box>
+              <InfoText>
+                <Input
+                  value={productDataArray[index]?.productName || ''}
+                  label='상품명'
+                  fullwidth='290px'
+                  fullheight='32px'
+                  fontSize
+                  onChange={(event) => handleProductNameChange(event, index)}
+                />
                 <Input
                   value={productDataArray[index]?.priceInfo || ''}
                   label='상품 가격'
-                  fullwidth='150px'
+                  fullwidth='290px'
+                  fullheight='32px'
+                  fontSize
                   onChange={(event) => handlePriceInfoChange(event, index)}
                 />
-                <StyledRadioBtn
-                  id='new'
-                  value={newRadio}
-                  label='신메뉴'
-                  onChange={handleNewClick}
-                  height='50px'
-                />
-              </Bottom>
-            </InfoText>
+              </InfoText>
+            </Top>
+            <Bottom>
+              <NewBtn
+                onClick={() => handleNewClick(index)}
+                active={newCheck[index]}
+              >
+                신메뉴
+              </NewBtn>
+              <StyledCancel onClick={handleMenuDelete}>
+                <Cancel />
+                <CancelText>이 메뉴 삭제하기</CancelText>
+              </StyledCancel>
+            </Bottom>
           </Element>
         ))}
       </Scroll>
@@ -140,16 +171,21 @@ const ImagePreview = styled.img`
   border-radius: 8px;
 `;
 
-const Menu = styled.div`
-  width: 600px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-`;
-
-const MenuTop = styled.div`
+const Row = styled.div`
   display: flex;
   flex-direction: row;
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Menu = styled(Column)`
+  width: 600px;
+`;
+
+const MenuTop = styled(Row)`
   gap: 70px;
 `;
 
@@ -184,22 +220,27 @@ const PlusButton = styled.button`
 const Scroll = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* 2열로 배치 */
-  gap: 20px;
+  gap: 40px;
 
   @media screen and (max-width: 1024px) {
     display: flex;
     flex-direction: column;
+    gap: 0px;
   }
 `;
 
-const Element = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+const Element = styled(Column)`
+  width: 570px;
+  padding: 20px 10px 20px;
   box-sizing: border-box;
   border-bottom: solid 2px ${({ theme }) => theme.colors.line};
+`;
+
+const Top = styled(Row)`
+  gap: 30px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
   margin-right: 50px;
 
   @media screen and (max-width: 1024px) {
@@ -209,8 +250,8 @@ const Element = styled.div`
 
 const Box = styled.div`
   display: flex;
-  width: 275px;
-  height: 237px;
+  width: 220px;
+  height: 190px;
   padding: 8px 12px;
   box-sizing: border-box;
   justify-items: center;
@@ -225,10 +266,8 @@ const Box = styled.div`
   }
 `;
 
-const MyText = styled.div`
+const MyText = styled(Column)`
   width: 100%;
-  display: flex;
-  flex-direction: column;
   text-align: center;
 `;
 
@@ -253,24 +292,48 @@ const SmallP = styled(LargeP)`
   font-weight: 500;
 `;
 
-const InfoText = styled.div`
-  display: flex;
+const InfoText = styled(Column)`
   width: 350px;
-  flex-direction: column;
-  gap: 30px;
-`;
-
-const Bottom = styled.div`
-  display: flex;
-  width: 380px;
-  flex-direction: row;
   gap: 20px;
+  justify-content: center;
 `;
 
-const Span = styled.span`
+const Bottom = styled(Row)`
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 3px;
+`;
+
+export const Span = styled.span`
   color: ${({ theme }) => theme.colors.coumo_purple};
 `;
 
-const StyledRadioBtn = styled(RadioBtn)`
+const StyledCancel = styled(Row)`
+  gap: 10px;
+`;
+
+const CancelText = styled.div`
+  color: ${({ theme }) => theme.colors.text_black};
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  font-weight: 600;
+`;
+
+const NewBtn = styled.span`
+  width: 180px;
+  height: 30px;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 17px;
+  border-radius: 62.4px;
+  background: ${({ theme, active }) =>
+    active ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
+  color: ${({ theme, active }) =>
+    active ? theme.colors.white : theme.colors.text_darkgray};
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  font-style: normal;
+  font-weight: 500;
+  line-height: 170%; /* 28.56px */
+  letter-spacing: 1.2px;
 `;
