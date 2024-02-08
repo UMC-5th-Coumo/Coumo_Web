@@ -21,3 +21,6 @@ export { ReactComponent as DetailArrow } from './icon/detail-arrow.svg';
 export { ReactComponent as CallIcon } from './icon/call.svg';
 export { ReactComponent as Calendar } from './icon/calendar.svg';
 export { ReactComponent as Profile } from './icon/Profile.svg';
+export { ReactComponent as PagePrev } from './icon/PagePrev.svg';
+export { ReactComponent as PageNext } from './icon/PageNext.svg';
+export { ReactComponent as PageNextDisable } from './icon/PageNextDisable.svg';

@@ -57,7 +57,7 @@ function AdminVerticalHeader() {
             글쓰기
           </SubMenuLink>
           <SubMenuLink
-            to='/neighborhood/myPosts'
+            to='/neighborhood/myPosts/1'
             current={current.includes('myPosts')}
           >
             내가 쓴 글

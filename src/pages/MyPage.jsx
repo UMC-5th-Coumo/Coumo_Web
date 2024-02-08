@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Title from '../components/common/Title';
-import { CallIcon, DetailArrow, Line } from '../assets';
+import { CallIcon, DetailArrow } from '../assets';
 import { useSelector } from 'react-redux';
 import TwoBtnPopUp from '../components/common/popUp/TwoBtnPopUp';
 import { useNavigate } from 'react-router-dom';
