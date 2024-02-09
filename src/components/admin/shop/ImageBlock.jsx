@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Plus } from '../../../assets';
+import { Cancel, Plus } from '../../../assets';
 import { Span } from './MenuMore';
 
-const ImageBlock = ({ image, onChange }) => {
-  const [boxCount, setBoxCount] = useState(image ? image.length : 2);
-  const [uploadedImages, setUploadedImages] = useState(image ? image : []);
+const ImageBlock = ({ onChange }) => {
+  const [boxCount, setBoxCount] = useState(1);
+  const [uploadedImages, setUploadedImages] = useState([]);
+
+  useEffect(() => {
+    console.log('uploadedImages changed:', uploadedImages);
+  }, [uploadedImages]);
 
   const handleBoxClick = (index) => {
     const fileInput = document.getElementById(`fileInput-${index}`);
@@ -16,26 +20,45 @@ const ImageBlock = ({ image, onChange }) => {
 
   const handleFileChange = (event, index) => {
     const file = event.target.files[0];
-    console.log(file);
 
     if (file && file.type.startsWith('image/')) {
       // 이미지 파일이 업로드되었을 때, 해당 인덱스의 이미지를 업데이트
       const imageURL = URL.createObjectURL(file);
-      setUploadedImages([...uploadedImages, imageURL]);
-      onChange([...uploadedImages, imageURL]);
+      const updatedImages = [...uploadedImages];
+      updatedImages[index] = imageURL;
+      setUploadedImages(updatedImages);
+      onChange(uploadedImages);
+      console.log(uploadedImages);
     } else {
       alert('이미지 파일을 업로드 해주세요.');
     }
   };
 
   const handleAddBox = () => {
-    setBoxCount(boxCount + 1);
-    setUploadedImages([...uploadedImages, null]);
+    const real = uploadedImages.filter((image) => image !== null).length;
+    if (real === boxCount) {
+      setBoxCount(boxCount + 1);
+      setUploadedImages([...uploadedImages, null]);
+    }
+  };
+
+  const handleImageDelete = (event, index) => {
+    event.preventDefault();
+    const newImages = [...uploadedImages];
+    newImages.splice(index, 1);
+
+    const fileInput = document.getElementById(`fileInput-${index}`);
+    fileInput.value = '';
+
+    setUploadedImages(newImages);
+    setBoxCount(boxCount - 1);
+    onChange(uploadedImages);
+    console.log(uploadedImages);
   };
 
   return (
     <Image>
-      <Scroll>
+      <Scroll boxCount={boxCount}>
         {[...Array(boxCount)].map((_, index) => (
           <Box
             key={index}
@@ -55,6 +78,17 @@ const ImageBlock = ({ image, onChange }) => {
                   src={uploadedImages[index]}
                   alt={`uploaded-${index}`}
                 />
+              )}
+              {uploadedImages[index] && (
+                <StyledCancel
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    handleImageDelete(event, index);
+                  }}
+                >
+                  <Cancel />
+                  <CancelText>삭제</CancelText>
+                </StyledCancel>
               )}
               {!uploadedImages[index] && (
                 <MyText>
@@ -82,13 +116,16 @@ const ImageBlock = ({ image, onChange }) => {
 export default ImageBlock;
 
 const ImagePreview = styled.img`
+  display: flex;
   width: 90%;
-  height: 90%;
+  height: 85%;
   object-fit: cover;
   border-radius: 8px;
+  margin-top: 15px;
 `;
 
 const Image = styled.div`
+  min-width: 570px;
   display: flex;
   flex-direction: row;
   gap: 20px;
@@ -96,17 +133,17 @@ const Image = styled.div`
 
 const Scroll = styled.div`
   display: flex;
-  width: 570px;
+  width: ${({ boxCount }) => (boxCount > 1 ? '570px' : '280px')};
   flex-direction: row;
   gap: 20px;
   overflow-x: auto;
-  height: 260px;
+  height: 280px;
 `;
 
 const Box = styled.div`
   display: flex;
   width: 275px;
-  height: 237px;
+  height: 257px;
   box-sizing: border-box;
   justify-content: flex-end;
   align-items: center;
@@ -118,9 +155,10 @@ const Box = styled.div`
 const InnerBox = styled.div`
   display: flex;
   width: 275px;
-  height: 237px;
+  height: 257px;
   align-items: center;
   justify-content: center;
+  position: relative;
 `;
 
 const MyText = styled.div`
@@ -147,11 +185,26 @@ const SmallP = styled(LargeP)`
   font-weight: 500;
 `;
 
+const StyledCancel = styled.div`
+  display: flex;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  z-index: 100;
+  align-items: center;
+`;
+
+const CancelText = styled.div`
+  color: ${({ theme }) => theme.colors.text_black};
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  font-weight: 600;
+`;
+
 const PlusButton = styled.button`
   flex: 0 0 auto;
   overflow: hidden;
   width: 275px;
-  height: 237px;
+  height: 257px;
   padding: 8px 12px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
