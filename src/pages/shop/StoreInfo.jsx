@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ImageBlock from '../../components/admin/shop/ImageBlock';
 import MenuMore from '../../components/admin/shop/MenuMore';
@@ -7,19 +7,31 @@ import Button from '../../components/common/Button';
 const StoreInfo = () => {
   const [inputs, setInputs] = useState({
     image: [],
-    Description: '',
+    description: '',
+    menu: [],
   });
 
-  const handleImageChange = (image) => {
+  useEffect(() => {
+    console.log('inputs changed:', inputs);
+  }, [inputs]);
+
+  const handleImageChange = (images) => {
     setInputs({
       ...inputs,
-      image: image,
+      image: images,
     });
-    console.log(inputs && inputs.image);
+  };
+
+  const handleMenuChange = (menus) => {
+    setInputs({
+      ...inputs,
+      menu: menus,
+    });
   };
 
   const onSubmit = async () => {
     // 서버 요청 코드
+    console.log(inputs);
   };
 
   return (
@@ -36,9 +48,13 @@ const StoreInfo = () => {
         <DescripInput
           name='description'
           placeholder='매장에 대한 설명글을 간단히 적어주세요 (0/100)'
+          value={inputs.description}
+          onChange={(e) =>
+            setInputs((prev) => ({ ...prev, description: e.target.value }))
+          }
         />
       </Description>
-      <MenuMore />
+      <MenuMore onChange={handleMenuChange} />
       <BtnContainer>
         <Button text='취소하기' />
         <Button text='저장하기' type={true} onClickBtn={onSubmit} />

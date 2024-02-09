@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Cancel, SmallPlus } from '../../../assets';
 import Input from '../../common/Input';
 
-const MenuMore = () => {
+const MenuMore = ({ onChange }) => {
   const [boxCount, setBoxCount] = useState(2);
   const [productDataArray, setProductDataArray] = useState([]);
   const [newCheck, setNewCheck] = useState(Array(boxCount).fill(false));
