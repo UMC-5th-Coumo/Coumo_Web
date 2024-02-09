@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import styled, { keyframes } from 'styled-components';
 import UIArticle from '../../assets/icon/UIArticle.svg';
 import ReasonCard from '../../components/admin/coupon/ReasonCard';
 import { reasonData } from '../../assets/data/reasonData';
@@ -69,7 +69,7 @@ const UIServiceAd = () => {
 export default UIServiceAd;
 
 const Content = styled.div`
-  width: 100vw;
+  width: 100%-250px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -90,6 +90,12 @@ const Article = styled.div`
   padding-left: 150px;
   box-sizing: border-box;
   margin: 0px;
+
+  @media screen and (max-width: 1024px) {
+    height: 600px;
+    padding-top: 96px;
+    padding-left: 120px;
+  }
 `;
 
 const Big1 = styled.div`
@@ -101,6 +107,10 @@ const Big1 = styled.div`
   line-height: 140%; /* 36px */
   gap: 10px;
   margin-bottom: 50px;
+
+  @media screen and (max-width: 1024px) {
+    font-size: ${({ theme }) => theme.fontSize.title};
+  }
 `;
 
 const P = styled.p`
@@ -113,6 +123,10 @@ const P = styled.p`
   letter-spacing: -0.32px;
   margin: 0px;
   padding: 0px;
+
+  @media screen and (max-width: 1024px) {
+    font-size: ${({ theme }) => theme.fontSize.md};
+  }
 `;
 
 const WhiteButton = styled.button`
@@ -138,10 +152,18 @@ const WhiteButton = styled.button`
     box-shadow: 12px 15px 12px 0px rgba(87, 76, 108, 0.5);
     backdrop-filter: blur(4px);
   }
+
+  @media screen and (max-width: 1024px) {
+    width: 140px;
+    height: 45px;
+    padding: 13px 15px 13px 15px;
+    font-size: ${({ theme }) => theme.fontSize.base};
+  }
 `;
 
 const Step = styled.div`
   width: 100%;
+  min-width: 1300px;
   height: 650px;
   display: flex;
   flex-direction: column;
@@ -149,6 +171,12 @@ const Step = styled.div`
   align-items: center;
   padding: 114px;
   box-sizing: border-box;
+
+  @media screen and (max-width: 1024px) {
+    min-width: 600px;
+    height: 900px;
+    font-size: ${({ theme }) => theme.fontSize.md};
+  }
 `;
 
 const Big2 = styled.div`
@@ -159,10 +187,18 @@ const Big2 = styled.div`
   font-weight: 700;
   line-height: 57.6px; /* 160% */
   margin-bottom: 10px;
+
+  @media screen and (max-width: 1024px) {
+    font-size: ${({ theme }) => theme.fontSize.title};
+  }
 `;
 
 const PBlack = styled(P)`
   color: #212529;
+
+  @media screen and (max-width: 1024px) {
+    font-size: ${({ theme }) => theme.fontSize.md};
+  }
 `;
 
 const CouponSteps = styled.div`
@@ -170,6 +206,15 @@ const CouponSteps = styled.div`
   gap: 20px;
   justify-content: space-around;
   margin-top: 40px;
+
+  @media screen and (max-width: 1024px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    > div:last-child {
+      grid-column: span 2;
+      justify-self: center;
+    }
+  }
 `;
 
 const Reason = styled.div`
@@ -182,9 +227,16 @@ const Reason = styled.div`
   height: 690px;
   padding: 150px;
   box-sizing: border-box;
+
+  @media screen and (max-width: 1024px) {
+    height: 600px;
+    padding-top: 96px;
+    padding-left: 120px;
+  }
 `;
 
 const Big3 = styled.div`
+  width: 400px;
   color: ${({ theme }) => theme.colors.coumo_purple};
   font-family: 'Pretendard';
   font-size: ${({ theme }) => theme.fontSize.xl};
@@ -192,11 +244,21 @@ const Big3 = styled.div`
   font-weight: 700;
   line-height: 23.8px; /* 66.111% */
   margin-bottom: 40px;
+
+  @media screen and (max-width: 1024px) {
+    font-size: ${({ theme }) => theme.fontSize.title};
+    margin-bottom: 20px;
+  }
 `;
 
 const PGray = styled(P)`
+  width: 400px;
   color: ${({ theme }) => theme.colors.text_darkgray};
   margin-right: 300px;
+
+  @media screen and (max-width: 1024px) {
+    font-size: ${({ theme }) => theme.fontSize.md};
+  }
 `;
 
 const Foot = styled.div`
@@ -218,7 +280,7 @@ const PurpleButton = styled.button`
   gap: 16px;
   flex-shrink: 0;
   border: none;
-  border-radius: 18px;
+  border-radius: 12px;
   background: ${({ theme }) => theme.colors.coumo_purple};
   color: ${({ theme }) => theme.colors.white};
   text-align: center;
@@ -233,6 +295,37 @@ const PurpleButton = styled.button`
     box-shadow: 10px 12px 10px 0px rgba(87, 76, 108, 0.5);
     backdrop-filter: blur(4px);
   }
+
+  @media screen and (max-width: 1024px) {
+    width: 200px;
+    height: 21px;
+    padding: 25px 20px;
+    font-size: ${({ theme }) => theme.fontSize.base};
+    margin-top: 20px;
+  }
+`;
+
+const slideInAnimation = keyframes`
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
+
+const fade = keyframes`
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 `;
 
 const ReasonCardsContainer = styled.div`
@@ -240,6 +333,36 @@ const ReasonCardsContainer = styled.div`
   grid-template-columns: repeat(auto-fill, 270px);
   direction: rtl;
   box-sizing: border-box;
+  min-width: 1100px;
+
+  @media screen and (max-width: 1024px) {
+    min-width: 600px;
+    grid-template-columns: repeat(auto-fill, 100px);
+    direction: rtl;
+    margin-top: 30px;
+    gap: 30px;
+  }
+
+  // 순차적 애니메이션
+  > div {
+    animation: ${slideInAnimation} 0.5s ease forwards;
+    animation-delay: calc(1ms * var(--index));
+  }
+
+  & > * {
+    opacity: 0;
+    animation: ${fade} 3s linear infinite;
+  }
+
+  & > *:nth-child(1) {
+    animation-delay: 0s;
+  }
+  & > *:nth-child(2) {
+    animation-delay: 1.5s;
+  }
+  & > *:nth-child(3) {
+    animation-delay: 3s;
+  }
 `;
 
 const OverlappingReasonCard = styled(ReasonCard)`

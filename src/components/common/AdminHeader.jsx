@@ -30,7 +30,7 @@ function AdminHeader() {
 export default AdminHeader;
 
 const Head = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 80px;
   display: flex;
   align-items: center;
