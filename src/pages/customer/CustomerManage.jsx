@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../components/common/Button';
-import { LineLong } from '../../assets';
 import Title from '../../components/common/Title';
 import CustomerGroupButton from '../../components/admin/customer/customerManage/CustomerGroupButton';
 import CustomerList from '../../components/admin/customer/customerManage/CustomerList';
@@ -94,9 +93,6 @@ const CustomerManage = () => {
         'loading...'
       ) : (
         <CustomerContainer>
-          <LineWrapper>
-            <LineLong />
-          </LineWrapper>
           <ContentWrapper>
             <CustomerList
               customerData={filteredData}
@@ -130,40 +126,39 @@ const FormContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  border-bottom: 2px solid #d2d2d4;
+  padding: 70px 0px;
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+  }
 `;
 
 const CustomerContainer = styled.div`
   width: 100%;
-  padding: 70px 0px;
 `;
 
 const DetailBox = styled.div`
-  display: flex;
-  width: 400px;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-
-  @media screen and (max-width: 1280px) {
-    width: 320px;
-  }
-`;
-
-const LineWrapper = styled.div`
   width: 100%;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  box-sizing: border-box;
+  padding-top: 20px;
 `;
 
 const ContentWrapper = styled.div`
   width: 100%;
   box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  padding: 70px 30px;
-  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  background-color: #fafafa;
 
-  @media screen and (max-width: 1150px) {
+  @media screen and (max-width: 1240px) {
+    display: flex;
     flex-direction: column-reverse;
     align-items: center;
   }
@@ -176,6 +171,11 @@ const InputForm = styled.div`
   gap: 25px;
 
   @media screen and (max-width: 1024px) {
+    max-width: 500px;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 860px) {
     width: 400px;
   }
 `;
@@ -192,7 +192,10 @@ const Wrapper = styled.div`
   gap: 12px;
 
   @media screen and (max-width: 1024px) {
-    width: 290px;
+    width: 380px;
+  }
+  @media screen and (max-width: 860px) {
+    width: 280px;
   }
 `;
 

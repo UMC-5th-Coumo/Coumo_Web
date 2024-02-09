@@ -1,30 +1,27 @@
 import React from 'react';
-import RadioBtn from '../../../common/RadioBtn';
+import CustomerRadio from './CustomerRadio';
 
 function CustomerGroupButton({ selected, onChange }) {
   return (
     <>
-      <RadioBtn
+      <CustomerRadio
         id='all'
         label='전체'
         name='all'
-        size={80}
         selected={selected}
         onChange={onChange}
       />
-      <RadioBtn
+      <CustomerRadio
         id='regular'
-        label='단골손님'
+        label='단골'
         name='regular'
-        size={80}
         selected={selected}
         onChange={onChange}
       />
-      <RadioBtn
+      <CustomerRadio
         id='new'
-        label='신규손님'
+        label='신규'
         name='new'
-        size={80}
         selected={selected}
         onChange={onChange}
       />

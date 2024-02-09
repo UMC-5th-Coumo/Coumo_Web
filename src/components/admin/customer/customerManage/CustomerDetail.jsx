@@ -16,16 +16,22 @@ function CustomerDetail({ data }) {
         </ProfileContent>
       </Profile>
       <InfoContent>
-        <span>성별: {data.gender === 'MALE' ? '남성' : '여성'}</span>
+        <span>
+          <strong>성별 | </strong> {data.gender === 'MALE' ? '남성' : '여성'}
+        </span>
         <div>
-          <span>연령: {data.ageGroup}</span>
-          <span style={{ fontSize: '14px' }}>
-            (
-            {`${data.birthday.slice(0, 4)}.${data.birthday.slice(4, 6)}.${data.birthday.slice(-2)}`}
-            )
+          <span>
+            <strong>연령 | </strong> {data.ageGroup}{' '}
+            <small>
+              (
+              {`${data.birthday.slice(0, 4)}.${data.birthday.slice(4, 6)}.${data.birthday.slice(-2)}`}
+              )
+            </small>
           </span>
         </div>
-        <span>보유 쿠폰 개수: {data.totalStamp}</span>
+        <span>
+          <strong>보유 쿠폰 개수 | </strong> {data.totalStamp}개
+        </span>
       </InfoContent>
     </Container>
   );
@@ -40,11 +46,12 @@ const Container = styled.div`
   box-sizing: border-box;
   flex-direction: column;
   align-items: flex-start;
-  gap: 32px;
-  background-color: ${({ theme }) => theme.colors.card_lightpurple};
+  gap: 16px;
+  background-color: ${({ theme }) => theme.colors.white_fff};
+  border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
   border-radius: 12px;
 
-  @media screen and (max-width: 1280px) {
+  @media screen and (max-width: 1400px) {
     width: 320px;
     gap: 24px;
     padding: 20px 24px;
@@ -62,7 +69,7 @@ const ImgContainer = styled.div`
   justify-content: center;
   position: relative;
   width: 140px;
-  height: 135px;
+  height: 125px;
 
   @media screen and (max-width: 1280px) {
     width: 125px;
@@ -118,6 +125,8 @@ const InfoContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+  border-top: 1px solid #dddddd;
+  padding-top: 12px;
 
   & div {
     display: flex;
@@ -125,11 +134,16 @@ const InfoContent = styled.div`
   }
 
   & span {
-    color: #565160;
+    color: ${({ theme }) => theme.colors.text_darkgray};
     font-size: ${({ theme }) => theme.fontSize.base};
     font-style: normal;
     line-height: 132%; /* 26.4px */
     letter-spacing: 0.2px;
+
+    & strong {
+      font-weight: 500;
+      color: ${({ theme }) => theme.colors.text_black};
+    }
 
     @media screen and (max-width: 1280px) {
       font-size: ${({ theme }) => theme.fontSize.sm};
