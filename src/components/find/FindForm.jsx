@@ -2,29 +2,33 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Btn } from '../common/Button';
+import CheckButton from '../join/CheckButton';
 import InputJoin from '../common/InputJoin';
+import JoinBtn from '../join/JoinBtn';
 
 const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
   const navigate = useNavigate();
-  const [id, setId] = useState('');
-  const [phone, setPhone] = useState('');
-  const [number, setNumber] = useState('');
+
+  const [info, setInfo] = useState({
+    id: '',
+    phone: '',
+    number: '',
+  });
 
   const onChangeId = (e) => {
-    setId(e.target.value);
+    setInfo((prev) => ({ ...prev, id: e.target.value }));
   };
 
   const onChangePhone = (e) => {
-    setPhone(e.target.value);
+    setInfo((prev) => ({ ...prev, phone: e.target.value }));
   };
 
   const onChangeNumber = (e) => {
-    setNumber(e.target.value);
+    setInfo((prev) => ({ ...prev, number: e.target.value }));
   };
 
   const isFindEnabled = () => {
-    return id && phone && number;
+    return info.id && info.phone && info.number;
   };
 
   const onCertified = (e) => {
@@ -35,8 +39,8 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
     e.preventDefault();
     if (isFindEnabled()) {
       console.log('Post Data:', {
-        [postData]: id,
-        phone: phone,
+        [postData]: info.id,
+        phone: info.phone,
       });
 
       // 임시 코드
@@ -48,8 +52,8 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
 
       try {
         const response = await axios.post(serverEndpoint, {
-          [postData]: id,
-          phone: phone,
+          [postData]: info.id,
+          phone: info.phone,
         });
 
         if (response.data.isSuccess && postData === 'name') {
@@ -71,34 +75,37 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
         <Box>
           <Title>{title}</Title>
           <div>
-            <InputJoin label={idLabel} value={id} onChange={onChangeId} />
+            <InputJoin label={idLabel} value={info.id} onChange={onChangeId} />
           </div>
           <div>
             <Row>
               <InputJoin
                 label='휴대전화 번호'
                 placeholder='- 없이'
-                value={phone}
+                value={info.phone}
                 onChange={onChangePhone}
                 width='250px'
               />
-              <NewButton onClick={onCertified}>인증받기</NewButton>
+              <CheckButton text='인증받기' onClick={onCertified} />
             </Row>
           </div>
           <div>
             <Row>
               <InputJoin
                 label='인증번호'
-                value={number}
+                value={info.number}
                 onChange={onChangeNumber}
                 width='250px'
               />
-              <NewButton>인증 확인</NewButton>
+              <CheckButton text='인증 확인' />
             </Row>
           </div>
-          <JoinBtn onClick={onSubmit} disabled={!isFindEnabled()}>
-            확인
-          </JoinBtn>
+          <JoinBtn
+            topMargin={20}
+            text='확인'
+            onClick={onSubmit}
+            disabled={!isFindEnabled()}
+          />
         </Box>
       </Wrapper>
     </Container>
@@ -140,47 +147,8 @@ const Title = styled.div`
   margin-bottom: 45px;
 `;
 
-const JoinBtn = styled.button`
-  display: flex;
-  width: 100%;
-  height: 55px;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  border-radius: 8px;
-  background: ${({ theme }) => theme.colors.coumo_purple};
-  color: ${({ theme }) => theme.colors.white};
-  text-align: center;
-  font-size: ${({ theme }) => theme.fontSize.md};
-  font-style: normal;
-  font-weight: 700;
-  margin-top: 20px;
-
-  &:disabled {
-    background: ${({ theme }) => theme.colors.btn_lightgray};
-    color: ${({ theme }) => theme.colors.text};
-  }
-`;
-
 const Row = styled.div`
   display: flex;
   align-items: flex-end;
   gap: 10px;
-`;
-
-const NewButton = styled(Btn)`
-  display: flex;
-  width: 110px;
-  height: 35px;
-  border-radius: 49px;
-  margin-bottom: 6px;
-  background-color: ${({ theme }) => theme.colors.coumo_purple};
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  font-style: normal;
-  font-weight: 600;
-  line-height: 170%; /* 30.6px */
 `;

@@ -2,110 +2,114 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import InputJoin from '../../components/common/InputJoin';
-import { CheckBoxDefault, CheckBoxSelected } from '../../assets';
-import { Btn } from '../../components/common/Button';
+import CheckList from '../../components/join/CheckList';
+import JoinBtn from '../../components/join/JoinBtn';
+import ErrorMsg from '../../components/join/ErrorMsg';
+import CheckButton from '../../components/join/CheckButton';
 
 const JoinOneStep = () => {
   const navigate = useNavigate();
 
-  // 초기값
-  const [loginId, setLoginId] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [check1, setCheck1] = useState(false);
-  const [check2, setCheck2] = useState(false);
+  /* ----- id, pw ----- */
+  const [account, setAccount] = useState({
+    id: '',
+    pw: '',
+    confirmPw: '',
+  });
 
-  // 유효성 검사
-  const [loginIdValid, setLoginIdValid] = useState(false);
-  const [passwordValid, setPasswordValid] = useState(false);
-  const [confirmPasswordValid, setConfirmPasswordValid] = useState(false);
+  /* ----- 체크 박스 ----- */
+  const [checks, setChecks] = useState({
+    step1: false,
+    step2: false,
+  });
 
-  // 오류 메세지
-  const [loginIdMsg, setLoginIdMsg] = useState('');
-  const [passwordMsg, setPasswordMsg] = useState('');
-  const [confirmPasswordMsg, setConfirmPasswordMsg] = useState('');
+  /* ----- 유효성 검사 여부 ----- */
+  const [vaild, setVaild] = useState({
+    login: false,
+    password: false,
+    confirmPw: false,
+  });
 
-  // 체크 박스 상태 변경
-  const handleCheck1Click = () => {
-    setCheck1(true);
-  };
+  /* ----- 유효성 검사 오류 메세지 ----- */
+  const [msg, setMsg] = useState({
+    login: '',
+    password: '',
+    confirmPw: '',
+  });
 
-  const handleUnCheck1Click = () => {
-    setCheck1(false);
-  };
-
-  const handleCheck2Click = () => {
-    setCheck2(true);
-  };
-
-  const handleUnCheck2Click = () => {
-    setCheck2(false);
-  };
-
-  // onChange 함수
+  /* ----- id onChange 함수 ----- */
   const onChangeId = (e) => {
-    setLoginId(e.target.value);
+    setAccount((prev) => ({ ...prev, id: e.target.value }));
     const isValid = /^[a-zA-Z][a-zA-Z0-9_-]{5,12}$/.test(e.target.value);
 
     if (!isValid) {
-      setLoginIdMsg('영문+숫자 조합으로 6~12자리 입력해주세요.');
-      setLoginIdValid(false);
+      setMsg((prev) => ({
+        ...prev,
+        login: '영문+숫자 조합으로 6~12자리 입력해주세요.',
+      }));
+      setVaild((prev) => ({ ...prev, login: false }));
     } else {
-      setLoginIdMsg('');
-      setLoginIdValid(true);
+      setMsg((prev) => ({ ...prev, login: '' }));
+      setVaild((prev) => ({ ...prev, login: true }));
     }
   };
 
+  /* ----- password onChange 함수 ----- */
   const onChangePassword = (e) => {
-    setPassword(e.target.value);
+    setAccount((prev) => ({ ...prev, pw: e.target.value }));
     const isValid = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(
       e.target.value
     );
 
     if (!isValid) {
-      setPasswordMsg('숫자+영문자+특수문자 조합으로 8~25자리 입력해주세요.');
-      setPasswordValid(false);
+      setMsg((prev) => ({
+        ...prev,
+        password: '숫자+영문자+특수문자 조합으로 8~25자리 입력해주세요.',
+      }));
+      setVaild((prev) => ({ ...prev, password: false }));
     } else {
-      setPasswordMsg('');
-      setPasswordValid(true);
+      setMsg((prev) => ({ ...prev, password: '' }));
+      setVaild((prev) => ({ ...prev, password: true }));
     }
 
-    if (confirmPassword !== '' && confirmPassword !== e.target.value) {
-      onChangeConfirmPassword({ target: { value: confirmPassword } });
+    if (account.confirmPw !== '' && account.confirmPw !== e.target.value) {
+      onChangeConfirmPassword({ target: { value: account.confirmPw } });
     }
   };
 
+  /* ----- password 확인 함수 ----- */
   const onChangeConfirmPassword = (e) => {
-    setConfirmPassword(e.target.value);
+    setAccount((prev) => ({ ...prev, confirmPw: e.target.value }));
 
-    if (password !== e.target.value) {
-      setConfirmPasswordMsg('비밀번호가 일치하지 않습니다.');
-      setConfirmPasswordValid(false);
+    if (account.pw !== e.target.value) {
+      setMsg((prev) => ({
+        ...prev,
+        confirmPw: '비밀번호가 일치하지 않습니다.',
+      }));
+      setVaild((prev) => ({ ...prev, confirmPw: false }));
     } else {
-      setConfirmPasswordMsg('');
-      setConfirmPasswordValid(true);
+      setMsg((prev) => ({ ...prev, confirmPw: '' }));
+      setVaild((prev) => ({ ...prev, confirmPw: true }));
     }
   };
 
-  // 다음으로 넘어가기 버튼
+  /* ----- 다음으로 넘어가기 버튼 활성화 여부 ----- */
   const isJoinOneEnabled = () => {
     return (
-      loginIdValid &&
-      passwordValid &&
-      confirmPasswordValid &&
-      check1 === true &&
-      check2 === true
+      vaild.login &&
+      vaild.password &&
+      vaild.confirmPw &&
+      checks.step1 === true &&
+      checks.step2 === true
     );
   };
 
-  // 제출하기
+  /* ----- 다음으로 넘어가기 ----- */
   const onSubmit = (e) => {
     e.preventDefault();
-    if (isJoinOneEnabled()) {
-      navigate('/join/two', {
-        state: { loginId, password },
-      });
-    }
+    navigate('/join/two', {
+      state: { loginId: account.id, password: account.pw },
+    });
   };
 
   return (
@@ -118,68 +122,44 @@ const JoinOneStep = () => {
               <InputJoin
                 label='아이디 *'
                 placeholder='영문/숫자 6자 이상'
-                value={loginId}
+                value={account.id}
                 onChange={onChangeId}
                 width='250px'
                 star={true}
               />
-              <NewButton>중복 확인하기</NewButton>
+              <CheckButton text='중복 확인하기' />
             </Row>
-            <Msg>{loginIdMsg}</Msg>
+            <ErrorMsg text={msg.login} />
           </div>
           <div>
             <InputJoin
               label='비밀번호 *'
               placeholder='영문/숫자 8자 이상'
               type='password'
-              value={password}
+              value={account.pw}
               onChange={onChangePassword}
               star={true}
             />
-            <Msg>{passwordMsg}</Msg>
+            <ErrorMsg text={msg.password} />
           </div>
           <div>
             <InputJoin
               label='비밀번호 확인하기 *'
               placeholder='비밀번호 확인'
               type='password'
-              value={confirmPassword}
+              value={account.confirmPw}
               onChange={onChangeConfirmPassword}
               star={true}
             />
-            <Msg>{confirmPasswordMsg}</Msg>
+            <ErrorMsg text={msg.confirmPw} />
           </div>
-          <CheckList>
-            <Agree>
-              <CheckWrapper>
-                <>
-                  {check1 ? (
-                    <CheckBoxSelected onClick={handleUnCheck1Click} />
-                  ) : (
-                    <CheckBoxDefault onClick={handleCheck1Click} />
-                  )}
-                </>
-                <CheckTitle>쿠모 서비스 이용 약관 동의</CheckTitle>
-              </CheckWrapper>
-              <CheckMore>보기</CheckMore>
-            </Agree>
-            <Agree>
-              <CheckWrapper>
-                <>
-                  {check2 ? (
-                    <CheckBoxSelected onClick={handleUnCheck2Click} />
-                  ) : (
-                    <CheckBoxDefault onClick={handleCheck2Click} />
-                  )}
-                </>
-                <CheckTitle>개인정보 정책 동의</CheckTitle>
-              </CheckWrapper>
-              <CheckMore>보기</CheckMore>
-            </Agree>
-          </CheckList>
-          <JoinBtn onClick={onSubmit} disabled={!isJoinOneEnabled()}>
-            다음으로 넘어가기
-          </JoinBtn>
+          <CheckList checks={checks} setChecks={setChecks} />
+          <JoinBtn
+            topMargin={20}
+            text='다음으로 넘어가기'
+            onClick={onSubmit}
+            disabled={!isJoinOneEnabled()}
+          />
         </Box>
       </Wrapper>
     </Container>
@@ -220,98 +200,8 @@ const Title = styled.div`
   margin-bottom: 45px;
 `;
 
-const Msg = styled.div`
-  height: 15px;
-  color: #fc0f0f;
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: -0.3px;
-  display: flex;
-  align-items: flex-start;
-  margin-right: auto;
-  margin-left: 5px;
-  margin-bottom: 10px;
-`;
-
-const CheckList = styled.div`
-  padding: 10px 0px;
-  width: 100%;
-  gap: 5px;
-`;
-
-const Agree = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const CheckTitle = styled.div`
-  color: ${({ theme }) => theme.colors.text_black};
-  text-align: center;
-  font-size: ${({ theme }) => theme.fontSize.base};
-  font-style: normal;
-  font-weight: 600;
-  line-height: 32.4px; /* 180% */
-  margin-left: 10px;
-`;
-
-const CheckMore = styled.div`
-  color: rgba(33, 37, 41, 0.5);
-  text-align: center;
-  font-size: ${({ theme }) => theme.fontSize.base};
-  font-style: normal;
-  font-weight: 400;
-  line-height: 32.4px; /* 180% */
-`;
-
-const JoinBtn = styled.button`
-  display: flex;
-  width: 100%;
-  height: 55px;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  border-radius: 8px;
-  background: ${({ theme }) => theme.colors.coumo_purple};
-  color: ${({ theme }) => theme.colors.white};
-  text-align: center;
-  font-size: ${({ theme }) => theme.fontSize.md};
-  font-style: normal;
-  font-weight: 700;
-  margin-top: 20px;
-
-  &:disabled {
-    background: ${({ theme }) => theme.colors.btn_lightgray};
-    color: ${({ theme }) => theme.colors.text};
-  }
-`;
-
 const Row = styled.div`
   display: flex;
   align-items: flex-end;
   gap: 10px;
-`;
-
-const CheckWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const NewButton = styled(Btn)`
-  display: flex;
-  width: 110px;
-  height: 35px;
-  border-radius: 49px;
-  margin-bottom: 6px;
-  background-color: ${({ theme }) => theme.colors.coumo_purple};
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  font-style: normal;
-  font-weight: 600;
-  line-height: 170%; /* 30.6px */
 `;
