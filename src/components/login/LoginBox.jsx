@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Btn } from '../common/Button';
-import { LoginId, LoginPw } from '../../assets';
+import { LoginId, LoginPw, LoginSave, LoginSaveCheck } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/slices/userSlice';
-import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 
 const LoginBox = () => {
   const [id, setId] = useState('');
@@ -68,11 +67,14 @@ const LoginBox = () => {
           <StyledLoginPw />
         </Pw>
         <Line>
-          <Icon
-            save={save}
-            onClick={save ? handleSaveClick : handleUnsaveClick}
-          />
-          <Text>로그인 정보 저장하기</Text>
+          <Icon save={save}>
+            {save ? (
+              <LoginSaveCheck onClick={handleUnsaveClick} />
+            ) : (
+              <LoginSave onClick={handleSaveClick} />
+            )}
+          </Icon>
+          <Text save={save}>로그인 정보 저장하기</Text>
         </Line>
       </Group>
       <LoginBtn
@@ -184,12 +186,12 @@ const Line = styled.div`
   margin-top: 10px;
 `;
 
-const Icon = styled(IoIosCheckmarkCircleOutline)`
+const Icon = styled.div`
+  display: flex;
   width: 25px;
   height: 25px;
-  color: ${({ theme, save }) =>
-    save ? theme.colors.coumo_purple : theme.colors.text};
   padding: 0px 10px 0px 5px;
+  align-items: center;
   cursor: pointer;
 
   @media screen and (max-width: 1024px) {
@@ -200,7 +202,8 @@ const Icon = styled(IoIosCheckmarkCircleOutline)`
 `;
 
 const Text = styled.div`
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme, save }) =>
+    save ? theme.colors.coumo_purple : theme.colors.text};
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 500;
