@@ -204,7 +204,7 @@ const Text = styled.div`
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 500;
-  line-height: 26.738px; /* 190.788% */
+  line-height: 26px; /* 190.788% */
 
   @media screen and (max-width: 1024px) {
     font-size: ${({ theme }) => theme.fontSize.sm};
