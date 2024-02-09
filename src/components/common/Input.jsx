@@ -12,10 +12,11 @@ const Input = ({
   readOnly,
   fullwidth,
   fullheight,
+  fontSize,
 }) => {
   return (
     <Element>
-      <StyledInputTitle>{label}</StyledInputTitle>
+      <StyledInputTitle fontSize={fontSize}>{label}</StyledInputTitle>
       <StyledInput
         isEmpty={value.length === 0}
         type={type}
@@ -42,12 +43,13 @@ const Element = styled.div`
 const StyledInputTitle = styled.div`
   color: ${({ theme }) => theme.colors.coumo_purple};
   font-family: 'Pretendard';
-  font-size: ${({ theme }) => theme.fontSize.lg};
+  font-size: ${({ theme, fontSize }) =>
+    fontSize ? theme.fontSize.md : theme.fontSize.lg};
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 31.68px */
   letter-spacing: 0.72px;
-  padding-bottom: 16px;
+  padding-bottom: 13px;
 
   @media screen and (max-width: 1024px) {
     font-size: ${({ theme }) => theme.fontSize.md};
@@ -57,7 +59,7 @@ const StyledInputTitle = styled.div`
 const StyledInput = styled.input`
   display: flex;
   width: ${({ fullwidth }) => (fullwidth ? fullwidth : '100%')};
-  height: 40px;
+  height: ${({ fullheight }) => (fullheight ? fullheight : '40px')};
   padding: 8px 12px;
   box-sizing: border-box;
   justify-content: flex-end;
@@ -80,14 +82,6 @@ const StyledInput = styled.input`
 
   &:focus {
     outline: none;
-  }
-
-  @media screen and (max-width: 1024px) {
-    /* font-size: 12px;
-    width: 100%; */
-    font-size: ${({ theme }) => theme.fontSize.sm};
-    width: 100%;
-    height: 35px;
   }
 `;
 

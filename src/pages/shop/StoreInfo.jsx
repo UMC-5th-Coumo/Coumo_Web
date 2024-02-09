@@ -129,7 +129,9 @@ const DescripInput = styled.textarea`
 `;
 
 const BtnContainer = styled.div`
+  max-width: 1150px;
+  min-width: 570px;
   display: flex;
   gap: 16px;
-  justify-content: center;
+  justify-content: right;
 `;
