@@ -37,7 +37,7 @@ const ColorPicker = ({ color, setColor }) => {
 export default ColorPicker;
 
 const ColorBox = styled.button`
-  background: ${({ theme }) => theme.colors.white_fff};
+  background: ${({ theme }) => theme.colors.white};
   border-radius: 4px;
   display: flex;
   width: 110px;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Title from '../components/common/Title';
-import { CallIcon, DetailArrow, Line } from '../assets';
+import { CallIcon, DetailArrow } from '../assets';
 import { useSelector } from 'react-redux';
 import TwoBtnPopUp from '../components/common/popUp/TwoBtnPopUp';
 import { useNavigate } from 'react-router-dom';
@@ -127,7 +127,7 @@ const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 32px;
-  border-bottom: 2px solid #d2d2d4;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.line};
   padding-bottom: 30px;
 `;
 
@@ -140,7 +140,7 @@ const Profile = styled.div`
   align-items: flex-start;
   gap: 48px;
   border-radius: 12px;
-  background: #f5efff;
+  background: ${({ theme }) => theme.colors.coumo_lightpurple};
   color: #2f2a37;
 
   @media screen and (max-width: 1024px) {
@@ -190,7 +190,7 @@ const Box = styled.div`
   padding: 0px 34px;
   box-sizing: border-box;
   border-radius: 12px;
-  background: #f5efff;
+  background: ${({ theme }) => theme.colors.coumo_lightpurple};
   color: #2f2a37;
   font-size: ${({ theme }) => theme.fontSize.md};
 

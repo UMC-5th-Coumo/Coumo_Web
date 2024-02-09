@@ -72,7 +72,7 @@ const DropdownInput = styled.div`
   cursor: pointer;
 
   pointer-events: ${(props) => (props.disabled ? 'none' : 'all')};
-  background: ${({ theme }) => theme.colors.white_fefe};
+  background: ${({ theme }) => theme.colors.white};
   border: 1px solid
     ${({ theme, disabled, isOpen }) =>
       disabled
@@ -106,7 +106,7 @@ const DropdownBox = styled.div`
   width: 99%;
   height: 200px;
   border-radius: 6px;
-  background: ${({ theme }) => theme.colors.white_fefe};
+  background: ${({ theme }) => theme.colors.white};
   border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
 
   display: flex;

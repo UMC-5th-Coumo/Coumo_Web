@@ -35,7 +35,7 @@ const Number = styled.div`
   flex-shrink: 0;
   border-radius: 20px;
   background: ${({ theme }) => theme.colors.coumo_purple};
-  color: ${({ theme }) => theme.colors.white_fff};
+  color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 700;

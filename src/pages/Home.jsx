@@ -44,5 +44,5 @@ const Service = styled.div`
     rgba(97, 0, 255, 0.15) -7.25%,
     rgba(225, 217, 255, 0.15) 104.64%
   );
-  box-shadow: 0px -40px 115.5px 0px #fff inset;
+  box-shadow: 0px -40px 115.5px 0px ${({ theme }) => theme.colors.white} inset;
 `;

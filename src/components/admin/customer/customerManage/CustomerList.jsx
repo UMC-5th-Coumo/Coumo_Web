@@ -99,7 +99,7 @@ const Customer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 12px;
-  border-bottom: 1px solid #e3e1e8;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
   cursor: pointer;
   background-color: ${({ theme, selected }) =>
     selected ? theme.colors.card_lightpurple : theme.colors.white_fff};

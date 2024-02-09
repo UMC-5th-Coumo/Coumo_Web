@@ -119,7 +119,7 @@ const MyText = styled.div`
 
 const LargeP = styled.div`
   overflow: hidden;
-  color: ${({ theme }) => theme.colors.image_text};
+  color: ${({ theme }) => theme.colors.text};
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;

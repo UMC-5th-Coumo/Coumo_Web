@@ -140,7 +140,7 @@ const Header = styled.div`
   height: 16px;
   display: flex;
   justify-content: space-between;
-  background-color: ${({ theme }) => theme.colors.white_fff};
+  background-color: ${({ theme }) => theme.colors.white};
   font-family: 'Pretendard';
 `;
 

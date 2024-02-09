@@ -23,7 +23,7 @@ const TabDiv = styled.div`
   background: ${({ theme, selected }) =>
     selected ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
   color: ${({ theme, selected }) =>
-    selected ? theme.colors.white_fff : theme.colors.tab_gray};
+    selected ? theme.colors.white : theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.sm};
   font-weight: ${(props) => (props.selected ? '700' : '500')};
   line-height: 132%; /* 21.12px */

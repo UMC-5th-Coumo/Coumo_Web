@@ -250,7 +250,7 @@ export default BasicInfo;
 const Content = styled.div`
   width: 100%;
   height: auto;
-  color: ${({ theme }) => theme.colors.tab_gray};
+  color: ${({ theme }) => theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.base};
   box-sizing: border-box;
   font-weight: 500;

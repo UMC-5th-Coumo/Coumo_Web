@@ -81,7 +81,7 @@ const Image = styled.img`
   width: 115px;
   height: 115px;
   border-radius: 4px;
-  background-color: lightgray;
+  background-color: ${({ theme }) => theme.colors.btn_lightgray};
 
   @media screen and (max-width: 1280px) {
     width: 105px;
@@ -158,7 +158,7 @@ const RecentVisit = styled.span`
   align-items: center;
   border-radius: 46px;
   background: ${({ theme }) => theme.colors.coumo_purple};
-  color: ${({ theme }) => theme.colors.white_fff};
+  color: ${({ theme }) => theme.colors.white};
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.xs};
   font-style: normal;

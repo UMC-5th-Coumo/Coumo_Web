@@ -78,7 +78,7 @@ const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 32px;
-  border-bottom: 2px solid #d2d2d4;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.line};
   padding-bottom: 30px;
 `;
 

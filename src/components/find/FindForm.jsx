@@ -158,7 +158,7 @@ const JoinBtn = styled.button`
 
   &:disabled {
     background: ${({ theme }) => theme.colors.btn_lightgray};
-    color: ${({ theme }) => theme.colors.text_btn_darkgray};
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 

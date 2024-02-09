@@ -22,7 +22,7 @@ const Card = styled.div`
   padding: 24px;
   gap: 8px;
   border-radius: 24px;
-  background: ${({ theme }) => theme.colors.white_fefe};
+  background: ${({ theme }) => theme.colors.white};
   box-shadow: 12px 15px 14.8px 0px rgba(87, 76, 108, 0.1);
   backdrop-filter: blur(4px);
 `;

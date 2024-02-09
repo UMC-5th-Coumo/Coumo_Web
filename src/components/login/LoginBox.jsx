@@ -108,7 +108,7 @@ const Box = styled.div`
 
   box-sizing: border-box;
   padding: 0 70px;
-  background: ${({ theme }) => theme.colors.white_fff};
+  background: ${({ theme }) => theme.colors.white};
   box-shadow: 0px 8.978px 14.365px 0px rgba(68, 68, 68, 0.08);
 
   @media screen and (max-width: 1024px) {
@@ -146,7 +146,7 @@ const InputId = styled.input`
   letter-spacing: -0.629px;
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.text_lightgray};
+    color: ${({ theme }) => theme.colors.text};
   }
 
   &:focus {
@@ -188,7 +188,7 @@ const Icon = styled(IoIosCheckmarkCircleOutline)`
   width: 25px;
   height: 25px;
   color: ${({ theme, save }) =>
-    save ? theme.colors.coumo_purple : theme.colors.text_lightgray};
+    save ? theme.colors.coumo_purple : theme.colors.text};
   padding: 0px 10px 0px 5px;
   cursor: pointer;
 
@@ -200,7 +200,7 @@ const Icon = styled(IoIosCheckmarkCircleOutline)`
 `;
 
 const Text = styled.div`
-  color: ${({ theme }) => theme.colors.text_lightgray};
+  color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 500;
@@ -214,14 +214,12 @@ const Text = styled.div`
 const LoginBtn = styled(Btn)`
   width: 100%;
   height: 48px;
-  background: ${({ theme }) => theme.colors.btn_lightgray};
-  color: ${({ theme }) => theme.colors.white_fff};
   background: ${({ theme }) => theme.colors.coumo_purple};
   color: ${({ theme }) => theme.colors.white};
 
   &:disabled {
     background: ${({ theme }) => theme.colors.btn_lightgray};
-    color: ${({ theme }) => theme.colors.text_btn_darkgray};
+    color: ${({ theme }) => theme.colors.text};
   }
 
   @media screen and (max-width: 1024px) {
