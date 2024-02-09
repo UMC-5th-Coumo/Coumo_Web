@@ -4,30 +4,32 @@ import styled from 'styled-components';
 function CustomerList({ customerData, selected, setSelected }) {
   return (
     <Container>
-      <Columns>
-        <Column>방문 일자</Column>
-        <Column>고객 ID</Column>
-        <Column>고객 이름</Column>
-        <Column>전화번호</Column>
-      </Columns>
-      <Customers>
-        {customerData.map((data) => {
-          return (
-            <Customer
-              key={data.id}
-              selected={selected === data}
-              onClick={() => setSelected(data)}
-            >
-              <span>{data.updatedAt.slice(0, 10)}</span>
-              <span>{data.id}</span>
-              <span>{data.name}</span>
-              <span>
-                {data.phone.slice(0, 3) + '-****-' + data.phone.slice(-4)}
-              </span>
-            </Customer>
-          );
-        })}
-      </Customers>
+      <Wrapper>
+        <Columns>
+          <Column>방문 일자</Column>
+          <Column>고객 ID</Column>
+          <Column>고객 이름</Column>
+          <Column>전화번호</Column>
+        </Columns>
+        <Customers>
+          {customerData.map((data) => {
+            return (
+              <Customer
+                key={data.id}
+                selected={selected === data}
+                onClick={() => setSelected(data)}
+              >
+                <span>{data.updatedAt.slice(0, 10)}</span>
+                <span>{data.id}</span>
+                <span>{data.name}</span>
+                <span>
+                  {data.phone.slice(0, 3) + '-****-' + data.phone.slice(-4)}
+                </span>
+              </Customer>
+            );
+          })}
+        </Customers>
+      </Wrapper>
     </Container>
   );
 }
@@ -36,18 +38,25 @@ export default CustomerList;
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 570px;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  border-right: 1.5px solid #d2d2d4;
 
   @media screen and (max-width: 1280px) {
-    width: 480px;
+    border-right: none;
   }
-  @media screen and (max-width: 1150px) {
-    width: 600px;
-  }
-  @media screen and (max-width: 1024px) {
-    width: 500px;
-  }
+`;
+
+const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 10px;
+  border: 1.5px solid #e3e1e8;
+
+  background-color: ${({ theme }) => theme.colors.white_fff};
 `;
 
 const Columns = styled.div`
@@ -57,6 +66,7 @@ const Columns = styled.div`
   gap: 12px;
   padding-right: 15px;
   box-sizing: border-box;
+  border-bottom: 1.5px solid #e3e1e8;
 `;
 
 const Column = styled.span`
@@ -66,12 +76,12 @@ const Column = styled.span`
   align-items: center;
   gap: 8px;
   border-radius: 34px;
-  background: ${({ theme }) => theme.colors.btn_lightgray};
+  padding: 10px 0px;
 
   color: ${({ theme }) => theme.colors.coumo_purple};
   text-align: center;
   font-family: 'Pretendard';
-  font-size: ${({ theme }) => theme.fontSize.sm};
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 600;
   line-height: 132%; /* 21.12px */
@@ -83,28 +93,27 @@ const Customers = styled.div`
   overflow: auto;
   display: flex;
   flex-direction: column;
-  margin: 10px 0px;
-  padding-right: 15px;
 `;
 
 const Customer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 12px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.line};
   cursor: pointer;
   background-color: ${({ theme, selected }) =>
-    selected ? theme.colors.card_lightpurple : theme.colors.white};
+    selected ? theme.colors.card_lightpurple : theme.colors.white_fff};
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.card_lightpurple};
   }
 
+  padding-right: 15px;
+
   & span {
-    width: 130px;
     text-align: center;
     font-size: ${({ theme }) => theme.fontSize.sm};
     padding: 15px 0px;
-    margin: 0px 10px;
     box-sizing: border-box;
 
     @media screen and (max-width: 1280px) {

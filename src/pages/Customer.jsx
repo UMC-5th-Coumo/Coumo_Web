@@ -21,7 +21,6 @@ export default Customer;
 
 const Container = styled.div`
   box-sizing: border-box;
-  padding: 70px 0px;
   display: flex;
   justify-content: center;
 `;

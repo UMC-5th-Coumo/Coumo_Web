@@ -63,12 +63,12 @@ export default MonthlyReport;
 
 const Container = styled.div`
   width: 100%;
-  padding: 0px 100px;
+  padding: 70px 100px;
   display: flex;
   justify-content: center;
 
   @media screen and (max-width: 1270px) {
-    padding: 0px 50px;
+    padding: 70px 50px;
   }
 `;
 
