@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import UIArticle from '../../assets/icon/UIArticle.svg';
 import ReasonCard from '../../components/admin/coupon/ReasonCard';
@@ -69,10 +69,12 @@ const UIServiceAd = () => {
 export default UIServiceAd;
 
 const Content = styled.div`
-  width: 100%-250px;
+  width: 100%;
+  min-width: 800px;
   height: auto;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
   padding: 0px;
   margin: 0px;
 `;
@@ -163,7 +165,6 @@ const WhiteButton = styled.button`
 
 const Step = styled.div`
   width: 100%;
-  min-width: 1300px;
   height: 650px;
   display: flex;
   flex-direction: column;
@@ -172,8 +173,7 @@ const Step = styled.div`
   padding: 114px;
   box-sizing: border-box;
 
-  @media screen and (max-width: 1024px) {
-    min-width: 600px;
+  @media screen and (max-width: 1600px) {
     height: 900px;
     font-size: ${({ theme }) => theme.fontSize.md};
   }
@@ -194,7 +194,7 @@ const Big2 = styled.div`
 `;
 
 const PBlack = styled(P)`
-  color: #212529;
+  color: ${({ theme }) => theme.colors.text_black};
 
   @media screen and (max-width: 1024px) {
     font-size: ${({ theme }) => theme.fontSize.md};
@@ -207,7 +207,7 @@ const CouponSteps = styled.div`
   justify-content: space-around;
   margin-top: 40px;
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1600px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     > div:last-child {
@@ -236,7 +236,7 @@ const Reason = styled.div`
 `;
 
 const Big3 = styled.div`
-  width: 400px;
+  width: 100%;
   color: ${({ theme }) => theme.colors.coumo_purple};
   font-family: 'Pretendard';
   font-size: ${({ theme }) => theme.fontSize.xl};
@@ -252,9 +252,9 @@ const Big3 = styled.div`
 `;
 
 const PGray = styled(P)`
-  width: 400px;
+  width: 250px;
+  width: 100%;
   color: ${({ theme }) => theme.colors.text_darkgray};
-  margin-right: 300px;
 
   @media screen and (max-width: 1024px) {
     font-size: ${({ theme }) => theme.fontSize.md};
@@ -333,11 +333,10 @@ const ReasonCardsContainer = styled.div`
   grid-template-columns: repeat(auto-fill, 270px);
   direction: rtl;
   box-sizing: border-box;
-  min-width: 1100px;
 
-  @media screen and (max-width: 1024px) {
-    min-width: 600px;
-    grid-template-columns: repeat(auto-fill, 100px);
+  @media screen and (max-width: 1600px) {
+    width: 100%;
+    grid-template-columns: repeat(3, 100px);
     direction: rtl;
     margin-top: 30px;
     gap: 30px;

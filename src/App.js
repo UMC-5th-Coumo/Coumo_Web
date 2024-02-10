@@ -29,8 +29,10 @@ function App() {
     <>
       <GlobalStyle />
       {token ? (
-        <>
-          <AdminHeader />
+        <Column>
+          <Container>
+            <AdminHeader />
+          </Container>
           <Container>
             <AdminVerticalHeader />
             <AdminWrapper>
@@ -51,7 +53,7 @@ function App() {
               </Routes>
             </AdminWrapper>
           </Container>
-        </>
+        </Column>
       ) : (
         <>
           <Header />
@@ -76,9 +78,15 @@ function App() {
 
 export default App;
 
+const Column = styled.div`
+  width: 100vw;
+`;
+
 const Container = styled.div`
   display: flex;
+  flex-direction: row;
   width: 100vw;
+  /* justify-content: center; */
 `;
 
 const Wrapper = styled.div`

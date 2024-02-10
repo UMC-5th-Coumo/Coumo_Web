@@ -20,5 +20,7 @@ const Coupon = () => {
 export default Coupon;
 
 const Container = styled.div`
+  width: 100%;
   box-sizing: border-box;
+  overflow: hidden;
 `;

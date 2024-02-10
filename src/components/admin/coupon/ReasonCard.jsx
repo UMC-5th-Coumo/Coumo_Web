@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ReasonCard = ({ id, img, title, description, style }) => {
+const ReasonCard = ({ img, title, description, style }) => {
   return (
     <Card style={style}>
       <CardImage>{img}</CardImage>

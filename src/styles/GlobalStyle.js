@@ -2,16 +2,20 @@ import { createGlobalStyle, keyframes } from 'styled-components';
 import '../assets/font/Font.css';
 
 const GlobalStyle = createGlobalStyle`
-  body {
+  html, body {
+    width: 100vw;
     margin: 0;
     font-family: "Pretendard";
     box-sizing: border-box;
-    padding-top: 80px;
     position: relative;
     
     &::-webkit-scrollbar {
       display: none;
     }
+  }
+
+  body {
+    padding-top: 80px;
   }
 `;
 

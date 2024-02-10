@@ -62,7 +62,7 @@ const Divider = styled.div`
   transform: translateY(-50%);
   z-index: 0;
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1600px) {
     opacity: 0;
   }
 `;
