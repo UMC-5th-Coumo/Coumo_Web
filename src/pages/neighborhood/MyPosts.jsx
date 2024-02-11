@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Title from '../../components/common/Title';
-import Post from '../../components/admin/neighborhood/Post';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import TwoBtnPopUp from '../../components/common/popUp/TwoBtnPopUp';
@@ -10,8 +9,8 @@ import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 import { postCategoryData } from '../../assets/data/categoryData';
 import { setSelectedPost } from '../../redux/slices/postSlice';
 import getMyPosts from '../../redux/thunks/getMyPosts';
-import deleteMyPost from '../../redux/thunks/deleteMyPost';
 import { PageNext, PageNextDisable, PagePrev } from '../../assets';
+import PostList from '../../components/admin/neighborhood/PostList';
 
 const MyPosts = () => {
   const [deletePopUp, setDeletePopUp] = useState(false);
@@ -31,24 +30,23 @@ const MyPosts = () => {
       ? postDummyData
       : postDummyData.filter((post) => post.tag === category);
 
-  // 컴포넌트가 마운트될 때 받아오기
+  /* ----- 컴포넌트가 마운트될 때 받아오기 ----- */
   useEffect(() => {
-    // dispatch(getMyPostView({ ownerId: ownerId, noticeId: noticeId }));
-    dispatch(getMyPosts({ ownerId: 'coumo123', noticeId: '1' }));
+    dispatch(getMyPosts({ ownerId: 'coumo123', pageId: '1' }));
   }, [dispatch]);
 
-  // selectedPost 변경 시 즉시 업데이트
+  /* ----- selectedPost 변경 시 즉시 업데이트 ----- */
   useEffect(() => {
     dispatch(setSelectedPost(selectedPost));
   }, [dispatch, selectedPost]);
 
-  // 페이지 이동 처리
+  /* ----- 페이지 이동 처리 ----- */
   useEffect(() => {
     // URL에서 페이지 ID를 가져와 현재 페이지 설정
     setCurrentPage(Number(pageId) || 1);
   }, [pageId]);
 
-  // 페이지 이동 버튼 클릭 시
+  /* ----- 페이지 이동 버튼 클릭 시 ----- */
   const handlePageChange = (newPage) => {
     if (newPage <= 0) {
       newPage = 1;
@@ -62,44 +60,21 @@ const MyPosts = () => {
     );
   }, [currentPage, filteredPosts.length]);
 
-  const handlePostClick = (post) => {
-    dispatch(setSelectedPost(post));
-    // post 정보 확인해보기 (선택된 데이터)
-    console.log('post:', post);
-    const postId = selectedPost.id;
-    navigate(`/neighborhood/myPosts/myPostView/${postId}`);
-  };
-
+  /* ----- 팝업 뒷배경 스크롤, 클릭 방지 ----- */
   if (deletePopUp || confirmPopUp) {
     document.body.style.overflow = 'hidden';
   } else {
     document.body.style.overflow = 'auto';
   }
 
-  const handleModifyClick = (post) => {
-    dispatch(setSelectedPost(post));
-    const postId = selectedPost.id;
-    navigate(`/neighborhood/myPosts/myEdit/${postId}`);
-  };
-
-  const handleDeleteClick = (post) => {
-    dispatch(setSelectedPost(post));
-    setDeletePopUp(true);
-    dispatch(deleteMyPost({ ownerId: 'coumo123', noticeId: '1' }));
-  };
-
+  /* ----- 게시글 삭제 버튼 ----- */
   const onDeleteConfirm = () => {
-    const postId = postDummyData[selectedPost].id;
-    const updatedData = postDummyData.filter((post) => post.id !== postId);
-    console.log('Deleted post with ID:', postId);
-    console.log('Updated data:', updatedData);
-
     setDeletePopUp(false);
     setConfirmPopUp(true);
   };
 
+  /* ----- 페이징 처리 ----- */
   const postsPerPage = 8;
-
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
@@ -115,34 +90,25 @@ const MyPosts = () => {
           containerWidth='1000px'
           columns='1fr 1fr 1fr 1fr'
         />
-        <Line />
       </TitleBox>
-      <PostContainer>
-        {filteredPosts.length === 0 ? (
-          <NoPosts>게시물이 없습니다.</NoPosts>
-        ) : (
-          currentPosts.map((data, id) => {
-            return (
-              <Post
-                key={id}
-                data={data}
-                onClick={() => handlePostClick(data)}
-                onModify={() => handleModifyClick(data)}
-                onDelete={() => handleDeleteClick(data)}
-              />
-            );
-          })
-        )}
-      </PostContainer>
-      <Page>
-        <PagePrev onClick={() => handlePageChange(currentPage - 1)} />
-        <PageNum>- {currentPage} -</PageNum>
-        {nextButtonDisabled ? (
-          <PageNextDisable />
-        ) : (
-          <PageNext onClick={() => handlePageChange(currentPage + 1)} />
-        )}
-      </Page>
+      <BottomContainer>
+        <PostWrapper>
+          <PostList
+            filteredPosts={filteredPosts}
+            currentPosts={currentPosts}
+            setDeletePopUp={setDeletePopUp}
+          />
+        </PostWrapper>
+        <Page>
+          <PagePrev onClick={() => handlePageChange(currentPage - 1)} />
+          <PageNum>{currentPage}</PageNum>
+          {nextButtonDisabled ? (
+            <PageNextDisable />
+          ) : (
+            <PageNext onClick={() => handlePageChange(currentPage + 1)} />
+          )}
+        </Page>
+      </BottomContainer>
       {deletePopUp && (
         <TwoBtnPopUp
           title='글 삭제하기'
@@ -167,49 +133,47 @@ export default MyPosts;
 
 const Container = styled.div`
   width: 100%;
-  padding: 70px 100px;
+  padding-top: 70px;
   box-sizing: border-box;
   overflow: hidden;
-
-  @media screen and (max-width: 1024px) {
-    padding: 70px 50px;
-  }
-`;
-
-const Line = styled.div`
-  max-width: 840px;
-  min-width: 620px;
-  height: 2px;
-  background-color: ${({ theme }) => theme.colors.line};
 `;
 
 const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 38px;
-  margin-bottom: 50px;
-`;
+  padding: 0px 0px 50px 70px;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.line};
 
-const NoPosts = styled.div`
-  display: flex;
-  font-size: ${({ theme }) => theme.colors.coumo_purple};
-`;
-
-const PostContainer = styled.div`
-  max-width: 840px;
-  display: flex;
-  flex-direction: column;
+  @media screen and (max-width: 980px) {
+    padding: 0px 0px 50px 40px;
+  }
 `;
 
 const Page = styled.div`
-  max-width: 840px;
-  min-width: 620px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin-top: 30px;
+  cursor: pointer;
+`;
+
+const PostWrapper = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+  padding: 50px 70px;
+
+  @media screen and (max-width: 980px) {
+    padding: 50px 40px;
+  }
+`;
+
+const BottomContainer = styled.div`
+  width: 100%;
+  background-color: #fafafa;
+  padding-bottom: 70px;
 `;
 
 const PageNum = styled.div`

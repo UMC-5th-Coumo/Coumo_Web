@@ -8,7 +8,7 @@ const TagButton = ({ label }) => {
 export default TagButton;
 
 const Container = styled.span`
-  width: 90px;
+  width: 85px;
   height: 30px;
   display: flex;
   justify-content: center;
@@ -26,4 +26,10 @@ const Container = styled.span`
   font-weight: 500;
   line-height: 170%; /* 28.56px */
   letter-spacing: 1.2px;
+
+  @media screen and (max-width: 980px) {
+    width: 65px;
+    height: 25px;
+    font-size: ${({ theme }) => theme.fontSize.xs};
+  }
 `;
