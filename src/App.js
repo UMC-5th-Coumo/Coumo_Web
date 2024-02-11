@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import GlobalStyle from './styles/GlobalStyle';
 import Header from './components/common/Header';
 import Home from './pages/Home';
@@ -25,6 +25,8 @@ import UIServiceDetail from './pages/myPage/UIServiceDetail';
 
 function App() {
   const { token } = useSelector((state) => state.user);
+
+  const redirectToHome = () => <Navigate to='/' replace />;
   return (
     <>
       <GlobalStyle />
@@ -68,6 +70,8 @@ function App() {
               <Route path='/foundId' element={<FoundId />} />
               <Route path='/findPw' element={<FindPw />} />
               <Route path='/findPw/rePassword' element={<RePw />} />
+
+              {/* <Route path='*' element={redirectToHome} /> */}
             </Routes>
           </Wrapper>
         </>
@@ -86,7 +90,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   width: 100vw;
-  /* justify-content: center; */
 `;
 
 const Wrapper = styled.div`

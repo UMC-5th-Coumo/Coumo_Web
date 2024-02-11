@@ -19,4 +19,5 @@ export default Shop;
 
 const Container = styled.div`
   box-sizing: border-box;
+  overflow: hidden;
 `;
