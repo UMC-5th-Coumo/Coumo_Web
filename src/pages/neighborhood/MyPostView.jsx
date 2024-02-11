@@ -18,25 +18,19 @@ const MyPostView = () => {
   const { postId } = useParams();
   const selectedPost = useSelector((state) => state.post.selectedPost);
 
-  // 컴포넌트가 마운트될 때 받아오기
+  /* ----- 컴포넌트가 마운트될 때 받아오기 ----- */
   useEffect(() => {
-    // dispatch(getMyPostView({ ownerId: ownerId, noticeId: noticeId }));
-    dispatch(getMyPostView({ ownerId: 'coumo123', noticeId: '1' }));
-  }, [dispatch]);
+    dispatch(getMyPostView({ ownerId: 'coumo123', noticeId: postId }));
+  }, [dispatch, postId]);
 
   useEffect(() => {
     dispatch(setSelectedPost(selectedPost));
   }, [dispatch, selectedPost]);
 
+  /* ----- 수정 버튼 클릭 시 ----- */
   const onClickMod = () => {
     navigate(`/neighborhood/myPosts/myEdit/${postId}`);
   };
-
-  console.log('mypostview selected:', selectedPost);
-
-  console.log('Edit', selectedPost.tag);
-  console.log('Edit', selectedPost.title);
-  console.log('Edit', selectedPost.content);
 
   return (
     <StyledWrite>

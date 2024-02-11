@@ -1,23 +1,39 @@
 import React from 'react';
 import styled from 'styled-components';
 import TagButton from './TagButton';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setSelectedPost } from '../../../redux/slices/postSlice';
 
-const Post = ({ data, onClick, onModify, onDelete }) => {
+const Post = ({ data, onDelete }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  /* ----- 게시글 수정 버튼 ----- */
+  const handleModifyClick = () => {
+    dispatch(setSelectedPost(data));
+    const postId = data.id;
+    navigate(`/neighborhood/myPosts/myEdit/${postId}`);
+  };
+
+  /* ----- 게시글 클릭 시 ----- */
+  const handlePostClick = () => {
+    dispatch(setSelectedPost(data));
+    const postId = data.id;
+    navigate(`/neighborhood/myPosts/myPostView/${postId}`);
+  };
+
   return (
     <Container>
-      <Content>
-        <PostClick onClick={onClick}>
-          <TitleBox>
-            <TagButton label={data.label} />
-            <Text>
-              <Title>{data.title}</Title>
-              <Date>{data.time}</Date>
-            </Text>
-          </TitleBox>
-        </PostClick>
+      <Content onClick={handlePostClick}>
+        <TagButton label={data.label} />
+        <TextWrapper>
+          <Title>{data.title}</Title>
+          <Date>{data.time}</Date>
+        </TextWrapper>
       </Content>
       <Btns>
-        <PostButton onClick={onModify} isModify={true} />
+        <PostButton onClick={handleModifyClick} isModify={true} />
         <PostButton onClick={onDelete} isModify={false} />
       </Btns>
     </Container>
@@ -29,53 +45,39 @@ export default Post;
 const Container = styled.div`
   min-width: 620px;
   height: 60px;
-  display: flex;
-  align-items: center;
+
+  display: grid;
+  grid-template-columns: 4fr 1fr;
   box-sizing: border-box;
   padding: 20px 40px 20px;
-  justify-content: space-between;
+  place-content: center;
+  cursor: pointer;
+
   background: ${({ theme }) => theme.colors.white};
-  border-top: 1px solid #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
 
   &:not(:first-child) {
-    border-top: none;
+    border-top: 1px solid #e0e0e0;
   }
 
   &:hover {
     background: ${({ theme }) => theme.colors.hover};
   }
+
+  @media screen and (max-width: 980px) {
+    padding: 20px;
+  }
 `;
 
 const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-`;
-
-const PostClick = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 19px;
-`;
-
-const TitleBox = styled.div`
-  display: flex;
-  align-items: center;
   gap: 14px;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  align-items: center;
 `;
 
-const Text = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Title = styled.div`
-  width: 260px;
+const Title = styled.h4`
   margin: 0;
-  color: #5a5369;
+  color: ${({ theme }) => theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 600;
@@ -88,14 +90,28 @@ const Title = styled.div`
   overflow: hidden;
 `;
 
-const Date = styled.div`
+const Date = styled.span`
   font-size: ${({ theme }) => theme.fontSize.sm};
-  color: #3b3648;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 const Btns = styled.div`
   display: flex;
   gap: 10px;
+
+  @media screen and (max-width: 980px) {
+    display: none;
+  }
+`;
+
+const TextWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+
+  @media screen and (max-width: 1100px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const PostButton = styled.button`
@@ -114,6 +130,7 @@ const PostButton = styled.button`
   font-style: normal;
   font-weight: 600;
   line-height: 132%; /* 21.12px */
+  cursor: pointer;
 
   &:hover {
     border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
