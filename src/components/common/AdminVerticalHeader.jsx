@@ -30,7 +30,7 @@ function AdminVerticalHeader() {
   return (
     <Container>
       <Home onClick={() => handleSelectMenu('home')}>
-        <HomeLink to='/home' current={current === '/home'}>
+        <HomeLink to='/' current={current === '/home'}>
           <BiHomeAlt />
           HOME
         </HomeLink>

@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from './reducer';
-import storage from 'redux-persist/lib/storage';
+import sessionStorage from 'redux-persist/lib/storage/session';
 import { persistReducer, persistStore } from 'redux-persist';
 
 // redux-persist
 const persistConfig = {
   key: 'root',
-  storage: storage,
+  storage: sessionStorage,
   whitelist: ['user'],
 };
 

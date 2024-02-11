@@ -13,10 +13,18 @@ const Input = ({
   fullwidth,
   fullheight,
   fontSize,
+  paddingB,
+  paddingL,
 }) => {
   return (
     <Element>
-      <StyledInputTitle fontSize={fontSize}>{label}</StyledInputTitle>
+      <StyledInputTitle
+        fontSize={fontSize}
+        paddingB={paddingB}
+        paddingL={paddingL}
+      >
+        {label}
+      </StyledInputTitle>
       <StyledInput
         isEmpty={value.length === 0}
         type={type}
@@ -49,7 +57,8 @@ const StyledInputTitle = styled.div`
   font-weight: 700;
   line-height: 132%; /* 31.68px */
   letter-spacing: 0.72px;
-  padding-bottom: 13px;
+  padding-left: ${({ paddingL }) => (paddingL ? paddingL : '0px')};
+  padding-bottom: ${({ paddingB }) => (paddingB ? paddingB : '13px')};
 
   @media screen and (max-width: 1024px) {
     font-size: ${({ theme }) => theme.fontSize.md};

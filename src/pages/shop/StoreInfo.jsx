@@ -142,11 +142,14 @@ const DescripInput = styled.textarea`
   @media screen and (max-width: 1024px) {
     width: 500px;
   }
+
+  @media screen and (max-width: 768px) {
+    width: 430px;
+  }
 `;
 
 const BtnContainer = styled.div`
-  max-width: 1150px;
-  min-width: 570px;
+  max-width: 950px;
   display: flex;
   gap: 16px;
   justify-content: right;

@@ -22,6 +22,7 @@ import AdminHeader from './components/common/AdminHeader';
 import AdminVerticalHeader from './components/common/AdminVerticalHeader';
 import UIServiceList from './pages/myPage/UIServiceList';
 import UIServiceDetail from './pages/myPage/UIServiceDetail';
+import AdminHome from './pages/AdminHome';
 
 function App() {
   const { token } = useSelector((state) => state.user);
@@ -39,6 +40,7 @@ function App() {
             <AdminVerticalHeader />
             <AdminWrapper>
               <Routes>
+                <Route path='/' element={<AdminHome />} />
                 <Route path='/shop/*' element={<Shop />} />
                 <Route path='/neighborhood/*' element={<Neighborhood />} />
                 <Route path='/coupon/*' element={<Coupon />} />
