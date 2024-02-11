@@ -87,7 +87,6 @@ const StyledWrite = styled.div`
   width: 100%;
   box-sizing: border-box;
   padding: 70px 100px;
-  overflow: hidden;
 
   @media screen and (max-width: 1024px) {
     padding: 70px 50px;
@@ -95,6 +94,7 @@ const StyledWrite = styled.div`
 `;
 
 const Btn = styled(BtnContainer)`
+  max-width: 870px;
   justify-content: right;
   margin-top: 50px;
 `;

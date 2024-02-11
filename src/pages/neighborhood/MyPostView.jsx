@@ -70,6 +70,9 @@ const MyPostView = () => {
 export default MyPostView;
 
 const StyledWrite = styled.div`
+  width: 100%;
+  max-width: 1000px;
+  min-width: 370px;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -100,14 +103,14 @@ const TitleBox = styled.div`
 
 const Line = styled.div`
   max-width: 840px;
-  min-width: 620px;
+  min-width: 370px;
   height: 2px;
   background-color: ${({ theme }) => theme.colors.line};
 `;
 
 const ImagePreview = styled.div`
   display: flex;
-  min-width: 620px;
+  width: 100%;
   flex-direction: row;
   gap: 20px;
   overflow-x: auto;

@@ -139,7 +139,7 @@ const MenuMore = ({ onChange }) => {
                 <Input
                   value={productDataArray[index]?.productName || ''}
                   label='상품명'
-                  fullwidth='190px'
+                  fullwidth='180px'
                   fullheight='32px'
                   fontSize
                   paddingB='7px'
@@ -149,7 +149,7 @@ const MenuMore = ({ onChange }) => {
                 <Input
                   value={productDataArray[index]?.priceInfo || ''}
                   label='상품 가격'
-                  fullwidth='190px'
+                  fullwidth='180px'
                   fullheight='32px'
                   fontSize
                   paddingB='7px'
@@ -185,10 +185,12 @@ const Column = styled.div`
 `;
 
 const Menu = styled(Column)`
-  width: 600px;
+  width: 100%;
+  min-width: 370px;
 `;
 
 const MenuTop = styled(Row)`
+  min-width: 500px;
   gap: 70px;
 `;
 
@@ -227,6 +229,7 @@ const PlusButton = styled.button`
 const Scroll = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* 2열로 배치 */
+  overflow-x: scroll;
 
   @media screen and (max-width: 1024px) {
     display: flex;
@@ -236,7 +239,7 @@ const Scroll = styled.div`
 `;
 
 const Element = styled(Row)`
-  width: 470px;
+  width: 460px;
   padding: 30px 10px 30px;
   margin-right: 40px;
   box-sizing: border-box;

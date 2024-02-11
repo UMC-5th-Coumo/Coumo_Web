@@ -5,7 +5,14 @@ import { StyledWriteInput } from '../../common/Input';
 import ImageBlock from '../shop/ImageBlock';
 import { writecategoryData } from '../../../assets/data/categoryData';
 
-const Edit = ({ category, setCategory, inputs, setInputs, image }) => {
+const Edit = ({ category, setCategory, inputs, setInputs }) => {
+  const handleImageChange = (images) => {
+    setInputs({
+      ...inputs,
+      image: images,
+    });
+  };
+
   return (
     <Write>
       <Category
@@ -20,7 +27,7 @@ const Edit = ({ category, setCategory, inputs, setInputs, image }) => {
         placeholder='제목을 작성해주세요. (0/30)'
         name='title'
         value={inputs.title}
-        fullwidth='840px'
+        fullwidth='100%'
         onChange={(e) => {
           setInputs({
             ...inputs,
@@ -34,7 +41,9 @@ const Edit = ({ category, setCategory, inputs, setInputs, image }) => {
           <ImageLabel>대표이미지</ImageLabel>
           <Recommend>*이미지는 1000px, 1000px의 1:1비율을 권장합니다</Recommend>
         </Representative>
-        <ImageBlock image={image} />
+        <Scroll>
+          <ImageBlock onChange={handleImageChange} />
+        </Scroll>
       </Image>
       <div>
         <Label>글의 상세설명을 작성해 주세요</Label>
@@ -42,6 +51,7 @@ const Edit = ({ category, setCategory, inputs, setInputs, image }) => {
           placeholder='손님들이 궁금해하실 내용을 작성해주세요 (0/500)'
           name='content'
           value={inputs.content}
+          isEmpty={inputs.content.length === 0}
           onChange={(e) => {
             setInputs({
               ...inputs,
@@ -58,6 +68,8 @@ const Edit = ({ category, setCategory, inputs, setInputs, image }) => {
 export default Edit;
 
 const Write = styled.div`
+  width: 100%;
+  max-width: 840px;
   min-width: 370px;
   display: flex;
   flex-direction: column;
@@ -68,6 +80,7 @@ const Write = styled.div`
 const Image = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   @media screen and (max-width: 1024px) {
     gap: 10px;
@@ -83,6 +96,10 @@ const Representative = styled.div`
     flex-direction: column;
     gap: 0px;
   }
+`;
+
+const Scroll = styled.div`
+  width: 100%;
 `;
 
 const Label = styled.div`
@@ -125,21 +142,24 @@ const StyledWriteTextarea = styled.textarea`
   width: 100%;
   height: 200px;
   padding: 8px 12px;
+  box-sizing: border-box;
   resize: none;
   align-items: top;
   gap: 8px;
   border-radius: 4px;
-  border: none;
-  background: ${({ theme }) => theme.colors.coumo_lightpurple};
+  border: 1px solid
+    ${({ theme, isEmpty }) =>
+      isEmpty ? theme.colors.text : theme.colors.coumo_purple};
+  background: ${({ theme }) => theme.colors.white};
   overflow: hidden;
   color: ${({ theme }) => theme.colors.text_darkgray};
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: 'Pretendard';
-  font-size: ${({ theme }) => theme.fontSize.sm};
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 400;
-  line-height: 170%; /* 27.2px */
+  line-height: 170%;
 
   &:focus {
     outline: none;
