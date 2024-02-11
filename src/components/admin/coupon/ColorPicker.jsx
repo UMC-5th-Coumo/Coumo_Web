@@ -45,7 +45,7 @@ const ColorBox = styled.button`
   padding: 8px 12px;
   align-items: center;
   gap: 8px;
-  border: 1px solid #d8d8d8;
+  border: 1px solid ${({ theme }) => theme.colors.text};
 
   color: ${({ theme }) => theme.colors.text_darkgray};
   text-overflow: ellipsis;
@@ -72,7 +72,6 @@ const Picker = styled.div`
 const Color = styled.div`
   width: 16px;
   height: 16px;
-  border: 0.5px solid lightgray;
   background-color: ${(props) => props.color};
 
   @media screen and (max-width: 1024px) {

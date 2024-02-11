@@ -32,7 +32,7 @@ const Container = styled.div`
 const PopUp = styled.div`
   width: 380px;
   height: auto;
-  background-color: ${({ theme }) => theme.colors.white_fefe};
+  background-color: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
 
   position: fixed;
@@ -63,7 +63,7 @@ const TextBox = styled.div`
 
   & span {
     font-size: ${({ theme }) => theme.fontSize.sm};
-    color: ${({ theme }) => theme.colors.text_gray};
+    color: ${({ theme }) => theme.colors.text};
   }
 
   @media screen and (max-width: 1024px) {

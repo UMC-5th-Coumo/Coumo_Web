@@ -56,7 +56,7 @@ const Wrapper = styled.div`
   border-radius: 10px;
   border: 1.5px solid #e3e1e8;
 
-  background-color: ${({ theme }) => theme.colors.white_fff};
+  background-color: ${({ theme }) => theme.colors.white};
 `;
 
 const Columns = styled.div`
@@ -102,10 +102,10 @@ const Customer = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.line};
   cursor: pointer;
   background-color: ${({ theme, selected }) =>
-    selected ? theme.colors.card_lightpurple : theme.colors.white_fff};
+    selected ? theme.colors.coumo_lightpurple : theme.colors.white};
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.card_lightpurple};
+    background-color: ${({ theme }) => theme.colors.coumo_lightpurple};
   }
 
   padding-right: 15px;
