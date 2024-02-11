@@ -169,6 +169,7 @@ const Container = styled.div`
   width: 100%;
   padding: 70px 100px;
   box-sizing: border-box;
+  overflow: hidden;
 
   @media screen and (max-width: 1024px) {
     padding: 70px 50px;

@@ -195,5 +195,5 @@ const TextArea = styled.textarea`
 export const BtnContainer = styled.div`
   display: flex;
   gap: 16px;
-  justify-content: center;
+  justify-content: flex-end;
 `;

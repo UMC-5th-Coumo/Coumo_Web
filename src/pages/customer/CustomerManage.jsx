@@ -126,7 +126,7 @@ const FormContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  border-bottom: 2px solid #d2d2d4;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.line};
   padding: 70px 0px;
 
   @media screen and (max-width: 1024px) {

@@ -6,7 +6,7 @@ const CouponStep = ({ id, step, description }) => {
     <Step>
       <Number>
         {id}
-        {id <= 4 && <Divider />}
+        {id <= 4 && <Divider id={id} />}
       </Number>
       <Title>{step}</Title>
       <Text>{description}</Text>
@@ -24,6 +24,10 @@ const Step = styled.div`
   width: 246px;
   gap: 8px;
   border-radius: 24px;
+
+  @media screen and (max-width: 1024px) {
+    width: 196px;
+  }
 `;
 
 const Number = styled.div`
@@ -42,6 +46,10 @@ const Number = styled.div`
   line-height: 23.8px; /* 170% */
   margin-top: 40px;
   position: relative;
+
+  @media screen and (max-width: 1024px) {
+    font-size: ${({ theme }) => theme.fontSize.sm};
+  }
 `;
 
 const Divider = styled.div`
@@ -53,6 +61,10 @@ const Divider = styled.div`
   background-color: ${({ theme }) => theme.colors.coumo_purple};
   transform: translateY(-50%);
   z-index: 0;
+
+  @media screen and (max-width: 1600px) {
+    opacity: 0;
+  }
 `;
 
 const Title = styled.div`
@@ -63,6 +75,11 @@ const Title = styled.div`
   font-weight: 700;
   line-height: 28px; /* 140% */
   margin-top: 10px;
+
+  @media screen and (max-width: 1024px) {
+    font-size: ${({ theme }) => theme.fontSize.md};
+    margin-top: 8px;
+  }
 `;
 
 const Text = styled.div`
@@ -74,4 +91,10 @@ const Text = styled.div`
   line-height: 28px; /* 175% */
   white-space: pre-line;
   margin-top: 10px;
+
+  @media screen and (max-width: 1024px) {
+    font-size: ${({ theme }) => theme.fontSize.sm};
+    line-height: 20px;
+    margin-top: 6px;
+  }
 `;
