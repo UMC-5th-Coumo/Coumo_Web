@@ -76,7 +76,6 @@ const WritePost = () => {
           onClick={() => setPopUp(false)}
         />
       )}
-      ;
     </StyledWrite>
   );
 };

@@ -26,6 +26,15 @@ const Card = styled.div`
   box-shadow: 12px 15px 14.8px 0px rgba(87, 76, 108, 0.1);
   backdrop-filter: blur(4px);
 
+  @media screen and (max-width: 1600px) {
+    &:hover {
+      z-index: 100;
+    }
+    &:not(:hover) {
+      filter: brightness(60%); /* 어둡게 만들기 */
+    }
+  }
+
   @media screen and (max-width: 1024px) {
     width: 200px;
     height: 250px;
