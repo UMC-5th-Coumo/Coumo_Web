@@ -38,10 +38,10 @@ const RadioLabel = styled.label`
   gap: 8px;
   flex-shrink: 0;
   border-radius: 5px;
-  background: ${({ theme }) => theme.colors.white_fefe};
+  background: ${({ theme }) => theme.colors.white};
   border: 1px solid
     ${({ theme, isSelected }) =>
-      isSelected ? theme.colors.coumo_purple : theme.colors.tab_gray};
+      isSelected ? theme.colors.coumo_purple : theme.colors.text};
   align-self: flex-end;
 
   @media screen and (max-width: 1024px) {

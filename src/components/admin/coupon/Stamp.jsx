@@ -33,7 +33,7 @@ const RadioLabel = styled.label`
     selected ? theme.colors.coumo_purple : theme.colors.white};
   color: ${({ theme, selected }) =>
     selected ? theme.colors.white : theme.colors.text};
-  border: 1px solid ${({ theme }) => theme.colors.btn_lightgray};
+  border: 1px solid ${({ theme }) => theme.colors.text};
   cursor: pointer;
 
   @media screen and (max-width: 1224px) {

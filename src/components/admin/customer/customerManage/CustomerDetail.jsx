@@ -47,7 +47,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
-  background-color: ${({ theme }) => theme.colors.white_fff};
+  background-color: ${({ theme }) => theme.colors.white};
   border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
   border-radius: 12px;
 
