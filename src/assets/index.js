@@ -25,3 +25,10 @@ export { ReactComponent as PagePrev } from './icon/PagePrev.svg';
 export { ReactComponent as PageNext } from './icon/PageNext.svg';
 export { ReactComponent as PageNextDisable } from './icon/PageNextDisable.svg';
 export { ReactComponent as Cancel } from './icon/Cancel.svg';
+
+// 도장 이미지
+export { ReactComponent as Stamp1 } from './icon/stamp1.svg';
+export { ReactComponent as Stamp2 } from './icon/stamp2.svg';
+export { ReactComponent as Stamp3 } from './icon/stamp3.svg';
+export { ReactComponent as Stamp4 } from './icon/stamp4.svg';
+export { ReactComponent as Stamp5 } from './icon/stamp5.svg';
