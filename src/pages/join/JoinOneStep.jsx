@@ -195,7 +195,7 @@ const Title = styled.div`
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.xl};
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 100%; /* 36px */
   margin-bottom: 45px;
 `;

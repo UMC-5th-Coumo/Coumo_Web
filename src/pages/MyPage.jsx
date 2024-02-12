@@ -140,7 +140,7 @@ const Profile = styled.div`
   align-items: flex-start;
   gap: 48px;
   border-radius: 12px;
-  background: ${({ theme }) => theme.colors.coumo_lightpurple};
+  background: ${({ theme }) => theme.colors.lightpurple};
   color: #2f2a37;
 
   @media screen and (max-width: 1024px) {
@@ -170,7 +170,7 @@ const InfoLine = styled.div`
     margin: 0;
     font-size: ${({ theme }) => theme.fontSize.base};
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     line-height: normal;
     letter-spacing: -0.45px;
   }
@@ -190,7 +190,7 @@ const Box = styled.div`
   padding: 0px 34px;
   box-sizing: border-box;
   border-radius: 12px;
-  background: ${({ theme }) => theme.colors.coumo_lightpurple};
+  background: ${({ theme }) => theme.colors.lightpurple};
   color: #2f2a37;
   font-size: ${({ theme }) => theme.fontSize.md};
 

@@ -277,12 +277,15 @@ const ButtonGroup = styled.div`
   display: flex;
   justify-content: center;
   gap: 16px;
+  padding: 40px 0px 40px 20px;
 `;
 
 const CouponContainer = styled.div`
-  width: fit-content;
+  /* width: fit-content; */
+  width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 16px;
 
   & span {

@@ -57,6 +57,7 @@ const PostContainer = styled.div`
   flex-direction: column;
   border-radius: 10px;
   border: 1px solid #e0e0e0;
+  /* border: 1px solid #bcbcbc; */
   overflow: hidden;
   background-color: ${({ theme }) => theme.colors.white};
 `;

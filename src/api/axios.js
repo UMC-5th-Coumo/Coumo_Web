@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'server 주소';
+const BASE_URL = 'https://dev.coumo.shop';
 
 // 인증 값 필요없는 경우
 export const defaultInstance = axios.create({
