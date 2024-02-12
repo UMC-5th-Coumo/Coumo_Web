@@ -69,7 +69,44 @@ export const smallBarChartoption = {
       },
     },
   },
-  barThickness: 25,
+  barThickness: 20,
+};
+
+export const lightBarChartoption = {
+  responsive: true,
+  maintainAspectRatio: false,
+  maxBarThickness: 7,
+  grouped: true,
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
+  interaction: {
+    mode: 'index',
+  },
+  tooltip: {
+    // 툴팁 스타일링
+    bodySpacing: 5, // 툴팁 내부 항목들 간 간격
+    bodyFont: {
+      font: {
+        family: 'Pretendard',
+      },
+    },
+  },
+  scales: {
+    x: {
+      grid: {
+        display: false,
+      },
+    },
+    y: {
+      grid: {
+        display: false,
+      },
+    },
+  },
+  barThickness: 15,
 };
 
 export const lineChartOption = {

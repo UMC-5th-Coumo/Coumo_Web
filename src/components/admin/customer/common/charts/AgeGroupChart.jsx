@@ -13,6 +13,7 @@ import {
 import styled from 'styled-components';
 import {
   barChartoption,
+  lightBarChartoption,
   smallBarChartoption,
 } from '../../../../../assets/data/chartOptions';
 
@@ -171,6 +172,8 @@ function AgeGroupChart({ type }) {
     option = barChartoption;
   } else if (type === 'small') {
     option = smallBarChartoption;
+  } else if (type === 'light') {
+    option = lightBarChartoption;
   }
 
   return (
