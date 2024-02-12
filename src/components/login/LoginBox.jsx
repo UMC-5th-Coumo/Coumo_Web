@@ -5,6 +5,7 @@ import { LoginId, LoginPw, LoginSave, LoginSaveCheck } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/slices/userSlice';
+import axios from 'axios';
 
 const LoginBox = () => {
   const [id, setId] = useState('');
@@ -20,8 +21,7 @@ const LoginBox = () => {
   // 마운트 되었을 때 이전에 저장된 id, pw 있는지 확인
   // useEffect(() => {}, []);
 
-  const handleLoginClick = () => {
-    // 서버 요청 후 예상 데이터
+  const handleLoginClick = async () => {
     const userData = {
       name: '강수빈',
       email: 'admin123@gmail.com',

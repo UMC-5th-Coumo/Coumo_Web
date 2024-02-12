@@ -23,4 +23,5 @@ export default Neighborhood;
 
 const Container = styled.div`
   box-sizing: border-box;
+  overflow: hidden;
 `;

@@ -89,10 +89,16 @@ const JoinTwoStep = () => {
           name: info.name,
           email: info.email,
           phone: info.phone,
-          certified: info.certified,
+          // certified: info.certified,
         };
 
-        const response = await axios.post('/api/owner/join', joinData);
+        console.log('joinData', joinData);
+        // const response = await axios.post(
+        //   'https://dev.coumo.shop/owner/join',
+        //   joinData
+        // );
+        const response = await axios.post('/owner/join', joinData);
+        // const userToken = localStorage.getItem('userToken');
 
         if (response.data.isSuccess) {
           console.log('회원가입 성공', response.data.result);
