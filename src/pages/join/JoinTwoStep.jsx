@@ -93,11 +93,11 @@ const JoinTwoStep = () => {
         };
 
         console.log('joinData', joinData);
-        // const response = await axios.post(
-        //   'https://dev.coumo.shop/owner/join',
-        //   joinData
-        // );
-        const response = await axios.post('/owner/join', joinData);
+        const response = await axios.post(
+          'https://dev.coumo.shop/owner/join',
+          joinData
+        );
+        // const response = await axios.post('/owner/join', joinData);
         // const userToken = localStorage.getItem('userToken');
 
         if (response.data.isSuccess) {
