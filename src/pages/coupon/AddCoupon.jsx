@@ -7,9 +7,10 @@ import StampCount from '../../components/admin/coupon/StampCount';
 import StampList from '../../components/admin/coupon/StampList';
 import Button from '../../components/common/Button';
 import { authInstance } from '../../api/axios';
+import { stampData } from '../../assets/data/stampData';
 
 const AddCoupon = () => {
-  const [selectedStamp, setSelectedStamp] = useState('1');
+  const [selectedStamp, setSelectedStamp] = useState(stampData[0]);
   const [coupon, setCoupon] = useState({
     storeName: '',
     couponColor: '#7C43E8',
@@ -86,8 +87,8 @@ const AddCoupon = () => {
                 &bull;&nbsp; 쿠폰 <strong>도장 이미지</strong> 정하기
               </StepName>
               <StampList
-                stamp_id={selectedStamp}
-                setStamp={(id) => setSelectedStamp(id)}
+                stamp_id={selectedStamp.id}
+                setStamp={(data) => setSelectedStamp(data)}
               />
             </Step>
           </StepContainer>
@@ -99,7 +100,15 @@ const AddCoupon = () => {
               </CouponTitle>
               <StampBox num={coupon.stampMax}>
                 {stamps.map((s, i) => {
-                  return <Stamp key={i} num={coupon.stampMax} />;
+                  return (
+                    <Stamp key={i} num={coupon.stampMax}>
+                      <StampIcon
+                        src={selectedStamp.image}
+                        alt={selectedStamp.alt}
+                        num={coupon.stampMax}
+                      />
+                    </Stamp>
+                  );
                 })}
               </StampBox>
             </CouponExample>
@@ -266,10 +275,19 @@ const Stamp = styled.div`
   border-radius: 50%;
   background: #f6f6f6;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   @media screen and (max-width: 1024px) {
     width: ${(props) => (props.num > 10 ? '52px' : '60px')};
     height: ${(props) => (props.num > 10 ? '52px' : '60px')};
   }
+`;
+
+const StampIcon = styled.img`
+  width: ${(props) => (props.num > 10 ? '40px' : '45px')};
+  height: ${(props) => (props.num > 10 ? '40px' : '45px')};
 `;
 
 const ButtonGroup = styled.div`
@@ -277,12 +295,15 @@ const ButtonGroup = styled.div`
   display: flex;
   justify-content: center;
   gap: 16px;
+  padding: 40px 0px 40px 20px;
 `;
 
 const CouponContainer = styled.div`
-  width: fit-content;
+  /* width: fit-content; */
+  width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 16px;
 
   & span {

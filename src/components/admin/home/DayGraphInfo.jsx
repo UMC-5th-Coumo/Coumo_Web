@@ -23,7 +23,7 @@ const Container = styled.div`
   width: 340px;
   height: 350px;
   background-color: ${({ theme }) => theme.colors.white};
-  border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
+  border: 1px solid ${({ theme }) => theme.colors.lightpurple_border};
   border-radius: 12px;
   box-sizing: border-box;
   padding: 20px;

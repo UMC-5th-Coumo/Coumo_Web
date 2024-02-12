@@ -13,7 +13,7 @@ const StampList = ({ stamp_id, setStamp }) => {
             id={data.id}
             stamp={data}
             selected={stamp_id === data.id}
-            onChange={() => setStamp(data.id)}
+            onChange={() => setStamp(data)}
           />
         );
       })}

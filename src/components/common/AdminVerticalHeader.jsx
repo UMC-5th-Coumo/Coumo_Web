@@ -92,7 +92,7 @@ const HomeLink = styled(Link)`
   text-decoration: none;
   color: ${({ theme, current }) =>
     current ? theme.colors.coumo_purple : theme.colors.text_darkgray};
-  font-weight: 600;
+  font-weight: 500;
 
   display: flex;
   align-items: center;

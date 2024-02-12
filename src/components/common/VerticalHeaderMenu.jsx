@@ -59,6 +59,7 @@ const TitleContainer = styled.div`
 const MenuTitle = styled.h5`
   margin: 0;
   font-size: ${({ theme }) => theme.fontSize.md};
+  font-weight: 500;
 `;
 
 const SubMenu = styled.div`
