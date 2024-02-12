@@ -94,69 +94,70 @@ const MenuMore = ({ onChange }) => {
       <Scroll>
         {[...Array(boxCount)].map((_, index) => (
           <Element key={index}>
-            <Top>
-              <Box
-                key={index}
-                number={index + 1}
-                onClick={() => handleBoxClick(index)}
-              >
-                <InnerBox>
-                  <input
-                    type='file'
-                    id={`fileInputMenu-${index}`}
-                    style={{ display: 'none' }}
-                    accept='image/*'
-                    onChange={(event) => handleFileChange(event, index)}
+            <Box
+              key={index}
+              number={index + 1}
+              onClick={() => handleBoxClick(index)}
+            >
+              <InnerBox>
+                <input
+                  type='file'
+                  id={`fileInputMenu-${index}`}
+                  style={{ display: 'none' }}
+                  accept='image/*'
+                  onChange={(event) => handleFileChange(event, index)}
+                />
+                {uploadedImages[index] && (
+                  <ImagePreview
+                    src={uploadedImages[index]}
+                    alt={`uploadedMenu-${index}`}
                   />
-                  {uploadedImages[index] && (
-                    <ImagePreview
-                      src={uploadedImages[index]}
-                      alt={`uploadedMenu-${index}`}
-                    />
-                  )}
-                  {!uploadedImages[index] && (
-                    <MyText>
-                      <LargeP>
-                        <Span>상품 이미지</Span>를 추가해주세요
-                      </LargeP>
-                      <SmallP>
-                        (클릭하시면 내 기기에 있는 이미지에 접근합니다)
-                      </SmallP>
-                    </MyText>
-                  )}
-                </InnerBox>
-              </Box>
-              <InfoText>
+                )}
+                {!uploadedImages[index] && (
+                  <MyText>
+                    <LargeP>
+                      <Span>상품 이미지</Span>를 추가해주세요
+                    </LargeP>
+                    <SmallP>
+                      (클릭하시면 내 기기에 있는 이미지에 접근합니다)
+                    </SmallP>
+                  </MyText>
+                )}
+              </InnerBox>
+            </Box>
+            <InfoText>
+              <Bar>
+                <NewBtn
+                  onClick={() => handleNewClick(index)}
+                  active={newCheck[index]}
+                >
+                  신메뉴
+                </NewBtn>
+                <Cancel onClick={handleMenuDelete} />
+              </Bar>
+              <Content>
                 <Input
                   value={productDataArray[index]?.productName || ''}
                   label='상품명'
-                  fullwidth='290px'
+                  fullwidth='190px'
                   fullheight='32px'
                   fontSize
+                  paddingB='7px'
+                  paddingL='2px'
                   onChange={(event) => handleProductNameChange(event, index)}
                 />
                 <Input
                   value={productDataArray[index]?.priceInfo || ''}
                   label='상품 가격'
-                  fullwidth='290px'
+                  fullwidth='190px'
                   fullheight='32px'
                   fontSize
+                  paddingB='7px'
+                  paddingL='2px'
                   onChange={(event) => handlePriceInfoChange(event, index)}
                 />
-              </InfoText>
-            </Top>
-            <Bottom>
-              <NewBtn
-                onClick={() => handleNewClick(index)}
-                active={newCheck[index]}
-              >
-                신메뉴
-              </NewBtn>
-              <StyledCancel onClick={handleMenuDelete}>
-                <Cancel />
-                <CancelText>이 메뉴 삭제하기</CancelText>
-              </StyledCancel>
-            </Bottom>
+              </Content>
+            </InfoText>
           </Element>
         ))}
       </Scroll>
@@ -202,7 +203,7 @@ const MenuTitle = styled.div`
 
 const PlusButton = styled.button`
   display: inline-flex;
-  padding: 8px 56px 7px 56px;
+  padding: 8px 50px 7px 50px;
   justify-content: center;
   align-items: center;
   border: none;
@@ -217,12 +218,15 @@ const PlusButton = styled.button`
   line-height: 100%; /* 21.12px */
   letter-spacing: 0.48px;
   gap: 15px;
+
+  @media screen and (max-width: 768px) {
+    padding: 8px 30px 7px 30px;
+  }
 `;
 
 const Scroll = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* 2열로 배치 */
-  gap: 40px;
 
   @media screen and (max-width: 1024px) {
     display: flex;
@@ -231,23 +235,13 @@ const Scroll = styled.div`
   }
 `;
 
-const Element = styled(Column)`
-  width: 570px;
-  padding: 20px 10px 20px;
+const Element = styled(Row)`
+  width: 470px;
+  padding: 30px 10px 30px;
+  margin-right: 40px;
   box-sizing: border-box;
-  border-bottom: solid 2px ${({ theme }) => theme.colors.line};
-`;
-
-const Top = styled(Row)`
+  border-bottom: solid 1px ${({ theme }) => theme.colors.line};
   gap: 30px;
-  padding-top: 20px;
-  padding-bottom: 10px;
-  box-sizing: border-box;
-  margin-right: 50px;
-
-  @media screen and (max-width: 1024px) {
-    margin-right: 0px;
-  }
 `;
 
 const Box = styled.div`
@@ -297,39 +291,33 @@ const SmallP = styled(LargeP)`
 `;
 
 const InfoText = styled(Column)`
-  width: 350px;
-  gap: 20px;
-  justify-content: center;
+  width: 260px;
+  gap: 10px;
+  justify-content: flex-start;
 `;
 
-const Bottom = styled(Row)`
-  gap: 20px;
+const Bar = styled(Row)`
   justify-content: space-between;
   align-items: center;
-  margin-left: 3px;
+  margin-top: 8px;
+  margin-bottom: 5px;
+`;
+
+const Content = styled(Column)`
+  gap: 10px;
 `;
 
 export const Span = styled.span`
   color: ${({ theme }) => theme.colors.coumo_purple};
 `;
 
-const StyledCancel = styled(Row)`
-  gap: 10px;
-`;
-
-const CancelText = styled.div`
-  color: ${({ theme }) => theme.colors.text_black};
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  font-weight: 600;
-`;
-
 const NewBtn = styled.span`
-  width: 180px;
-  height: 30px;
+  width: 35px;
+  height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 17px;
+  padding: 0 10px;
   border-radius: 62.4px;
   background: ${({ theme, active }) =>
     active ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
