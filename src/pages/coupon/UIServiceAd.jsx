@@ -70,7 +70,7 @@ export default UIServiceAd;
 
 const Content = styled.div`
   width: 100%;
-  min-width: 800px;
+  min-width: 600px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -224,14 +224,13 @@ const Reason = styled.div`
     rgba(234, 223, 255, 0) 155.8%
   );
   width: 100%;
-  height: 690px;
-  padding: 150px;
+  height: 720px;
+  padding: 150px 150px 150px 150px;
   box-sizing: border-box;
 
   @media screen and (max-width: 1024px) {
     height: 600px;
-    padding-top: 96px;
-    padding-left: 120px;
+    padding: 96px 96px 126px 120px;
   }
 `;
 
@@ -332,12 +331,17 @@ const ReasonCardsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, 270px);
   direction: rtl;
-  box-sizing: border-box;
 
   @media screen and (max-width: 1600px) {
     width: 100%;
     grid-template-columns: repeat(3, 100px);
-    direction: rtl;
+    margin-top: 30px;
+    gap: 30px;
+  }
+
+  @media screen and (max-width: 920px) {
+    width: 100%;
+    grid-template-columns: repeat(3, 50px);
     margin-top: 30px;
     gap: 30px;
   }

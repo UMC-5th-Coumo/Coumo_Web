@@ -187,6 +187,7 @@ const StyledWrite = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-width: 370px;
   gap: 30px;
   padding: 70px 100px;
   box-sizing: border-box;
@@ -198,7 +199,7 @@ const StyledWrite = styled.div`
 
 const Line = styled.div`
   max-width: 840px;
-  min-width: 620px;
+  min-width: 370px;
   height: 2px;
   background-color: ${({ theme }) => theme.colors.line};
 `;
@@ -211,6 +212,7 @@ const TitleBox = styled.div`
 `;
 
 const Btn = styled(BtnContainer)`
+  max-width: 870px;
   display: flex;
   justify-content: flex-end;
   margin-top: 50px;

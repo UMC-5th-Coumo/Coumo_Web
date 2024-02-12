@@ -161,7 +161,7 @@ const ImagePreview = styled.img`
 `;
 
 const Image = styled.div`
-  min-width: 570px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   gap: 20px;

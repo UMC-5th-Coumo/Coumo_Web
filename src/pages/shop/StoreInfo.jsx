@@ -49,12 +49,15 @@ const StoreInfo = () => {
           name='description'
           placeholder='매장에 대한 설명글을 간단히 적어주세요 (0/100)'
           value={inputs.description}
+          isEmpty={inputs.description.length === 0}
           onChange={(e) =>
             setInputs((prev) => ({ ...prev, description: e.target.value }))
           }
         />
       </Description>
-      <MenuMore onChange={handleMenuChange} />
+      <Scroll>
+        <MenuMore onChange={handleMenuChange} />
+      </Scroll>
       <BtnContainer>
         <Button text='취소하기' />
         <Button text='저장하기' type={true} onClickBtn={onSubmit} />
@@ -66,6 +69,9 @@ const StoreInfo = () => {
 export default StoreInfo;
 
 const Info = styled.div`
+  width: 100%;
+  max-width: 1220px;
+  min-width: 400px;
   display: flex;
   flex-direction: column;
   padding: 70px 100px;
@@ -108,6 +114,10 @@ const Recommend = styled.div`
   line-height: 200%;
 `;
 
+const Scroll = styled.div`
+  width: 100%;
+`;
+
 const Description = styled.div`
   display: flex;
   flex-direction: column;
@@ -116,14 +126,19 @@ const Description = styled.div`
 
 const DescripInput = styled.textarea`
   display: flex;
-  width: 567px;
-  height: 180px;
+  width: 100%;
+  max-width: 567px;
+  height: 200px;
   padding: 8px 12px;
-  align-items: flex-start;
+  box-sizing: border-box;
+  resize: none;
+  align-items: top;
   gap: 8px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${({ theme }) => theme.colors.coumo_lightpurple};
+  border-radius: 4px;
+  border: 1px solid
+    ${({ theme, isEmpty }) =>
+      isEmpty ? theme.colors.text : theme.colors.coumo_purple};
+  background: ${({ theme }) => theme.colors.white};
   overflow: hidden;
   color: ${({ theme }) => theme.colors.text_darkgray};
   text-overflow: ellipsis;
@@ -132,19 +147,10 @@ const DescripInput = styled.textarea`
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 400;
-  line-height: 170%; /* 27.2px */
-  resize: none;
+  line-height: 170%;
 
   &:focus {
     outline: none;
-  }
-
-  @media screen and (max-width: 1024px) {
-    width: 500px;
-  }
-
-  @media screen and (max-width: 768px) {
-    width: 430px;
   }
 `;
 
