@@ -42,7 +42,7 @@ const Head = styled.div`
   font-size: ${({ theme }) => theme.fontSize.md};
   position: absolute;
   top: 0;
-  box-shadow: 0px 13px 21.8px 0px rgba(69, 0, 198, 0.08);
+  /* box-shadow: 0px 13px 21.8px 0px rgba(69, 0, 198, 0.08); */
 `;
 
 const HeaderBar = styled.div`

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import FormPopUp from '../components/admin/formPopUp/FormPopUp';
 import StoreInfo from '../components/admin/home/StoreInfo';
@@ -43,7 +43,7 @@ const Container = styled.div`
   height: calc(100vh - 80px);
   background-color: #f8f8f8;
   box-sizing: border-box;
-  padding: 70px 70px;
+  padding: 50px 70px;
   display: flex;
   gap: 30px;
   flex-wrap: wrap;

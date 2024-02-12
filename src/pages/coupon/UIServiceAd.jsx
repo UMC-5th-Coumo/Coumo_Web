@@ -103,9 +103,10 @@ const Article = styled.div`
 const Big1 = styled.div`
   color: ${({ theme }) => theme.colors.white};
   text-shadow: 0px 4px 4.7px ${({ theme }) => theme.colors.text_shadow};
-  font-size: ${({ theme }) => theme.fontSize.xl};
+  /* font-size: ${({ theme }) => theme.fontSize.xl}; */
+  font-size: 34px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 140%; /* 36px */
   gap: 10px;
   margin-bottom: 50px;
@@ -117,10 +118,10 @@ const Big1 = styled.div`
 
 const P = styled.p`
   padding-top: 50px;
-  color: #27016f;
+  color: #e8dbff;
   font-size: ${({ theme }) => theme.fontSize.lg};
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 156%; /* 24.96px */
   letter-spacing: -0.32px;
   margin: 0px;

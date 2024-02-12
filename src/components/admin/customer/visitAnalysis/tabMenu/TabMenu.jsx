@@ -23,9 +23,9 @@ const TabDiv = styled.div`
 
   color: ${({ theme, selected }) =>
     selected ? theme.colors.coumo_purple : theme.colors.text_darkgray};
-  font-size: ${({ theme }) => theme.fontSize.sm};
+  font-size: ${({ theme }) => theme.fontSize.md};
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 22px; /* 137.5% */
   letter-spacing: 0.2px;
   position: relative;

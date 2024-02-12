@@ -102,10 +102,10 @@ const Customer = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.line};
   cursor: pointer;
   background-color: ${({ theme, selected }) =>
-    selected ? theme.colors.coumo_lightpurple : theme.colors.white};
+    selected ? theme.colors.lightpurple : theme.colors.white};
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.coumo_lightpurple};
+    background: ${({ theme }) => theme.colors.lightpurple};
   }
 
   padding-right: 15px;

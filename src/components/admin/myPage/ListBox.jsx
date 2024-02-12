@@ -24,7 +24,7 @@ const Container = styled.div`
   padding: 0px 34px;
   box-sizing: border-box;
   border-radius: 12px;
-  background: ${({ theme }) => theme.colors.coumo_lightpurple};
+  background: ${({ theme }) => theme.colors.lightpurple};
   color: #2f2a37;
   font-size: ${({ theme }) => theme.fontSize.md};
 

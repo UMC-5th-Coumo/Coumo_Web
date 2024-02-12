@@ -132,7 +132,7 @@ const Img = styled.img`
   align-items: center;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${({ theme }) => theme.colors.coumo_lightpurple};
+  background: ${({ theme }) => theme.colors.lightpurple};
 `;
 
 const Box = styled.div`
