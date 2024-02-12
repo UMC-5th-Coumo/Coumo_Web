@@ -4,13 +4,10 @@ import styled from 'styled-components';
 const Stamp = ({ id, stamp, selected, onChange }) => {
   return (
     <RadioLabel selected={selected}>
-      <RadioInput
-        type='radio'
-        id={id}
-        checked={selected}
-        onChange={() => onChange(id)}
-      />
-      <StampIcon src={stamp.image} alt={stamp.alt} />
+      <RadioInput type='radio' id={id} checked={selected} onChange={onChange} />
+      <StampWrapper>
+        <StampIcon src={stamp.image} alt={stamp.alt} />
+      </StampWrapper>
       <RadioSpan htmlFor={id} selected={selected}>
         {selected ? '선택완료' : '선택하기'}
       </RadioSpan>
@@ -24,7 +21,7 @@ const RadioLabel = styled.label`
   display: flex;
   align-items: center;
   height: 38px;
-  padding: 0px 18px;
+  padding: 0px 12px;
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
@@ -78,6 +75,17 @@ const RadioSpan = styled.span`
   line-height: 170%; /* 27.2px */
   color: ${({ theme, selected }) =>
     selected ? theme.colors.white : theme.colors.text_darkgray};
+`;
+
+const StampWrapper = styled.div`
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid ${({ theme }) => theme.colors.text};
+  background-color: ${({ theme }) => theme.colors.white};
+  border-radius: 50%;
 `;
 
 const StampIcon = styled.img`
