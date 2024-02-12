@@ -8,7 +8,7 @@ import { verticalHeaderMenuData } from '../../assets/data/headerData';
 import { BiHomeAlt } from 'react-icons/bi';
 
 function AdminVerticalHeader() {
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState([]);
   const [current, setCurrent] = useState('/mypage');
   const { pathname } = useLocation();
   const dispatch = useDispatch();
@@ -20,10 +20,10 @@ function AdminVerticalHeader() {
   }, [pathname, dispatch]);
 
   const handleSelectMenu = (menu) => {
-    if (selected === menu) {
-      setSelected('');
+    if (selected.indexOf(menu) > -1) {
+      setSelected((prev) => prev.filter((id) => id !== menu));
     } else {
-      setSelected(menu);
+      setSelected((prev) => [...prev, menu]);
     }
   };
 
@@ -54,6 +54,7 @@ export default AdminVerticalHeader;
 
 const Container = styled.div`
   width: 250px;
+  height: calc(100vh - 80px);
   border-right: 1px solid lightgray;
   display: flex;
   flex-direction: column;
@@ -64,6 +65,7 @@ const Container = styled.div`
   overflow: hidden;
   gap: 30px;
   z-index: 10;
+  position: fixed;
 
   @media screen and (max-width: 1280px) {
     width: 220px;
