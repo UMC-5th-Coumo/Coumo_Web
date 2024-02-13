@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { LuUserCircle2 } from 'react-icons/lu';
+import { LuUsers2 } from 'react-icons/lu';
+import { LuUserPlus2 } from 'react-icons/lu';
 
 function CustomerInfo({ text, count }) {
   return (
     <Container>
       <Title>
-        <LuUserCircle2 />
+        {text.includes('총') ? <LuUsers2 /> : <LuUserPlus2 />}
         {text}
       </Title>
       <CustomerCount>{count}명</CustomerCount>
@@ -42,8 +43,8 @@ const Title = styled.h2`
   gap: 10px;
 
   & svg {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
   }
 `;
 
