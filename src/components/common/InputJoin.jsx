@@ -82,12 +82,15 @@ const StyledInput = styled.input`
   font-weight: 400;
   line-height: 170%; /* 32.3px */
 
-  border: 1px solid
-    ${({ theme, isEmpty }) =>
-      isEmpty ? theme.colors.text : theme.colors.coumo_purple};
+  border: 1px solid ${({ theme }) => theme.colors.text};
   background: ${({ theme }) => theme.colors.white};
 
   &:focus {
     outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
+
+    &::placeholder {
+      opacity: 0.6;
+    }
   }
 `;

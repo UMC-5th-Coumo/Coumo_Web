@@ -49,7 +49,6 @@ const StoreInfo = () => {
           name='description'
           placeholder='매장에 대한 설명글을 간단히 적어주세요 (0/100)'
           value={inputs.description}
-          isEmpty={inputs.description.length === 0}
           onChange={(e) =>
             setInputs((prev) => ({ ...prev, description: e.target.value }))
           }
@@ -135,9 +134,7 @@ const DescripInput = styled.textarea`
   align-items: top;
   gap: 8px;
   border-radius: 4px;
-  border: 1px solid
-    ${({ theme, isEmpty }) =>
-      isEmpty ? theme.colors.text : theme.colors.coumo_purple};
+  border: 1px solid ${({ theme }) => theme.colors.text};
   background: ${({ theme }) => theme.colors.white};
   overflow: hidden;
   color: ${({ theme }) => theme.colors.text_darkgray};
@@ -151,6 +148,11 @@ const DescripInput = styled.textarea`
 
   &:focus {
     outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
+
+    &::placeholder {
+      opacity: 0.6;
+    }
   }
 `;
 
