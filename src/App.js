@@ -24,6 +24,7 @@ import UIServiceList from './pages/myPage/UIServiceList';
 import UIServiceDetail from './pages/myPage/UIServiceDetail';
 import AdminHome from './pages/AdminHome';
 import ScrollTop from './components/common/ScrollTop';
+import NotFound from './pages/NotFound';
 
 function App() {
   const { token } = useSelector((state) => state.user);
@@ -56,6 +57,7 @@ function App() {
                   path='/mypage/uiServiceList/:id'
                   element={<UIServiceDetail />}
                 />
+                <Route path='*' element={<NotFound />} />
               </Routes>
             </AdminWrapper>
           </Container>
@@ -74,8 +76,7 @@ function App() {
               <Route path='/foundId' element={<FoundId />} />
               <Route path='/findPw' element={<FindPw />} />
               <Route path='/findPw/rePassword' element={<RePw />} />
-
-              {/* <Route path='*' element={redirectToHome} /> */}
+              <Route path='*' element={<NotFound />} />
             </Routes>
           </Wrapper>
         </>
