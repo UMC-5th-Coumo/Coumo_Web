@@ -47,6 +47,7 @@ const StoreInfo = () => {
         <Title>매장 상세설명</Title>
         <DescripInput
           name='description'
+          spellcheck='false'
           placeholder='매장에 대한 설명글을 간단히 적어주세요 (0/100)'
           value={inputs.description}
           isEmpty={inputs.description.length === 0}
@@ -142,7 +143,7 @@ const DescripInput = styled.textarea`
   overflow: hidden;
   color: ${({ theme }) => theme.colors.text_darkgray};
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: pre-wrap;
   font-family: 'Pretendard';
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;

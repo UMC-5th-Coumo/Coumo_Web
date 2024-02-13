@@ -48,6 +48,7 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
       <div>
         <Label>글의 상세설명을 작성해 주세요</Label>
         <StyledWriteTextarea
+          spellcheck='false'
           placeholder='손님들이 궁금해하실 내용을 작성해주세요 (0/500)'
           name='content'
           value={inputs.content}
@@ -154,7 +155,7 @@ const StyledWriteTextarea = styled.textarea`
   overflow: hidden;
   color: ${({ theme }) => theme.colors.text_darkgray};
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: pre-wrap;
   font-family: 'Pretendard';
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;

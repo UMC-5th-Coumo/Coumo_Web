@@ -26,7 +26,7 @@ export const customerTabMenu = [
 ];
 
 export const indexMenu = [
-  { text: '요일대별', key: 'dailyVisit' },
+  { text: '요일별', key: 'dailyVisit' },
   { text: '시간대별', key: 'timeVisit' },
   { text: '인구통계별', key: 'demographicVisit' },
 ];

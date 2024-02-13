@@ -25,6 +25,8 @@ export { ReactComponent as PagePrev } from './icon/PagePrev.svg';
 export { ReactComponent as PageNext } from './icon/PageNext.svg';
 export { ReactComponent as PageNextDisable } from './icon/PageNextDisable.svg';
 export { ReactComponent as Cancel } from './icon/Cancel.svg';
+export { ReactComponent as Person } from './icon/person.svg';
+export { ReactComponent as Gender } from './icon/gender.svg';
 
 // 도장 이미지
 export { ReactComponent as Stamp1 } from './icon/stamp1.svg';

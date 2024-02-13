@@ -105,6 +105,7 @@ const UIServiceForm = () => {
             cols={10}
             placeholder='매장에 대해 설명해주세요.'
             isEmpty={description.length === 0}
+            spellcheck='false'
           ></TextArea>
         </Description>
         <BtnContainer>
@@ -182,6 +183,7 @@ const TextArea = styled.textarea`
   color: ${({ theme }) => theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
+  white-space: pre-wrap;
   font-family: 'Pretendard';
   font-weight: 400;
   line-height: 170%; /* 27.2px */

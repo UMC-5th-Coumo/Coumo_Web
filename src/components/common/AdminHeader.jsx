@@ -43,7 +43,7 @@ const Head = styled.div`
   position: fixed;
   top: 0;
   z-index: 10;
-  box-shadow: 0px 13px 21.8px 0px rgba(69, 0, 198, 0.08);
+  /* box-shadow: 0px 13px 21.8px 0px rgba(69, 0, 198, 0.08); */
 `;
 
 const HeaderBar = styled.div`
