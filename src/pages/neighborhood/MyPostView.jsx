@@ -100,7 +100,7 @@ const TitleBox = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  padding-bottom: 40px;
+  padding-bottom: 30px;
   border-bottom: 2px solid ${({ theme }) => theme.colors.line};
 
   & svg {
