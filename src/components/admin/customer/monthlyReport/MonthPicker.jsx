@@ -86,10 +86,10 @@ const CustomInput = styled.input`
   box-sizing: border-box;
   border: none;
   border-radius: 16px 16px 0px 0px;
-  background: ${({ theme }) => theme.colors.btn_lightgray};
+  background: ${({ theme }) => theme.colors.coumo_purple};
 
   text-align: center;
-  color: ${({ theme }) => theme.colors.coumo_purple};
+  color: ${({ theme }) => theme.colors.white};
   font-style: normal;
   font-weight: 600;
   line-height: 132%;

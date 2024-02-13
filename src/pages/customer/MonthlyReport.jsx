@@ -4,40 +4,47 @@ import MonthPicker from '../../components/admin/customer/monthlyReport/MonthPick
 import { ArrowUp } from '../../assets';
 import AgeGroupChart from '../../components/admin/customer/common/charts/AgeGroupChart';
 import BarChart from '../../components/admin/customer/common/charts/BarChart';
+import { IoMdCheckmark } from 'react-icons/io';
 
 const MonthlyReport = () => {
   return (
     <Container>
       <Wrapper>
-        <Header>
-          <MonthPicker />
-        </Header>
-        <StatisticsBar>
-          <Statistics>
-            <ArrowUp />
-            <Content>
-              <span>
-                이번 달 <strong>총 방문</strong> 고객은?
-              </span>
-              <h5>38명</h5>
-            </Content>
-          </Statistics>
-          <Statistics>
-            <ArrowUp />
-            <Content>
-              <span>
-                이번 달 <strong>신규</strong> 고객은?
-              </span>
-              <h5>38명</h5>
-            </Content>
-          </Statistics>
-        </StatisticsBar>
+        <HeaderWrapper>
+          <Header>
+            <MonthPicker />
+          </Header>
+          <StatisticsBar>
+            <Statistics>
+              <ArrowUp />
+              <Content>
+                <span>
+                  이번 달 <strong>총 방문</strong> 고객은?
+                </span>
+                <h5>38명</h5>
+              </Content>
+            </Statistics>
+            <Statistics>
+              <ArrowUp />
+              <Content>
+                <span>
+                  이번 달 <strong>신규</strong> 고객은?
+                </span>
+                <h5>38명</h5>
+              </Content>
+            </Statistics>
+          </StatisticsBar>
+        </HeaderWrapper>
         <StatisticsBox>
           <GraphContainer>
             <GraphText>
-              주 고객은
-              <br />
-              20대 여성입니다.
+              <IoMdCheckmark />
+              <TextWrapper>
+                <h5>
+                  주 고객은 <strong>20대 여성</strong>입니다.
+                </h5>
+                <span>방문율이 가장 낮은 연령대는 50대입니다.</span>
+              </TextWrapper>
             </GraphText>
             <GraphWrapper>
               <AgeGroupChart type='small' />
@@ -45,9 +52,13 @@ const MonthlyReport = () => {
           </GraphContainer>
           <GraphContainer>
             <GraphText>
-              방문율이 가장 높은 요일은
-              <br />
-              금요일입니다.
+              <IoMdCheckmark />
+              <TextWrapper>
+                <h5>
+                  방문율이 가장 높은 요일은 <strong>금요일</strong>입니다.
+                </h5>
+                <span>방문율이 가장 낮은 요일은 월요일입니다.</span>
+              </TextWrapper>
             </GraphText>
             <GraphWrapper>
               <BarChart type='monthly' />
@@ -73,9 +84,10 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 850px;
+  width: 1020px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   @media screen and (max-width: 1170px) {
     width: 600px;
@@ -83,6 +95,10 @@ const Wrapper = styled.div`
   @media screen and (max-width: 930px) {
     width: 400px;
   }
+`;
+
+const HeaderWrapper = styled.div`
+  width: 700px;
 `;
 
 const Header = styled.div`
@@ -93,7 +109,7 @@ const Header = styled.div`
 
 const StatisticsBar = styled.div`
   width: 100%;
-  height: 110px;
+  height: 100px;
   display: flex;
   background: linear-gradient(360deg, #a87aff46 3.83%, #fcfaff 114.92%);
   border-radius: 12px;
@@ -169,12 +185,12 @@ const StatisticsBox = styled.div`
 const GraphContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 410px;
-  height: 500px;
-  background-color: #f4f3f3;
+  width: 500px;
+  height: 370px;
+  border: 1px solid ${({ theme }) => theme.colors.lightpurple_border};
   border-radius: 12px;
   box-sizing: border-box;
-  padding: 40px;
+  padding: 30px;
 
   @media screen and (max-width: 1170px) {
     width: 100%;
@@ -185,27 +201,58 @@ const GraphContainer = styled.div`
   }
 `;
 
-const GraphText = styled.h5`
-  margin: 0;
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.text_darkgray};
-  margin: 20px 0px;
-  line-height: 170%;
+const GraphText = styled.div`
   box-sizing: border-box;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+
+  & svg {
+    width: 23px;
+    height: 23px;
+    color: ${({ theme }) => theme.colors.text_darkgray};
+  }
+`;
+
+const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  & h5 {
+    margin: 0;
+    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-weight: 500;
+    color: ${({ theme }) => theme.colors.text_darkgray};
+
+    line-height: 150%;
+  }
+
+  & span {
+    font-size: ${({ theme }) => theme.fontSize.sm};
+    color: ${({ theme }) => theme.colors.text};
+  }
+
+  & strong {
+    color: ${({ theme }) => theme.colors.coumo_purple};
+  }
 
   @media screen and (max-width: 1170px) {
-    margin: 0px 0px 10px 0px;
-    font-size: ${({ theme }) => theme.fontSize.md};
+    & h5 {
+      margin: 0px 0px 10px 0px;
+      font-size: ${({ theme }) => theme.fontSize.md};
+    }
   }
   @media screen and (max-width: 930px) {
-    font-size: ${({ theme }) => theme.fontSize.base};
+    & h5 {
+      font-size: ${({ theme }) => theme.fontSize.base};
+    }
   }
 `;
 
 const GraphWrapper = styled.div`
   width: 100%;
-  height: 300px;
+  height: 240px;
 
   @media screen and (max-width: 1170px) {
     height: 200px;
