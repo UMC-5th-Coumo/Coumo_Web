@@ -72,7 +72,6 @@ export default MyPostView;
 
 const StyledWrite = styled.div`
   width: 100%;
-  max-width: 1000px;
   min-width: 370px;
   display: flex;
   flex-direction: column;
@@ -115,39 +114,70 @@ const ImagePreview = styled.div`
   display: flex;
   width: 100%;
   flex-direction: row;
-  gap: 20px;
+  gap: 13px;
   overflow-x: auto;
-  height: 260px;
+  height: 180px;
+
+  @media screen and (max-width: 1024px) {
+    height: 130px;
+  }
+
+  @media screen and (max-width: 768px) {
+    height: 90px;
+    gap: 5px;
+  }
 `;
 
 const ImageWrapper = styled.div`
-  width: 275px;
+  width: 160px;
+  height: 160px;
+
+  @media screen and (max-width: 1024px) {
+    width: 130px;
+    height: 130px;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 85px;
+    height: 85px;
+  }
 `;
 
 const Img = styled.img`
   display: flex;
   flex: 1;
-  width: 275px;
-  height: 237px;
-  padding: 8px 12px;
+  width: 160px;
+  height: 160px;
+  padding: 8px;
   box-sizing: border-box;
   justify-content: flex-end;
   align-items: center;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: ${({ theme }) => theme.colors.lightpurple};
+
+  @media screen and (max-width: 1024px) {
+    width: 130px;
+    height: 130px;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 85px;
+    height: 85px;
+    padding: 4px;
+  }
 `;
 
 const Box = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
   border-radius: 5px;
   max-width: 790px;
-  height: 400px;
+  height: 250px;
   padding: 30px;
   font-size: ${({ theme }) => theme.fontSize.base};
 `;
 
 const Btn = styled(BtnContainer)`
+  max-width: 850px;
   justify-content: right;
-  margin-top: 50px;
 `;

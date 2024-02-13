@@ -6,7 +6,7 @@ import JoinBtn from '../../components/join/JoinBtn';
 import ErrorMsg from '../../components/join/ErrorMsg';
 import CheckButton from '../../components/join/CheckButton';
 import { defaultInstance } from '../../api/axios';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 // import { setUser } from '../../redux/slices/userSlice';
 
 const JoinTwoStep = () => {

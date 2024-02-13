@@ -22,47 +22,47 @@ const LoginBox = () => {
   // useEffect(() => {}, []);
 
   const handleLoginClick = async () => {
-    // const userData = {
-    //   name: '강수빈',
-    //   email: 'admin123@gmail.com',
-    //   phone: '010-1234-1234',
-    //   id: 'admin123',
-    //   pw: 'admin123',
-    //   token: '1',
-    // };
+    const userData = {
+      name: '강수빈',
+      email: 'admin123@gmail.com',
+      phone: '010-1234-1234',
+      id: 'admin123',
+      pw: 'admin123',
+      token: '1',
+    };
 
     // 리덕스에 저장
-    // dispatch(setUser(userData));
-    try {
-      const loginData = {
-        loginId: id,
-        password: pw,
-      };
+    dispatch(setUser(userData));
+    // // try {
+    // //   const loginData = {
+    // //     loginId: id,
+    // //     password: pw,
+    // //   };
 
-      console.log('loginData', loginData);
-      const response = await defaultInstance.post('/owner/login', loginData);
+    // //   console.log('loginData', loginData);
+    // //   const response = await defaultInstance.post('/owner/login', loginData);
 
-      if (response.data.isSuccess) {
-        console.log('로그인 성공', response.data);
-        // const { id, name, token } = response.data.result;
-        // localStorage.setItem('userToken', token);
+    // //   if (response.data.isSuccess) {
+    // //     console.log('로그인 성공', response.data);
+    //     // const { id, name, token } = response.data.result;
+    //     // localStorage.setItem('userToken', token);
 
-        // dispatch(
-        //   setUser({
-        //     id: id,
-        //     pw: pw,
-        //     ownerId,
-        //     storeId,
-        //     token,
-        //   })
-        // );
-        navigate('/');
-      } else {
-        console.error('로그인 실패');
-      }
-    } catch (error) {
-      console.error('Error Login');
-    }
+    //     // dispatch(
+    //     //   setUser({
+    //     //     id: id,
+    //     //     pw: pw,
+    //     //     ownerId,
+    //     //     storeId,
+    //     //     token,
+    //     //   })
+    //     // );
+    //     navigate('/');
+    //   } else {
+    //     console.error('로그인 실패');
+    //   }
+    // } catch (error) {
+    //   console.error('Error Login');
+    // }
   };
 
   const handleSaveClick = () => {

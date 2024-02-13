@@ -115,7 +115,7 @@ const MyEdit = () => {
   const onModifyConfirm = () => {
     setModifyPopUp(false);
     dispatch(setSelectedPost(null));
-    navigate(`/neighborhood/myPosts`, {
+    navigate(`/neighborhood/myPosts/1`, {
       state: { updatedData: postDummyData },
     });
   };
@@ -214,7 +214,7 @@ const TitleBox = styled.div`
 `;
 
 const Btn = styled(BtnContainer)`
-  max-width: 870px;
+  max-width: 850px;
   display: flex;
   justify-content: flex-end;
   margin-top: 50px;
