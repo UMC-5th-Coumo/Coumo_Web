@@ -6,6 +6,7 @@ import CheckList from '../../components/join/CheckList';
 import JoinBtn from '../../components/join/JoinBtn';
 import ErrorMsg from '../../components/join/ErrorMsg';
 import CheckButton from '../../components/join/CheckButton';
+import { defaultInstance } from '../../api/axios';
 
 const JoinOneStep = () => {
   const navigate = useNavigate();
@@ -104,6 +105,32 @@ const JoinOneStep = () => {
     );
   };
 
+  /* ----- 중복 확안하기 ----- */
+  const handleCheckDup = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await defaultInstance.post(
+        '/owner/join/check-login-id',
+        { loginId: account.id }
+      );
+
+      if (response.data.isSuccess) {
+        console.log('사용 가능');
+        setMsg({
+          ...msg,
+          login: (
+            <span style={{ color: '#33bd4a' }}>사용 가능한 아이디입니다.</span>
+          ),
+        });
+      } else {
+        console.log('사용 불가능');
+        setMsg({ ...msg, login: '이미 사용 중인 아이디입니다.' });
+      }
+    } catch (error) {
+      console.error('Error duplication:', error);
+    }
+  };
+
   /* ----- 다음으로 넘어가기 ----- */
   const onSubmit = (e) => {
     e.preventDefault();
@@ -127,7 +154,7 @@ const JoinOneStep = () => {
                 width='250px'
                 star={true}
               />
-              <CheckButton text='중복 확인하기' />
+              <CheckButton text='중복 확인하기' onClick={handleCheckDup} />
             </Row>
             <ErrorMsg text={msg.login} />
           </div>

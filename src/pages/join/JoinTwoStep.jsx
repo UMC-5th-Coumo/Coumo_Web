@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router';
 import InputJoin from '../../components/common/InputJoin';
-import axios from 'axios';
 import JoinBtn from '../../components/join/JoinBtn';
 import ErrorMsg from '../../components/join/ErrorMsg';
 import CheckButton from '../../components/join/CheckButton';
+import { defaultInstance } from '../../api/axios';
+import { useDispatch } from 'react-redux';
+// import { setUser } from '../../redux/slices/userSlice';
 
 const JoinTwoStep = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  // const dispatch = useDispatch();
 
   // 초기값
   const [info, setInfo] = useState({
@@ -89,18 +92,27 @@ const JoinTwoStep = () => {
           name: info.name,
           email: info.email,
           phone: info.phone,
-          // certified: info.certified,
         };
 
         console.log('joinData', joinData);
-        const response = await axios.post(
-          'https://dev.coumo.shop/owner/join',
-          joinData
-        );
-        // const userToken = localStorage.getItem('userToken');
+        const response = await defaultInstance.post('/owner/join', joinData);
 
         if (response.data.isSuccess) {
           console.log('회원가입 성공', response.data.result);
+          // const { ownerId, storeId, token } = response.data.result;
+          // 회원가입 성공 시 받은 정보를 Redux 스토어에 저장
+          // dispatch(
+          //   setUser({
+          //     name: info.name,
+          //     email: info.email,
+          //     phone: info.phone,
+          //     id: loginId,
+          //     pw: password,
+          //     ownerId,
+          //     storeId,
+          //     token,
+          //   })
+          // );
           navigate('/join/finish');
         } else {
           console.error('회원가입 실패');
