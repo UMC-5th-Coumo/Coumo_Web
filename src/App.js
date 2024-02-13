@@ -23,6 +23,7 @@ import AdminVerticalHeader from './components/common/AdminVerticalHeader';
 import UIServiceList from './pages/myPage/UIServiceList';
 import UIServiceDetail from './pages/myPage/UIServiceDetail';
 import AdminHome from './pages/AdminHome';
+import ScrollTop from './components/common/ScrollTop';
 
 function App() {
   const { token } = useSelector((state) => state.user);
@@ -31,6 +32,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
+      <ScrollTop />
       {token ? (
         <Column>
           <Container>

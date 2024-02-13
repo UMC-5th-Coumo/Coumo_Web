@@ -15,6 +15,7 @@ import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 import { getLabelByTag } from '../../assets/data/categoryData';
 import getMyEdit from '../../redux/thunks/getMyEdit';
 import deleteMyPost from '../../redux/thunks/deleteMyPost';
+import { IoMdArrowBack } from 'react-icons/io';
 // import patchMyEdit from '../../redux/thunks/patchMyEdit';
 
 const MyEdit = () => {
@@ -134,8 +135,8 @@ const MyEdit = () => {
   return (
     <StyledWrite>
       <TitleBox>
+        <IoMdArrowBack onClick={() => navigate(-1)} />
         <Title title='글을 수정중입니다' />
-        <Line />
       </TitleBox>
       <Edit
         category={category}
@@ -197,18 +198,19 @@ const StyledWrite = styled.div`
   }
 `;
 
-const Line = styled.div`
-  max-width: 840px;
-  min-width: 370px;
-  height: 2px;
-  background-color: ${({ theme }) => theme.colors.line};
-`;
-
 const TitleBox = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 48px;
-  margin-bottom: 55px;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 40px;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.line};
+
+  & svg {
+    width: 23px;
+    height: 23px;
+    color: ${({ theme }) => theme.colors.text};
+    cursor: pointer;
+  }
 `;
 
 const Btn = styled(BtnContainer)`
