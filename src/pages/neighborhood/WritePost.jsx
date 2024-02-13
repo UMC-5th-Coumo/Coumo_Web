@@ -9,7 +9,7 @@ import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 const WritePost = () => {
   const navigate = useNavigate();
   const [popUp, setPopUp] = useState(false);
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('new');
   const [inputs, setInputs] = useState({
     title: '',
     content: '',

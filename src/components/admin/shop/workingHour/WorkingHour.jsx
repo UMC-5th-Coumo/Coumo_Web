@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Dropdown from './Dropdown';
 import { days } from '../../../../assets/data/workingHourData';
 
-function WorkingHours({ day, setData, dropWidth }) {
+function WorkingHour({ day, setData, dropWidth }) {
   const [startTime, setStartTime] = useState('0:00 AM');
   const [endTime, setEndTime] = useState('0:00 AM');
   const [dayOff, setDayOff] = useState(false);
@@ -45,7 +45,7 @@ function WorkingHours({ day, setData, dropWidth }) {
   );
 }
 
-export default WorkingHours;
+export default WorkingHour;
 
 const Container = styled.div`
   display: flex;

@@ -43,7 +43,7 @@ export const writecategoryData = [
 export const postCategoryData = [
   {
     id: 'all',
-    label: '전체',
+    label: '전체 보기',
   },
   {
     id: 'new',

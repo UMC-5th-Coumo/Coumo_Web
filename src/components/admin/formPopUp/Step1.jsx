@@ -143,6 +143,7 @@ const Step1 = ({ storeData, setStoreData, hours, setHours }) => {
                   setData={(hours) =>
                     setHours((prev) => ({ ...prev, [day]: hours }))
                   }
+                  dropWidth='true'
                 />
               ))}
             </WorkingHours>

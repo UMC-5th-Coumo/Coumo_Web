@@ -9,7 +9,12 @@ import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 import { postCategoryData } from '../../assets/data/categoryData';
 import { setSelectedPost } from '../../redux/slices/postSlice';
 import getMyPosts from '../../redux/thunks/getMyPosts';
-import { PageNext, PageNextDisable, PagePrev } from '../../assets';
+import {
+  PageNext,
+  PageNextDisable,
+  PagePrev,
+  PagePrevDisable,
+} from '../../assets';
 import PostList from '../../components/admin/neighborhood/PostList';
 
 const MyPosts = () => {
@@ -100,7 +105,13 @@ const MyPosts = () => {
           />
         </PostWrapper>
         <Page>
-          <PagePrev onClick={() => handlePageChange(currentPage - 1)} />
+          {currentPage === 1 ? (
+            <PagePrevDisable
+              onClick={() => handlePageChange(currentPage - 1)}
+            />
+          ) : (
+            <PagePrev onClick={() => handlePageChange(currentPage - 1)} />
+          )}
           <PageNum>{currentPage}</PageNum>
           {nextButtonDisabled ? (
             <PageNextDisable />

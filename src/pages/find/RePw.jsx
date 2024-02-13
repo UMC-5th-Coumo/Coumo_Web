@@ -60,13 +60,7 @@ const RePw = () => {
   }
 
   const onSubmit = async () => {
-    // 임시 코드 (통신되면 삭제)
     setPopUp(true);
-    setTimeout(() => {
-      setPopUp(false);
-      navigate('/login');
-    }, 1500);
-    //
 
     try {
       const response = await axios.patch('/api/owner/patchpw', {
@@ -115,8 +109,11 @@ const RePw = () => {
         </JoinBtn>
         {popUp && (
           <OneBtnPopUp
-            title='비밀번호가 정상적으로 재설정 되었습니다!'
-            onClick={() => setPopUp(false)}
+            title='비밀번호가 정상적으로<br>재설정 되었습니다!'
+            onClick={() => {
+              setPopUp(false);
+              navigate('/login');
+            }}
           />
         )}
       </Wrapper>

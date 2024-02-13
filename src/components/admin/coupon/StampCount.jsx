@@ -2,7 +2,7 @@ import React from 'react';
 import RadioButton from './RadioButton';
 import styled from 'styled-components';
 
-function StampCount({ stamp_max, setMax }) {
+function StampCount({ stamp_max, setMax, dropWidth }) {
   return (
     <Container>
       <RadioButton
@@ -10,21 +10,21 @@ function StampCount({ stamp_max, setMax }) {
         label='8개'
         selected={stamp_max === '8'}
         onChange={setMax}
-        dropWidth
+        dropWidth={dropWidth}
       />
       <RadioButton
         id='10'
         label='10개'
         selected={stamp_max === '10'}
         onChange={setMax}
-        dropWidth
+        dropWidth={dropWidth}
       />
       <RadioButton
         id='12'
         label='12개'
         selected={stamp_max === '12'}
         onChange={setMax}
-        dropWidth
+        dropWidth={dropWidth}
       />
     </Container>
   );
