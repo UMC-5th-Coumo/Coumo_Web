@@ -41,7 +41,6 @@ const Container = styled.div`
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
-  border-right: 1.5px solid #d2d2d4;
 
   @media screen and (max-width: 1280px) {
     border-right: none;

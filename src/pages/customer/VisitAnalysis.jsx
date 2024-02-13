@@ -26,10 +26,11 @@ export default VisitAnalysis;
 
 const Container = styled.div`
   width: 100%;
-  padding: 70px 0px;
+  height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #fafafa;
 `;
 
 const GraphContainer = styled.div`

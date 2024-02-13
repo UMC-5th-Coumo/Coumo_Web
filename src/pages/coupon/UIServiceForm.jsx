@@ -105,6 +105,7 @@ const UIServiceForm = () => {
             cols={10}
             placeholder='매장에 대해 설명해주세요.'
             isEmpty={description.length === 0}
+            spellcheck='false'
           ></TextArea>
         </Description>
         <BtnContainer>
@@ -174,14 +175,13 @@ const TextArea = styled.textarea`
   padding: 8px 12px;
   box-sizing: border-box;
   border-radius: 4px;
-  border: 1px solid
-    ${({ theme, isEmpty }) =>
-      isEmpty ? theme.colors.tab_gray : theme.colors.coumo_purple};
+  border: 1px solid ${({ theme }) => theme.colors.text};
   background: ${({ theme }) => theme.colors.white};
 
   color: ${({ theme }) => theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
+  white-space: pre-wrap;
   font-family: 'Pretendard';
   font-weight: 400;
   line-height: 170%; /* 27.2px */
@@ -189,11 +189,17 @@ const TextArea = styled.textarea`
 
   &:focus {
     outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
+
+    &::placeholder {
+      opacity: 0.6;
+    }
   }
 `;
 
 export const BtnContainer = styled.div`
+  width: 100%;
   display: flex;
   gap: 16px;
-  justify-content: flex-end;
+  justify-content: center;
 `;

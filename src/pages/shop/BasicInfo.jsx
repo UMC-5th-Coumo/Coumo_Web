@@ -159,16 +159,28 @@ const BasicInfo = () => {
   return (
     <Content>
       <Wrapper>
-        <Input
-          name='storeName'
-          label='매장명'
-          type='text'
-          placeholder='매장명을 입력해주세요.'
-          value={inputs.storeName}
-          onChange={(e) =>
-            setInputs((prev) => ({ ...prev, storeName: e.target.value }))
-          }
-        />
+        <Row>
+          <Input
+            name='storeName'
+            label='매장명'
+            type='text'
+            placeholder='매장명을 입력해주세요.'
+            value={inputs.storeName}
+            onChange={(e) =>
+              setInputs((prev) => ({ ...prev, storeName: e.target.value }))
+            }
+          />
+          <Input
+            name='number'
+            label='매장 전화번호'
+            type='text'
+            placeholder='ex) 010-1234-5678'
+            value={inputs.number}
+            onChange={(e) =>
+              setInputs((prev) => ({ ...prev, number: e.target.value }))
+            }
+          />
+        </Row>
         <Category
           data={categoryData}
           category={category}
@@ -187,17 +199,7 @@ const BasicInfo = () => {
             />
           ))}
         </WorkingHours>
-        <Input
-          name='number'
-          label='매장의 전화번호를 입력해주세요.'
-          type='text'
-          placeholder='ex) 010-1234-5678'
-          value={inputs.number}
-          onChange={(e) =>
-            setInputs((prev) => ({ ...prev, number: e.target.value }))
-          }
-        />
-        <div>
+        <Row>
           <Input
             name='address'
             label='위치정보'
@@ -205,6 +207,7 @@ const BasicInfo = () => {
             placeholder='주소를 입력해주세요.'
             value={inputs.address}
             readOnly={true}
+            width
             onChange={(e) =>
               setInputs((prev) => ({ ...prev, address: e.target.value }))
             }
@@ -234,8 +237,7 @@ const BasicInfo = () => {
             }
             onClick={handleAddressDetailClick}
           />
-        </div>
-
+        </Row>
         <BtnContainer>
           <Button text='취소하기' />
           <Button text='저장하기' type={true} onClickBtn={onSubmit} />
@@ -281,4 +283,12 @@ const WorkingHours = styled.div`
   display: flex;
   flex-direction: column;
   gap: 14px;
+`;
+
+const Row = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 10px;
 `;

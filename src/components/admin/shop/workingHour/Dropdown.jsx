@@ -30,7 +30,7 @@ function Dropdown({ value, setValue, disabled, dropWidth }) {
         isOpen={open}
         onClick={() => setOpen((prev) => !prev)}
         disabled={disabled}
-        dropWidth
+        dropWidth={dropWidth}
       >
         <span>{value}</span>
         <IoIosArrowDown style={{ height: '15px', width: '15px' }} />

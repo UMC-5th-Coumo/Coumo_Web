@@ -230,6 +230,7 @@ const Scroll = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* 2열로 배치 */
   overflow-x: scroll;
+  overflow: auto;
 
   @media screen and (max-width: 1024px) {
     display: flex;

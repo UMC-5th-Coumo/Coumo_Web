@@ -93,11 +93,15 @@ const Title = styled.h4`
 const Date = styled.span`
   font-size: ${({ theme }) => theme.fontSize.sm};
   color: ${({ theme }) => theme.colors.text};
+  display: flex;
+  align-items: center;
 `;
 
 const Btns = styled.div`
   display: flex;
   gap: 10px;
+  display: flex;
+  align-items: center;
 
   @media screen and (max-width: 980px) {
     display: none;
@@ -129,7 +133,6 @@ const PostButton = styled.button`
   font-size: ${({ theme }) => theme.fontSize.xs};
   font-style: normal;
   font-weight: 600;
-  line-height: 132%; /* 21.12px */
   cursor: pointer;
 
   &:hover {

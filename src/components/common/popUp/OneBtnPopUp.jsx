@@ -7,8 +7,8 @@ function OneBtnPopUp({ title, text, onClick }) {
     <Container>
       <PopUp>
         <TextBox>
-          <PopUpTitle>{title}</PopUpTitle>
-          <span>{text}</span>
+          <PopUpTitle dangerouslySetInnerHTML={{ __html: title }} />
+          <span dangerouslySetInnerHTML={{ __html: text }} />
         </TextBox>
         <Button ok={true} onClick={onClick}>
           확인
@@ -42,6 +42,7 @@ const PopUp = styled.div`
 
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-between;
   gap: 20px;
   box-sizing: border-box;
@@ -77,6 +78,7 @@ const PopUpTitle = styled.h3`
   margin: 0;
   font-size: ${({ theme }) => theme.fontSize.title};
   color: ${({ theme }) => theme.colors.text_black};
+  text-align: center;
 
   @media screen and (max-width: 1024px) {
     font-size: ${({ theme }) => theme.fontSize.lg};

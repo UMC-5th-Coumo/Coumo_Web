@@ -3,7 +3,7 @@ import { stampData } from '../../../assets/data/stampData';
 import Stamp from './Stamp';
 import styled from 'styled-components';
 
-const StampList = ({ stamp_id, setStamp }) => {
+const StampList = ({ stamp_id, setStamp, dropWidth }) => {
   return (
     <Container>
       {stampData.map((data) => {
@@ -14,7 +14,7 @@ const StampList = ({ stamp_id, setStamp }) => {
             stamp={data}
             selected={stamp_id === data.id}
             onChange={() => setStamp(data)}
-            dropWidth
+            dropWidth={dropWidth}
           />
         );
       })}

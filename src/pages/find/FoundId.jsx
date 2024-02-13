@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Profile } from '../../assets';
+import { useNavigate } from 'react-router-dom';
 
 const FoundId = () => {
+  const navigate = useNavigate();
   return (
     <Found>
       <Wrapper>
@@ -11,6 +13,9 @@ const FoundId = () => {
           <Profile />
           <Text>id</Text>
         </Result>
+        <Button ok={true} onClick={() => navigate('/login')}>
+          로그인 하러 가기
+        </Button>
       </Wrapper>
     </Found>
   );
@@ -29,6 +34,7 @@ const Found = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 const Title = styled.div`
@@ -54,4 +60,20 @@ const Text = styled.div`
   display: flex;
   flex-direction: row;
   font-size: ${({ theme }) => theme.fontSize.title};
+`;
+
+const Button = styled.button`
+  width: 100%;
+  height: 45px;
+  background-color: ${({ ok, theme }) =>
+    ok ? '#643daf' : theme.colors.btn_lightgray};
+
+  border: none;
+  border-radius: 8px;
+  font-size: ${({ theme }) => theme.fontSize.base};
+  font-weight: 700;
+  color: ${({ ok, theme }) =>
+    ok ? theme.colors.white : theme.colors.text_darkgray};
+  cursor: pointer;
+  margin-top: 50px;
 `;

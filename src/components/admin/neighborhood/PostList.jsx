@@ -96,6 +96,7 @@ const TextWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   gap: 14px;
+  margin-left: 5px;
 
   @media screen and (max-width: 1100px) {
     .date {

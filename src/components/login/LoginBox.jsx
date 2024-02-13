@@ -149,11 +149,16 @@ const InputId = styled.input`
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.text};
+    opacity: 0.6;
   }
 
   &:focus {
     outline: none;
     border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
+
+    &::placeholder {
+      opacity: 0.6;
+    }
   }
 
   @media screen and (max-width: 1024px) {

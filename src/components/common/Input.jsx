@@ -90,7 +90,7 @@ const StyledInput = styled.input`
     outline: none;
     border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
     &::placeholder {
-      opacity: 0.4;
+      opacity: 0.6;
     }
   }
 `;
