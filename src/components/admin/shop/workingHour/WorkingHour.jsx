@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Dropdown from './Dropdown';
 import { days } from '../../../../assets/data/workingHourData';
 
-function WorkingHours({ day, setData }) {
+function WorkingHours({ day, setData, dropWidth }) {
   const [startTime, setStartTime] = useState('0:00 AM');
   const [endTime, setEndTime] = useState('0:00 AM');
   const [dayOff, setDayOff] = useState(false);
@@ -26,8 +26,18 @@ function WorkingHours({ day, setData }) {
   return (
     <Container>
       <Day>{days[day]}</Day>
-      <Dropdown value={startTime} setValue={setStartTime} disabled={dayOff} />
-      <Dropdown value={endTime} setValue={setEndTime} disabled={dayOff} />
+      <Dropdown
+        value={startTime}
+        setValue={setStartTime}
+        disabled={dayOff}
+        dropWidth={dropWidth}
+      />
+      <Dropdown
+        value={endTime}
+        setValue={setEndTime}
+        disabled={dayOff}
+        dropWidth={dropWidth}
+      />
       <DayOffButton dayOff={dayOff} onClick={() => setDayOff((prev) => !prev)}>
         쉬는 날
       </DayOffButton>
@@ -49,7 +59,8 @@ const Container = styled.div`
 
 const Day = styled.h5`
   margin: 0;
-  font-size: ${({ theme }) => theme.fontSize.md};
+  font-size: ${({ dropWidth, theme }) =>
+    dropWidth ? theme.fontSize.base : theme.fontSize.md};
   color: ${({ theme }) => theme.colors.coumo_purple};
 
   @media screen and (max-width: 1024px) {

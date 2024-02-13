@@ -1,17 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const RadioButton = ({ id, label, selected, onChange }) => {
+const RadioButton = ({ id, label, selected, onChange, dropWidth }) => {
   return (
-    <RadioLabel selected={selected}>
+    <RadioLabel selected={selected} dropWidth={dropWidth}>
       <RadioInput
         type='radio'
         id={id}
         checked={selected}
         onChange={() => onChange(id)}
         selected={id === selected}
+        dropWidth={dropWidth}
       />
-      <RadioSpan htmlFor={id} selected={id === selected}>
+      <RadioSpan htmlFor={id} selected={id === selected} dropWidth={dropWidth}>
         {label}
       </RadioSpan>
     </RadioLabel>
@@ -23,8 +24,8 @@ export default RadioButton;
 const RadioLabel = styled.label`
   display: flex;
   align-items: center;
-  height: 38.5px;
-  padding: 0px 12px;
+  height: ${({ dropWidth }) => (dropWidth ? '34px' : '38.5px')};
+  padding: ${({ dropWidth }) => (dropWidth ? '0px 12px 0px 8px ' : '0px 12px')};
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
@@ -46,17 +47,19 @@ const RadioInput = styled.input`
   appearance: none;
   border: max(1px, 0.1em) solid gray;
   border-radius: 50%;
-  width: 1.3em;
-  height: 1.3em;
+  width: ${({ dropWidth }) => (dropWidth ? '1.1em' : '1.3em')};
+  height: ${({ dropWidth }) => (dropWidth ? '1.1em' : '1.3em')};
   transition: border 0.5s ease-in-out;
   background-color: ${({ theme }) => theme.colors.white};
 
   &:checked {
-    border: 0.67em solid ${({ theme }) => theme.colors.coumo_purple};
+    border: ${({ dropWidth }) => (dropWidth ? '0.57em' : '0.67em')} solid
+      ${({ theme }) => theme.colors.coumo_purple};
   }
 
   &:hover {
-    box-shadow: 0 0 0 max(4px, 0.2em) lightgray;
+    box-shadow: 0 0 0
+      ${({ dropWidth }) => (dropWidth ? 'max(2px, 0.1em)' : 'max(4px, 0.2em)')}${({ theme }) => theme.colors.btn_lightgray};
     cursor: pointer;
   }
 

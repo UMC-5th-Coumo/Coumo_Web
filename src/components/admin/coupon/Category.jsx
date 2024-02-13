@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import RadioBtn from '../../common/RadioBtn';
 
-const Category = ({ data, category, setCategory, columns }) => {
+const Category = ({ data, category, setCategory, columns, dropWidth }) => {
   const onChange = (id) => {
     setCategory(id);
   };
@@ -19,6 +19,7 @@ const Category = ({ data, category, setCategory, columns }) => {
               name='category'
               selected={category}
               onChange={onChange}
+              dropWidth={dropWidth}
             />
           );
         })}

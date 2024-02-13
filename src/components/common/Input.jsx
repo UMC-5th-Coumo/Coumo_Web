@@ -89,7 +89,6 @@ const StyledInput = styled.input`
   &:focus {
     outline: none;
     border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
-
     &::placeholder {
       opacity: 0.6;
     }
