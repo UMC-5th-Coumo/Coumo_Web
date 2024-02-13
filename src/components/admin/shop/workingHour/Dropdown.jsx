@@ -59,8 +59,8 @@ const Container = styled.div`
 `;
 
 const DropdownInput = styled.div`
-  width: ${(dropWidth) => (dropWidth ? '100px' : '220px')};
-  height: ${(dropWidth) => (dropWidth ? '35px' : '40px')};
+  width: ${({ dropWidth }) => (dropWidth ? '100px' : '170px')};
+  height: ${({ dropWidth }) => (dropWidth ? '35px' : '40px')};
   display: flex;
   align-items: center;
   justify-content: space-between;
