@@ -11,9 +11,15 @@ const RadioBtn = ({
   onChange,
   size = 110,
   height,
+  dropWidth,
 }) => {
   return (
-    <RadioLabel size={size} height={height} isSelected={id === selected}>
+    <RadioLabel
+      size={size}
+      height={height}
+      isSelected={id === selected}
+      dropWidth={dropWidth}
+    >
       <RadioInput
         type='radio'
         id={id}
@@ -21,8 +27,14 @@ const RadioBtn = ({
         value={value}
         checked={id === selected}
         onChange={() => onChange(id)}
+        dropWidth={dropWidth}
       />
-      <RadioSpan htmlFor={id} isSelected={id === selected} size={size}>
+      <RadioSpan
+        htmlFor={id}
+        isSelected={id === selected}
+        size={size}
+        dropWidth={dropWidth}
+      >
         {label}
       </RadioSpan>
     </RadioLabel>
@@ -33,9 +45,10 @@ export default RadioBtn;
 
 const RadioLabel = styled.label`
   display: flex;
-  width: ${(props) => props.size}px;
-  height: ${({ height }) => (height ? height : '40px')};
-  padding: 0px 12px;
+  width: ${({ dropWidth, size }) => (dropWidth ? '87px' : `${size}px`)};
+  height: ${({ dropWidth, height }) =>
+    dropWidth ? '35px' : height ? height : '40px'};
+  padding: ${({ dropWidth }) => (dropWidth ? '0px 10px' : '0px 12px')};
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
@@ -55,21 +68,26 @@ const RadioLabel = styled.label`
 `;
 
 const RadioInput = styled.input`
+  display: flex;
   vertical-align: middle;
   appearance: none;
   border: max(1px, 0.1em) solid gray;
   border-radius: 50%;
-  width: 1.3em;
-  height: 1.3em;
+  align-items: center;
+  width: ${({ dropWidth }) => (dropWidth ? '1.1em' : '1.3em')};
+  height: ${({ dropWidth }) => (dropWidth ? '1.1em' : '1.3em')};
+  margin: 0px;
   transition: border 0.5s ease-in-out;
   background-color: ${({ theme }) => theme.colors.white};
 
   &:checked {
-    border: 0.67em solid ${({ theme }) => theme.colors.coumo_purple};
+    border: ${({ dropWidth }) => (dropWidth ? '0.57em' : '0.67em')} solid
+      ${({ theme }) => theme.colors.coumo_purple};
   }
 
   &:hover {
-    box-shadow: 0 0 0 max(4px, 0.2em) ${theme.colors.btn_lightgray};
+    box-shadow: 0 0 0
+      ${({ dropWidth }) => (dropWidth ? 'max(2px, 0.1em)' : 'max(4px, 0.2em)')}${({ theme }) => theme.colors.btn_lightgray};
     cursor: pointer;
   }
 
@@ -91,7 +109,8 @@ const RadioSpan = styled.span`
   color: ${theme.colors.text_darkgray};
   text-overflow: ellipsis;
   font-family: 'Pretendard';
-  font-size: ${({ theme }) => theme.fontSize.sm};
+  font-size: ${({ dropWidth, theme }) =>
+    dropWidth ? theme.fontSize.xs : theme.fontSize.sm};
   font-style: normal;
   line-height: 170%; /* 27.2px */
   font-weight: ${(props) => (props.isSelected ? '600' : '400')};

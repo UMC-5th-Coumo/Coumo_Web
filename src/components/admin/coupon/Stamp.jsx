@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Stamp = ({ id, stamp, selected, onChange }) => {
+const Stamp = ({ id, stamp, selected, onChange, dropWidth }) => {
   return (
-    <RadioLabel selected={selected}>
+    <RadioLabel selected={selected} dropWidth={dropWidth}>
       <RadioInput type='radio' id={id} checked={selected} onChange={onChange} />
       <StampWrapper>
         <StampIcon src={stamp.image} alt={stamp.alt} />
@@ -20,8 +20,8 @@ export default Stamp;
 const RadioLabel = styled.label`
   display: flex;
   align-items: center;
-  height: 38px;
-  padding: 0px 12px;
+  height: ${({ dropWidth }) => (dropWidth ? '30px' : '38px')};
+  padding: ${({ dropWidth }) => (dropWidth ? '0px 10px' : '0px 12px')};
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
@@ -33,8 +33,12 @@ const RadioLabel = styled.label`
   border: 1px solid ${({ theme }) => theme.colors.text};
   cursor: pointer;
 
+  & span {
+    display: ${({ dropWidth }) => (dropWidth ? 'none' : null)};
+  }
+
   @media screen and (max-width: 1224px) {
-    height: 34px;
+    height: ${({ dropWidth }) => (dropWidth ? '30px' : '34px')};
     padding: 0px 10px;
   }
 

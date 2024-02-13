@@ -26,7 +26,6 @@ const Input = ({
         {label}
       </StyledInputTitle>
       <StyledInput
-        isEmpty={value.length === 0}
         type={type}
         name={name}
         value={value}
@@ -75,9 +74,7 @@ const StyledInput = styled.input`
   align-items: top;
   gap: 8px;
   border-radius: 4px;
-  border: 1px solid
-    ${({ theme, isEmpty }) =>
-      isEmpty ? theme.colors.text : theme.colors.coumo_purple};
+  border: 1px solid ${({ theme }) => theme.colors.text};
   background: ${({ theme }) => theme.colors.white};
   overflow: hidden;
   color: ${({ theme }) => theme.colors.text_darkgray};
@@ -91,6 +88,10 @@ const StyledInput = styled.input`
 
   &:focus {
     outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
+    &::placeholder {
+      opacity: 0.4;
+    }
   }
 `;
 

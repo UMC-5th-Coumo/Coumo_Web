@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Welcome from './Welcome';
 import MultiStep from './MultiStep';
@@ -6,15 +6,54 @@ import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
 import { useNavigate } from 'react-router';
+import axios from 'axios';
 
 function FormPopUp() {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
+  const [hours, setHours] = useState({
+    mon: {
+      day: '',
+      startTime: '',
+      endTime: '',
+    },
+    tue: {
+      day: '',
+      startTime: '',
+      endTime: '',
+    },
+    wed: {
+      day: '',
+      startTime: '',
+      endTime: '',
+    },
+    thu: {
+      day: '',
+      startTime: '',
+      endTime: '',
+    },
+    fri: {
+      day: '',
+      startTime: '',
+      endTime: '',
+    },
+    sat: {
+      day: '',
+      startTime: '',
+      endTime: '',
+    },
+    sun: {
+      day: '',
+      startTime: '',
+      endTime: '',
+    },
+  });
+
   const [storeData, setStoreData] = useState({
     name: '',
-    time: [],
+    time: Object.keys(hours).map((day) => hours[day]),
     telePhone: '',
-    category: '',
+    category: 'cafe',
     // location: '',
     address: '',
     addressDetail: '',
@@ -29,20 +68,59 @@ function FormPopUp() {
     stampImage: '',
   });
 
+  useEffect(() => {
+    if (storeData.address) {
+      getAddressCoords(storeData.address)
+        .then((coords) => {
+          setStoreData((prevStoreData) => ({
+            ...prevStoreData,
+            longitude: coords.longitude,
+            latitude: coords.latitude,
+          }));
+        })
+        .catch((error) => console.error('Error coordinates:', error));
+    }
+  }, [storeData.address]);
+
+  const getAddressCoords = async (address) => {
+    // 좌표 변환 API를 통해 주소를 좌표로 변환
+    console.log('주소:', address);
+
+    try {
+      const response = await axios.get(
+        'https://dapi.kakao.com/v2/local/search/address.json?query=' + address,
+        {
+          headers: {
+            Authorization: `KakaoAK ${process.env.REACT_APP_KAKAOMAP_API_KEY}`,
+          },
+        }
+      );
+
+      if (!response.data.documents || response.data.documents.length === 0) {
+        throw new Error('Failed to fetch coordinates from Kakao Map API');
+      }
+
+      const coords = response.data.documents[0].address;
+      console.log('lat:', coords.y, 'log:', coords.x);
+      return {
+        latitude: coords.y,
+        longitude: coords.x,
+      };
+    } catch (error) {
+      console.error('Error getting coordinates:', error);
+      throw error;
+    }
+  };
+
   const handlePrevClick = () => {
     if (step > 1) {
       setStep((prev) => prev - 1);
     }
   };
 
-  const handleNextClick = (data) => {
-    // 3단계 미만일 땐 '다음', 3단계인 경우 서버에 데이터 전달
+  const handleNextClick = () => {
+    // 3단계 미만일 땐 '다음' 버튼
     if (step < 3) {
-      setStoreData((prevData) => ({
-        ...prevData,
-        ...data,
-      }));
-      console.log('data: ', storeData);
       setStep((prev) => prev + 1);
     } else {
       // 서버 연동
@@ -50,11 +128,31 @@ function FormPopUp() {
   };
 
   const handleStartClick = () => {
-    // 서버에 formData 전송
+    // 3단계인 경우 서버에 데이터 전송
     console.log('storeData:', storeData);
     console.log('couponData:', couponData);
     // 서버로 전송하는 로직 추가
-    navigate('/');
+    navigate('/home');
+  };
+
+  const isStep1NextDisabled = () => {
+    return !(
+      storeData.name &&
+      storeData.time &&
+      storeData.telePhone &&
+      storeData.category &&
+      storeData.address &&
+      storeData.addressDetail
+    );
+  };
+
+  const isStep2NextDisabled = () => {
+    return !(
+      couponData.storeName &&
+      couponData.couponColor &&
+      couponData.fontColor &&
+      couponData.stampMax
+    );
   };
 
   return (
@@ -67,7 +165,12 @@ function FormPopUp() {
             <MultiStep step={step} />
             <Content>
               {step === 1 && (
-                <Step1 storeData={storeData} setStoreData={setStoreData} />
+                <Step1
+                  storeData={storeData}
+                  setStoreData={setStoreData}
+                  hours={hours}
+                  setHours={setHours}
+                />
               )}
               {step === 2 && (
                 <Step2 couponData={couponData} setCouponData={setCouponData} />
@@ -77,7 +180,14 @@ function FormPopUp() {
             <BtnContainer>
               {step > 1 && <PrevBtn onClick={handlePrevClick}>이전</PrevBtn>}
               {step < 3 ? (
-                <NextBtn onClick={handleNextClick}>다음</NextBtn>
+                <NextBtn
+                  onClick={handleNextClick}
+                  disabled={
+                    step === 1 ? isStep1NextDisabled() : isStep2NextDisabled()
+                  }
+                >
+                  다음
+                </NextBtn>
               ) : (
                 <NextBtn onClick={handleStartClick}>시작하기</NextBtn>
               )}
@@ -152,6 +262,11 @@ const NextBtn = styled.button`
   &:hover {
     transform: scale(1.1);
     transition: transform ease-in 0.1s;
+  }
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.btn_lightgray};
+    color: ${({ theme }) => theme.colors.text_darkgray};
   }
 `;
 

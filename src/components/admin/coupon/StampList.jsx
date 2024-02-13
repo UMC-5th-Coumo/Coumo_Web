@@ -14,6 +14,7 @@ const StampList = ({ stamp_id, setStamp }) => {
             stamp={data}
             selected={stamp_id === data.id}
             onChange={() => setStamp(data)}
+            dropWidth
           />
         );
       })}

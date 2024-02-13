@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ChromePicker } from 'react-color';
 
-const ColorPicker = ({ color, setColor }) => {
+const ColorPicker = ({ color, setColor, dropWidth }) => {
   const [open, setOpen] = useState(false);
   const outsideRef = useRef(null);
 
@@ -21,8 +21,8 @@ const ColorPicker = ({ color, setColor }) => {
 
   return (
     <Container ref={outsideRef}>
-      <ColorBox onClick={() => setOpen((prev) => !prev)}>
-        <Color color={color} />
+      <ColorBox onClick={() => setOpen((prev) => !prev)} dropWidth={dropWidth}>
+        <Color color={color} dropWidth={dropWidth} />
         <span>{color}</span>
       </ColorBox>
       {open && (
@@ -40,9 +40,9 @@ const ColorBox = styled.button`
   background: ${({ theme }) => theme.colors.white};
   border-radius: 4px;
   display: flex;
-  width: 110px;
-  height: 38.5px;
-  padding: 8px 12px;
+  width: ${({ dropWidth }) => (dropWidth ? '100px' : '110px')};
+  height: ${({ dropWidth }) => (dropWidth ? '30px' : '38.5px')};
+  padding: ${({ dropWidth }) => (dropWidth ? '6px 10px' : '8px 12px')};
   align-items: center;
   gap: 8px;
   border: 1px solid ${({ theme }) => theme.colors.text};
@@ -58,7 +58,7 @@ const ColorBox = styled.button`
 
   @media screen and (max-width: 1024px) {
     width: 100px;
-    height: 35px;
+    height: ${({ dropWidth }) => (dropWidth ? '30px' : '35px')};
     padding: 6px 10px;
   }
 `;

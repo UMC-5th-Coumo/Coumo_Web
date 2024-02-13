@@ -97,7 +97,6 @@ const JoinTwoStep = () => {
           'https://dev.coumo.shop/owner/join',
           joinData
         );
-        // const response = await axios.post('/owner/join', joinData);
         // const userToken = localStorage.getItem('userToken');
 
         if (response.data.isSuccess) {

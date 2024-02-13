@@ -5,35 +5,42 @@ import Title from '../../common/Title';
 import ColorPicker from '../coupon/ColorPicker';
 import StampCount from '../coupon/StampCount';
 import StampList from '../coupon/StampList';
+import { stampData } from '../../../assets/data/stampData';
 
 const Step2 = ({ couponData, setCouponData }) => {
-  const [selectedStamp, setSelectedStamp] = useState('1');
+  const [selectedStamp, setSelectedStamp] = useState(stampData[0]);
   const stamps = Array(couponData.stampMax * 1).fill(0);
 
   return (
     <Box>
       <Container>
         <InputWrapper>
-          <Input
-            label='가게명 입력하기'
-            type='text'
-            placeholder='가게명 (ex.위시커피)'
-            value={couponData.storeName}
-            onChange={(e) =>
-              setCouponData((prev) => ({ ...prev, storeName: e.target.value }))
-            }
-          />
+          <TitleBar>
+            <Title title='가게명 입력하기' />
+            <Input
+              type='text'
+              placeholder='가게명 (ex.위시커피)'
+              value={couponData.storeName}
+              fullwidth='300px'
+              fullheight='38px'
+              onChange={(e) =>
+                setCouponData((prev) => ({
+                  ...prev,
+                  storeName: e.target.value,
+                }))
+              }
+            />
+          </TitleBar>
         </InputWrapper>
         <DesignContainer>
           <TitleBar>
             <Title title='쿠폰 디자인하기' />
-            <span>4가지만 정하면 빠르게 쿠폰을 만들 수 있어요!</span>
           </TitleBar>
           <DesginForm>
             <StepContainer>
               <Col>
                 <Step>
-                  <StepName>
+                  <StepName dropWidth>
                     &bull;&nbsp; 쿠폰 <strong>색상</strong> 정하기
                   </StepName>
                   <ColorPicker
@@ -44,10 +51,11 @@ const Step2 = ({ couponData, setCouponData }) => {
                         couponColor: color.hex,
                       }))
                     }
+                    dropWidth
                   />
                 </Step>
                 <Step>
-                  <StepName>
+                  <StepName dropWidth>
                     &bull;&nbsp; 폰트 <strong>색상</strong> 정하기
                   </StepName>
                   <ColorPicker
@@ -58,12 +66,13 @@ const Step2 = ({ couponData, setCouponData }) => {
                         fontColor: color.hex,
                       }))
                     }
+                    dropWidth
                   />
                 </Step>
               </Col>
               <Col>
                 <Step>
-                  <StepName>
+                  <StepName dropWidth>
                     &bull;&nbsp; 쿠폰 <strong>도장 개수</strong> 정하기
                   </StepName>
                   <StampCount
@@ -71,15 +80,17 @@ const Step2 = ({ couponData, setCouponData }) => {
                     setMax={(max) =>
                       setCouponData((prev) => ({ ...prev, stampMax: max }))
                     }
+                    dropWidth
                   />
                 </Step>
                 <Step>
-                  <StepName>
+                  <StepName dropWidth>
                     &bull;&nbsp; 쿠폰 <strong>도장 이미지</strong> 정하기
                   </StepName>
                   <StampList
-                    stamp_id={selectedStamp}
-                    setStamp={(id) => setSelectedStamp(id)}
+                    stamp_id={selectedStamp.id}
+                    setStamp={(data) => setSelectedStamp(data)}
+                    dropWidth
                   />
                 </Step>
               </Col>
@@ -94,7 +105,15 @@ const Step2 = ({ couponData, setCouponData }) => {
                 </CouponTitle>
                 <StampBox num={couponData.stampMax}>
                   {stamps.map((s, i) => {
-                    return <Stamp key={i} num={couponData.stampMax} />;
+                    return (
+                      <Stamp key={i} num={couponData.stampMax}>
+                        <StampIcon
+                          src={selectedStamp.image}
+                          alt={selectedStamp.alt}
+                          num={couponData.stampMax}
+                        />
+                      </Stamp>
+                    );
                   })}
                 </StampBox>
               </CouponExample>
@@ -125,12 +144,8 @@ const Container = styled.div`
   font-weight: 500;
   display: flex;
   flex-direction: column;
-  gap: 70px;
-  padding: 70px 100px;
-
-  @media screen and (max-width: 1224px) {
-    padding: 70px 50px;
-  }
+  gap: 50px;
+  padding: 50px 50px;
 `;
 
 const DesignContainer = styled.div`
@@ -146,8 +161,10 @@ const InputWrapper = styled.div`
 const TitleBar = styled.div`
   width: 100%;
   display: flex;
-  align-items: flex-end;
-  gap: 24px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 
   & span {
     color: ${({ theme }) => theme.colors.text_darkgray};
@@ -163,9 +180,8 @@ const DesginForm = styled.div`
   display: flex;
   flex-direction: column;
   gap: 43px;
-
   box-sizing: border-box;
-  padding: 40px 0px 40px 20px;
+  padding: 30px 20px 40px 20px;
 `;
 
 const Col = styled.div`
@@ -183,7 +199,7 @@ const Step = styled.div`
 
 const StepName = styled.span`
   color: ${({ theme }) => theme.colors.text_darkgray};
-  font-size: ${({ theme }) => theme.fontSize.md};
+  font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 700;
   line-height: 132%;
@@ -192,15 +208,11 @@ const StepName = styled.span`
   & strong {
     color: ${({ theme }) => theme.colors.coumo_purple};
   }
-
-  @media screen and (max-width: 1224px) {
-    font-size: ${({ theme }) => theme.fontSize.base};
-  }
 `;
 
 const CouponExample = styled.div`
-  width: 493px;
-  height: 288px;
+  width: 440px;
+  height: 245px;
   background-color: ${(props) => props.color};
 
   display: flex;
@@ -209,11 +221,6 @@ const CouponExample = styled.div`
   justify-content: center;
   gap: 18px;
   border-radius: 12px;
-
-  @media screen and (max-width: 1024px) {
-    width: 440px;
-    height: 245px;
-  }
 `;
 
 const CouponTitle = styled.div`
@@ -224,24 +231,13 @@ const CouponTitle = styled.div`
 
   & h2 {
     margin: 0;
-    font-size: 28px;
+    font-size: 24px;
   }
 
   & span {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
-    letter-spacing: 4px;
-  }
-
-  @media screen and (max-width: 1024px) {
-    & h2 {
-      font-size: 24px;
-    }
-
-    & span {
-      font-size: 16px;
-      letter-spacing: 3px;
-    }
+    letter-spacing: 3px;
   }
 `;
 
@@ -254,41 +250,32 @@ const StepContainer = styled.div`
 `;
 
 const StampBox = styled.div`
-  width: ${(props) => (props.num > 8 ? '450px' : '368px')};
+  width: ${(props) => (props.num > 8 ? '430px' : '350px')};
   height: 138px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: ${(props) => (props.num > 10 ? '5px 15px' : '10px 15px')};
-
-  @media screen and (max-width: 1024px) {
-    width: ${(props) => (props.num > 8 ? '430px' : '350px')};
-    gap: ${(props) => (props.num > 10 ? '0px 12px' : '10px 15px')};
-  }
+  gap: ${(props) => (props.num > 10 ? '0px 12px' : '10px 15px')};
 `;
 
 const Stamp = styled.div`
-  width: ${(props) => (props.num > 10 ? '58px' : '65px')};
-  height: ${(props) => (props.num > 10 ? '58px' : '65px')};
+  width: ${(props) => (props.num > 10 ? '52px' : '60px')};
+  height: ${(props) => (props.num > 10 ? '52px' : '60px')};
   border-radius: 50%;
   background: #f6f6f6;
 
-  @media screen and (max-width: 1024px) {
-    width: ${(props) => (props.num > 10 ? '52px' : '60px')};
-    height: ${(props) => (props.num > 10 ? '52px' : '60px')};
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CouponContainer = styled.div`
-  width: fit-content;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 16px;
-
-  & span {
-    text-align: end;
-  }
 `;
 
 const Description = styled.span`
@@ -297,4 +284,9 @@ const Description = styled.span`
   font-style: normal;
   font-weight: 300;
   line-height: 132%; /* 21.12px */
+`;
+
+const StampIcon = styled.img`
+  width: ${(props) => (props.num > 10 ? '40px' : '45px')};
+  height: ${(props) => (props.num > 10 ? '40px' : '45px')};
 `;

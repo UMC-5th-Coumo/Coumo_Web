@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { IoIosArrowDown } from 'react-icons/io';
 import { timeData } from '../../../../assets/data/workingHourData';
 
-function Dropdown({ value, setValue, disabled }) {
+function Dropdown({ value, setValue, disabled, dropWidth }) {
   const [open, setOpen] = useState(false);
   const outsideRef = useRef(null);
 
@@ -30,15 +30,16 @@ function Dropdown({ value, setValue, disabled }) {
         isOpen={open}
         onClick={() => setOpen((prev) => !prev)}
         disabled={disabled}
+        dropWidth
       >
         <span>{value}</span>
         <IoIosArrowDown style={{ height: '15px', width: '15px' }} />
       </DropdownInput>
       {open && (
         <DropDownPosition>
-          <DropdownBox>
+          <DropdownBox dropWidth={dropWidth}>
             {timeData.map((item, i) => (
-              <Item key={i} onClick={() => handleItemClick(item)}>
+              <Item key={i} onClick={() => handleItemClick(item)} dropWidth>
                 {item}
               </Item>
             ))}
@@ -58,15 +59,16 @@ const Container = styled.div`
 `;
 
 const DropdownInput = styled.div`
-  width: 220px;
-  height: 40px;
+  width: ${(dropWidth) => (dropWidth ? '100px' : '220px')};
+  height: ${(dropWidth) => (dropWidth ? '35px' : '40px')};
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-radius: 7px;
   font-weight: 400;
   font-family: 'Pretendard';
-  font-size: ${({ theme }) => theme.fontSize.sm};
+  font-size: ${({ dropWidth, theme }) =>
+    dropWidth ? theme.fontSize.xs : theme.fontSize.sm};
   box-sizing: border-box;
   padding: 0px 15px;
   cursor: pointer;
@@ -83,13 +85,13 @@ const DropdownInput = styled.div`
   color: ${(props) => (props.disabled ? '#dddddd' : '#666666')};
 
   @media screen and (max-width: 1024px) {
-    width: 160px;
+    width: ${(dropWidth) => (dropWidth ? '100px' : '160px')};
     height: 35px;
     font-size: ${({ theme }) => theme.fontSize.xs};
   }
 
   @media screen and (max-width: 870px) {
-    width: 140px;
+    width: ${(dropWidth) => (dropWidth ? '100px' : '140px')};
   }
 `;
 
@@ -104,7 +106,7 @@ const DropDownPosition = styled.div`
 
 const DropdownBox = styled.div`
   width: 99%;
-  height: 200px;
+  height: ${(dropWidth) => (dropWidth ? '160px' : '200px')};
   border-radius: 6px;
   background: ${({ theme }) => theme.colors.white};
   border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
@@ -122,7 +124,8 @@ const Item = styled.span`
   width: 100%;
   box-sizing: border-box;
   padding: 10px 20px;
-  font-size: ${({ theme }) => theme.fontSize.sm};
+  font-size: ${({ dropWidth, theme }) =>
+    dropWidth ? theme.fontSize.xs : theme.fontSize.sm};
   color: #333333;
   cursor: pointer;
 
