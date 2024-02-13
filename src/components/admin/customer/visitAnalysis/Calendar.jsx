@@ -24,7 +24,7 @@ const months = [
 
 const { colors } = theme;
 
-const Calendar = () => {
+const Calendar = ({ selected, setSelected }) => {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
 
@@ -38,7 +38,7 @@ const Calendar = () => {
   };
 
   return (
-    <Container>
+    <Container onClick={() => setSelected('calendar')}>
       <DatePicker
         locale={ko}
         dateFormat='yyyy.MM.dd'
@@ -54,7 +54,7 @@ const Calendar = () => {
         onChange={(update) => {
           setDateRange(update);
         }}
-        customInput={<CustomInput />}
+        customInput={<CustomInput selected={selected === 'calendar'} />}
         isClearable={false}
         renderCustomHeader={({
           date,
@@ -99,7 +99,7 @@ export default Calendar;
 
 const Container = styled.div`
   width: 230px;
-  font-size: ${({ theme }) => theme.fontSize.base};
+  font-size: ${({ theme }) => theme.fontSize.sm};
 `;
 
 const CustomInput = styled.input`
@@ -112,22 +112,31 @@ const CustomInput = styled.input`
   box-sizing: border-box;
   border: none;
   border-radius: 16px 16px 0px 0px;
-  background: ${({ theme }) => theme.colors.btn_lightgray};
+  background: ${({ theme, selected }) =>
+    selected ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
 
   text-align: center;
-  color: ${({ theme }) => theme.colors.coumo_purple};
+  color: ${({ theme, selected }) =>
+    selected ? theme.colors.white : theme.colors.text_darkgray};
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 132%;
   letter-spacing: 0.48px;
   font-family: 'Pretendard';
   caret-color: transparent;
   cursor: pointer;
-  font-size: ${({ theme }) => theme.fontSize.base};
+  font-size: ${({ theme }) => theme.fontSize.sm};
 
   &:focus {
     outline: none;
   }
+
+  &::placeholder {
+    color: ${({ theme, selected }) =>
+      selected ? theme.colors.white : theme.colors.text_darkgray};
+    font-size: ${({ theme }) => theme.fontSize.sm};
+  }
+
   @media screen and (max-width: 1024px) {
     width: 200px;
     height: 30px;

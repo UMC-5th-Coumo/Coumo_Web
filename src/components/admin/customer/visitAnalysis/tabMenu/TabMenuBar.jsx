@@ -27,9 +27,14 @@ const TabMenuBar = () => {
 export default TabMenuBar;
 
 const StyledTab = styled.div`
+  width: 100%;
   display: flex;
-  padding-bottom: 84px;
+  justify-content: center;
+  padding-top: 20px;
+  margin-bottom: 60px;
   gap: 8px;
+  background-color: white;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
 `;
 
 const StyledLink = styled(Link)`

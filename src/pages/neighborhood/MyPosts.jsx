@@ -143,7 +143,6 @@ const TitleBox = styled.div`
   flex-direction: column;
   gap: 38px;
   padding: 0px 0px 50px 70px;
-  /* border-bottom: 2px solid ${({ theme }) => theme.colors.line}; */
 
   @media screen and (max-width: 980px) {
     padding: 0px 0px 50px 40px;
@@ -172,7 +171,6 @@ const PostWrapper = styled.div`
 
 const BottomContainer = styled.div`
   width: 100%;
-  /* background-color: #fafafa; */
   background-color: #f6f6f6;
   padding-bottom: 70px;
 `;

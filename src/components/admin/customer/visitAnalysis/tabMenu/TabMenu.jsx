@@ -34,11 +34,11 @@ const TabDiv = styled.div`
 
 const Selector = styled.div`
   width: 100%;
-  height: 4px;
+  height: 3px;
   background-color: ${({ theme, selected }) =>
     selected ? theme.colors.coumo_purple : 'none'};
   border-radius: 30px;
 
   position: absolute;
-  bottom: 0;
+  bottom: -1px;
 `;
