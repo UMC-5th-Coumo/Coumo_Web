@@ -3,12 +3,14 @@ import styled from 'styled-components';
 import Title from '../../components/common/Title';
 import ListBox from '../../components/admin/myPage/ListBox';
 import { useNavigate } from 'react-router-dom';
+import { IoMdArrowBack } from 'react-icons/io';
 
 function UIServiceList() {
   const navigate = useNavigate();
   return (
     <Container>
       <TitleBox>
+        <IoMdArrowBack onClick={() => navigate(-1)} />
         <Title title='쿠폰 UI 서비스 신청내역' />
       </TitleBox>
       <List>
@@ -45,9 +47,17 @@ const Container = styled.div`
 
 const TitleBox = styled.div`
   display: flex;
-  flex-direction: column;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.line};
+  align-items: center;
+  gap: 10px;
   padding-bottom: 30px;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.line};
+
+  & svg {
+    width: 23px;
+    height: 23px;
+    color: ${({ theme }) => theme.colors.text};
+    cursor: pointer;
+  }
 `;
 
 const List = styled.div`
