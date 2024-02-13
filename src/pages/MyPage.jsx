@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Title from '../components/common/Title';
 import { CallIcon, DetailArrow } from '../assets';
 import { useSelector } from 'react-redux';
@@ -11,6 +11,7 @@ function MyPage() {
   const { name, id, email, phone } = useSelector((state) => state.user);
   const [logOut, setLogOut] = useState(false);
   const [withdrawal, setWithdrawal] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const navigate = useNavigate();
 
   if (logOut || withdrawal) {
@@ -51,10 +52,10 @@ function MyPage() {
         <Title title={`안녕하세요, ${name}님!`} size={22} />
       </TitleBox>
       <Content>
-        <Profile>
-          <ProfileTitle>
+        <Profile open={profileOpen}>
+          <ProfileTitle open={profileOpen}>
             <h4>내 프로필</h4>
-            <DetailArrow />
+            <DetailArrow onClick={() => setProfileOpen((prev) => !prev)} />
           </ProfileTitle>
           <InfoContent>
             <InfoLine>
@@ -133,8 +134,10 @@ const TitleBox = styled.div`
 
 const Profile = styled.div`
   width: 450px;
+  height: ${(props) => (props.open ? '240px' : '60px')};
+  overflow: hidden;
   display: flex;
-  padding: 24px 34px;
+  padding: 18px 34px;
   box-sizing: border-box;
   flex-direction: column;
   align-items: flex-start;
@@ -142,6 +145,7 @@ const Profile = styled.div`
   border-radius: 12px;
   background: ${({ theme }) => theme.colors.lightpurple};
   color: #2f2a37;
+  transition: height 0.3s ease-in-out;
 
   @media screen and (max-width: 1024px) {
     width: 400px;
@@ -151,7 +155,24 @@ const Profile = styled.div`
 const ProfileTitle = styled.div`
   width: 100%;
   display: flex;
+  align-items: center;
   justify-content: space-between;
+
+  & h4 {
+    margin: 0;
+  }
+
+  ${(props) =>
+    props.open &&
+    css`
+      & svg {
+        transform: rotateY(180deg);
+      }
+    `}
+
+  & svg {
+    cursor: pointer;
+  }
 `;
 
 const InfoContent = styled.div`

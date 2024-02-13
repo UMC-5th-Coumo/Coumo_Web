@@ -29,7 +29,8 @@ function UIServiceDetail() {
               <strong>카테고리:</strong> {data.storeType}
             </span>
             <span>
-              <strong>쿠폰 설명:</strong> {data.couponDescription}
+              <strong>쿠폰 설명</strong>
+              <p>{data.couponDescription}</p>
             </span>
           </FormContent>
         </Content>
@@ -107,10 +108,15 @@ const StatusTag = styled.span`
 const FormContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
   font-size: ${({ theme }) => theme.fontSize.base};
   color: ${({ theme }) => theme.colors.text_black};
   margin: 30px 0px;
+
+  & p {
+    margin: 5px 0px;
+    max-width: 700px;
+  }
 `;
 
 const DesignContent = styled.div`
