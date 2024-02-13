@@ -73,6 +73,7 @@ const Color = styled.div`
   width: 16px;
   height: 16px;
   background-color: ${(props) => props.color};
+  border: 1px solid lightgray;
 
   @media screen and (max-width: 1024px) {
     width: 12px;

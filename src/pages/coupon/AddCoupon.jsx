@@ -45,7 +45,7 @@ const AddCoupon = () => {
       <DesignContainer>
         <TitleBar>
           <Title title='쿠폰 디자인하기' />
-          <span>4가지만 정하면 빠르게 쿠폰을 만들 수 있어요!</span>
+          <span>*4가지만 정하면 빠르게 쿠폰을 만들 수 있어요!</span>
         </TitleBar>
         <DesginForm>
           <StepContainer>
@@ -92,6 +92,8 @@ const AddCoupon = () => {
               />
             </Step>
           </StepContainer>
+        </DesginForm>
+        <CouponWrapper>
           <CouponContainer>
             <CouponExample color={coupon.couponColor}>
               <CouponTitle fontColor={coupon.fontColor}>
@@ -117,11 +119,15 @@ const AddCoupon = () => {
               미리보기 버전입니다.
             </Description>
           </CouponContainer>
-        </DesginForm>
-        <ButtonGroup>
-          <Button text='취소하기' />
-          <Button text='쿠폰 만들기' type={true} onClickBtn={registerCoupon} />
-        </ButtonGroup>
+          <ButtonGroup>
+            <Button text='취소하기' />
+            <Button
+              text='쿠폰 만들기'
+              type={true}
+              onClickBtn={registerCoupon}
+            />
+          </ButtonGroup>
+        </CouponWrapper>
       </DesignContainer>
     </Container>
   );
@@ -151,20 +157,20 @@ const DesignContainer = styled.div`
 
 const InputWrapper = styled.div`
   width: 100%;
-  max-width: 700px;
+  max-width: 500px;
 `;
 
 const TitleBar = styled.div`
   width: 100%;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: 24px;
 
   & span {
     color: ${({ theme }) => theme.colors.text_darkgray};
-    font-size: ${({ theme }) => theme.fontSize.base};
+    font-size: ${({ theme }) => theme.fontSize.sm};
     font-style: normal;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 132%;
   }
 `;
@@ -185,11 +191,19 @@ const Step = styled.div`
   gap: 16px;
 `;
 
+const CouponWrapper = styled.div`
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 20px;
+`;
+
 const StepName = styled.span`
   color: ${({ theme }) => theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.md};
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 132%;
   letter-spacing: 0.72px;
 
@@ -291,7 +305,7 @@ const StampIcon = styled.img`
 `;
 
 const ButtonGroup = styled.div`
-  width: 100%;
+  width: fit-content;
   display: flex;
   justify-content: center;
   gap: 16px;
@@ -299,16 +313,11 @@ const ButtonGroup = styled.div`
 `;
 
 const CouponContainer = styled.div`
-  /* width: fit-content; */
-  width: 100%;
+  width: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
-
-  & span {
-    text-align: end;
-  }
 `;
 
 const Description = styled.span`

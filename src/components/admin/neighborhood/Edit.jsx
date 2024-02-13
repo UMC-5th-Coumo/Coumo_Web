@@ -48,10 +48,10 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
       <div>
         <Label>글의 상세설명을 작성해 주세요</Label>
         <StyledWriteTextarea
+          spellcheck='false'
           placeholder='손님들이 궁금해하실 내용을 작성해주세요 (0/500)'
           name='content'
           value={inputs.content}
-          isEmpty={inputs.content.length === 0}
           onChange={(e) => {
             setInputs({
               ...inputs,
@@ -147,14 +147,12 @@ const StyledWriteTextarea = styled.textarea`
   align-items: top;
   gap: 8px;
   border-radius: 4px;
-  border: 1px solid
-    ${({ theme, isEmpty }) =>
-      isEmpty ? theme.colors.text : theme.colors.coumo_purple};
+  border: 1px solid ${({ theme }) => theme.colors.text};
   background: ${({ theme }) => theme.colors.white};
   overflow: hidden;
   color: ${({ theme }) => theme.colors.text_darkgray};
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: pre-wrap;
   font-family: 'Pretendard';
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
@@ -163,5 +161,10 @@ const StyledWriteTextarea = styled.textarea`
 
   &:focus {
     outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
+
+    &::placeholder {
+      opacity: 0.6;
+    }
   }
 `;

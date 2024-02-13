@@ -101,7 +101,9 @@ const Wrapper = styled.div`
 
 const AdminWrapper = styled.div`
   width: calc(100vw - 250px);
+  margin-left: 250px;
   @media screen and (max-width: 1280px) {
     width: calc(100vw - 220px);
+    margin-left: 220px;
   }
 `;

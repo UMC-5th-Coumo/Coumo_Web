@@ -5,7 +5,7 @@ import styled from 'styled-components';
 function VerticalHeaderMenu({ menuData, selected, handleSelectMenu, current }) {
   const { id, title, size, icon, subMenus } = menuData;
   return (
-    <Menu open={selected === id} size={size}>
+    <Menu open={selected.indexOf(id) > -1} size={size}>
       <TitleContainer>
         {icon}
         <MenuTitle onClick={() => handleSelectMenu(id)}>{title}</MenuTitle>
