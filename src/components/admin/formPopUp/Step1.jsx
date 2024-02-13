@@ -134,7 +134,7 @@ const Step1 = ({ storeData, setStoreData, hours, setHours }) => {
             </Row>
           </Left>
           <Right>
-            <WorkingHours>
+            <WorkingHours dropWidth='100px'>
               <Title title='영업시간' />
               {Object.keys(hours).map((day, i) => (
                 <WorkingHour

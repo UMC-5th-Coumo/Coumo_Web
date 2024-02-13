@@ -1,14 +1,17 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Title from '../../components/common/Title';
 import styled from 'styled-components';
+import { IoMdArrowBack } from 'react-icons/io';
 
 function UIServiceDetail() {
+  const navigate = useNavigate();
   const { state: data } = useLocation();
   return (
     <Container>
       <Wrapper>
         <TitleBox>
+          <IoMdArrowBack onClick={() => navigate(-1)} />
           <Title title='쿠폰 UI 서비스 신청내역' />
         </TitleBox>
         <Content>
@@ -76,10 +79,17 @@ const Wrapper = styled.div`
 
 const TitleBox = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 32px;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.line};
+  align-items: center;
+  gap: 10px;
   padding-bottom: 30px;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.line};
+
+  & svg {
+    width: 23px;
+    height: 23px;
+    color: ${({ theme }) => theme.colors.text};
+    cursor: pointer;
+  }
 `;
 
 const Content = styled.div`

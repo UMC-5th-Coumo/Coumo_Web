@@ -10,6 +10,7 @@ import RadioBtn from '../../components/common/RadioBtn';
 import { useParams } from 'react-router-dom';
 import { setSelectedPost } from '../../redux/slices/postSlice';
 import getMyPostView from '../../redux/thunks/getMyPostView';
+import { IoMdArrowBack } from 'react-icons/io';
 
 const MyPostView = () => {
   const navigate = useNavigate();
@@ -35,8 +36,8 @@ const MyPostView = () => {
   return (
     <StyledWrite>
       <TitleBox>
+        <IoMdArrowBack onClick={() => navigate(-1)} />
         <Title title={selectedPost.title} />
-        <Line />
       </TitleBox>
       <div>
         <SubTitle>카테고리</SubTitle>
@@ -97,15 +98,17 @@ const SubTitle = styled.h2`
 
 const TitleBox = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 40px;
-`;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.line};
 
-const Line = styled.div`
-  max-width: 840px;
-  min-width: 370px;
-  height: 2px;
-  background-color: ${({ theme }) => theme.colors.line};
+  & svg {
+    width: 23px;
+    height: 23px;
+    color: ${({ theme }) => theme.colors.text};
+    cursor: pointer;
+  }
 `;
 
 const ImagePreview = styled.div`
