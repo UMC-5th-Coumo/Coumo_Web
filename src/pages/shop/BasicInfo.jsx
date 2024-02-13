@@ -159,7 +159,7 @@ const BasicInfo = () => {
   return (
     <Content>
       <Wrapper>
-        <Row>
+        <LeftForm>
           <Input
             name='storeName'
             label='매장명'
@@ -180,69 +180,72 @@ const BasicInfo = () => {
               setInputs((prev) => ({ ...prev, number: e.target.value }))
             }
           />
-        </Row>
-        <Category
-          data={categoryData}
-          category={category}
-          setCategory={setCategory}
-          columns='1fr 1fr 1fr'
-        />
+
+          <Category
+            data={categoryData}
+            category={category}
+            setCategory={setCategory}
+            columns='1fr 1fr 1fr'
+          />
+          <AddressWrapper>
+            <Input
+              name='address'
+              label='위치정보'
+              type='text'
+              placeholder='주소를 입력해주세요.'
+              value={inputs.address}
+              readOnly={true}
+              width
+              onChange={(e) =>
+                setInputs((prev) => ({ ...prev, address: e.target.value }))
+              }
+              onClick={handleAddressClick}
+            />
+            {isPostcodeOpen && (
+              <WindowPopup>
+                <DaumPostcode
+                  onComplete={handleAddressComplete}
+                  autoClose
+                  style={{
+                    width: '400px',
+                    height: '500px',
+                    zIndex: 1000,
+                  }}
+                />
+              </WindowPopup>
+            )}
+            <Input
+              name='addressDetail'
+              type='text'
+              placeholder='상세 주소를 입력해주세요.'
+              value={inputs.addressDetail}
+              onChange={(e) =>
+                setInputs((prev) => ({
+                  ...prev,
+                  addressDetail: e.target.value,
+                }))
+              }
+              onClick={handleAddressDetailClick}
+            />
+          </AddressWrapper>
+        </LeftForm>
         <WorkingHours>
           <Title title='영업시간' />
           {Object.keys(hours).map((day, i) => (
             <WorkingHour
               key={i}
               day={day}
+              dropWidth={false}
               setData={(hours) =>
                 setHours((prev) => ({ ...prev, [day]: hours }))
               }
             />
           ))}
         </WorkingHours>
-        <Row>
-          <Input
-            name='address'
-            label='위치정보'
-            type='text'
-            placeholder='주소를 입력해주세요.'
-            value={inputs.address}
-            readOnly={true}
-            width
-            onChange={(e) =>
-              setInputs((prev) => ({ ...prev, address: e.target.value }))
-            }
-            onClick={handleAddressClick}
-          />
-          {isPostcodeOpen && (
-            <WindowPopup>
-              <DaumPostcode
-                onComplete={handleAddressComplete}
-                autoClose
-                style={{
-                  width: '400px',
-                  height: '500px',
-                  zIndex: 1000,
-                }}
-              />
-            </WindowPopup>
-          )}
-
-          <Input
-            name='addressDetail'
-            type='text'
-            placeholder='상세 주소를 입력해주세요.'
-            value={inputs.addressDetail}
-            onChange={(e) =>
-              setInputs((prev) => ({ ...prev, addressDetail: e.target.value }))
-            }
-            onClick={handleAddressDetailClick}
-          />
-        </Row>
-        <BtnContainer>
-          <Button text='취소하기' />
-          <Button text='저장하기' type={true} onClickBtn={onSubmit} />
-        </BtnContainer>
       </Wrapper>
+      <BtnContainer>
+        <Button text='저장하기' type={true} onClickBtn={onSubmit} />
+      </BtnContainer>
     </Content>
   );
 };
@@ -255,10 +258,10 @@ const Content = styled.div`
   color: ${({ theme }) => theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.base};
   box-sizing: border-box;
-  font-weight: 500;
   position: relative;
   padding: 70px 100px;
   display: flex;
+  flex-direction: column;
 
   @media screen and (max-width: 870px) {
     padding: 70px 50px;
@@ -267,28 +270,39 @@ const Content = styled.div`
 
 const Wrapper = styled.div`
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px;
+  display: flex;
+  gap: 80px;
+
+  @media screen and (max-width: 1400px) {
+    flex-direction: column;
+    max-width: 600px;
+    gap: 40px;
+  }
+`;
+
+const LeftForm = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 40px;
 `;
 
 const BtnContainer = styled.div`
+  width: 100%;
+  max-width: 1100px;
   display: flex;
   gap: 16px;
-  justify-content: flex-end;
+  justify-content: center;
+  margin-top: 50px;
 `;
 
 const WorkingHours = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 20px;
 `;
 
-const Row = styled.div`
-  width: 100%;
+const AddressWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  gap: 10px;
+  flex-direction: column;
 `;
