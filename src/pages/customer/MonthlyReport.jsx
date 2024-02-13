@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import MonthPicker from '../../components/admin/customer/monthlyReport/MonthPicker';
-import { ArrowUp } from '../../assets';
+import { ArrowDown, ArrowUp } from '../../assets';
 import AgeGroupChart from '../../components/admin/customer/common/charts/AgeGroupChart';
 import BarChart from '../../components/admin/customer/common/charts/BarChart';
 import { IoMdCheckmark } from 'react-icons/io';
@@ -11,46 +11,58 @@ const MonthlyReport = () => {
     <Container>
       <Wrapper>
         <HeaderWrapper>
-          <Header>
-            <MonthPicker />
-          </Header>
-          <StatisticsBar>
-            <Statistics>
-              <ArrowUp />
-              <Content>
-                <span>
-                  이번 달 <strong>총 방문</strong> 고객은?
-                </span>
-                <h5>38명</h5>
-              </Content>
-            </Statistics>
-            <Statistics>
-              <ArrowUp />
-              <Content>
-                <span>
-                  이번 달 <strong>신규</strong> 고객은?
-                </span>
-                <h5>38명</h5>
-              </Content>
-            </Statistics>
-          </StatisticsBar>
+          <PageTitle>
+            <h4>월간 레포트</h4>
+            <span>
+              이번 달 방문 고객수와 주고객층, 주연령대를 확인할 수 있습니다.
+            </span>
+          </PageTitle>
+          <MonthPicker />
         </HeaderWrapper>
         <StatisticsBox>
-          <GraphContainer>
-            <GraphText>
-              <IoMdCheckmark />
-              <TextWrapper>
-                <h5>
-                  주 고객은 <strong>20대 여성</strong>입니다.
-                </h5>
-                <span>방문율이 가장 낮은 연령대는 50대입니다.</span>
-              </TextWrapper>
-            </GraphText>
-            <GraphWrapper>
-              <AgeGroupChart type='small' />
-            </GraphWrapper>
-          </GraphContainer>
-          <GraphContainer>
+          <ColumnWrapper>
+            <StatisticsBar>
+              <Statistics>
+                <ArrowUp />
+                <Content>
+                  <span>
+                    이번 달 <strong>총 방문</strong> 고객은?
+                  </span>
+                  <DataText increase={true}>
+                    <h5>138명</h5>
+                    <span>+32%</span>
+                  </DataText>
+                </Content>
+              </Statistics>
+              <Statistics>
+                <ArrowDown />
+                <Content>
+                  <span>
+                    이번 달 <strong>신규</strong> 고객은?
+                  </span>
+                  <DataText increase={false}>
+                    <h5>15명</h5>
+                    <span>-12%</span>
+                  </DataText>
+                </Content>
+              </Statistics>
+            </StatisticsBar>
+            <GraphContainer>
+              <GraphText>
+                <IoMdCheckmark />
+                <TextWrapper>
+                  <h5>
+                    주 고객은 <strong>20대 여성</strong>입니다.
+                  </h5>
+                  <span>방문율이 가장 낮은 연령대는 50대입니다.</span>
+                </TextWrapper>
+              </GraphText>
+              <GraphWrapper>
+                <AgeGroupChart type='small' />
+              </GraphWrapper>
+            </GraphContainer>
+          </ColumnWrapper>
+          <SingleGraphContainer>
             <GraphText>
               <IoMdCheckmark />
               <TextWrapper>
@@ -60,10 +72,10 @@ const MonthlyReport = () => {
                 <span>방문율이 가장 낮은 요일은 월요일입니다.</span>
               </TextWrapper>
             </GraphText>
-            <GraphWrapper>
+            <SingleGraphWrapper>
               <BarChart type='monthly' />
-            </GraphWrapper>
-          </GraphContainer>
+            </SingleGraphWrapper>
+          </SingleGraphContainer>
         </StatisticsBox>
       </Wrapper>
     </Container>
@@ -74,60 +86,70 @@ export default MonthlyReport;
 
 const Container = styled.div`
   width: 100%;
+  height: calc(100vh - 80px);
   padding: 70px 100px;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
+  background-color: #fafafa;
 
   @media screen and (max-width: 1270px) {
     padding: 70px 50px;
   }
 `;
 
-const Wrapper = styled.div`
-  width: 1020px;
+const PageTitle = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 10px;
 
-  @media screen and (max-width: 1170px) {
-    width: 600px;
+  & h4 {
+    color: ${({ theme }) => theme.colors.coumo_purple};
+    font-weight: 600;
+    font-size: ${({ theme }) => theme.fontSize.title};
+    margin: 0;
   }
-  @media screen and (max-width: 930px) {
-    width: 400px;
+
+  & span {
+    color: ${({ theme }) => theme.colors.text_darkgray};
+    font-weight: 400;
+    font-size: ${({ theme }) => theme.fontSize.sm};
   }
+`;
+
+const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const HeaderWrapper = styled.div`
-  width: 700px;
-`;
-
-const Header = styled.div`
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 40px;
+`;
+
+const ColumnWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 const StatisticsBar = styled.div`
   width: 100%;
   height: 100px;
   display: flex;
-  background: linear-gradient(360deg, #a87aff46 3.83%, #fcfaff 114.92%);
+  justify-content: space-around;
+  background-color: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
-  margin: 20px 0px;
   box-sizing: border-box;
   padding: 0px 40px;
+  border: 1px solid ${({ theme }) => theme.colors.lightpurple_border};
 
   align-items: center;
-  gap: 190px;
-
-  @media screen and (max-width: 1170px) {
-    gap: 100px;
-  }
-
-  @media screen and (max-width: 930px) {
-    padding: 0px 30px;
-    gap: 0px;
-  }
 `;
 
 const Statistics = styled.div`
@@ -159,6 +181,12 @@ const Content = styled.div`
       font-size: ${({ theme }) => theme.fontSize.xs};
     }
   }
+`;
+
+const DataText = styled.div`
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
 
   & h5 {
     margin: 0;
@@ -169,24 +197,31 @@ const Content = styled.div`
       font-size: ${({ theme }) => theme.fontSize.md};
     }
   }
+
+  & span {
+    font-size: ${({ theme }) => theme.fontSize.sm};
+    padding-bottom: 3px;
+    color: ${({ increase }) => (increase ? '#d02e2e' : '#3355ff')};
+  }
 `;
 
 const StatisticsBox = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1.7fr 1.3fr;
+  gap: 20px;
 
   @media screen and (max-width: 1170px) {
     flex-direction: column;
-    gap: 20px;
   }
 `;
 
 const GraphContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 100%;
   height: 370px;
+  background-color: ${({ theme }) => theme.colors.white};
   border: 1px solid ${({ theme }) => theme.colors.lightpurple_border};
   border-radius: 12px;
   box-sizing: border-box;
@@ -201,6 +236,10 @@ const GraphContainer = styled.div`
   }
 `;
 
+const SingleGraphContainer = styled(GraphContainer)`
+  height: 100%;
+`;
+
 const GraphText = styled.div`
   box-sizing: border-box;
   margin-bottom: 20px;
@@ -210,7 +249,7 @@ const GraphText = styled.div`
   & svg {
     width: 23px;
     height: 23px;
-    color: ${({ theme }) => theme.colors.text_darkgray};
+    color: ${({ theme }) => theme.colors.coumo_purple};
   }
 `;
 
@@ -221,7 +260,7 @@ const TextWrapper = styled.div`
 
   & h5 {
     margin: 0;
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSize.md};
     font-weight: 500;
     color: ${({ theme }) => theme.colors.text_darkgray};
 
@@ -257,4 +296,9 @@ const GraphWrapper = styled.div`
   @media screen and (max-width: 1170px) {
     height: 200px;
   }
+`;
+
+const SingleGraphWrapper = styled.div`
+  width: 100%;
+  height: 360px;
 `;

@@ -85,7 +85,7 @@ const CustomInput = styled.input`
   align-items: center;
   box-sizing: border-box;
   border: none;
-  border-radius: 16px 16px 0px 0px;
+  border-radius: 10px;
   background: ${({ theme }) => theme.colors.coumo_purple};
 
   text-align: center;
