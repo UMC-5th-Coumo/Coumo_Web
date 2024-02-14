@@ -53,7 +53,7 @@ const StoreInfo = () => {
       <Image>
         <Representative>
           <Title>대표이미지</Title>
-          <Recommend>*이미지는 1000px, 1000px의 1:1비율을 권장합니다</Recommend>
+          <Recommend>*이미지는 1:1비율을 권장합니다</Recommend>
         </Representative>
         <ImageBlock onChange={handleImageChange} />
       </Image>
@@ -73,7 +73,6 @@ const StoreInfo = () => {
         <MenuMore menus={menus} setMenus={setMenus} />
       </Scroll>
       <BtnContainer>
-        <Button text='취소하기' />
         <Button text='저장하기' type={true} onClickBtn={onSubmit} />
       </BtnContainer>
     </Info>
@@ -89,7 +88,7 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   padding: 70px 100px;
-  gap: 100px;
+  gap: 80px;
   box-sizing: border-box;
 
   @media screen and (max-width: 1024px) {
@@ -105,8 +104,6 @@ const Image = styled.div`
 const Representative = styled.div`
   width: 500px;
   display: flex;
-  flex-direction: row;
-  gap: 30px;
   margin-bottom: 20px;
 `;
 
@@ -172,8 +169,8 @@ const DescripInput = styled.textarea`
 `;
 
 const BtnContainer = styled.div`
-  max-width: 950px;
+  width: 100%;
   display: flex;
   gap: 16px;
-  justify-content: right;
+  justify-content: center;
 `;

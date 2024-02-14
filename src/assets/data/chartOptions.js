@@ -7,18 +7,20 @@ export const barChartoption = {
     legend: {
       display: false,
     },
+    tooltip: {
+      intersect: false,
+      position: 'nearest',
+      displayColors: false,
+      bodySpacing: 5, // 툴팁 내부 항목들 간 간격
+      bodyFont: {
+        font: {
+          family: 'Pretendard',
+        },
+      },
+    },
   },
   interaction: {
     mode: 'index',
-  },
-  tooltip: {
-    // 툴팁 스타일링
-    bodySpacing: 5, // 툴팁 내부 항목들 간 간격
-    bodyFont: {
-      font: {
-        family: 'Pretendard',
-      },
-    },
   },
   scales: {
     x: {
@@ -30,6 +32,7 @@ export const barChartoption = {
       grid: {
         display: false,
       },
+      beginAtZero: true,
     },
   },
   barThickness: 25,
@@ -44,18 +47,20 @@ export const smallBarChartoption = {
     legend: {
       display: false,
     },
+    tooltip: {
+      intersect: false,
+      displayColors: false,
+      position: 'nearest',
+      bodySpacing: 5, // 툴팁 내부 항목들 간 간격
+      bodyFont: {
+        font: {
+          family: 'Pretendard',
+        },
+      },
+    },
   },
   interaction: {
     mode: 'index',
-  },
-  tooltip: {
-    // 툴팁 스타일링
-    bodySpacing: 5, // 툴팁 내부 항목들 간 간격
-    bodyFont: {
-      font: {
-        family: 'Pretendard',
-      },
-    },
   },
   scales: {
     x: {
@@ -67,6 +72,7 @@ export const smallBarChartoption = {
       grid: {
         display: false,
       },
+      beginAtZero: true,
     },
   },
   barThickness: 20,
@@ -81,18 +87,20 @@ export const lightBarChartoption = {
     legend: {
       display: false,
     },
+    tooltip: {
+      intersect: false,
+      displayColors: false,
+      position: 'nearest',
+      bodySpacing: 5, // 툴팁 내부 항목들 간 간격
+      bodyFont: {
+        font: {
+          family: 'Pretendard',
+        },
+      },
+    },
   },
   interaction: {
     mode: 'index',
-  },
-  tooltip: {
-    // 툴팁 스타일링
-    bodySpacing: 5, // 툴팁 내부 항목들 간 간격
-    bodyFont: {
-      font: {
-        family: 'Pretendard',
-      },
-    },
   },
   scales: {
     x: {
@@ -104,6 +112,7 @@ export const lightBarChartoption = {
       grid: {
         display: false,
       },
+      beginAtZero: true,
     },
   },
   barThickness: 15,
@@ -120,16 +129,19 @@ export const lineChartOption = {
     title: {
       display: false,
     },
-  },
-  tooltip: {
-    // 툴팁 스타일링
-    bodySpacing: 1, // 툴팁 내부 항목들 간 간격
-    bodyFont: {
-      font: {
-        family: 'Pretendard',
+    tooltip: {
+      intersect: false,
+      displayColors: false,
+      position: 'nearest',
+      bodySpacing: 1, // 툴팁 내부 항목들 간 간격
+      bodyFont: {
+        font: {
+          family: 'Pretendard',
+        },
       },
     },
   },
+
   scales: {
     x: {
       grid: {
@@ -140,6 +152,7 @@ export const lineChartOption = {
       grid: {
         display: false,
       },
+      beginAtZero: true,
     },
   },
 };
@@ -151,15 +164,16 @@ export const doughnutChartOption = {
     legend: {
       display: false,
     },
-  },
-  tooltip: {
-    // 툴팁 스타일링
-    bodySpacing: 5, // 툴팁 내부 항목들 간 간격
-    bodyFont: {
-      font: {
-        family: 'Pretendard',
+    tooltip: {
+      // 툴팁 스타일링
+      bodySpacing: 5, // 툴팁 내부 항목들 간 간격
+      bodyFont: {
+        font: {
+          family: 'Pretendard',
+        },
       },
     },
   },
+
   cutout: 60,
 };

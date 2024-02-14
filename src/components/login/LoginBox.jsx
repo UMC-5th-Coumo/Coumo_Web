@@ -35,7 +35,6 @@ const LoginBox = () => {
         console.log('로그인 성공', response.data);
         const { ownerId, storeId, token, createdAt, write } =
           response.data.result;
-        localStorage.setItem('userToken', token);
 
         dispatch(
           setUser({

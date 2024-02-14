@@ -91,11 +91,10 @@ const PlusButton = styled.button`
   padding: 8px 50px 7px 50px;
   justify-content: center;
   align-items: center;
-  border: none;
+  border: 1px solid ${({ theme }) => theme.colors.lightpurple_border};
   border-radius: 42px;
   background: ${({ theme }) => theme.colors.white};
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.25);
-  color: #565656;
+  color: ${({ theme }) => theme.colors.text_darkgray};
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
@@ -103,6 +102,7 @@ const PlusButton = styled.button`
   line-height: 100%; /* 21.12px */
   letter-spacing: 0.48px;
   gap: 15px;
+  cursor: pointer;
 
   @media screen and (max-width: 768px) {
     padding: 8px 30px 7px 30px;
