@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { PURGE } from 'redux-persist';
 
 const initialState = {
   name: '',
@@ -25,6 +26,11 @@ const userSlice = createSlice({
       state.createdAt = action.payload.createdAt;
       state.write = action.payload.write;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(PURGE, () => {
+      return initialState;
+    });
   },
 });
 
