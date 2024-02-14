@@ -22,7 +22,7 @@ const CustomerManage = () => {
   // 마운트 될 때 고객 데이터 받아오기
   useEffect(() => {
     dispatch(getCustomers('1'));
-  }, [dispatch]);
+  }, []);
 
   // 가져온 데이터로 렌더링
   useEffect(() => {

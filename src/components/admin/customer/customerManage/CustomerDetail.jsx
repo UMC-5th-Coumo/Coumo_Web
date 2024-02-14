@@ -12,7 +12,7 @@ function CustomerDetail({ data }) {
         </ImgContainer>
         <ProfileContent>
           <h5>{data.name}</h5>
-          <span>{`${data.phone.slice(0, 3)}-${data.phone.slice(3, 7)}-${data.phone.slice(-4)}`}</span>
+          <span>{data.phone}</span>
         </ProfileContent>
       </Profile>
       <InfoContent>
@@ -21,12 +21,8 @@ function CustomerDetail({ data }) {
         </span>
         <div>
           <span>
-            <strong>연령 | </strong> {data.ageGroup}{' '}
-            <small>
-              (
-              {`${data.birthday.slice(0, 4)}.${data.birthday.slice(4, 6)}.${data.birthday.slice(-2)}`}
-              )
-            </small>
+            <strong>연령 | </strong> {data.ageGroup.replace('s', '대')}{' '}
+            <small>({data.birthday})</small>
           </span>
         </div>
         <span>
