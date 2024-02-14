@@ -1,35 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ImageBlock from '../../components/admin/shop/ImageBlock';
 import MenuMore from '../../components/admin/shop/MenuMore';
 import Button from '../../components/common/Button';
+import { v4 as uuidv4 } from 'uuid';
 
 const StoreInfo = () => {
   const [inputs, setInputs] = useState({
     image: [],
     description: '',
-    menu: [],
   });
 
-  useEffect(() => {
-    console.log('inputs changed:', inputs);
-  }, [inputs]);
+  const [menus, setMenus] = useState([
+    {
+      id: uuidv4(),
+      name: '',
+      description: '',
+      image: '',
+      isNew: false,
+    },
+  ]);
 
   const handleImageChange = (images) => {
-    setInputs({
-      ...inputs,
+    setInputs((prev) => ({
+      ...prev,
       image: images,
-    });
+    }));
   };
 
-  const handleMenuChange = (menus) => {
-    setInputs({
-      ...inputs,
-      menu: menus,
-    });
+  const isVaild = () => {
+    const { description, image } = inputs;
+    if (description.trim() === '' || menus.length === 0 || image.length === 0) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
   const onSubmit = async () => {
+    if (!isVaild()) {
+      alert(
+        '모든 항목을 입력해주세요.\n(이미지, 상품 정보는 최소 1개 이상 입력해야 합니다.)'
+      );
+      return;
+    }
     // 서버 요청 코드
     console.log(inputs);
   };
@@ -39,7 +53,7 @@ const StoreInfo = () => {
       <Image>
         <Representative>
           <Title>대표이미지</Title>
-          <Recommend>*이미지는 1000px, 1000px의 1:1비율을 권장합니다</Recommend>
+          <Recommend>*이미지는 1:1비율을 권장합니다</Recommend>
         </Representative>
         <ImageBlock onChange={handleImageChange} />
       </Image>
@@ -56,10 +70,9 @@ const StoreInfo = () => {
         />
       </Description>
       <Scroll>
-        <MenuMore onChange={handleMenuChange} />
+        <MenuMore menus={menus} setMenus={setMenus} />
       </Scroll>
       <BtnContainer>
-        <Button text='취소하기' />
         <Button text='저장하기' type={true} onClickBtn={onSubmit} />
       </BtnContainer>
     </Info>
@@ -75,7 +88,7 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   padding: 70px 100px;
-  gap: 100px;
+  gap: 80px;
   box-sizing: border-box;
 
   @media screen and (max-width: 1024px) {
@@ -91,8 +104,6 @@ const Image = styled.div`
 const Representative = styled.div`
   width: 500px;
   display: flex;
-  flex-direction: row;
-  gap: 30px;
   margin-bottom: 20px;
 `;
 
@@ -158,8 +169,8 @@ const DescripInput = styled.textarea`
 `;
 
 const BtnContainer = styled.div`
-  max-width: 950px;
+  width: 100%;
   display: flex;
   gap: 16px;
-  justify-content: right;
+  justify-content: center;
 `;

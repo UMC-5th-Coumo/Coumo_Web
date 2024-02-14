@@ -34,10 +34,10 @@ const ImageBlock = ({ onChange }) => {
     if (file && file.type.startsWith('image/')) {
       // 이미지 파일이 업로드되었을 때, 해당 인덱스의 이미지를 업데이트
       const imageURL = URL.createObjectURL(file);
-      const updatedImages = [...uploadedImages];
-      updatedImages[index] = imageURL;
-      setUploadedImages(updatedImages);
-      onChange(uploadedImages);
+      let imgs = [...uploadedImages];
+      imgs[index] = imageURL;
+      setUploadedImages(imgs);
+      onChange(imgs);
       console.log(uploadedImages);
     } else {
       alert('이미지 파일을 업로드 해주세요.');
@@ -158,6 +158,7 @@ const ImagePreview = styled.img`
   object-fit: cover;
   border-radius: 8px;
   margin-top: 15px;
+  cursor: pointer;
 `;
 
 const Image = styled.div`
@@ -173,13 +174,12 @@ const Scroll = styled.div`
   flex-direction: row;
   gap: 20px;
   overflow-x: auto;
-  height: 280px;
 `;
 
 const Box = styled.div`
   display: flex;
-  width: 275px;
-  height: 257px;
+  width: 230px;
+  height: 215px;
   box-sizing: border-box;
   justify-content: flex-end;
   align-items: center;
@@ -190,8 +190,8 @@ const Box = styled.div`
 
 const InnerBox = styled.div`
   display: flex;
-  width: 275px;
-  height: 257px;
+  width: 230px;
+  height: 215px;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -230,15 +230,26 @@ const StyledCancel = styled.div`
   right: 10px;
   z-index: 100;
   align-items: center;
+  cursor: pointer;
 `;
 
 const PlusButton = styled.button`
   flex: 0 0 auto;
   overflow: hidden;
-  width: 275px;
-  height: 257px;
+  width: 230px;
+  height: 215px;
   padding: 8px 12px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: ${({ theme }) => theme.colors.lightpurple};
+
+  & svg {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    &:hover {
+      scale: calc(1.07);
+      transition: scale 0.2s ease-in-out;
+    }
+  }
 `;

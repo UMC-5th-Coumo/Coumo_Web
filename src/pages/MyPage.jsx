@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Title from '../components/common/Title';
-import { CallIcon, DetailArrow } from '../assets';
-import { useDispatch, useSelector } from 'react-redux';
+import { CallIcon } from '../assets';
+import { useSelector } from 'react-redux';
 import TwoBtnPopUp from '../components/common/popUp/TwoBtnPopUp';
 import { useNavigate } from 'react-router-dom';
 import ListBox from '../components/admin/myPage/ListBox';
-import { setUser } from '../redux/slices/userSlice';
+import Profile from '../components/admin/myPage/Profile';
+import { persistor } from '../redux/store';
 
 function MyPage() {
-  const { name, id, email, phone } = useSelector((state) => state.user);
+  const { name } = useSelector((state) => state.user);
   const [logOut, setLogOut] = useState(false);
   const [withdrawal, setWithdrawal] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   if (logOut || withdrawal) {
     document.body.style.overflow = 'hidden';
@@ -24,14 +24,13 @@ function MyPage() {
 
   const handleLogOut = () => {
     localStorage.removeItem('userToken');
-    dispatch(setUser(''));
-
-    // 로그아웃 후 로그인 페이지로 이동
-    navigate('/login');
+    persistor.purge(); // 리덕스 초기화
+    navigate('/login'); // 로그아웃 후 로그인 페이지로 이동
   };
 
   const handleWithdrawal = () => {
-    //
+    persistor.purge(); // 리덕스 초기화
+    // 탈퇴 api
   };
 
   return (
@@ -58,30 +57,7 @@ function MyPage() {
         <Title title={`안녕하세요, ${name}님!`} size={22} />
       </TitleBox>
       <Content>
-        <Profile open={profileOpen}>
-          <ProfileTitle open={profileOpen}>
-            <h4>내 프로필</h4>
-            <DetailArrow onClick={() => setProfileOpen((prev) => !prev)} />
-          </ProfileTitle>
-          <InfoContent>
-            <InfoLine>
-              <h5>이름</h5>
-              <span>{name}</span>
-            </InfoLine>
-            <InfoLine>
-              <h5>아이디</h5>
-              <span>{id}</span>
-            </InfoLine>
-            <InfoLine>
-              <h5>이메일</h5>
-              <span>{email}</span>
-            </InfoLine>
-            <InfoLine>
-              <h5>전화번호</h5>
-              <span>{phone}</span>
-            </InfoLine>
-          </InfoContent>
-        </Profile>
+        <Profile open={profileOpen} setProfileOpen={setProfileOpen} />
         <ListBox
           text='쿠폰 UI 서비스 신청내역'
           onClick={() => navigate('/mypage/uiServiceList')}
@@ -92,7 +68,6 @@ function MyPage() {
             <Icon>
               <CallIcon />
             </Icon>
-
             <span>1577-9999</span>
           </div>
         </Box>
@@ -136,76 +111,6 @@ const TitleBox = styled.div`
   gap: 32px;
   border-bottom: 2px solid ${({ theme }) => theme.colors.line};
   padding-bottom: 30px;
-`;
-
-const Profile = styled.div`
-  width: 450px;
-  height: ${(props) => (props.open ? '240px' : '60px')};
-  overflow: hidden;
-  display: flex;
-  padding: 18px 34px;
-  box-sizing: border-box;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 48px;
-  border-radius: 12px;
-  background: ${({ theme }) => theme.colors.lightpurple};
-  color: #2f2a37;
-  transition: height 0.3s ease-in-out;
-
-  @media screen and (max-width: 1024px) {
-    width: 400px;
-  }
-`;
-
-const ProfileTitle = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  & h4 {
-    margin: 0;
-  }
-
-  ${(props) =>
-    props.open &&
-    css`
-      & svg {
-        transform: rotateY(180deg);
-      }
-    `}
-
-  & svg {
-    cursor: pointer;
-  }
-`;
-
-const InfoContent = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-`;
-
-const InfoLine = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-
-  & h5 {
-    margin: 0;
-    font-size: ${({ theme }) => theme.fontSize.base};
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    letter-spacing: -0.45px;
-  }
-
-  & span {
-    width: 180px;
-    font-size: ${({ theme }) => theme.fontSize.base};
-  }
 `;
 
 const Box = styled.div`

@@ -1,85 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Cancel, SmallPlus } from '../../../assets';
-import Input from '../../common/Input';
+import { SmallPlus } from '../../../assets';
+import MenuItem from './MenuItem';
+import { v4 as uuidv4 } from 'uuid';
 
-const MenuMore = ({ onChange }) => {
-  const [boxCount, setBoxCount] = useState(2);
-  const [productDataArray, setProductDataArray] = useState([]);
-  const [newCheck, setNewCheck] = useState(Array(boxCount).fill(false));
-  const [uploadedImages, setUploadedImages] = useState(
-    Array(boxCount).fill(null)
-  );
-
-  const handleBoxClick = (index) => {
-    const fileInput = document.getElementById(`fileInputMenu-${index}`);
-    if (fileInput) {
-      fileInput.click();
-    }
-  };
-
-  const handleFileChange = (event, index) => {
-    const file = event.target.files[0];
-    console.log(file);
-
-    if (file && file.type.startsWith('image/')) {
-      // 이미지 파일이 업로드되었을 때, 해당 인덱스의 이미지를 업데이트
-      const updatedImages = [...uploadedImages];
-      updatedImages[index] = URL.createObjectURL(file);
-      setUploadedImages(updatedImages);
-    } else {
-      alert('이미지 파일을 업로드 해주세요.');
-    }
+const MenuMore = ({ menus, setMenus }) => {
+  const handleMenuChange = (menu) => {
+    setMenus((prev) =>
+      prev.map((data) => {
+        if (data.id === menu.id) return menu;
+        else return data;
+      })
+    );
   };
 
   const handleAddBox = () => {
-    setBoxCount(boxCount + 1);
-    setUploadedImages([...uploadedImages, null]);
+    setMenus((prev) => [
+      ...prev,
+      {
+        id: uuidv4(),
+        name: '',
+        description: '',
+        image: '',
+        isNew: false,
+      },
+    ]);
   };
 
-  const handleProductNameChange = (event, index) => {
-    // 상품명 입력값 업데이트
-    setProductDataArray((prevArray) => {
-      const newArray = [...prevArray];
-      newArray[index] = { ...newArray[index], productName: event.target.value };
-      return newArray;
-    });
-  };
-
-  const handlePriceInfoChange = (event, index) => {
-    // 가격 정보 입력값 업데이트
-    setProductDataArray((prevArray) => {
-      const newArray = [...prevArray];
-      newArray[index] = { ...newArray[index], priceInfo: event.target.value };
-      return newArray;
-    });
-  };
-
-  const handleNewClick = (index) => {
-    setNewCheck((prevValue) => {
-      const updatedCheck = [...prevValue];
-      updatedCheck[index] = !updatedCheck[index];
-      return updatedCheck;
-    });
-  };
-
-  const handleMenuDelete = (index) => {
-    setProductDataArray((prevArray) => {
-      const newArray = [...prevArray];
-      newArray.splice(index, 1);
-      return newArray;
-    });
-    setUploadedImages((prevImages) => {
-      const newImages = [...prevImages];
-      newImages.splice(index, 1);
-      return newImages;
-    });
-    setNewCheck((prevCheck) => {
-      const newCheck = [...prevCheck];
-      newCheck.splice(index, 1);
-      return newCheck;
-    });
-    setBoxCount(boxCount - 1);
+  const handleMenuDelete = (id) => {
+    setMenus((prevArray) => prevArray.filter((data) => data.id !== id));
   };
 
   return (
@@ -92,73 +41,14 @@ const MenuMore = ({ onChange }) => {
         </PlusButton>
       </MenuTop>
       <Scroll>
-        {[...Array(boxCount)].map((_, index) => (
-          <Element key={index}>
-            <Box
-              key={index}
-              number={index + 1}
-              onClick={() => handleBoxClick(index)}
-            >
-              <InnerBox>
-                <input
-                  type='file'
-                  id={`fileInputMenu-${index}`}
-                  style={{ display: 'none' }}
-                  accept='image/*'
-                  onChange={(event) => handleFileChange(event, index)}
-                />
-                {uploadedImages[index] && (
-                  <ImagePreview
-                    src={uploadedImages[index]}
-                    alt={`uploadedMenu-${index}`}
-                  />
-                )}
-                {!uploadedImages[index] && (
-                  <MyText>
-                    <LargeP>
-                      <Span>상품 이미지</Span>를 추가해주세요
-                    </LargeP>
-                    <SmallP>
-                      (클릭하시면 내 기기에 있는 이미지에 접근합니다)
-                    </SmallP>
-                  </MyText>
-                )}
-              </InnerBox>
-            </Box>
-            <InfoText>
-              <Bar>
-                <NewBtn
-                  onClick={() => handleNewClick(index)}
-                  active={newCheck[index]}
-                >
-                  신메뉴
-                </NewBtn>
-                <Cancel onClick={handleMenuDelete} />
-              </Bar>
-              <Content>
-                <Input
-                  value={productDataArray[index]?.productName || ''}
-                  label='상품명'
-                  fullwidth='180px'
-                  fullheight='32px'
-                  fontSize
-                  paddingB='7px'
-                  paddingL='2px'
-                  onChange={(event) => handleProductNameChange(event, index)}
-                />
-                <Input
-                  value={productDataArray[index]?.priceInfo || ''}
-                  label='상품 가격'
-                  fullwidth='180px'
-                  fullheight='32px'
-                  fontSize
-                  paddingB='7px'
-                  paddingL='2px'
-                  onChange={(event) => handlePriceInfoChange(event, index)}
-                />
-              </Content>
-            </InfoText>
-          </Element>
+        {menus.map((data, i) => (
+          <MenuItem
+            key={data.id}
+            id={data.id}
+            data={data}
+            handleMenuDelete={handleMenuDelete}
+            handleMenuChange={handleMenuChange}
+          />
         ))}
       </Scroll>
     </Menu>
@@ -166,13 +56,6 @@ const MenuMore = ({ onChange }) => {
 };
 
 export default MenuMore;
-
-const ImagePreview = styled.img`
-  width: 90%;
-  height: 90%;
-  object-fit: cover;
-  border-radius: 8px;
-`;
 
 const Row = styled.div`
   display: flex;
@@ -208,11 +91,10 @@ const PlusButton = styled.button`
   padding: 8px 50px 7px 50px;
   justify-content: center;
   align-items: center;
-  border: none;
+  border: 1px solid ${({ theme }) => theme.colors.lightpurple_border};
   border-radius: 42px;
   background: ${({ theme }) => theme.colors.white};
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.25);
-  color: #565656;
+  color: ${({ theme }) => theme.colors.text_darkgray};
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
@@ -220,6 +102,7 @@ const PlusButton = styled.button`
   line-height: 100%; /* 21.12px */
   letter-spacing: 0.48px;
   gap: 15px;
+  cursor: pointer;
 
   @media screen and (max-width: 768px) {
     padding: 8px 30px 7px 30px;
@@ -239,97 +122,6 @@ const Scroll = styled.div`
   }
 `;
 
-const Element = styled(Row)`
-  width: 460px;
-  padding: 30px 10px 30px;
-  margin-right: 40px;
-  box-sizing: border-box;
-  border-bottom: solid 1px ${({ theme }) => theme.colors.line};
-  gap: 30px;
-`;
-
-const Box = styled.div`
-  display: flex;
-  width: 220px;
-  height: 190px;
-  box-sizing: border-box;
-  justify-items: center;
-  align-items: center;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${({ theme }) => theme.colors.coumo_lightpurple};
-`;
-
-const InnerBox = styled.div`
-  display: flex;
-  width: 220px;
-  height: 190px;
-  align-items: center;
-  justify-content: center;
-`;
-
-const MyText = styled(Column)`
-  width: 100%;
-  text-align: center;
-`;
-
-const LargeP = styled.div`
-  overflow: hidden;
-  color: ${({ theme }) => theme.colors.text};
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: ${({ theme }) => theme.fontSize.base};
-  font-style: normal;
-  font-weight: 600;
-  line-height: 170%; /* 34px */
-
-  @media screen and (max-width: 1024px) {
-    font-size: ${({ theme }) => theme.fontSize.sm};
-  }
-`;
-
-const SmallP = styled(LargeP)`
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  font-weight: 500;
-`;
-
-const InfoText = styled(Column)`
-  width: 260px;
-  gap: 10px;
-  justify-content: flex-start;
-`;
-
-const Bar = styled(Row)`
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 8px;
-  margin-bottom: 5px;
-`;
-
-const Content = styled(Column)`
-  gap: 10px;
-`;
-
 export const Span = styled.span`
   color: ${({ theme }) => theme.colors.coumo_purple};
-`;
-
-const NewBtn = styled.span`
-  width: 35px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 10px;
-  border-radius: 62.4px;
-  background: ${({ theme, active }) =>
-    active ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
-  color: ${({ theme, active }) =>
-    active ? theme.colors.white : theme.colors.text_darkgray};
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  font-style: normal;
-  font-weight: 500;
-  line-height: 170%; /* 28.56px */
-  letter-spacing: 1.2px;
 `;

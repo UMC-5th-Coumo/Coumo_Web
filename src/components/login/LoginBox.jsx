@@ -32,7 +32,6 @@ const LoginBox = () => {
       if (response.data.isSuccess) {
         const { ownerId, storeId, token, createdAt, write } =
           response.data.result;
-
         localStorage.setItem('userToken', token);
 
         dispatch(
