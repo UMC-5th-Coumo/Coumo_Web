@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import CheckButton from '../join/CheckButton';
 import InputJoin from '../common/InputJoin';
 import JoinBtn from '../join/JoinBtn';
+import { defaultInstance } from '../../api/axios';
+import ErrorMsg from '../join/ErrorMsg';
 
 const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
     phone: '',
     number: '',
   });
+  const [msg, setMsg] = useState('');
 
   const onChangeId = (e) => {
     setInfo((prev) => ({ ...prev, id: e.target.value }));
@@ -31,29 +33,59 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
     return info.id && info.phone && info.number;
   };
 
-  const onCertified = (e) => {
+  const onPostCertified = async (e) => {
     e.preventDefault();
+    try {
+      const postCertifiedData = {
+        [postData]: info.id,
+        phone: info.phone,
+      };
+
+      const response = await defaultInstance.post(
+        '/owner/find-id',
+        postCertifiedData
+      );
+
+      if (response.data.isSuccess) {
+        console.log('인증번호 전송 완료', response.data);
+      } else {
+        console.log('인증번호 전송 실패');
+      }
+    } catch {
+      console.error('Error Login Certified Number');
+    }
+  };
+
+  const onCertified = async (e) => {
+    e.preventDefault();
+    if (isFindEnabled()) {
+      try {
+        const response = await defaultInstance.post(serverEndpoint, {
+          phone: info.phone,
+          verificationCode: info.number,
+        });
+
+        if (response.data.isSuccess && postData === 'name') {
+          setMsg(<span style={{ color: '#33bd4a' }}>인증되었습니다.</span>);
+        } else if (response.data.isSuccess && postData === 'id') {
+          setMsg(<span style={{ color: '#33bd4a' }}>인증되었습니다.</span>);
+        } else {
+          console.error(response.data.message);
+          setMsg('잘못된 인증번호입니다.');
+        }
+      } catch (error) {
+        console.error('Error Find Id/Pw');
+      }
+    }
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     if (isFindEnabled()) {
-      console.log('Post Data:', {
-        [postData]: info.id,
-        phone: info.phone,
-      });
-
-      // 임시 코드
-      if (postData === 'name') {
-        navigate('/foundId');
-      } else if (postData === 'loginId') {
-        navigate('/findPw/rePassword');
-      }
-
       try {
-        const response = await axios.post(serverEndpoint, {
-          [postData]: info.id,
+        const response = await defaultInstance.post(serverEndpoint, {
           phone: info.phone,
+          verificationCode: info.number,
         });
 
         if (response.data.isSuccess && postData === 'name') {
@@ -64,7 +96,7 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
           console.error(response.data.message);
         }
       } catch (error) {
-        console.error('error:', error.message);
+        console.error('Error Find Id/Pw');
       }
     }
   };
@@ -86,7 +118,7 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
                 onChange={onChangePhone}
                 width='250px'
               />
-              <CheckButton text='인증받기' onClick={onCertified} />
+              <CheckButton text='인증받기' onClick={onPostCertified} />
             </Row>
           </div>
           <div>
@@ -97,8 +129,9 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
                 onChange={onChangeNumber}
                 width='250px'
               />
-              <CheckButton text='인증 확인' />
+              <CheckButton text='인증 확인' onClick={onCertified} />
             </Row>
+            <ErrorMsg text={msg} />
           </div>
           <JoinBtn
             topMargin={20}

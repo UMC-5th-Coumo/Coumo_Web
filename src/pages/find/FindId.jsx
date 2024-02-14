@@ -6,7 +6,7 @@ const FindId = () => {
     <FindForm
       title='아이디 찾기 (휴대폰 인증)'
       idLabel='사장님 성함'
-      serverEndpoint='/api/owner/findid'
+      serverEndpoint='/owner/verify-code'
       postData='name'
     />
   );

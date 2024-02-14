@@ -6,6 +6,8 @@ const initialState = {
   phone: '',
   id: '',
   pw: '',
+  ownerId: '',
+  storeId: '',
   token: '',
 };
 
@@ -19,13 +21,15 @@ const userSlice = createSlice({
       state.phone = action.payload.phone;
       state.id = action.payload.id;
       state.pw = action.payload.pw;
+      state.ownerId = action.payload.ownerId;
+      state.storeId = action.payload.storeId;
       state.token = action.payload.token;
     },
   },
 });
 
 // actions
-export const { setUser } = userSlice.actions;
+export const { setUser, clearUser } = userSlice.actions;
 
 // reducer export
 export default userSlice.reducer;

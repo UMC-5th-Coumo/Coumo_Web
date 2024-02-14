@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Btn } from '../common/Button';
 
 function CheckButton({ text, onClick }) {
-  return <NewButton>{text}</NewButton>;
+  return <NewButton onClick={onClick}>{text}</NewButton>;
 }
 
 export default CheckButton;

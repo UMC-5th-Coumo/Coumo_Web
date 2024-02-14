@@ -4,8 +4,8 @@ import { Btn } from '../common/Button';
 import { LoginId, LoginPw, LoginSave, LoginSaveCheck } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../../redux/slices/userSlice';
-import axios from 'axios';
+import userSlice, { setUser } from '../../redux/slices/userSlice';
+import { defaultInstance } from '../../api/axios';
 
 const LoginBox = () => {
   const [id, setId] = useState('');
@@ -22,20 +22,44 @@ const LoginBox = () => {
   // useEffect(() => {}, []);
 
   const handleLoginClick = async () => {
-    const userData = {
-      name: '강수빈',
-      email: 'admin123@gmail.com',
-      phone: '010-1234-1234',
-      id: 'admin123',
-      pw: 'admin123',
-      token: '1',
-    };
+    try {
+      const loginData = {
+        loginId: id,
+        password: pw,
+      };
 
-    // 리덕스에 저장
-    dispatch(setUser(userData));
+      console.log('loginData', loginData);
+      const response = await defaultInstance.post('/owner/login', loginData);
 
-    // 관리자 페이지로 redirect -> 일단 마이페이지로 랜딩
-    navigate('/mypage');
+      if (response.data.isSuccess) {
+        console.log('로그인 성공', response.data);
+        const { ownerId, storeId, token, createdAt, write } =
+          response.data.result;
+        localStorage.setItem('userToken', token);
+
+        dispatch(
+          setUser({
+            name: '유저',
+            email: 'test@gmail.com',
+            id: id,
+            pw: pw,
+            ownerId,
+            storeId,
+            token,
+            createdAt,
+            write, //false: 처음 로그인 유저, true: 기존 로그인 유저
+          })
+        );
+
+        console.log(userSlice);
+
+        navigate('/');
+      } else {
+        console.error('로그인 실패');
+      }
+    } catch (error) {
+      console.error('Error Login');
+    }
   };
 
   const handleSaveClick = () => {
