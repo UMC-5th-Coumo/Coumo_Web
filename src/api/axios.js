@@ -11,7 +11,7 @@ export const defaultInstance = axios.create({
 });
 
 // 인증 값 필요, json
-const token = 'access token';
+const token = localStorage.getItem('userToken');
 export const authInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
