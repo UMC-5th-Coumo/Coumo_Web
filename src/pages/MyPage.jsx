@@ -23,7 +23,6 @@ function MyPage() {
   }
 
   const handleLogOut = () => {
-    // dispatch(clearUser());
     localStorage.removeItem('userToken');
     dispatch(setUser(''));
 
