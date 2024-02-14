@@ -3,10 +3,22 @@ import styled from 'styled-components';
 import Dropdown from './Dropdown';
 import { days } from '../../../../assets/data/workingHourData';
 
-function WorkingHour({ day, setData, dropWidth }) {
-  const [startTime, setStartTime] = useState('0:00 AM');
-  const [endTime, setEndTime] = useState('0:00 AM');
+function WorkingHour({ day, data, setData, dropWidth }) {
+  const [startTime, setStartTime] = useState(data.startTime);
+  const [endTime, setEndTime] = useState(data.endTime);
   const [dayOff, setDayOff] = useState(false);
+
+  useEffect(() => {
+    if (data.startTime === 'none' || data.endTime === 'none') {
+      setStartTime('00:00');
+      setEndTime('00:00');
+      setDayOff(true);
+    } else {
+      setStartTime(data.startTime);
+      setEndTime(data.endTime);
+      setDayOff(false);
+    }
+  }, [data.startTime, data.endTime]);
 
   useEffect(() => {
     if (dayOff) {
@@ -17,11 +29,12 @@ function WorkingHour({ day, setData, dropWidth }) {
       });
     } else {
       setData({
+        day: day,
         startTime,
         endTime,
       });
     }
-  }, [startTime, endTime]);
+  }, [dayOff, startTime, endTime]);
 
   return (
     <Container>

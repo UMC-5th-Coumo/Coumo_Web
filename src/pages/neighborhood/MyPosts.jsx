@@ -56,7 +56,15 @@ const MyPosts = () => {
     if (newPage <= 0) {
       newPage = 1;
     }
+    setCurrentPage(newPage);
     navigate(`/neighborhood/myPosts/${newPage}`);
+  };
+
+  const handleCategoryChange = (newCategory) => {
+    setCategory(newCategory);
+    setCurrentPage(1);
+    // 변경 카테고리의 첫 페이지로 이동
+    navigate(`/neighborhood/myPosts/1`);
   };
 
   useEffect(() => {
@@ -91,7 +99,8 @@ const MyPosts = () => {
         <Category
           data={postCategoryData}
           category={category}
-          setCategory={setCategory}
+          setCategory={handleCategoryChange}
+          setPageId={setCurrentPage}
           containerWidth='1000px'
           columns='1fr 1fr 1fr 1fr'
         />
