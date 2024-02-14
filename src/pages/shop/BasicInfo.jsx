@@ -142,7 +142,26 @@ const BasicInfo = () => {
     }
   };
 
+  const isVaild = () => {
+    const { storeName, number, address, addressDetail } = inputs;
+    if (
+      storeName.trim() === '' ||
+      number.trim() === '' ||
+      address.trim() === '' ||
+      addressDetail.trim() === ''
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   const onSubmit = async () => {
+    if (!isVaild()) {
+      alert('모든 항목을 입력해주세요.');
+      return;
+    }
+
     // 서버 연동
     try {
       console.log(inputs);

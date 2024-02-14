@@ -1,35 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ImageBlock from '../../components/admin/shop/ImageBlock';
 import MenuMore from '../../components/admin/shop/MenuMore';
 import Button from '../../components/common/Button';
+import { v4 as uuidv4 } from 'uuid';
 
 const StoreInfo = () => {
   const [inputs, setInputs] = useState({
     image: [],
     description: '',
-    menu: [],
   });
 
-  useEffect(() => {
-    console.log('inputs changed:', inputs);
-  }, [inputs]);
+  const [menus, setMenus] = useState([
+    {
+      id: uuidv4(),
+      name: '',
+      description: '',
+      image: '',
+      isNew: false,
+    },
+  ]);
 
   const handleImageChange = (images) => {
-    setInputs({
-      ...inputs,
+    setInputs((prev) => ({
+      ...prev,
       image: images,
-    });
+    }));
   };
 
-  const handleMenuChange = (menus) => {
-    setInputs({
-      ...inputs,
-      menu: menus,
-    });
+  const isVaild = () => {
+    const { description, image } = inputs;
+    if (description.trim() === '' || menus.length === 0 || image.length === 0) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
   const onSubmit = async () => {
+    if (!isVaild()) {
+      alert(
+        '모든 항목을 입력해주세요.\n(이미지, 상품 정보는 최소 1개 이상 입력해야 합니다.)'
+      );
+      return;
+    }
     // 서버 요청 코드
     console.log(inputs);
   };
@@ -56,7 +70,7 @@ const StoreInfo = () => {
         />
       </Description>
       <Scroll>
-        <MenuMore onChange={handleMenuChange} />
+        <MenuMore menus={menus} setMenus={setMenus} />
       </Scroll>
       <BtnContainer>
         <Button text='취소하기' />

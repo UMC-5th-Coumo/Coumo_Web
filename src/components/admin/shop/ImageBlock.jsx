@@ -34,10 +34,10 @@ const ImageBlock = ({ onChange }) => {
     if (file && file.type.startsWith('image/')) {
       // 이미지 파일이 업로드되었을 때, 해당 인덱스의 이미지를 업데이트
       const imageURL = URL.createObjectURL(file);
-      const updatedImages = [...uploadedImages];
-      updatedImages[index] = imageURL;
-      setUploadedImages(updatedImages);
-      onChange(uploadedImages);
+      let imgs = [...uploadedImages];
+      imgs[index] = imageURL;
+      setUploadedImages(imgs);
+      onChange(imgs);
       console.log(uploadedImages);
     } else {
       alert('이미지 파일을 업로드 해주세요.');

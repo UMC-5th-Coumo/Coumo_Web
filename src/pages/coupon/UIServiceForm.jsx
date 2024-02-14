@@ -25,7 +25,25 @@ const UIServiceForm = () => {
     document.body.style.overflow = 'auto';
   }
 
+  const isVaild = () => {
+    const { storeName, phone, email } = inputs;
+    if (
+      description.trim() === '' ||
+      storeName.trim() === '' ||
+      phone.trim() === '' ||
+      email.trim() === ''
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   const onSubmit = async () => {
+    if (!isVaild()) {
+      alert('모든 항목을 입력해주세요.');
+      return;
+    }
     const data = {
       storeId: '',
       couponTitle: inputs.storeName,
@@ -59,39 +77,43 @@ const UIServiceForm = () => {
   return (
     <Content>
       <Wrapper>
-        <Input
-          label='매장명'
-          type='text'
-          placeholder='매장명을 입력해주세요.'
-          value={inputs.storeName}
-          onChange={(e) =>
-            setInputs((prev) => ({ ...prev, storeName: e.target.value }))
-          }
-        />
-        <Input
-          label='연락처를 입력해주세요.'
-          type='text'
-          placeholder='ex) 010-1234-5678'
-          value={inputs.phone}
-          onChange={(e) =>
-            setInputs((prev) => ({ ...prev, phone: e.target.value }))
-          }
-        />
-        <Input
-          label='이메일 주소를 입력해주세요.'
-          type='text'
-          placeholder='a12345678@naver.com'
-          value={inputs.email}
-          onChange={(e) =>
-            setInputs((prev) => ({ ...prev, email: e.target.value }))
-          }
-        />
-        <Category
-          data={categoryData}
-          category={category}
-          setCategory={setCategory}
-          columns='1fr 1fr 1fr'
-        />
+        <Row>
+          <Input
+            label='매장명'
+            type='text'
+            placeholder='매장명을 입력해주세요.'
+            value={inputs.storeName}
+            onChange={(e) =>
+              setInputs((prev) => ({ ...prev, storeName: e.target.value }))
+            }
+          />
+          <Input
+            label='연락처를 입력해주세요.'
+            type='text'
+            placeholder='ex) 010-1234-5678'
+            value={inputs.phone}
+            onChange={(e) =>
+              setInputs((prev) => ({ ...prev, phone: e.target.value }))
+            }
+          />
+        </Row>
+        <Row>
+          <Category
+            data={categoryData}
+            category={category}
+            setCategory={setCategory}
+            columns='1fr 1fr 1fr'
+          />
+          <Input
+            label='이메일 주소를 입력해주세요.'
+            type='text'
+            placeholder='a12345678@naver.com'
+            value={inputs.email}
+            onChange={(e) =>
+              setInputs((prev) => ({ ...prev, email: e.target.value }))
+            }
+          />
+        </Row>
         <Description>
           <Title>
             매장의 분위기, 디자인 무드나 주요 컬러 등을 설명해주세요.
@@ -146,6 +168,18 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 50px;
+`;
+
+const Row = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+
+  @media screen and (max-width: 1200px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const Title = styled.h2`
