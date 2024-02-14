@@ -141,7 +141,7 @@ const MenuMore = ({ onChange }) => {
                   label='상품명'
                   fullwidth='180px'
                   fullheight='32px'
-                  fontSize
+                  fontSize='18px'
                   paddingB='7px'
                   paddingL='2px'
                   onChange={(event) => handleProductNameChange(event, index)}
@@ -151,7 +151,7 @@ const MenuMore = ({ onChange }) => {
                   label='상품 가격'
                   fullwidth='180px'
                   fullheight='32px'
-                  fontSize
+                  fontSize='18px'
                   paddingB='7px'
                   paddingL='2px'
                   onChange={(event) => handlePriceInfoChange(event, index)}
@@ -208,11 +208,10 @@ const PlusButton = styled.button`
   padding: 8px 50px 7px 50px;
   justify-content: center;
   align-items: center;
-  border: none;
+  border: 1px solid ${({ theme }) => theme.colors.lightpurple_border};
   border-radius: 42px;
   background: ${({ theme }) => theme.colors.white};
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.25);
-  color: #565656;
+  color: ${({ theme }) => theme.colors.text_darkgray};
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
@@ -220,6 +219,7 @@ const PlusButton = styled.button`
   line-height: 100%; /* 21.12px */
   letter-spacing: 0.48px;
   gap: 15px;
+  cursor: pointer;
 
   @media screen and (max-width: 768px) {
     padding: 8px 30px 7px 30px;
@@ -257,7 +257,7 @@ const Box = styled.div`
   align-items: center;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${({ theme }) => theme.colors.coumo_lightpurple};
+  background: ${({ theme }) => theme.colors.lightpurple};
 `;
 
 const InnerBox = styled.div`
@@ -266,6 +266,7 @@ const InnerBox = styled.div`
   height: 190px;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 `;
 
 const MyText = styled(Column)`
@@ -305,6 +306,10 @@ const Bar = styled(Row)`
   align-items: center;
   margin-top: 8px;
   margin-bottom: 5px;
+
+  & svg {
+    cursor: pointer;
+  }
 `;
 
 const Content = styled(Column)`
@@ -316,8 +321,9 @@ export const Span = styled.span`
 `;
 
 const NewBtn = styled.span`
-  width: 35px;
-  height: 20px;
+  width: 40px;
+  height: 22px;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
