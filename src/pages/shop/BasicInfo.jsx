@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Input from '../../components/common/Input';
 import Category from '../../components/admin/coupon/Category';
@@ -59,6 +59,14 @@ const BasicInfo = () => {
 
   const handleAddressClick = () => {
     setIsPostcodeOpen(true);
+    // 한번 창을 닫은 후에도 주소 선택 시 창 계속 뜨도록 함수 호출
+    handleInputClick();
+  };
+
+  const handleInputClick = () => {
+    if (isPostcodeOpen) {
+      setIsPostcodeOpen(false);
+    }
   };
 
   const handleAddressDetailClick = () => {
@@ -73,28 +81,31 @@ const BasicInfo = () => {
 
     setIsPostcodeOpen(false);
     console.log('close');
-    console.log(isPostcodeOpen);
   };
 
   const WindowPopup = ({ children }) => {
     useEffect(() => {
-      const popupWindow = window.open('', '_blank', 'width=415,height=515');
+      if (typeof window !== 'undefined') {
+        const popupWindow = window.open('', '_blank', 'width=415,height=515');
 
-      if (popupWindow) {
-        const doc = popupWindow.document;
-        doc.write('<html><head><title>DaumPostcode Popup</title></head><body>');
-        doc.write('<div id="root"></div>');
-        doc.write('</body></html>');
+        if (popupWindow) {
+          const doc = popupWindow.document;
+          doc.write(
+            '<html><head><title>DaumPostcode Popup</title></head><body>'
+          );
+          doc.write('<div id="root"></div>');
+          doc.write('</body></html>');
 
-        // React 컴포넌트 렌더링
-        const root = doc.getElementById('root');
-        const reactRoot = createRoot(root);
-        reactRoot.render(children);
-        return () => {
-          popupWindow.close();
-        };
-      } else {
-        console.error('Failed to open popup window.');
+          // React 컴포넌트 렌더링
+          const root = doc.getElementById('root');
+          const reactRoot = createRoot(root);
+          reactRoot.render(children);
+          return () => {
+            popupWindow.close();
+          };
+        } else {
+          console.error('Failed to open popup window.');
+        }
       }
     }, [children]);
 
@@ -147,7 +158,7 @@ const BasicInfo = () => {
         latitude: coords.latitude,
       };
 
-      const storeId = ''; // ??
+      const storeId = '';
       await axios.patch(`/api/owner/store/${storeId}/basic`, storeData);
 
       console.log('Store data updated successfully!');
@@ -169,6 +180,7 @@ const BasicInfo = () => {
             onChange={(e) =>
               setInputs((prev) => ({ ...prev, storeName: e.target.value }))
             }
+            onClick={handleInputClick}
           />
           <Input
             name='number'
@@ -179,6 +191,7 @@ const BasicInfo = () => {
             onChange={(e) =>
               setInputs((prev) => ({ ...prev, number: e.target.value }))
             }
+            onClick={handleInputClick}
           />
 
           <Category
@@ -189,6 +202,7 @@ const BasicInfo = () => {
           />
           <AddressWrapper>
             <Input
+              id='here'
               name='address'
               label='위치정보'
               type='text'
@@ -239,6 +253,7 @@ const BasicInfo = () => {
               setData={(hours) =>
                 setHours((prev) => ({ ...prev, [day]: hours }))
               }
+              onClick={handleInputClick}
             />
           ))}
         </WorkingHours>

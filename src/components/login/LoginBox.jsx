@@ -40,7 +40,6 @@ const LoginBox = () => {
         dispatch(
           setUser({
             name: '유저',
-            email: 'test@gmail.com',
             id: id,
             pw: pw,
             ownerId,
