@@ -23,11 +23,13 @@ const JoinTwoStep = () => {
   });
 
   // 유효성 검사 및 오류 메세지
-  const [vaild, setVaild] = useState({
+  const [valid, setValid] = useState({
     email: false,
     phone: false,
+    certified: false,
     emailMsg: '',
     phoneMsg: '',
+    certifiedMsg: '',
   });
 
   // onChange 함수
@@ -38,17 +40,17 @@ const JoinTwoStep = () => {
     );
 
     if (!isValid) {
-      setVaild((prev) => ({
+      setValid((prev) => ({
         ...prev,
         emailMsg: '올바른 형식의 이메일을 작성해주세요.',
       }));
-      setVaild((prev) => ({ ...prev, email: false }));
+      setValid((prev) => ({ ...prev, email: false }));
     } else {
-      setVaild((prev) => ({
+      setValid((prev) => ({
         ...prev,
         emailMsg: '',
       }));
-      setVaild((prev) => ({ ...prev, email: true }));
+      setValid((prev) => ({ ...prev, email: true }));
     }
   };
 
@@ -57,27 +59,76 @@ const JoinTwoStep = () => {
     const isValid = /^\d{10,11}$/.test(e.target.value);
 
     if (!isValid) {
-      setVaild((prev) => ({
+      setValid((prev) => ({
         ...prev,
         phoneMsg: '올바른 형식의 전화번호를 작성해주세요.',
       }));
-      setVaild((prev) => ({ ...prev, phone: false }));
+      setValid((prev) => ({ ...prev, phone: false }));
     } else {
-      setVaild((prev) => ({
+      setValid((prev) => ({
         ...prev,
         phoneMsg: '',
       }));
-      setVaild((prev) => ({ ...prev, phone: true }));
+      setValid((prev) => ({ ...prev, phone: true }));
+    }
+  };
+
+  const onPostCertified = async (e) => {
+    e.preventDefault();
+    try {
+      const postCertifiedData = {
+        name: info.name,
+        phone: info.phone,
+      };
+
+      const response = await defaultInstance.post(
+        '/owner/join/send-verification-code',
+        postCertifiedData
+      );
+
+      if (response.data.isSuccess) {
+        console.log('인증번호 전송 완료', response.data);
+      } else {
+        console.log('인증번호 전송 실패');
+      }
+    } catch {
+      console.error('Error Join send Certified Number');
+    }
+  };
+
+  const onCertified = async (e) => {
+    e.preventDefault();
+    if (info.phone && info.certified) {
+      try {
+        const response = await defaultInstance.post(`/owner/join/verify-code`, {
+          phone: info.phone,
+          verificationCode: info.certified,
+        });
+
+        if (response.data.isSuccess) {
+          setValid((prev) => ({
+            ...prev,
+            certified: true,
+            certifiedMsg: (
+              <span style={{ color: '#33bd4a' }}>인증되었습니다.</span>
+            ),
+          }));
+        } else {
+          console.error(response.data.message);
+          setValid((prev) => ({
+            ...prev,
+            certified: false,
+            certifiedMsg: '잘못된 인증번호입니다.',
+          }));
+        }
+      } catch (error) {
+        console.error('Error Join Certified Number');
+      }
     }
   };
 
   const isJoinTwoEnabled = () => {
-    return (
-      info.name.trim() !== '' &&
-      vaild.email &&
-      vaild.email &&
-      info.certified.trim() !== ''
-    );
+    return info.name.trim() !== '' && valid.email && valid.certified;
   };
 
   const onSubmit = async (e) => {
@@ -99,20 +150,6 @@ const JoinTwoStep = () => {
 
         if (response.data.isSuccess) {
           console.log('회원가입 성공', response.data.result);
-          // const { ownerId, storeId, token } = response.data.result;
-          // 회원가입 성공 시 받은 정보를 Redux 스토어에 저장
-          // dispatch(
-          //   setUser({
-          //     name: info.name,
-          //     email: info.email,
-          //     phone: info.phone,
-          //     id: loginId,
-          //     pw: password,
-          //     ownerId,
-          //     storeId,
-          //     token,
-          //   })
-          // );
           navigate('/join/finish');
         } else {
           console.error('회원가입 실패');
@@ -146,7 +183,7 @@ const JoinTwoStep = () => {
               onChange={onChangeEmail}
               star={true}
             />
-            <ErrorMsg text={vaild.emailMsg} />
+            <ErrorMsg text={valid.emailMsg} />
           </div>
           <div>
             <Row>
@@ -158,24 +195,27 @@ const JoinTwoStep = () => {
                 width='250px'
                 star={true}
               />
-              <CheckButton text='인증 받기' />
+              <CheckButton text='인증 받기' onClick={onPostCertified} />
             </Row>
-            <ErrorMsg text={vaild.phoneMsg} />
+            <ErrorMsg text={valid.phoneMsg} />
           </div>
-          <Row>
-            <InputJoin
-              label='인증번호 입력 *'
-              placeholder='숫자 4자리'
-              type='password'
-              value={info.certified}
-              onChange={(e) =>
-                setInfo((prev) => ({ ...prev, certified: e.target.value }))
-              }
-              width='250px'
-              star={true}
-            />
-            <CheckButton text='인증번호 재발송' />
-          </Row>
+          <div>
+            <Row>
+              <InputJoin
+                label='인증번호 입력 *'
+                placeholder='숫자 4자리'
+                type='password'
+                value={info.certified}
+                onChange={(e) =>
+                  setInfo((prev) => ({ ...prev, certified: e.target.value }))
+                }
+                width='250px'
+                star={true}
+              />
+              <CheckButton text='인증번호 확인' onClick={onCertified} />
+            </Row>
+            <ErrorMsg text={valid.certifiedMsg} />
+          </div>
           <JoinBtn
             topMargin={30}
             text='확인'

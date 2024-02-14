@@ -116,6 +116,7 @@ const JoinOneStep = () => {
 
       if (response.data.isSuccess) {
         console.log('사용 가능');
+        setVaild((prev) => ({ ...prev, login: true }));
         setMsg({
           ...msg,
           login: (

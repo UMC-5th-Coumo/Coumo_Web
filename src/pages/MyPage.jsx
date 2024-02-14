@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import Title from '../components/common/Title';
 import { CallIcon, DetailArrow } from '../assets';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import TwoBtnPopUp from '../components/common/popUp/TwoBtnPopUp';
 import { useNavigate } from 'react-router-dom';
 import ListBox from '../components/admin/myPage/ListBox';
+import { setUser } from '../redux/slices/userSlice';
 
 function MyPage() {
   const { name, id, email, phone } = useSelector((state) => state.user);
@@ -13,6 +14,7 @@ function MyPage() {
   const [withdrawal, setWithdrawal] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   if (logOut || withdrawal) {
     document.body.style.overflow = 'hidden';
@@ -21,7 +23,12 @@ function MyPage() {
   }
 
   const handleLogOut = () => {
-    //
+    // dispatch(clearUser());
+    localStorage.removeItem('userToken');
+    dispatch(setUser(''));
+
+    // 로그아웃 후 로그인 페이지로 이동
+    navigate('/login');
   };
 
   const handleWithdrawal = () => {
