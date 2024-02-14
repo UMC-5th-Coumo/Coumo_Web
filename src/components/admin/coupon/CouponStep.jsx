@@ -25,6 +25,10 @@ const Step = styled.div`
   gap: 8px;
   border-radius: 24px;
 
+  @media screen and (max-width: 1440px) {
+    width: 230px;
+  }
+
   @media screen and (max-width: 1024px) {
     width: 196px;
   }
@@ -62,7 +66,11 @@ const Divider = styled.div`
   transform: translateY(-50%);
   z-index: 0;
 
-  @media screen and (max-width: 1600px) {
+  @media screen and (max-width: 1440px) {
+    width: 230px;
+  }
+
+  @media screen and (max-width: 1300px) {
     opacity: 0;
   }
 `;
