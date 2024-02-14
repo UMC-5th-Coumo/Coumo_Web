@@ -48,7 +48,7 @@ export const verticalHeaderMenuData = [
         path: '/coupon/addCoupon',
       },
       {
-        subTitle: '쿠폰 UI 서비스 구매하기',
+        subTitle: '쿠폰 디자인 서비스',
         path: '/coupon/uiService',
       },
     ],
