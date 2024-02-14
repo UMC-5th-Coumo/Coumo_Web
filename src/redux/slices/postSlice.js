@@ -19,6 +19,7 @@ const initialPostDummyData = [
       'https://i.namu.wiki/i/cjqCM0rXTEIXY-kPdvumBUkiJV6qmUhgmPs0F-9dW-rigFXYzgTxmn8J9JuJyMMXChkFPHabeLF_SbGxWX4QQXB89-6pSvw_-1_AU-L9T7juusEG8djrXUaMeEiA-Jd9QIjSW8jGjdt4PLrWzgjcuw.webp',
       'https://i.namu.wiki/i/BN7o4rMw2bAhW76jRqp8Yh-CX191AVkvcW-2tOEvpT1B91zG2uW68P5x_Xa4Xb0BxClV1YalWrsR_ydpecJrvKxejqRpdVx1sREoqhWiaDryJE3KlvGNr-PhYeIlTXdZqq8-8cByVLUWQomcgeRGkQ.webp',
       'https://i.namu.wiki/i/cjqCM0rXTEIXY-kPdvumBUkiJV6qmUhgmPs0F-9dW-rigFXYzgTxmn8J9JuJyMMXChkFPHabeLF_SbGxWX4QQXB89-6pSvw_-1_AU-L9T7juusEG8djrXUaMeEiA-Jd9QIjSW8jGjdt4PLrWzgjcuw.webp',
+      'https://i.namu.wiki/i/cjqCM0rXTEIXY-kPdvumBUkiJV6qmUhgmPs0F-9dW-rigFXYzgTxmn8J9JuJyMMXChkFPHabeLF_SbGxWX4QQXB89-6pSvw_-1_AU-L9T7juusEG8djrXUaMeEiA-Jd9QIjSW8jGjdt4PLrWzgjcuw.webp',
     ],
   },
   {

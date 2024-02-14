@@ -150,6 +150,20 @@ const JoinTwoStep = () => {
 
         if (response.data.isSuccess) {
           console.log('회원가입 성공', response.data.result);
+          // const { ownerId, storeId, token } = response.data.result;
+          // 회원가입 성공 시 받은 정보를 Redux 스토어에 저장
+          // dispatch(
+          //   setUser({
+          //     name: info.name,
+          //     email: info.email,
+          //     phone: info.phone,
+          //     id: loginId,
+          //     pw: password,
+          //     ownerId,
+          //     storeId,
+          //     token,
+          //   })
+          // );
           navigate('/join/finish');
         } else {
           console.error('회원가입 실패');
