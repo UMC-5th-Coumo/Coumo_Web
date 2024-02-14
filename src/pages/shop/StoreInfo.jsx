@@ -37,6 +37,12 @@ const StoreInfo = () => {
     }
   };
 
+  const [inputCount, setInputCount] = useState(0);
+  const onInputHandler = (e) => {
+    setInputCount(e.target.value.length);
+  };
+  const [isInputFocused, setInputFocused] = useState(false);
+
   const onSubmit = async () => {
     if (!isVaild()) {
       alert(
@@ -50,28 +56,38 @@ const StoreInfo = () => {
 
   return (
     <Info>
-      <Image>
-        <Representative>
-          <Title>대표이미지</Title>
-          <Recommend>*이미지는 1:1비율을 권장합니다</Recommend>
-        </Representative>
-        <ImageBlock onChange={handleImageChange} />
-      </Image>
-      <Description>
-        <Title>매장 상세설명</Title>
-        <DescripInput
-          name='description'
-          spellcheck='false'
-          placeholder='매장에 대한 설명글을 간단히 적어주세요 (0/100)'
-          value={inputs.description}
-          onChange={(e) =>
-            setInputs((prev) => ({ ...prev, description: e.target.value }))
-          }
-        />
-      </Description>
-      <Scroll>
-        <MenuMore menus={menus} setMenus={setMenus} />
-      </Scroll>
+      <Gap>
+        <Image>
+          <Representative>
+            <Title>대표이미지</Title>
+            <Recommend>*이미지는 1:1비율을 권장합니다</Recommend>
+          </Representative>
+          <ImageBlock onChange={handleImageChange} />
+        </Image>
+        <Description>
+          <Title>매장 상세설명</Title>
+          <DescripInput
+            name='description'
+            spellcheck='false'
+            placeholder='매장에 대한 설명글을 간단히 적어주세요 (0/100)'
+            value={inputs.description}
+            onChange={(e) => {
+              onInputHandler(e);
+              setInputs((prev) => ({ ...prev, description: e.target.value }));
+            }}
+            onFocus={() => setInputFocused(true)}
+            onBlur={() => setInputFocused(false)}
+            maxLength='99'
+          />
+          <Count focused={isInputFocused}>
+            <span>{inputCount}</span>
+            <span>/100</span>
+          </Count>
+        </Description>
+        <Scroll>
+          <MenuMore menus={menus} setMenus={setMenus} />
+        </Scroll>
+      </Gap>
       <BtnContainer>
         <Button text='저장하기' type={true} onClickBtn={onSubmit} />
       </BtnContainer>
@@ -88,12 +104,18 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   padding: 70px 100px;
-  gap: 80px;
+  /* gap: 40px; */
   box-sizing: border-box;
 
   @media screen and (max-width: 1024px) {
     padding: 70px 50px;
   }
+`;
+
+const Gap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
 `;
 
 const Image = styled.div`
@@ -130,16 +152,17 @@ const Scroll = styled.div`
 `;
 
 const Description = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 `;
 
 const DescripInput = styled.textarea`
   display: flex;
   width: 100%;
   max-width: 567px;
-  height: 200px;
+  height: 100px;
   padding: 8px 12px;
   box-sizing: border-box;
   resize: none;
@@ -171,6 +194,16 @@ const DescripInput = styled.textarea`
 const BtnContainer = styled.div`
   width: 100%;
   display: flex;
-  gap: 16px;
   justify-content: center;
+  margin-top: 20px;
+`;
+
+const Count = styled.div`
+  width: 100%;
+  max-width: 567px;
+  display: flex;
+  justify-content: flex-end;
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  color: ${({ theme, focused }) =>
+    focused ? theme.colors.coumo_purple : theme.colors.text};
 `;

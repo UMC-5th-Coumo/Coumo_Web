@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Category from '../coupon/Category';
 import { StyledWriteInput } from '../../common/Input';
@@ -13,6 +13,20 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
     });
   };
 
+  const [titleCount, setTitleCount] = useState(0);
+  const [contentCount, setContentCount] = useState(0);
+
+  const onTitleHandler = (e) => {
+    setTitleCount(e.target.value.length);
+  };
+
+  const onContentHandler = (e) => {
+    setContentCount(e.target.value.length);
+  };
+
+  const [isTitleFocused, setTitleFocused] = useState(false);
+  const [isContentFocused, setContentFocused] = useState(false);
+
   return (
     <Write>
       <Category
@@ -21,21 +35,31 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
         setCategory={setCategory}
         columns='1fr 1fr 1fr'
       />
-      <StyledWriteInput
-        label='글의 제목을 작성해 주세요'
-        type='text'
-        placeholder='제목을 작성해주세요. (0/30)'
-        name='title'
-        value={inputs.title}
-        fullwidth='100%'
-        onChange={(e) => {
-          setInputs({
-            ...inputs,
-            title: e.target.value,
-          });
-          console.log(inputs && inputs.title);
-        }}
-      />
+      <div>
+        <Label>글의 제목을 작성해 주세요</Label>
+        <StyledWriteTextarea
+          spellcheck='false'
+          placeholder='제목을 작성해주세요. (0/30)'
+          name='title'
+          height='40px'
+          value={inputs.title}
+          onChange={(e) => {
+            onTitleHandler(e);
+            setInputs({
+              ...inputs,
+              title: e.target.value,
+            });
+            console.log(inputs && inputs.title);
+          }}
+          onFocus={() => setTitleFocused(true)}
+          onBlur={() => setTitleFocused(false)}
+          maxLength='29'
+        />
+        <Count focused={isTitleFocused}>
+          <span>{titleCount}</span>
+          <span>/30</span>
+        </Count>
+      </div>
       <Image>
         <Representative>
           <ImageLabel>대표이미지</ImageLabel>
@@ -53,13 +77,21 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
           name='content'
           value={inputs.content}
           onChange={(e) => {
+            onContentHandler(e);
             setInputs({
               ...inputs,
               content: e.target.value,
             });
             console.log(inputs && inputs.content);
           }}
+          onFocus={() => setContentFocused(true)}
+          onBlur={() => setContentFocused(false)}
+          maxLength='499'
         />
+        <Count focused={isContentFocused}>
+          <span>{contentCount}</span>
+          <span>/500</span>
+        </Count>
       </div>
     </Write>
   );
@@ -140,7 +172,7 @@ const StyledWriteTextarea = styled.textarea`
   display: flex;
   max-width: 840px;
   width: 100%;
-  height: 200px;
+  height: ${({ height }) => (height ? height : '210px')};
   padding: 8px 12px;
   box-sizing: border-box;
   resize: none;
@@ -167,4 +199,15 @@ const StyledWriteTextarea = styled.textarea`
       opacity: 0.6;
     }
   }
+`;
+
+const Count = styled.div`
+  width: 100%;
+  max-width: 840px;
+  display: flex;
+  justify-content: flex-end;
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  color: ${({ theme, focused }) =>
+    focused ? theme.colors.coumo_purple : theme.colors.text};
+  margin-top: 10px;
 `;
