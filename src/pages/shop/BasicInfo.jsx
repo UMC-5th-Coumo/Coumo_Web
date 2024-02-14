@@ -9,8 +9,10 @@ import { createRoot } from 'react-dom/client';
 import WorkingHour from '../../components/admin/shop/workingHour/WorkingHour';
 import axios from 'axios';
 import Title from '../../components/common/Title';
+import { useSelector } from 'react-redux';
 
 const BasicInfo = () => {
+  const { storeId } = useSelector((state) => state.user);
   const [category, setCategory] = useState('cafe');
   const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
   const [inputs, setInputs] = useState({
@@ -21,37 +23,37 @@ const BasicInfo = () => {
   });
   const [hours, setHours] = useState({
     mon: {
-      day: '',
+      day: 'mon',
       startTime: '',
       endTime: '',
     },
     tue: {
-      day: '',
+      day: 'tue',
       startTime: '',
       endTime: '',
     },
     wed: {
-      day: '',
+      day: 'wed',
       startTime: '',
       endTime: '',
     },
     thu: {
-      day: '',
+      day: 'thu',
       startTime: '',
       endTime: '',
     },
     fri: {
-      day: '',
+      day: 'fri',
       startTime: '',
       endTime: '',
     },
     sat: {
-      day: '',
+      day: 'sat',
       startTime: '',
       endTime: '',
     },
     sun: {
-      day: '',
+      day: 'sun',
       startTime: '',
       endTime: '',
     },
@@ -145,7 +147,6 @@ const BasicInfo = () => {
   const onSubmit = async () => {
     // 서버 연동
     try {
-      console.log(inputs);
       const coords = await getAddressCoords(inputs.address);
 
       const storeData = {
@@ -157,11 +158,17 @@ const BasicInfo = () => {
         longitude: coords.longitude,
         latitude: coords.latitude,
       };
+      console.log('storeData', storeData);
 
-      const storeId = '';
-      await axios.patch(`/api/owner/store/${storeId}/basic`, storeData);
-
-      console.log('Store data updated successfully!');
+      // 기본정보 수정 api
+      await axios
+        .patch(`/api/owner/store/${storeId}/basic`, storeData)
+        .then((res) => {
+          if (res.data.isSuccess) {
+            console.log('Store data updated successfully!');
+            // 팝업 예정
+          }
+        });
     } catch (error) {
       console.error('Failed to update store data:', error);
     }

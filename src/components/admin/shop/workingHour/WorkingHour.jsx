@@ -17,11 +17,12 @@ function WorkingHour({ day, setData, dropWidth }) {
       });
     } else {
       setData({
+        day: day,
         startTime,
         endTime,
       });
     }
-  }, [startTime, endTime]);
+  }, [dayOff, startTime, endTime]);
 
   return (
     <Container>
