@@ -48,7 +48,11 @@ export default PostList;
 
 const NoPosts = styled.div`
   display: flex;
-  font-size: ${({ theme }) => theme.colors.coumo_purple};
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  font-size: ${({ theme }) => theme.fontSize.base};
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 const PostContainer = styled.div`
