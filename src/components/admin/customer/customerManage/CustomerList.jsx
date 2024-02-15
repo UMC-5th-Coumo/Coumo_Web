@@ -53,6 +53,7 @@ const Wrapper = styled.div`
   flex-direction: column;
 
   border-radius: 10px;
+  overflow: hidden;
   border: 1.5px solid #e3e1e8;
 
   background-color: ${({ theme }) => theme.colors.white};
@@ -98,8 +99,8 @@ const Customer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 12px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
   cursor: pointer;
+  padding-right: 15px;
   background-color: ${({ theme, selected }) =>
     selected ? theme.colors.lightpurple : theme.colors.white};
 
@@ -107,7 +108,13 @@ const Customer = styled.div`
     background: ${({ theme }) => theme.colors.lightpurple};
   }
 
-  padding-right: 15px;
+  &:not(:last-child) {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.line};
+  }
+
+  &:first-child {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.line};
+  }
 
   & span {
     text-align: center;
