@@ -23,6 +23,6 @@ export const couponStepData = [
   {
     id: 5,
     step: '작업 착수',
-    description: '신계약/결제 이후에 착수에 들어가며,\n 평균 2주 소요됩니다.',
+    description: '신계약/결제 이후에\n 착수에 들어가며,\n 평균 2주 소요됩니다.',
   },
 ];

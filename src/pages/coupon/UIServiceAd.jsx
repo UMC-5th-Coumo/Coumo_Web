@@ -103,7 +103,6 @@ const Article = styled.div`
 const Big1 = styled.div`
   color: ${({ theme }) => theme.colors.white};
   text-shadow: 0px 4px 4.7px ${({ theme }) => theme.colors.text_shadow};
-  /* font-size: ${({ theme }) => theme.fontSize.xl}; */
   font-size: 34px;
   font-style: normal;
   font-weight: 600;
@@ -174,7 +173,7 @@ const Step = styled.div`
   padding: 114px;
   box-sizing: border-box;
 
-  @media screen and (max-width: 1600px) {
+  @media screen and (max-width: 1300px) {
     height: 900px;
     font-size: ${({ theme }) => theme.fontSize.md};
   }
@@ -208,7 +207,11 @@ const CouponSteps = styled.div`
   justify-content: space-around;
   margin-top: 40px;
 
-  @media screen and (max-width: 1600px) {
+  @media screen and (max-width: 1440px) {
+    gap: 0px;
+  }
+
+  @media screen and (max-width: 1300px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     > div:last-child {
