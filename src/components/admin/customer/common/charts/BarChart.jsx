@@ -26,7 +26,7 @@ ChartJS.register(
   plugins
 );
 
-function BarChart({ type }) {
+function BarChart({ type, chartData }) {
   let option = {};
   const [data, setData] = useState({
     datasets: [
@@ -43,44 +43,6 @@ function BarChart({ type }) {
       },
     ],
   });
-
-  // 서버로부터 받은 데이터 가공
-  const processWeeklyData = (chartData) => {
-    return chartData.map((data) => {
-      let newData = {
-        x: data.date.split('-').slice(1).join('/'),
-        y: data.totalCustomer,
-      };
-
-      // 요일 변경
-      switch (data.day) {
-        case 'MON':
-          newData.x += '(월)';
-          break;
-        case 'TUE':
-          newData.x += '(화)';
-          break;
-        case 'WED':
-          newData.x += '(수)';
-          break;
-        case 'THU':
-          newData.x += '(목)';
-          break;
-        case 'FRI':
-          newData.x += '(금)';
-          break;
-        case 'SAT':
-          newData.x += '(토)';
-          break;
-        case 'SUN':
-          newData.x += '(일)';
-          break;
-        default:
-          break;
-      }
-      return newData;
-    });
-  };
 
   const processMonthlyData = (chartData) => {
     return chartData.map((data) => {
@@ -121,53 +83,11 @@ function BarChart({ type }) {
 
   useEffect(() => {
     if (type === 'weekly') {
-      // 서버 요청 후 응답 - 방문자수
-      const result = [
-        {
-          day: 'THU',
-          date: '2024-01-25',
-          totalCustomer: 13,
-        },
-        {
-          day: 'FRI',
-          date: '2024-01-26',
-          totalCustomer: 5,
-        },
-        {
-          day: 'SAT',
-          date: '2024-01-27',
-          totalCustomer: 4,
-        },
-        {
-          day: 'SUN',
-          date: '2024-01-28',
-          totalCustomer: 8,
-        },
-        {
-          day: 'MON',
-          date: '2024-01-29',
-          totalCustomer: 3,
-        },
-        {
-          day: 'TUE',
-          date: '2024-01-30',
-          totalCustomer: 10,
-        },
-        {
-          day: 'WED',
-          date: '2024-01-31',
-          totalCustomer: 9,
-        },
-      ];
-
-      // 데이터 가공
-      const processedData = processWeeklyData(result);
-
       setData({
         datasets: [
           {
             label: '방문자 수',
-            data: processedData,
+            data: chartData,
             backgroundColor: ({ chart: { ctx } }) => {
               const bg = ctx.createLinearGradient(0, 100, 0, 600);
               bg.addColorStop(0, '#A97CFF');
@@ -229,7 +149,7 @@ function BarChart({ type }) {
         ],
       });
     }
-  }, []);
+  }, [chartData]);
 
   if (type === 'weekly') {
     option = barChartoption;

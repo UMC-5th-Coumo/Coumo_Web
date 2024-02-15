@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import GroupTabBar from '../../../components/admin/customer/visitAnalysis/groupTab/GroupTabBar';
 import styled from 'styled-components';
 import Calendar from '../../../components/admin/customer/visitAnalysis/Calendar';
@@ -6,9 +6,131 @@ import DoughnutChart from '../../../components/admin/customer/common/charts/Doug
 import { visitTabs } from '../../../assets/data/tabData';
 import AgeGroupChart from '../../../components/admin/customer/common/charts/AgeGroupChart';
 import { Gender, Person } from '../../../assets';
+import { authInstance, defaultInstance } from '../../../api/axios';
 
 function DemographicVisit() {
   const [selected, setSelected] = useState(visitTabs[0].key);
+  const [date, setDate] = useState([null, null]);
+  const [doughnutData, setDoughnutData] = useState({
+    male: 0,
+    female: 0,
+  });
+  const [chartData, setChartData] = useState({
+    maleData: [],
+    femaleData: [],
+  });
+  const [ratio, setRatio] = useState({
+    male: 0,
+    female: 0,
+  });
+  const [age, setAge] = useState();
+
+  const changeDay = (day) => {
+    switch (day) {
+      case '10s':
+        return '10대';
+      case '20s':
+        return '20대';
+      case '30s':
+        return '30대';
+      case '40s':
+        return '40대';
+      case '50s':
+        return '50대';
+      case '60s':
+        return '60대';
+      default:
+        break;
+    }
+  };
+
+  // 서버로부터 받은 데이터 가공
+  const processData = (type, chartData) => {
+    return chartData.map((data) => {
+      let newData = {
+        x: '',
+        y: data[type],
+      };
+
+      // 연령대 변경
+      newData.x = changeDay(data.ageGroup);
+
+      // 방문자 수 추가
+      newData.x += ` (${data.total}명)`;
+
+      return newData;
+    });
+  };
+
+  const getMaxAge = (data) => {
+    const max = Math.max(...data.map((data) => data.total));
+    let maxData = data.filter((d) => d.total === max)[0];
+
+    setAge(data.length > 0 ? changeDay(maxData.ageGroup) : '-');
+  };
+
+  const getAgeGroupCount = async () => {
+    await defaultInstance
+      .get(
+        selected !== 'calendar'
+          ? `/api/statistics/${1}/age?period=${selected}`
+          : `/api/statistics/${1}/age?startDate=${getYmd(date[0])}?endData=${getYmd(date[1])}`
+      )
+      .then(async (res) => {
+        if (res.data.isSuccess) {
+          const data = res.data.result;
+          console.log(res.data);
+          const processedData = {
+            maleData: processData('male', data),
+            femaleData: processData('female', data),
+          };
+          setChartData(processedData);
+          getMaxAge(data);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getYmd = (date) => {
+    return (
+      date.getFullYear() +
+      '-' +
+      (date.getMonth() + 1 > 9
+        ? (date.getMonth() + 1).toString()
+        : '0' + (date.getMonth() + 1)) +
+      '-' +
+      (date.getDate() > 9
+        ? date.getDate().toString()
+        : '0' + date.getDate().toString())
+    );
+  };
+
+  const getGenderRatio = async () => {
+    await defaultInstance
+      .get(
+        selected !== 'calendar'
+          ? `/api/statistics/${1}/gender?period=${selected}`
+          : `/api/statistics/${1}/gender?startDate=${getYmd(date[0])}?endData=${getYmd(date[1])}`
+      )
+      .then(async (res) => {
+        if (res.data.isSuccess) {
+          const data = res.data.result;
+          console.log(res.data);
+          const processedData = {
+            male: data.male.toFixed(2),
+            female: 100 - data.male.toFixed(2),
+          };
+          setDoughnutData(processedData);
+          setRatio(processedData);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getGenderRatio();
+    getAgeGroupCount();
+  }, [selected]);
   return (
     <>
       <PageTitle>
@@ -23,7 +145,12 @@ function DemographicVisit() {
           selected={selected}
           setSelected={setSelected}
         />
-        <Calendar selected={selected} setSelected={setSelected} />
+        <Calendar
+          selected={selected}
+          setSelected={setSelected}
+          date={date}
+          setDate={setDate}
+        />
       </Header>
       <ChartContainer>
         <Doughnut>
@@ -35,14 +162,14 @@ function DemographicVisit() {
               </span>
               <TextBox>
                 <h5>
-                  <strong>여성: 84%</strong>
+                  <strong>여성: {ratio.female}%</strong>
                 </h5>
-                <h5>남성: 16%</h5>
+                <h5>남성: {ratio.male}%</h5>
               </TextBox>
             </Content>
           </CountContainer>
           <DoughnutWrapper>
-            <DoughnutChart />
+            <DoughnutChart chartData={doughnutData} />
           </DoughnutWrapper>
         </Doughnut>
         <Bar>
@@ -54,12 +181,12 @@ function DemographicVisit() {
               </span>
               <TextBox>
                 <h5>
-                  <strong>20대</strong>
+                  <strong>{age}</strong>
                 </h5>
               </TextBox>
             </Content>
           </CountContainer>
-          <AgeGroupChart type='normal' />
+          <AgeGroupChart type='normal' chartData={chartData} />
         </Bar>
       </ChartContainer>
     </>

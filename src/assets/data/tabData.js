@@ -33,7 +33,7 @@ export const indexMenu = [
 
 export const visitTabs = [
   { text: '오늘', key: 'today' },
-  { text: '이번주', key: 'thisWeek' },
-  { text: '이번달', key: 'thisMonth' },
-  { text: '3개월', key: '3month' },
+  { text: '이번주', key: 'week' },
+  { text: '이번달', key: 'month' },
+  { text: '3개월', key: 'quarter' },
 ];
