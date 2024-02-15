@@ -14,7 +14,7 @@ function MenuItem({ id, data, handleMenuDelete, handleMenuChange }) {
   const fileUpload = (e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith('image/')) {
-      setMenuData((prev) => ({ ...prev, image: URL.createObjectURL(file) }));
+      setMenuData((prev) => ({ ...prev, image: file }));
     } else {
       alert('이미지 파일을 업로드 해주세요.');
     }
@@ -40,7 +40,7 @@ function MenuItem({ id, data, handleMenuDelete, handleMenuChange }) {
           />
           {menuData.image ? (
             <ImagePreview
-              src={menuData.image}
+              src={URL.createObjectURL(menuData.image)}
               alt={`uploadedMenu-${menuData.id}`}
             />
           ) : (
@@ -139,7 +139,7 @@ const Box = styled.div`
   align-items: center;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: ${({ theme }) => theme.colors.coumo_lightpurple};
+  background: ${({ theme }) => theme.colors.lightpurple};
 `;
 
 const InnerBox = styled.div`

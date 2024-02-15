@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ImageBlock from '../../components/admin/shop/ImageBlock';
 import MenuMore from '../../components/admin/shop/MenuMore';
 import Button from '../../components/common/Button';
 import { v4 as uuidv4 } from 'uuid';
+import { defaultInstance, formAuthInstance } from '../../api/axios';
+import { useSelector } from 'react-redux';
 
 const StoreInfo = () => {
+  const { storeId } = useSelector((state) => state.user);
   const [inputs, setInputs] = useState({
     image: [],
     description: '',
@@ -20,6 +23,41 @@ const StoreInfo = () => {
       isNew: false,
     },
   ]);
+
+  const convertURLtoFile = async (url) => {
+    const response = await fetch(url);
+    const data = await response.blob();
+    const ext = url.split('/').pop(); // url 구조에 맞게 수정할 것
+    const filename = url.split('/').pop(); // url 구조에 맞게 수정할 것
+    const metadata = { type: `image/${ext}` };
+    return new File([data], filename, metadata);
+  };
+
+  const getStoreInfo = async () => {
+    await defaultInstance
+      .get(`/api/owner/store/${storeId}/detail`)
+      .then((res) => {
+        const data = res.data.result;
+        setInputs({
+          image: data.storeImages.map((image) => convertURLtoFile(image)),
+          description: data.description,
+        });
+        setMenus(
+          data.menus.map((menu) => ({
+            id: uuidv4(),
+            name: menu.name,
+            description: menu.description,
+            image: menu.image,
+            isNew: menu.isNew,
+          }))
+        );
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getStoreInfo();
+  }, []);
 
   const handleImageChange = (images) => {
     setInputs((prev) => ({
@@ -50,8 +88,27 @@ const StoreInfo = () => {
       );
       return;
     }
-    // 서버 요청 코드
-    console.log(inputs);
+    // 메뉴 이미지, 메뉴명/가격 데이터
+    const menuImages = menus.map((data) => data.image);
+    const menuData = menus.map(({ name, description, isNew }) => ({
+      name,
+      description,
+      isNew,
+    }));
+
+    // FormData 생성
+    let formData = new FormData();
+    formData.append('storeImages', inputs.image);
+    inputs.image.forEach((image) => formData.append('storeImages', image));
+    formData.append('description', inputs.description);
+    formData.append('menuImages', menuImages);
+    menuImages.forEach((image) => formData.append('menuImages', image));
+    formData.append('menuDetail', JSON.stringify(menuData));
+
+    await formAuthInstance
+      .patch(`/api/owner/store/${storeId}/detail`, formData)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.error('err:', err));
   };
 
   return (
