@@ -1,9 +1,65 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import LineChart from '../../../components/admin/customer/common/charts/LineChart';
 import VisitCount from '../../../components/admin/customer/visitAnalysis/VisitCount';
+import { defaultInstance } from '../../../api/axios';
 
 function TimeVisit() {
+  const [chartData, setChartData] = useState({});
+  const [max, setMax] = useState({
+    time: '',
+    count: 0,
+  });
+  const [min, setMin] = useState({
+    time: '',
+    count: 0,
+  });
+
+  const processData = (chartData) => {
+    return chartData.map((data) => ({
+      x: data.startTime.slice(0, 5),
+      y: data.totalCustomer,
+    }));
+  };
+
+  const getMax = (data) => {
+    const max = Math.max(...data.map((data) => data.totalCustomer));
+    let maxData = data.filter((d) => d.totalCustomer === max)[0];
+
+    setMax({
+      data: maxData.startTime,
+      count: maxData.totalCustomer,
+    });
+  };
+
+  const getMin = (data) => {
+    const min = Math.min(...data.map((data) => data.totalCustomer));
+    let minData = data.filter((d) => d.totalCustomer === min)[0];
+
+    setMin({
+      data: minData.startTime,
+      count: minData.totalCustomer,
+    });
+  };
+
+  const getTimeVisit = async () => {
+    await defaultInstance
+      .get(`/api/statistics/${1}/time`)
+      .then(async (res) => {
+        if (res.data.isSuccess) {
+          const data = res.data.result;
+          const processedData = processData(data);
+          setChartData(processedData);
+          getMax(data);
+          getMin(data);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getTimeVisit();
+  }, []);
   return (
     <>
       <PageTitle>
@@ -12,11 +68,11 @@ function TimeVisit() {
       </PageTitle>
       <Wrapper>
         <VisitData>
-          <VisitCount type='max' text='시간대' />
-          <VisitCount type='min' text='시간대' />
+          <VisitCount type='max' text='시간대' data={max} />
+          <VisitCount type='min' text='시간대' data={min} />
         </VisitData>
         <ChartContainer>
-          <LineChart />
+          <LineChart chartData={chartData} />
         </ChartContainer>
       </Wrapper>
     </>

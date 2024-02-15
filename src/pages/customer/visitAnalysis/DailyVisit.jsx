@@ -1,9 +1,108 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import BarChart from '../../../components/admin/customer/common/charts/BarChart';
 import VisitCount from '../../../components/admin/customer/visitAnalysis/VisitCount';
+import { defaultInstance } from '../../../api/axios';
 
 function DailyVisit() {
+  const [chartData, setChartData] = useState({});
+  const [max, setMax] = useState({
+    day: '',
+    count: 0,
+  });
+  const [min, setMin] = useState({
+    day: '',
+    count: 0,
+  });
+
+  // 서버로부터 받은 데이터 가공
+  const processWeeklyData = (chartData) => {
+    return chartData.map((data) => {
+      let newData = {
+        x: data.date.split('-').slice(1).join('/'),
+        y: data.totalCustomer,
+      };
+
+      // 요일 변경
+      switch (data.day) {
+        case 'MON':
+          newData.x += '(월)';
+          break;
+        case 'TUE':
+          newData.x += '(화)';
+          break;
+        case 'WED':
+          newData.x += '(수)';
+          break;
+        case 'THU':
+          newData.x += '(목)';
+          break;
+        case 'FRI':
+          newData.x += '(금)';
+          break;
+        case 'SAT':
+          newData.x += '(토)';
+          break;
+        case 'SUN':
+          newData.x += '(일)';
+          break;
+        default:
+          break;
+      }
+      return newData;
+    });
+  };
+
+  const getMax = (data) => {
+    const max = Math.max(...data.map((data) => data.totalCustomer));
+    let maxData = data.filter((d) => d.totalCustomer === max)[0];
+
+    setMax({
+      data: changeDay(maxData.day),
+      count: maxData.totalCustomer,
+    });
+  };
+
+  const getMin = (data) => {
+    const min = Math.min(...data.map((data) => data.totalCustomer));
+    let minData = data.filter((d) => d.totalCustomer === min)[0];
+
+    setMin({
+      data: changeDay(minData.day),
+      count: minData.totalCustomer,
+    });
+  };
+
+  const changeDay = (day) => {
+    // 요일 변경
+    switch (day) {
+      case 'MON':
+        return '월요일';
+      case 'TUE':
+        return '화요일';
+      case 'WED':
+        return '수요일';
+      case 'THU':
+        return '목요일';
+      case 'FRI':
+        return '금요일';
+      case 'SAT':
+        return '토요일';
+      case 'SUN':
+        return '일요일';
+      default:
+        break;
+    }
+  };
+
+  const getWeeklyVisit = async () => {
+    c;
+  };
+
+  useEffect(() => {
+    getWeeklyVisit();
+  }, []);
+
   return (
     <>
       <PageTitle>
@@ -12,11 +111,11 @@ function DailyVisit() {
       </PageTitle>
       <Wrapper>
         <VisitData>
-          <VisitCount type='max' text='요일' />
-          <VisitCount type='min' text='요일' />
+          <VisitCount type='max' text='요일' data={max} />
+          <VisitCount type='min' text='요일' data={min} />
         </VisitData>
         <ChartContainer>
-          <BarChart type='weekly' />
+          <BarChart type='weekly' chartData={chartData} />
         </ChartContainer>
       </Wrapper>
     </>

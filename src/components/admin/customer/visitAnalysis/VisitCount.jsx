@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ArrowDown, ArrowUp } from '../../../../assets';
 
-function VisitCount({ type, text }) {
+function VisitCount({ type, text, data }) {
   return (
     <Container>
       {type === 'max' ? <ArrowUp /> : <ArrowDown />}
@@ -11,7 +11,12 @@ function VisitCount({ type, text }) {
           방문자 수가 가장 <strong>{type === 'max' ? '많은' : '적은'}</strong>{' '}
           {text}
         </span>
-        <h5>금요일 (128명)</h5>
+        <h5>
+          {data.data && data.data.includes(':')
+            ? data.data.slice(0, 5)
+            : data.data}{' '}
+          ({data.count}명)
+        </h5>
       </Content>
     </Container>
   );

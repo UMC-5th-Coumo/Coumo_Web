@@ -24,9 +24,8 @@ const months = [
 
 const { colors } = theme;
 
-const Calendar = ({ selected, setSelected }) => {
-  const [dateRange, setDateRange] = useState([null, null]);
-  const [startDate, endDate] = dateRange;
+const Calendar = ({ selected, setSelected, date, setDate }) => {
+  const [startDate, endDate] = date;
 
   const dayClassName = (date) => {
     if (startDate && endDate) {
@@ -52,7 +51,7 @@ const Calendar = ({ selected, setSelected }) => {
         maxDate={new Date()}
         placeholderText='날짜를 선택해주세요.'
         onChange={(update) => {
-          setDateRange(update);
+          setDate(update);
         }}
         customInput={<CustomInput selected={selected === 'calendar'} />}
         isClearable={false}

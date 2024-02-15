@@ -27,7 +27,7 @@ ChartJS.register(
   plugins
 );
 
-function AgeGroupChart({ type }) {
+function AgeGroupChart({ type, chartData }) {
   let option = {};
   const [data, setData] = useState({
     datasets: [
@@ -56,95 +56,12 @@ function AgeGroupChart({ type }) {
     ],
   });
 
-  // 서버로부터 받은 데이터 가공
-  const processData = (type, chartData) => {
-    return chartData.map((data) => {
-      let newData = {
-        x: '',
-        y: Math.floor(data[type]),
-      };
-
-      // 연령대 변경
-      switch (data.ageGroup) {
-        case '10s':
-          newData.x = '10대';
-          break;
-        case '20s':
-          newData.x = '20대';
-          break;
-        case '30s':
-          newData.x = '30대';
-          break;
-        case '40s':
-          newData.x = '40대';
-          break;
-        case '50s':
-          newData.x = '50대';
-          break;
-        case '60s':
-          newData.x = '60대';
-          break;
-        default:
-          break;
-      }
-
-      // 방문자 수 추가
-      newData.x += ` (${data.total}명)`;
-
-      return newData;
-    });
-  };
-
   useEffect(() => {
-    // 서버 요청 후 응답 - 방문자수
-    const result = [
-      {
-        ageGroup: '10s',
-        male: 0,
-        female: 3,
-        total: 3,
-      },
-      {
-        ageGroup: '20s',
-        male: 1,
-        female: 3,
-        total: 4,
-      },
-      {
-        ageGroup: '30s',
-        male: 2,
-        female: 1,
-        total: 3,
-      },
-      {
-        ageGroup: '40s',
-        male: 0,
-        female: 1,
-        total: 1,
-      },
-      {
-        ageGroup: '50s',
-        male: 1,
-        female: 1,
-        total: 2,
-      },
-      {
-        ageGroup: '60s',
-        male: 1,
-        female: 2,
-        total: 3,
-      },
-    ];
-
-    // 데이터 가공
-    const maleData = processData('male', result);
-    const femaleData = processData('female', result);
-
     setData({
       datasets: [
         {
           label: '남성',
-          data: maleData,
+          data: chartData.maleData,
           backgroundColor: ({ chart: { ctx } }) => {
             const bg = ctx.createLinearGradient(0, 50, 0, 350);
             bg.addColorStop(0, '#9d9d9d');
@@ -155,7 +72,7 @@ function AgeGroupChart({ type }) {
         },
         {
           label: '여성',
-          data: femaleData,
+          data: chartData.femaleData,
           backgroundColor: ({ chart: { ctx } }) => {
             const bg = ctx.createLinearGradient(0, 100, 0, 600);
             bg.addColorStop(0, '#A97CFF');
@@ -166,7 +83,7 @@ function AgeGroupChart({ type }) {
         },
       ],
     });
-  }, []);
+  }, [chartData]);
 
   if (type === 'normal') {
     option = barChartoption;
