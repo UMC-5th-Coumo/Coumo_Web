@@ -4,7 +4,7 @@ import { Btn } from '../common/Button';
 import { LoginId, LoginPw, LoginSave, LoginSaveCheck } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import userSlice, { setUser } from '../../redux/slices/userSlice';
+import { setUser } from '../../redux/slices/userSlice';
 import { defaultInstance } from '../../api/axios';
 
 const LoginBox = () => {
@@ -30,13 +30,23 @@ const LoginBox = () => {
       const response = await defaultInstance.post('/owner/login', loginData);
 
       if (response.data.isSuccess) {
-        const { ownerId, storeId, token, createdAt, write } =
-          response.data.result;
+        const {
+          name,
+          email,
+          phone,
+          ownerId,
+          storeId,
+          token,
+          createdAt,
+          write,
+        } = response.data.result;
         localStorage.setItem('userToken', token);
 
         dispatch(
           setUser({
-            name: '유저',
+            name,
+            email,
+            phone,
             id: id,
             pw: pw,
             ownerId,
@@ -47,7 +57,7 @@ const LoginBox = () => {
           })
         );
 
-        console.log(userSlice);
+        console.log(response.data);
 
         navigate('/');
       } else {

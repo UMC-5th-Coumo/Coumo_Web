@@ -3,6 +3,8 @@ import { PURGE } from 'redux-persist';
 
 const initialState = {
   name: '',
+  email: '',
+  phone: '',
   id: '',
   pw: '',
   ownerId: '',
@@ -18,6 +20,8 @@ const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.name = action.payload.name;
+      state.email = action.payload.email;
+      state.phone = action.payload.phone;
       state.id = action.payload.id;
       state.pw = action.payload.pw;
       state.ownerId = action.payload.ownerId;

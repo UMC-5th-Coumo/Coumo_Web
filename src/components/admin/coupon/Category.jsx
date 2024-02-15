@@ -12,7 +12,9 @@ const Category = ({
 }) => {
   const onChange = (id) => {
     setCategory(id);
-    setPageId(1);
+    if (setPageId) {
+      setPageId(1);
+    }
   };
   return (
     <Container>
