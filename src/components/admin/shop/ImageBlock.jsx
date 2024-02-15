@@ -33,9 +33,8 @@ const ImageBlock = ({ onChange }) => {
     const file = event.target.files[0];
     if (file && file.type.startsWith('image/')) {
       // 이미지 파일이 업로드되었을 때, 해당 인덱스의 이미지를 업데이트
-      const imageURL = URL.createObjectURL(file);
       let imgs = [...uploadedImages];
-      imgs[index] = imageURL;
+      imgs[index] = file;
       setUploadedImages(imgs);
       onChange(imgs);
       console.log(uploadedImages);
@@ -100,7 +99,7 @@ const ImageBlock = ({ onChange }) => {
                 />
                 {uploadedImages[index] && (
                   <ImagePreview
-                    src={uploadedImages[index]}
+                    src={URL.createObjectURL(uploadedImages[index])}
                     alt={`uploaded-${index}`}
                   />
                 )}

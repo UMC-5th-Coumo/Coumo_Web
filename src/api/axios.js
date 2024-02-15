@@ -25,6 +25,6 @@ export const formAuthInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-Type': 'multipart/form-data',
-    Authorization: 'Bearer ' + token,
+    // Authorization: 'Bearer ' + token,
   },
 });
