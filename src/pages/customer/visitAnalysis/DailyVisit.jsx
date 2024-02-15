@@ -96,7 +96,18 @@ function DailyVisit() {
   };
 
   const getWeeklyVisit = async () => {
-    c;
+    await defaultInstance
+      .get(`/api/statistics/${1}/day`)
+      .then(async (res) => {
+        if (res.data.isSuccess) {
+          const data = res.data.result;
+          const processedData = processWeeklyData(data);
+          setChartData(processedData);
+          getMax(data);
+          getMin(data);
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
