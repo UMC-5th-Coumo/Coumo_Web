@@ -2,9 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import RadioBtn from '../../common/RadioBtn';
 
-const Category = ({ data, category, setCategory, columns, dropWidth }) => {
+const Category = ({
+  data,
+  category,
+  setCategory,
+  setPageId,
+  columns,
+  dropWidth,
+}) => {
   const onChange = (id) => {
     setCategory(id);
+    setPageId(1);
   };
   return (
     <Container>

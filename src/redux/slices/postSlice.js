@@ -24,8 +24,8 @@ const initialPostDummyData = [
   },
   {
     id: 1,
-    tag: 'noshow',
-    label: '노쇼 빈자리',
+    tag: 'event',
+    label: '이벤트',
     time: '2024-01-01 16:32',
     title: '쿠모 네일 1/1 15시 30% 할인',
     content:
@@ -78,8 +78,8 @@ const initialPostDummyData = [
   },
   {
     id: 5,
-    tag: 'noshow',
-    label: '노쇼 빈자리',
+    tag: 'event',
+    label: '이벤트',
     time: '2024-01-01 16:32',
     title: '쿠모 네일 1/1 15시 30% 할인',
     content:
@@ -132,8 +132,8 @@ const initialPostDummyData = [
   },
   {
     id: 9,
-    tag: 'noshow',
-    label: '노쇼 빈자리',
+    tag: 'event',
+    label: '이벤트',
     time: '2024-01-01 16:32',
     title: '쿠모 네일 1/1 15시 30% 할인',
     content:
