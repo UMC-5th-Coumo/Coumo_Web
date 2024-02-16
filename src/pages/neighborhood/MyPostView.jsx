@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom';
 import { setSelectedPost } from '../../redux/slices/postSlice';
 import getMyPostView from '../../redux/thunks/getMyPostView';
 import { IoMdArrowBack } from 'react-icons/io';
+import { defaultInstance } from '../../api/axios';
 
 const MyPostView = () => {
   const navigate = useNavigate();
@@ -18,6 +19,21 @@ const MyPostView = () => {
 
   const { postId } = useParams();
   const selectedPost = useSelector((state) => state.post.selectedPost);
+
+  useEffect(() => {
+    const posts = async () => {
+      try {
+        const response = await defaultInstance.get(`/api/notice/1/detail/1`);
+        if (response.data.isSuccess) {
+          console.log('성공', response.data);
+        }
+      } catch (error) {
+        console.error('에러:', error);
+      }
+    };
+
+    posts();
+  }, []);
 
   /* ----- 컴포넌트가 마운트될 때 받아오기 ----- */
   useEffect(() => {
