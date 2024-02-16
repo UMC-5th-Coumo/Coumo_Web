@@ -9,10 +9,8 @@ import { useSelector } from 'react-redux';
 
 const StoreInfo = () => {
   const { storeId } = useSelector((state) => state.user);
-  const [inputs, setInputs] = useState({
-    image: [],
-    description: '',
-  });
+  const [storeImages, setStoreImages] = useState([]);
+  const [description, setDescription] = useState('');
 
   const [menus, setMenus] = useState([
     {
@@ -36,18 +34,33 @@ const StoreInfo = () => {
   const getStoreInfo = async () => {
     await defaultInstance
       .get(`/api/owner/store/${storeId}/detail`)
-      .then((res) => {
+      .then(async (res) => {
         const data = res.data.result;
-        setInputs({
-          image: data.storeImages.map((image) => convertURLtoFile(image)),
-          description: data.description,
-        });
+        console.log(data);
+        const storeImages = await Promise.all(
+          data.storeImages.map((image) => convertURLtoFile(image))
+        );
+
+        setStoreImages(
+          storeImages.map((image, index) => ({
+            id: uuidv4(),
+            image: image,
+          }))
+        );
+
+        setDescription(data.description);
+
+        // Wait for the conversion of the menu images
+        const menuImages = await Promise.all(
+          data.menus.map((menu) => convertURLtoFile(menu.image))
+        );
+
         setMenus(
-          data.menus.map((menu) => ({
+          data.menus.map((menu, index) => ({
             id: uuidv4(),
             name: menu.name,
             description: menu.description,
-            image: menu.image,
+            image: menuImages[index],
             isNew: menu.isNew,
           }))
         );
@@ -59,16 +72,12 @@ const StoreInfo = () => {
     getStoreInfo();
   }, []);
 
-  const handleImageChange = (images) => {
-    setInputs((prev) => ({
-      ...prev,
-      image: images,
-    }));
-  };
-
   const isVaild = () => {
-    const { description, image } = inputs;
-    if (description.trim() === '' || menus.length === 0 || image.length === 0) {
+    if (
+      description.trim() === '' ||
+      menus.length === 0 ||
+      storeImages.length === 0
+    ) {
       return false;
     } else {
       return true;
@@ -95,13 +104,14 @@ const StoreInfo = () => {
       description,
       isNew,
     }));
+    const storeImgData = storeImages.map(({ image }) => image);
 
     // FormData 생성
     let formData = new FormData();
-    formData.append('storeImages', inputs.image);
-    inputs.image.forEach((image) => formData.append('storeImages', image));
-    formData.append('description', inputs.description);
-    formData.append('menuImages', menuImages);
+    // formData.append('storeImages', storeImgData);
+    storeImgData.forEach((image) => formData.append('storeImages', image));
+    formData.append('description', description);
+    // formData.append('menuImages', menuImages);
     menuImages.forEach((image) => formData.append('menuImages', image));
     formData.append('menuDetail', JSON.stringify(menuData));
 
@@ -119,7 +129,10 @@ const StoreInfo = () => {
             <Title>대표이미지</Title>
             <Recommend>*이미지는 1:1비율을 권장합니다</Recommend>
           </Representative>
-          <ImageBlock onChange={handleImageChange} />
+          <ImageBlock
+            storeImages={storeImages}
+            setStoreImages={setStoreImages}
+          />
         </Image>
         <Description>
           <Title>매장 상세설명</Title>
@@ -127,10 +140,10 @@ const StoreInfo = () => {
             name='description'
             spellcheck='false'
             placeholder='매장에 대한 설명글을 간단히 적어주세요 (0/100)'
-            value={inputs.description}
+            value={description}
             onChange={(e) => {
               onInputHandler(e);
-              setInputs((prev) => ({ ...prev, description: e.target.value }));
+              setDescription(e.target.value);
             }}
             onFocus={() => setInputFocused(true)}
             onBlur={() => setInputFocused(false)}
