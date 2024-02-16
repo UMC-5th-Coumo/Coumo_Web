@@ -141,80 +141,75 @@ const JoinOneStep = () => {
   };
 
   return (
-    <Container>
-      <Wrapper>
-        <Box>
-          <Title>사장님 회원가입</Title>
-          <div>
-            <Row>
-              <InputJoin
-                label='아이디 *'
-                placeholder='영문/숫자 6자 이상'
-                value={account.id}
-                onChange={onChangeId}
-                width='250px'
-                star={true}
-              />
-              <CheckButton text='중복 확인하기' onClick={handleCheckDup} />
-            </Row>
-            <ErrorMsg text={msg.login} />
-          </div>
-          <div>
+    <Wrapper>
+      <Box>
+        <Title>사장님 회원가입</Title>
+        <div>
+          <Row>
             <InputJoin
-              label='비밀번호 *'
-              placeholder='영문/숫자 8자 이상'
-              type='password'
-              value={account.pw}
-              onChange={onChangePassword}
+              label='아이디 *'
+              placeholder='영문/숫자 6자 이상'
+              value={account.id}
+              onChange={onChangeId}
+              width='250px'
               star={true}
             />
-            <ErrorMsg text={msg.password} />
-          </div>
-          <div>
-            <InputJoin
-              label='비밀번호 확인하기 *'
-              placeholder='비밀번호 확인'
-              type='password'
-              value={account.confirmPw}
-              onChange={onChangeConfirmPassword}
-              star={true}
-            />
-            <ErrorMsg text={msg.confirmPw} />
-          </div>
-          <CheckList checks={checks} setChecks={setChecks} />
-          <JoinBtn
-            topMargin={20}
-            text='다음으로 넘어가기'
-            onClick={onSubmit}
-            disabled={!isJoinOneEnabled()}
+            <CheckButton text='중복 확인하기' onClick={handleCheckDup} />
+          </Row>
+          <ErrorMsg text={msg.login} />
+        </div>
+        <div>
+          <InputJoin
+            label='비밀번호 *'
+            placeholder='영문/숫자 8자 이상'
+            type='password'
+            value={account.pw}
+            onChange={onChangePassword}
+            star={true}
           />
-        </Box>
-      </Wrapper>
-    </Container>
+          <ErrorMsg text={msg.password} />
+        </div>
+        <div>
+          <InputJoin
+            label='비밀번호 확인하기 *'
+            placeholder='비밀번호 확인'
+            type='password'
+            value={account.confirmPw}
+            onChange={onChangeConfirmPassword}
+            star={true}
+          />
+          <ErrorMsg text={msg.confirmPw} />
+        </div>
+        <CheckList checks={checks} setChecks={setChecks} />
+        <JoinBtn
+          topMargin={20}
+          text='다음으로 넘어가기'
+          onClick={onSubmit}
+          disabled={!isJoinOneEnabled()}
+        />
+      </Box>
+    </Wrapper>
   );
 };
 
 export default JoinOneStep;
 
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 100px;
-`;
-
 const Wrapper = styled.div`
-  width: 370px;
+  width: 400px;
+  height: 550px;
   display: flex;
   flex-direction: column;
+  background-color: ${({ theme }) => theme.colors.white};
+  padding: 40px;
+  border-radius: 10px;
 `;
 
 const Box = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
 `;
 

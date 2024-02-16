@@ -158,94 +158,89 @@ const JoinTwoStep = () => {
   };
 
   return (
-    <Container>
-      <Wrapper>
-        <Box>
-          <Title>사장님 회원가입</Title>
+    <Wrapper>
+      <Box>
+        <Title>사장님 회원가입</Title>
+        <InputJoin
+          label='사장님 성함 *'
+          placeholder='예) 홍길동'
+          value={info.name}
+          onChange={(e) =>
+            setInfo((prev) => ({ ...prev, name: e.target.value }))
+          }
+          star={true}
+        />
+        <ErrorMsg text='' />
+        <div>
           <InputJoin
-            label='사장님 성함 *'
-            placeholder='예) 홍길동'
-            value={info.name}
-            onChange={(e) =>
-              setInfo((prev) => ({ ...prev, name: e.target.value }))
-            }
+            label='이메일 주소 *'
+            placeholder='coumo123@naver.com'
+            value={info.email}
+            onChange={onChangeEmail}
             star={true}
           />
-          <ErrorMsg text='' />
-          <div>
+          <ErrorMsg text={valid.emailMsg} />
+        </div>
+        <div>
+          <Row>
             <InputJoin
-              label='이메일 주소 *'
-              placeholder='coumo123@naver.com'
-              value={info.email}
-              onChange={onChangeEmail}
+              label='휴대전화 번호 *'
+              placeholder='- 없이'
+              value={info.phone}
+              onChange={onChangePhone}
+              width='250px'
               star={true}
             />
-            <ErrorMsg text={valid.emailMsg} />
-          </div>
-          <div>
-            <Row>
-              <InputJoin
-                label='휴대전화 번호 *'
-                placeholder='- 없이'
-                value={info.phone}
-                onChange={onChangePhone}
-                width='250px'
-                star={true}
-              />
-              <CheckButton text='인증 받기' onClick={onPostCertified} />
-            </Row>
-            <ErrorMsg text={valid.phoneMsg} />
-          </div>
-          <div>
-            <Row>
-              <InputJoin
-                label='인증번호 입력 *'
-                placeholder='숫자 4자리'
-                type='password'
-                value={info.certified}
-                onChange={(e) =>
-                  setInfo((prev) => ({ ...prev, certified: e.target.value }))
-                }
-                width='250px'
-                star={true}
-              />
-              <CheckButton text='인증번호 확인' onClick={onCertified} />
-            </Row>
-            <ErrorMsg text={valid.certifiedMsg} />
-          </div>
-          <JoinBtn
-            topMargin={30}
-            text='확인'
-            onClick={onSubmit}
-            disabled={!isJoinTwoEnabled()}
-          />
-        </Box>
-      </Wrapper>
-    </Container>
+            <CheckButton text='인증 받기' onClick={onPostCertified} />
+          </Row>
+          <ErrorMsg text={valid.phoneMsg} />
+        </div>
+        <div>
+          <Row>
+            <InputJoin
+              label='인증번호 입력 *'
+              placeholder='숫자 4자리'
+              type='password'
+              value={info.certified}
+              onChange={(e) =>
+                setInfo((prev) => ({ ...prev, certified: e.target.value }))
+              }
+              width='250px'
+              star={true}
+            />
+            <CheckButton text='인증번호 확인' onClick={onCertified} />
+          </Row>
+          <ErrorMsg text={valid.certifiedMsg} />
+        </div>
+        <JoinBtn
+          topMargin={30}
+          text='확인'
+          onClick={onSubmit}
+          disabled={!isJoinTwoEnabled()}
+        />
+      </Box>
+    </Wrapper>
   );
 };
 
 export default JoinTwoStep;
 
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 100px;
-`;
-
 const Wrapper = styled.div`
-  width: 370px;
+  width: 400px;
+  height: 550px;
   display: flex;
   flex-direction: column;
+  background-color: ${({ theme }) => theme.colors.white};
+  padding: 40px;
+  border-radius: 10px;
 `;
 
 const Box = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
 `;
 
