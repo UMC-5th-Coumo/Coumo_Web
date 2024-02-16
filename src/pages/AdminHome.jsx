@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import FormPopUp from '../components/admin/formPopUp/FormPopUp';
 import StoreInfo from '../components/admin/home/StoreInfo';
@@ -7,6 +7,7 @@ import CouponInfo from '../components/admin/home/CouponInfo';
 import DayGraphInfo from '../components/admin/home/DayGraphInfo';
 import CustomerInfo from '../components/admin/home/CustomerInfo';
 import GenderGraphInfo from '../components/admin/home/GenderGraphInfo';
+import { useSelector } from 'react-redux';
 
 function AdminHome() {
   const coupon = {
@@ -16,9 +17,11 @@ function AdminHome() {
     stampMax: 10,
   };
 
+  const { write } = useSelector((state) => state.user);
+
   return (
     <Container>
-      {/* <FormPopUp /> */}
+      {write ? null : <FormPopUp />}
       <ColumWrapper>
         <StoreInfo />
         <DayGraphInfo />

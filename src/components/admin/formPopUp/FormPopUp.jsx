@@ -7,45 +7,49 @@ import Step2 from './Step2';
 import Step3 from './Step3';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../../redux/slices/userSlice';
 
 function FormPopUp() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.user);
   const [step, setStep] = useState(0);
   const [hours, setHours] = useState({
-    mon: {
-      day: '',
-      startTime: '',
-      endTime: '',
+    MONDAY: {
+      day: 'MONDAY',
+      startTime: '00:00',
+      endTime: '00:00',
     },
-    tue: {
-      day: '',
-      startTime: '',
-      endTime: '',
+    TUESDAY: {
+      day: 'TUESDAY',
+      startTime: '00:00',
+      endTime: '00:00',
     },
-    wed: {
-      day: '',
-      startTime: '',
-      endTime: '',
+    WEDNESDAY: {
+      day: 'WEDNESDAY',
+      startTime: '00:00',
+      endTime: '00:00',
     },
-    thu: {
-      day: '',
-      startTime: '',
-      endTime: '',
+    THURSDAY: {
+      day: 'THURSDAY',
+      startTime: '00:00',
+      endTime: '00:00',
     },
-    fri: {
-      day: '',
-      startTime: '',
-      endTime: '',
+    FRIDAY: {
+      day: 'FRIDAY',
+      startTime: '00:00',
+      endTime: '00:00',
     },
-    sat: {
-      day: '',
-      startTime: '',
-      endTime: '',
+    SATURDAY: {
+      day: 'SATURDAY',
+      startTime: '00:00',
+      endTime: '00:00',
     },
-    sun: {
-      day: '',
-      startTime: '',
-      endTime: '',
+    SUNDAY: {
+      day: 'SUNDAY',
+      startTime: '00:00',
+      endTime: '00:00',
     },
   });
 
@@ -122,8 +126,6 @@ function FormPopUp() {
     // 3단계 미만일 땐 '다음' 버튼
     if (step < 3) {
       setStep((prev) => prev + 1);
-    } else {
-      // 서버 연동
     }
   };
 
@@ -132,7 +134,13 @@ function FormPopUp() {
     console.log('storeData:', storeData);
     console.log('couponData:', couponData);
     // 서버로 전송하는 로직 추가
-    navigate('/home');
+    dispatch(
+      setUser({
+        ...state,
+        write: true,
+      })
+    );
+    navigate('/');
   };
 
   const isStep1NextDisabled = () => {
@@ -212,7 +220,7 @@ const Container = styled.div`
 `;
 
 const Popup = styled.div`
-  width: 750px;
+  width: 1200px;
   height: 700px;
   background-color: ${({ theme }) => theme.colors.white};
 

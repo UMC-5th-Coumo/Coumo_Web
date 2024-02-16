@@ -1,56 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Input from '../../common/Input';
 import Category from '../coupon/Category';
 import { categoryData } from '../../../assets/data/categoryData';
 import Title from '../../common/Title';
-import DaumPostcode from 'react-daum-postcode';
-import { createRoot } from 'react-dom/client';
 import WorkingHour from '../shop/workingHour/WorkingHour';
+import AddressInput from '../shop/AddressInput';
 
 const Step1 = ({ storeData, setStoreData, hours, setHours }) => {
   const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
 
-  const handleAddressClick = () => {
-    setIsPostcodeOpen(true);
-  };
-
-  const handleAddressDetailClick = () => {
-    if (storeData.address === '') {
-      setIsPostcodeOpen(true);
+  const handleInputClick = () => {
+    if (isPostcodeOpen) {
+      setIsPostcodeOpen(false);
     }
-  };
-
-  const handleAddressComplete = (data) => {
-    const fullAddress = data.address;
-    setStoreData((prev) => ({ ...prev, address: fullAddress }));
-
-    setIsPostcodeOpen(false);
-  };
-
-  const WindowPopup = ({ children }) => {
-    useEffect(() => {
-      const popupWindow = window.open('', '_blank', 'width=415,height=515');
-
-      if (popupWindow) {
-        const doc = popupWindow.document;
-        doc.write('<html><head><title>DaumPostcode Popup</title></head><body>');
-        doc.write('<div id="root"></div>');
-        doc.write('</body></html>');
-
-        // React 컴포넌트 렌더링
-        const root = doc.getElementById('root');
-        const reactRoot = createRoot(root);
-        reactRoot.render(children);
-        return () => {
-          popupWindow.close();
-        };
-      } else {
-        console.error('Failed to open popup window.');
-      }
-    }, [children]);
-
-    return null;
   };
 
   return (
@@ -90,60 +53,32 @@ const Step1 = ({ storeData, setStoreData, hours, setHours }) => {
                 setStoreData((prev) => ({ ...prev, telePhone: e.target.value }))
               }
             />
-            <Row>
-              <Input
-                name='address'
-                label='위치정보'
-                type='text'
-                placeholder='주소를 입력해주세요.'
-                value={storeData.address}
-                readOnly={true}
-                fullwidth='230px'
-                onChange={(e) =>
-                  setStoreData((prev) => ({ ...prev, address: e.target.value }))
-                }
-                onClick={handleAddressClick}
-              />
-              {isPostcodeOpen && (
-                <WindowPopup>
-                  <DaumPostcode
-                    onComplete={handleAddressComplete}
-                    autoClose
-                    style={{
-                      width: '400px',
-                      height: '500px',
-                      zIndex: 1000,
-                    }}
-                  />
-                </WindowPopup>
-              )}
-              <Input
-                name='addressDetail'
-                type='text'
-                placeholder='상세 주소를 입력해주세요.'
-                value={storeData.addressDetail}
-                fullwidth='230px'
-                onChange={(e) =>
-                  setStoreData((prev) => ({
-                    ...prev,
-                    addressDetail: e.target.value,
-                  }))
-                }
-                onClick={handleAddressDetailClick}
-              />
-            </Row>
+            <AddressInput
+              address={storeData.address}
+              addressDetail={storeData.addressDetail}
+              setAddress={(value) =>
+                setStoreData((prev) => ({ ...prev, address: value }))
+              }
+              setAddressDetail={(value) =>
+                setStoreData((prev) => ({ ...prev, addressDetail: value }))
+              }
+              isPostcodeOpen={isPostcodeOpen}
+              setIsPostcodeOpen={setIsPostcodeOpen}
+              handleInputClick={handleInputClick}
+            />
           </Left>
           <Right>
-            <WorkingHours dropWidth='100px'>
+            <WorkingHours>
               <Title title='영업시간' />
               {Object.keys(hours).map((day, i) => (
                 <WorkingHour
                   key={i}
                   day={day}
+                  data={hours[day]}
+                  dropWidth={false}
                   setData={(hours) =>
                     setHours((prev) => ({ ...prev, [day]: hours }))
                   }
-                  dropWidth={true}
                 />
               ))}
             </WorkingHours>
@@ -162,13 +97,6 @@ const Box = styled.div`
   overflow-y: scroll;
 `;
 
-const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  gap: 10px;
-`;
-
 const Content = styled.div`
   width: 100%;
   height: auto;
@@ -177,29 +105,27 @@ const Content = styled.div`
   box-sizing: border-box;
   font-weight: 500;
   position: relative;
-  padding: 50px 50px;
+  padding: 50px 150px;
   display: flex;
+  justify-content: center;
 `;
 
 const Wrapper = styled.div`
   width: 100%;
   max-width: 900px;
   display: flex;
+  justify-content: space-between;
   flex-direction: row;
   gap: 50px;
 `;
 
 const Left = styled.div`
-  width: 40%;
-  max-width: 900px;
   display: flex;
   flex-direction: column;
   gap: 25px;
 `;
 
 const Right = styled.div`
-  width: 60%;
-  max-width: 900px;
   display: flex;
   flex-direction: column;
 `;
