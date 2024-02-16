@@ -10,9 +10,7 @@ function GenderGraphInfo() {
         <BiBarChartSquare />
         이번 달 주 고객층은?
       </Title>
-      <ChartWrapper>
-        <AgeGroupChart type='light' />
-      </ChartWrapper>
+      <ChartWrapper>{/* <AgeGroupChart type='light' /> */}</ChartWrapper>
     </Container>
   );
 }

@@ -5,13 +5,13 @@ import VisitCount from '../../../components/admin/customer/visitAnalysis/VisitCo
 import { defaultInstance } from '../../../api/axios';
 
 function DailyVisit() {
-  const [chartData, setChartData] = useState({});
+  const [chartData, setChartData] = useState([]);
   const [max, setMax] = useState({
-    day: '',
+    data: '',
     count: 0,
   });
   const [min, setMin] = useState({
-    day: '',
+    data: '',
     count: 0,
   });
 
@@ -101,10 +101,22 @@ function DailyVisit() {
       .then(async (res) => {
         if (res.data.isSuccess) {
           const data = res.data.result;
-          const processedData = processWeeklyData(data);
-          setChartData(processedData);
-          getMax(data);
-          getMin(data);
+          if (data.length > 0) {
+            const processedData = processWeeklyData(data);
+            setChartData(processedData);
+            getMax(data);
+            getMin(data);
+          } else {
+            setChartData([]);
+            setMax({
+              data: '-',
+              count: 0,
+            });
+            setMin({
+              data: '-',
+              count: 0,
+            });
+          }
         }
       })
       .catch((err) => console.log(err));
@@ -128,6 +140,11 @@ function DailyVisit() {
         <ChartContainer>
           <BarChart type='weekly' chartData={chartData} />
         </ChartContainer>
+        {chartData.length === 0 && (
+          <NoData>
+            <span>데이터 없음</span>
+          </NoData>
+        )}
       </Wrapper>
     </>
   );
@@ -163,6 +180,22 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 10px;
   padding: 20px;
+`;
+
+const NoData = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #80808036;
+  color: ${({ theme }) => theme.colors.text_black};
+  font-size: ${({ theme }) => theme.fontSize.base};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
 `;
 
 const VisitData = styled.div`

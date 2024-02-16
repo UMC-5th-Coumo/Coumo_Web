@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styled from 'styled-components';
@@ -37,7 +37,7 @@ const Calendar = ({ selected, setSelected, date, setDate }) => {
   };
 
   return (
-    <Container onClick={() => setSelected('calendar')}>
+    <Container>
       <DatePicker
         locale={ko}
         dateFormat='yyyy.MM.dd'
@@ -52,6 +52,10 @@ const Calendar = ({ selected, setSelected, date, setDate }) => {
         placeholderText='날짜를 선택해주세요.'
         onChange={(update) => {
           setDate(update);
+
+          if (update[0] && update[1]) {
+            setSelected('calendar');
+          }
         }}
         customInput={<CustomInput selected={selected === 'calendar'} />}
         isClearable={false}

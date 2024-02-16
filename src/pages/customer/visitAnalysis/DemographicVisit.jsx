@@ -6,12 +6,14 @@ import DoughnutChart from '../../../components/admin/customer/common/charts/Doug
 import { visitTabs } from '../../../assets/data/tabData';
 import AgeGroupChart from '../../../components/admin/customer/common/charts/AgeGroupChart';
 import { Gender, Person } from '../../../assets';
-import { authInstance, defaultInstance } from '../../../api/axios';
+import { defaultInstance } from '../../../api/axios';
 
 function DemographicVisit() {
   const [selected, setSelected] = useState(visitTabs[0].key);
   const [date, setDate] = useState([null, null]);
+  const [noData, setNoData] = useState(false);
   const [doughnutData, setDoughnutData] = useState({
+    noData: false,
     male: 0,
     female: 0,
   });
@@ -19,13 +21,9 @@ function DemographicVisit() {
     maleData: [],
     femaleData: [],
   });
-  const [ratio, setRatio] = useState({
-    male: 0,
-    female: 0,
-  });
   const [age, setAge] = useState();
 
-  const changeDay = (day) => {
+  const changeAge = (day) => {
     switch (day) {
       case '10s':
         return '10대';
@@ -44,7 +42,7 @@ function DemographicVisit() {
     }
   };
 
-  // 서버로부터 받은 데이터 가공
+  /* ----- 서버로부터 받은 데이터 가공 ----- */
   const processData = (type, chartData) => {
     return chartData.map((data) => {
       let newData = {
@@ -53,7 +51,7 @@ function DemographicVisit() {
       };
 
       // 연령대 변경
-      newData.x = changeDay(data.ageGroup);
+      newData.x = changeAge(data.ageGroup);
 
       // 방문자 수 추가
       newData.x += ` (${data.total}명)`;
@@ -62,35 +60,47 @@ function DemographicVisit() {
     });
   };
 
+  /* ----- 방문율이 가장 높은 연령대 ----- */
   const getMaxAge = (data) => {
-    const max = Math.max(...data.map((data) => data.total));
-    let maxData = data.filter((d) => d.total === max)[0];
-
-    setAge(data.length > 0 ? changeDay(maxData.ageGroup) : '-');
+    if (data.length > 0) {
+      const max = Math.max(...data.map((data) => data.total));
+      let maxData = data.filter((d) => d.total === max)[0];
+      setAge(changeAge(maxData.ageGroup));
+    } else {
+      setAge('-');
+    }
   };
 
+  /* ----- 연령대 조회 api ----- */
   const getAgeGroupCount = async () => {
     await defaultInstance
       .get(
         selected !== 'calendar'
           ? `/api/statistics/${1}/age?period=${selected}`
-          : `/api/statistics/${1}/age?startDate=${getYmd(date[0])}?endData=${getYmd(date[1])}`
+          : `/api/statistics/${1}/age?startDate=${getYmd(date[0])}&endDate=${getYmd(date[1])}`
       )
       .then(async (res) => {
         if (res.data.isSuccess) {
           const data = res.data.result;
-          console.log(res.data);
-          const processedData = {
-            maleData: processData('male', data),
-            femaleData: processData('female', data),
-          };
-          setChartData(processedData);
-          getMaxAge(data);
+
+          if (data.length > 0) {
+            const processedData = {
+              maleData: processData('male', data),
+              femaleData: processData('female', data),
+            };
+            setChartData(processedData);
+            getMaxAge(data);
+            setNoData(false);
+          } else {
+            setNoData(true);
+            setAge('-');
+          }
         }
       })
       .catch((err) => console.log(err));
   };
 
+  /* ----- 날짜 포맷 변경 함수 ----- */
   const getYmd = (date) => {
     return (
       date.getFullYear() +
@@ -105,32 +115,44 @@ function DemographicVisit() {
     );
   };
 
+  /* ----- 성비 조회 api ----- */
   const getGenderRatio = async () => {
     await defaultInstance
       .get(
         selected !== 'calendar'
           ? `/api/statistics/${1}/gender?period=${selected}`
-          : `/api/statistics/${1}/gender?startDate=${getYmd(date[0])}?endData=${getYmd(date[1])}`
+          : `/api/statistics/${1}/gender?startDate=${getYmd(date[0])}&endDate=${getYmd(date[1])}`
       )
       .then(async (res) => {
         if (res.data.isSuccess) {
           const data = res.data.result;
-          console.log(res.data);
-          const processedData = {
-            male: data.male.toFixed(2),
-            female: 100 - data.male.toFixed(2),
-          };
-          setDoughnutData(processedData);
-          setRatio(processedData);
+
+          if (isNaN(data.male) || isNaN(data.female)) {
+            setNoData(true);
+          } else {
+            const processedData = {
+              male: data.male.toFixed(2),
+              female: 100 - data.male.toFixed(2),
+            };
+            setDoughnutData(processedData);
+            setNoData(false);
+          }
         }
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
+    console.log(selected);
+    console.log(date);
+    if (selected !== 'calendar') {
+      setDate([null, null]);
+    }
+
     getGenderRatio();
     getAgeGroupCount();
   }, [selected]);
+
   return (
     <>
       <PageTitle>
@@ -153,6 +175,11 @@ function DemographicVisit() {
         />
       </Header>
       <ChartContainer>
+        {noData && (
+          <NoData>
+            <span>데이터 없음</span>
+          </NoData>
+        )}
         <Doughnut>
           <CountContainer>
             <Gender />
@@ -162,9 +189,9 @@ function DemographicVisit() {
               </span>
               <TextBox>
                 <h5>
-                  <strong>여성: {ratio.female}%</strong>
+                  <strong>여성: {doughnutData.female}%</strong>
                 </h5>
-                <h5>남성: {ratio.male}%</h5>
+                <h5>남성: {doughnutData.male}%</h5>
               </TextBox>
             </Content>
           </CountContainer>
@@ -234,6 +261,7 @@ const ChartContainer = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.lightpurple_border};
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 0px 0px 10px 10px;
+  position: relative;
 
   @media screen and (max-width: 1000px) {
     flex-direction: column;
@@ -264,6 +292,20 @@ const DoughnutWrapper = styled.div`
   @media screen and (max-width: 1000px) {
     align-items: flex-start;
   }
+`;
+
+const NoData = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #80808036;
+  color: ${({ theme }) => theme.colors.text_black};
+  font-size: ${({ theme }) => theme.fontSize.base};
 `;
 
 const Doughnut = styled.div`
