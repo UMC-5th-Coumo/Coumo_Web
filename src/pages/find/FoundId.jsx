@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const FoundId = () => {
   const navigate = useNavigate();
   return (
-    <Found>
+    <Container>
       <Wrapper>
         <Title>사장님의 쿠모 아이디를 찾았습니다.</Title>
         <Result>
@@ -17,15 +17,16 @@ const FoundId = () => {
           로그인 하러 가기
         </Button>
       </Wrapper>
-    </Found>
+    </Container>
   );
 };
 
 export default FoundId;
 
-const Found = styled.div`
+const Container = styled.div`
   width: 100%;
   height: calc(100vh - 80px);
+  background: linear-gradient(331deg, #c9adff 6.83%, #f9f4ff 114.92%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,6 +36,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: ${({ theme }) => theme.colors.white};
+  padding: 40px 100px;
+  border-radius: 10px;
 `;
 
 const Title = styled.div`
@@ -42,7 +46,7 @@ const Title = styled.div`
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.xl};
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 100%;
   margin-bottom: 20px;
 `;

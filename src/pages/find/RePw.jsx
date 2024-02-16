@@ -126,6 +126,7 @@ export default RePw;
 const Container = styled.div`
   width: 100%;
   height: calc(100vh - 80px);
+  background: linear-gradient(331deg, #c9adff 6.83%, #f9f4ff 114.92%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -133,9 +134,15 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 370px;
+  width: 400px;
+  height: 450px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: ${({ theme }) => theme.colors.white};
+  padding: 40px;
+  border-radius: 10px;
 `;
 
 const Title = styled.div`
@@ -143,7 +150,7 @@ const Title = styled.div`
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.xl};
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 100%; /* 36px */
   margin-bottom: 45px;
 `;

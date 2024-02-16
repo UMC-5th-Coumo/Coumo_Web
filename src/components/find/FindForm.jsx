@@ -10,12 +10,19 @@ import ErrorMsg from '../join/ErrorMsg';
 const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
   const navigate = useNavigate();
 
+  // 유효성 검사 및 오류 메세지
+  const [valid, setValid] = useState({
+    phone: false,
+    certified: false,
+    phoneMsg: '',
+    certifiedMsg: '',
+  });
+
   const [info, setInfo] = useState({
     id: '',
     phone: '',
     number: '',
   });
-  const [msg, setMsg] = useState('');
 
   const onChangeId = (e) => {
     setInfo((prev) => ({ ...prev, id: e.target.value }));
@@ -23,6 +30,21 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
 
   const onChangePhone = (e) => {
     setInfo((prev) => ({ ...prev, phone: e.target.value }));
+    const isValid = /^\d{10,11}$/.test(e.target.value);
+
+    if (!isValid) {
+      setValid((prev) => ({
+        ...prev,
+        phoneMsg: '올바른 형식의 전화번호를 작성해주세요.',
+      }));
+      setValid((prev) => ({ ...prev, phone: false }));
+    } else {
+      setValid((prev) => ({
+        ...prev,
+        phoneMsg: '',
+      }));
+      setValid((prev) => ({ ...prev, phone: true }));
+    }
   };
 
   const onChangeNumber = (e) => {
@@ -66,12 +88,28 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
         });
 
         if (response.data.isSuccess && postData === 'name') {
-          setMsg(<span style={{ color: '#33bd4a' }}>인증되었습니다.</span>);
+          setValid((prev) => ({
+            ...prev,
+            certified: true,
+            certifiedMsg: (
+              <span style={{ color: '#33bd4a' }}>인증되었습니다.</span>
+            ),
+          }));
         } else if (response.data.isSuccess && postData === 'id') {
-          setMsg(<span style={{ color: '#33bd4a' }}>인증되었습니다.</span>);
+          setValid((prev) => ({
+            ...prev,
+            certified: true,
+            certifiedMsg: (
+              <span style={{ color: '#33bd4a' }}>인증되었습니다.</span>
+            ),
+          }));
         } else {
           console.error(response.data.message);
-          setMsg('잘못된 인증번호입니다.');
+          setValid((prev) => ({
+            ...prev,
+            certified: false,
+            certifiedMsg: '잘못된 인증번호입니다.',
+          }));
         }
       } catch (error) {
         console.error('Error Find Id/Pw');
@@ -102,72 +140,67 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
   };
 
   return (
-    <Container>
-      <Wrapper>
-        <Box>
-          <Title>{title}</Title>
-          <div>
-            <InputJoin label={idLabel} value={info.id} onChange={onChangeId} />
-          </div>
-          <div>
-            <Row>
-              <InputJoin
-                label='휴대전화 번호'
-                placeholder='- 없이'
-                value={info.phone}
-                onChange={onChangePhone}
-                width='250px'
-              />
-              <CheckButton text='인증받기' onClick={onPostCertified} />
-            </Row>
-          </div>
-          <div>
-            <Row>
-              <InputJoin
-                label='인증번호'
-                value={info.number}
-                onChange={onChangeNumber}
-                width='250px'
-              />
-              <CheckButton text='인증 확인' onClick={onCertified} />
-            </Row>
-            <ErrorMsg text={msg} />
-          </div>
-          <JoinBtn
-            topMargin={20}
-            text='확인'
-            onClick={onSubmit}
-            disabled={!isFindEnabled()}
-          />
-        </Box>
-      </Wrapper>
-    </Container>
+    <Wrapper>
+      <Box>
+        <Title>{title}</Title>
+        <div>
+          <InputJoin label={idLabel} value={info.id} onChange={onChangeId} />
+        </div>
+        <div>
+          <Row>
+            <InputJoin
+              label='휴대전화 번호'
+              placeholder='- 없이'
+              value={info.phone}
+              onChange={onChangePhone}
+              width='250px'
+            />
+            <CheckButton text='인증받기' onClick={onPostCertified} />
+          </Row>
+          <ErrorMsg text={valid.phoneMsg} />
+        </div>
+        <div>
+          <Row>
+            <InputJoin
+              label='인증번호'
+              value={info.number}
+              onChange={onChangeNumber}
+              width='250px'
+            />
+            <CheckButton text='인증 확인' onClick={onCertified} />
+          </Row>
+          <ErrorMsg text={valid.certifiedMsg} />
+        </div>
+        <JoinBtn
+          topMargin={20}
+          text='확인'
+          onClick={onSubmit}
+          disabled={!isFindEnabled()}
+        />
+      </Box>
+    </Wrapper>
   );
 };
 
 export default FindForm;
 
-const Container = styled.div`
-  width: 100%;
-  height: calc(100vh - 80px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const Wrapper = styled.div`
-  width: 370px;
+  width: 400px;
+  height: 450px;
   display: flex;
   flex-direction: column;
+  background-color: ${({ theme }) => theme.colors.white};
+  padding: 40px;
+  border-radius: 10px;
 `;
 
 const Box = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  gap: 15px;
 `;
 
 const Title = styled.div`
@@ -175,7 +208,7 @@ const Title = styled.div`
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.xl};
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 100%;
   margin-bottom: 45px;
 `;
