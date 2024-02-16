@@ -9,9 +9,7 @@ import { theme } from '../../../../styles/theme';
 
 const { colors } = theme;
 
-const MonthPicker = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
+const MonthPicker = ({ selectedDate, setSelectedDate }) => {
   const monthClassName = (date) => {
     if (
       selectedDate &&
