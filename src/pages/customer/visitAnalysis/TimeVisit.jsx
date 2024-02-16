@@ -7,11 +7,11 @@ import { defaultInstance } from '../../../api/axios';
 function TimeVisit() {
   const [chartData, setChartData] = useState({});
   const [max, setMax] = useState({
-    time: '',
+    data: '',
     count: 0,
   });
   const [min, setMin] = useState({
-    time: '',
+    data: '',
     count: 0,
   });
 
@@ -48,10 +48,25 @@ function TimeVisit() {
       .then(async (res) => {
         if (res.data.isSuccess) {
           const data = res.data.result;
-          const processedData = processData(data);
-          setChartData(processedData);
-          getMax(data);
-          getMin(data);
+
+          if (data instanceof Array) {
+            const processedData = processData(data);
+            setChartData(processedData);
+            getMax(data);
+            getMin(data);
+          } else {
+            setChartData([]);
+            setMax({
+              data: '-',
+              count: 0,
+            });
+            setMin({
+              data: '-',
+              count: 0,
+            });
+          }
+
+          // console.log(processedData);
         }
       })
       .catch((err) => console.log(err));
@@ -59,12 +74,22 @@ function TimeVisit() {
 
   useEffect(() => {
     getTimeVisit();
+    setChartData([]);
+    setMax({
+      data: '-',
+      count: 0,
+    });
+    setMin({
+      data: '-',
+      count: 0,
+    });
   }, []);
+
   return (
     <>
       <PageTitle>
         <h4>시간대별 방문분석</h4>
-        <span>금주 영업시간 내 시간대별 방문고객 수를 확인할 수 있습니다.</span>
+        <span>전일 영업시간 내 시간대별 방문고객 수를 확인할 수 있습니다.</span>
       </PageTitle>
       <Wrapper>
         <VisitData>
@@ -74,6 +99,11 @@ function TimeVisit() {
         <ChartContainer>
           <LineChart chartData={chartData} />
         </ChartContainer>
+        {chartData.length === 0 && (
+          <NoData>
+            <span>휴무일 입니다.</span>
+          </NoData>
+        )}
       </Wrapper>
     </>
   );
@@ -109,6 +139,23 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 10px;
   padding: 20px;
+  position: relative;
+`;
+
+const NoData = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #80808036;
+  color: ${({ theme }) => theme.colors.text_black};
+  font-size: ${({ theme }) => theme.fontSize.base};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
 `;
 
 const VisitData = styled.div`

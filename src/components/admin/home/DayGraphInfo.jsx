@@ -10,9 +10,7 @@ function DayGraphInfo() {
         <BiLineChart />
         이번 달 방문율이 가장 높은 요일은?
       </Title>
-      <ChartWrapper>
-        <LineChart type='monthly' />
-      </ChartWrapper>
+      <ChartWrapper>{/* <LineChart type='monthly' /> */}</ChartWrapper>
     </Container>
   );
 }

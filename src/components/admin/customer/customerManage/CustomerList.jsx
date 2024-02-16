@@ -11,24 +11,30 @@ function CustomerList({ customerData, selected, setSelected }) {
           <Column>고객 이름</Column>
           <Column>전화번호</Column>
         </Columns>
-        <Customers>
-          {customerData.map((data) => {
-            return (
-              <Customer
-                key={data.id}
-                selected={selected === data}
-                onClick={() => setSelected(data)}
-              >
-                <span>{data.updatedAt.slice(0, 10)}</span>
-                <span>{data.id}</span>
-                <span>{data.name}</span>
-                <span>
-                  {data.phone.slice(0, 3) + '-****-' + data.phone.slice(-4)}
-                </span>
-              </Customer>
-            );
-          })}
-        </Customers>
+        {customerData.length > 0 ? (
+          <Customers>
+            {customerData.map((data) => {
+              return (
+                <Customer
+                  key={data.id}
+                  selected={selected === data}
+                  onClick={() => setSelected(data)}
+                >
+                  <span>{data.updatedAt.slice(0, 10)}</span>
+                  <span>{data.id}</span>
+                  <span>{data.name}</span>
+                  <span>
+                    {data.phone.slice(0, 3) + '-****-' + data.phone.slice(-4)}
+                  </span>
+                </Customer>
+              );
+            })}
+          </Customers>
+        ) : (
+          <NoData>
+            <span>데이터 없음</span>
+          </NoData>
+        )}
       </Wrapper>
     </Container>
   );
@@ -93,6 +99,15 @@ const Customers = styled.div`
   overflow: auto;
   display: flex;
   flex-direction: column;
+`;
+
+const NoData = styled.div`
+  height: 550px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${({ theme }) => theme.colors.text};
+  font-size: ${({ theme }) => theme.fontSize.base};
 `;
 
 const Customer = styled.div`
