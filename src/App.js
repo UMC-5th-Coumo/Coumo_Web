@@ -8,9 +8,6 @@ import Neighborhood from './pages/Neighborhood';
 import Coupon from './pages/Coupon';
 import Customer from './pages/Customer';
 import Login from './pages/Login';
-import JoinOneStep from './pages/join/JoinOneStep';
-import JoinTwoStep from './pages/join/JoinTwoStep';
-import Congratulate from './pages/join/Congratulate';
 import MyPage from './pages/MyPage';
 import FindId from './pages/find/FindId';
 import FindPw from './pages/find/FindPw';
@@ -25,6 +22,7 @@ import UIServiceDetail from './pages/myPage/UIServiceDetail';
 import AdminHome from './pages/AdminHome';
 import ScrollTop from './components/common/ScrollTop';
 import NotFound from './pages/NotFound';
+import Join from './pages/Join';
 
 function App() {
   const { token } = useSelector((state) => state.user);
@@ -68,9 +66,7 @@ function App() {
           <Wrapper>
             <Routes>
               <Route exact path='/' element={<Home />} />
-              <Route path='/join/one' element={<JoinOneStep />} />
-              <Route path='/join/two' element={<JoinTwoStep />} />
-              <Route path='/join/finish' element={<Congratulate />} />
+              <Route path='/join/*' element={<Join />} />
               <Route path='/login' element={<Login />} />
               <Route path='/findId' element={<FindId />} />
               <Route path='/foundId' element={<FoundId />} />

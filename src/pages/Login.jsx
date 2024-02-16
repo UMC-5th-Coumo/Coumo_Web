@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import LoginBox from '../components/login/LoginBox';
-import LoginBackground from '../assets/icon/LoginBackground.svg';
 
 const Login = () => {
   return (
@@ -14,9 +13,7 @@ const Login = () => {
 export default Login;
 
 const LoginPage = styled.div`
-  background-image: url(${LoginBackground});
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: linear-gradient(331deg, #c9adff 6.83%, #f9f4ff 114.92%);
   vertical-align: top;
   width: 100%;
   height: calc(100vh - 80px);

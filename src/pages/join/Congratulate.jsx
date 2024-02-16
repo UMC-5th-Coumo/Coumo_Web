@@ -6,32 +6,25 @@ import { useNavigate } from 'react-router-dom';
 const Congratulate = () => {
   const navigate = useNavigate();
   return (
-    <Page>
-      <Card onClick={() => navigate('/')}>
-        <LogoCongratulate />
-        <Comment>쿠모 회원이 되신 것을 축하드려요.</Comment>
-        <LittleComment>
-          쿠모를 통해 더 편리하게 매장을 관리해보세요!
-        </LittleComment>
-      </Card>
-    </Page>
+    <Card onClick={() => navigate('/')}>
+      <LogoCongratulate />
+      <Comment>쿠모 회원이 되신 것을 축하드려요.</Comment>
+      <LittleComment>
+        쿠모를 통해 더 편리하게 매장을 관리해보세요!
+      </LittleComment>
+    </Card>
   );
 };
 
 export default Congratulate;
 
-const Page = styled.div`
-  width: 100%;
-  height: calc(100vh - 80px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: ${({ theme }) => theme.colors.white};
+  padding: 50px 80px;
+  border-radius: 10px;
 `;
 
 const Comment = styled.div`
