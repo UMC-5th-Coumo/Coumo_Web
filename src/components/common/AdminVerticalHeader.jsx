@@ -53,6 +53,7 @@ function AdminVerticalHeader() {
 export default AdminVerticalHeader;
 
 const Container = styled.div`
+  background-color: ${({ theme }) => theme.colors.white};
   width: 250px;
   height: calc(100vh - 80px);
   border-right: 1px solid lightgray;

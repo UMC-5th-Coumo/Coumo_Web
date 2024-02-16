@@ -1,11 +1,11 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import UIArticle from '../../assets/icon/UIArticle.svg';
 import ReasonCard from '../../components/admin/coupon/ReasonCard';
 import { reasonData } from '../../assets/data/reasonData';
 import { couponStepData } from '../../assets/data/couponStepData';
 import CouponStep from '../../components/admin/coupon/CouponStep';
 import { useNavigate } from 'react-router';
+import { CouponBack } from '../../assets';
 
 const UIServiceAd = () => {
   const navigate = useNavigate();
@@ -26,6 +26,7 @@ const UIServiceAd = () => {
           특색에 맞는 쿠폰 디자인을 제작해 드립니다!
         </P>
         <WhiteButton onClick={handleService}>서비스 신청하기</WhiteButton>
+        <CouponBack />
       </Article>
       <Step>
         <Big2>쉽고 안전하게 서비스를 이용하세요</Big2>
@@ -80,9 +81,7 @@ const Content = styled.div`
 `;
 
 const Article = styled.div`
-  background-image: url(${UIArticle});
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: ${({ theme }) => theme.colors.coumo_purple};
   vertical-align: top;
   width: 100%;
   height: 800px;
@@ -92,11 +91,35 @@ const Article = styled.div`
   padding-left: 150px;
   box-sizing: border-box;
   margin: 0px;
+  position: relative;
+
+  & svg {
+    width: 100%;
+    height: 207px;
+    position: absolute;
+    bottom: 0;
+    margin-right: 20px;
+    left: 50%;
+    transform: translate(-50%);
+  }
+
+  @media screen and (max-width: 1340px) {
+    & svg {
+      width: 1046px;
+      left: 600px;
+    }
+  }
 
   @media screen and (max-width: 1024px) {
     height: 600px;
     padding-top: 96px;
     padding-left: 120px;
+
+    & svg {
+      width: 1046px;
+      height: 150px;
+      left: 500px;
+    }
   }
 `;
 
@@ -333,21 +356,20 @@ const fade = keyframes`
 
 const ReasonCardsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, 270px);
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, 260px);
+  gap: 0px;
   direction: rtl;
+  margin: 30px;
 
-  @media screen and (max-width: 1600px) {
+  @media screen and (max-width: 1400px) {
     width: 100%;
-    grid-template-columns: repeat(3, 100px);
-    margin-top: 30px;
-    gap: 30px;
+    grid-template-columns: repeat(3, 200px);
   }
 
-  @media screen and (max-width: 920px) {
+  @media screen and (max-width: 1200px) {
     width: 100%;
-    grid-template-columns: repeat(3, 50px);
-    margin-top: 30px;
-    gap: 30px;
+    grid-template-columns: repeat(3, 100px);
   }
 
   // 순차적 애니메이션
