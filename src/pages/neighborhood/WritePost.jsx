@@ -5,6 +5,8 @@ import { BtnContainer } from '../coupon/UIServiceForm';
 import Edit from '../../components/admin/neighborhood/Edit';
 import { useNavigate } from 'react-router-dom';
 import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
+import { defaultInstance } from '../../api/axios';
+import { useSelector } from 'react-redux';
 
 const WritePost = () => {
   const navigate = useNavigate();
@@ -22,23 +24,48 @@ const WritePost = () => {
     document.body.style.overflow = 'auto';
   }
 
-  const onSubmit = () => {
+  const isVaild = () => {
     if (category && inputs.title && inputs.content) {
-      const data = {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const ownerId = useSelector((state) => state.user);
+
+  const onSubmit = async () => {
+    if (!isVaild()) {
+      alert(
+        '모든 항목을 입력해주세요.\n(제목, 카테고리, 글 내용을 모두 입력해야 합니다.)'
+      );
+      return;
+    }
+
+    try {
+      const writeData = {
         category,
         title: inputs.title,
         content: inputs.content,
         image: inputs.image,
       };
+      const response = await defaultInstance.post(
+        `/api/notice/${ownerId}/post`,
+        writeData
+      );
 
-      console.log('Sending data to server:', data);
-      navigate('/neighborhood/myPosts');
+      if (response.data.isSuccess) {
+        console.log('Sending data to server:', writeData);
+        navigate('/neighborhood/myPosts');
 
-      // 서버 요청 성공 시 모달
-      submitPopUp();
-      resetData();
-    } else {
-      alert('모든 항목을 입력해주세요.');
+        // 서버 요청 성공 시 모달
+        submitPopUp();
+        resetData();
+      } else {
+        console.error('글 작성 실패', response.data.message);
+      }
+    } catch (error) {
+      console.error('에러에러!');
     }
   };
 

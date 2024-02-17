@@ -12,6 +12,7 @@ const colors = {
   hover: '#F5F4F7', // post hover시 lightgray (그 외에 text보다 연한 gray)
   line: '#D2D2D4', // 선
   text_shadow: '#6C31DB', // 쿠폰 UI 서비스 등 그림자
+  error: '#FF5454', // 쿠폰 UI 서비스 등 그림자
 };
 
 const fontSize = {

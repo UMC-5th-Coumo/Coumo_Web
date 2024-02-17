@@ -16,6 +16,7 @@ import {
   PagePrevDisable,
 } from '../../assets';
 import PostList from '../../components/admin/neighborhood/PostList';
+import { defaultInstance } from '../../api/axios';
 
 const MyPosts = () => {
   const [deletePopUp, setDeletePopUp] = useState(false);
@@ -27,6 +28,25 @@ const MyPosts = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { pageId } = useParams();
+
+  // dispatch(getMyPosts({ ownerId: 1, pageId: 1 }));
+
+  useEffect(() => {
+    const posts = async () => {
+      try {
+        const response = await defaultInstance.get(
+          `api/notice/1/list?pageId=1`
+        );
+        if (response.data.isSuccess) {
+          console.log('성공', response.data);
+        }
+      } catch (error) {
+        console.error('에러:', error);
+      }
+    };
+
+    posts();
+  }, []);
 
   const postDummyData = useSelector((state) => state.post.postDummyData);
   const selectedPost = useSelector((state) => state.post.selectedPost);

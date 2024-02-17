@@ -26,7 +26,7 @@ const Card = styled.div`
   box-shadow: 12px 15px 14.8px 0px rgba(87, 76, 108, 0.1);
   backdrop-filter: blur(4px);
 
-  @media screen and (max-width: 1600px) {
+  @media screen and (max-width: 1400px) {
     &:hover {
       z-index: 100;
     }

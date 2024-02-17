@@ -11,6 +11,11 @@ const LoginBox = () => {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const [save, setSave] = useState(false);
+  const [error, setError] = useState({
+    id: false,
+    pw: false,
+    msg: '잘못된 아이디입니다.',
+  });
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -61,7 +66,8 @@ const LoginBox = () => {
 
         navigate('/');
       } else {
-        console.error('로그인 실패');
+        console.error('로그인 실패', response.data);
+        setError((prev) => ({ ...prev, id: true, pw: true }));
       }
     } catch (error) {
       console.error('Error Login');
@@ -81,19 +87,27 @@ const LoginBox = () => {
       <Group>
         <Id>
           <InputId
+            style={{ borderColor: error.id ? '#ff5454' : '#dadada' }}
             placeholder='아이디를 입력해주세요'
             value={id}
-            onChange={(e) => setId(e.target.value)}
-          ></InputId>
+            onChange={(e) => {
+              setId(e.target.value);
+              setError({ ...error, id: false });
+            }}
+          />
           <StyledLoginId />
         </Id>
         <Pw>
           <InputPw
+            style={{ borderColor: error.pw ? '#ff5454' : '#dadada' }}
             type='password'
             placeholder='비밀번호'
             value={pw}
-            onChange={(e) => setPw(e.target.value)}
-          ></InputPw>
+            onChange={(e) => {
+              setPw(e.target.value);
+              setError({ ...error, pw: false });
+            }}
+          />
           <StyledLoginPw />
         </Pw>
         <Line>
@@ -107,6 +121,7 @@ const LoginBox = () => {
           <Text save={save}>로그인 정보 저장하기</Text>
         </Line>
       </Group>
+      <ErrorMsg>{error.msg}</ErrorMsg>
       <LoginBtn
         text='로그인하기'
         onClick={handleLoginClick}
@@ -247,6 +262,14 @@ const Text = styled.div`
   @media screen and (max-width: 1024px) {
     font-size: ${({ theme }) => theme.fontSize.sm};
   }
+`;
+
+const ErrorMsg = styled.div`
+  /* width: 100%; */
+  /* height: 5px; */
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  color: ${({ theme }) => theme.colors.error};
+  /* text-align: left; */
 `;
 
 const LoginBtn = styled(Btn)`
