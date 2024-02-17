@@ -1,18 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Category from '../coupon/Category';
-import { StyledWriteInput } from '../../common/Input';
+// import { StyledWriteInput } from '../../common/Input';
 import ImageBlock from '../shop/ImageBlock';
 import { writecategoryData } from '../../../assets/data/categoryData';
 
 const Edit = ({ category, setCategory, inputs, setInputs }) => {
-  const handleImageChange = (images) => {
-    setInputs({
-      ...inputs,
-      image: images,
-    });
-  };
-
+  const [storeImages, setStoreImages] = useState([]);
   const [titleCount, setTitleCount] = useState(0);
   const [contentCount, setContentCount] = useState(0);
 
@@ -26,6 +20,13 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
 
   const [isTitleFocused, setTitleFocused] = useState(false);
   const [isContentFocused, setContentFocused] = useState(false);
+
+  useEffect(() => {
+    setInputs({
+      ...inputs,
+      image: storeImages,
+    });
+  }, [storeImages]);
 
   return (
     <Write>
@@ -66,7 +67,10 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
           <Recommend>*이미지는 1000px, 1000px의 1:1비율을 권장합니다</Recommend>
         </Representative>
         <Scroll>
-          <ImageBlock onChange={handleImageChange} />
+          <ImageBlock
+            storeImages={storeImages}
+            setStoreImages={setStoreImages}
+          />
         </Scroll>
       </Image>
       <div>

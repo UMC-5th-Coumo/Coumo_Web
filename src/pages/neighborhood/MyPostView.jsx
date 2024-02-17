@@ -15,7 +15,7 @@ import { defaultInstance } from '../../api/axios';
 
 const MyPostView = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const { postId } = useParams();
   const selectedPost = useSelector((state) => state.post.selectedPost);
@@ -36,13 +36,13 @@ const MyPostView = () => {
   }, []);
 
   /* ----- 컴포넌트가 마운트될 때 받아오기 ----- */
-  useEffect(() => {
-    dispatch(getMyPostView({ ownerId: 'coumo123', noticeId: postId }));
-  }, [dispatch, postId]);
+  // useEffect(() => {
+  //   dispatch(getMyPostView({ ownerId: 'coumo123', noticeId: postId }));
+  // }, [dispatch, postId]);
 
-  useEffect(() => {
-    dispatch(setSelectedPost(selectedPost));
-  }, [dispatch, selectedPost]);
+  // useEffect(() => {
+  //   dispatch(setSelectedPost(selectedPost));
+  // }, [dispatch, selectedPost]);
 
   /* ----- 수정 버튼 클릭 시 ----- */
   const onClickMod = () => {

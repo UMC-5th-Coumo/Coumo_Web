@@ -22,6 +22,7 @@ function AdminHome() {
   return (
     <Container>
       {/* {write && <FormPopUp />} */}
+      {/* <FormPopUp /> */}
       <ColumWrapper>
         <StoreInfo />
         <DayGraphInfo />

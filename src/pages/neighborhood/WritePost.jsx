@@ -5,13 +5,13 @@ import { BtnContainer } from '../coupon/UIServiceForm';
 import Edit from '../../components/admin/neighborhood/Edit';
 import { useNavigate } from 'react-router-dom';
 import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
-import { defaultInstance } from '../../api/axios';
+import { formAuthInstance } from '../../api/axios';
 import { useSelector } from 'react-redux';
 
 const WritePost = () => {
   const navigate = useNavigate();
   const [popUp, setPopUp] = useState(false);
-  const [category, setCategory] = useState('new');
+  const [category, setCategory] = useState('NEW_PRODUCT');
   const [inputs, setInputs] = useState({
     title: '',
     content: '',
@@ -32,7 +32,7 @@ const WritePost = () => {
     }
   };
 
-  const ownerId = useSelector((state) => state.user);
+  const { ownerId } = useSelector((state) => state.user);
 
   const onSubmit = async () => {
     if (!isVaild()) {
@@ -43,20 +43,27 @@ const WritePost = () => {
     }
 
     try {
-      const writeData = {
-        category,
-        title: inputs.title,
-        content: inputs.content,
-        image: inputs.image,
-      };
-      const response = await defaultInstance.post(
+      let formData = new FormData();
+      formData.append('noticeType', category);
+      formData.append('title', inputs.title);
+      formData.append('noticeContent', inputs.content);
+      const storeImgData = inputs.image.map(({ image }) => image);
+      storeImgData.forEach((image) => formData.append('noticeImages', image));
+
+      console.log('formData:', formData);
+
+      for (let value of formData) {
+        console.log('formData value', value);
+      }
+
+      const response = await formAuthInstance.post(
         `/api/notice/${ownerId}/post`,
-        writeData
+        formData
       );
 
       if (response.data.isSuccess) {
-        console.log('Sending data to server:', writeData);
-        navigate('/neighborhood/myPosts');
+        console.log('Sending data to server:', formData);
+        navigate('/neighborhood/myPosts/1');
 
         // 서버 요청 성공 시 모달
         submitPopUp();

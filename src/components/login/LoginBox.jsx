@@ -14,7 +14,7 @@ const LoginBox = () => {
   const [error, setError] = useState({
     id: false,
     pw: false,
-    msg: '잘못된 아이디입니다.',
+    msg: '아이디 또는 비밀번호가 틀렸습니다.',
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -46,6 +46,7 @@ const LoginBox = () => {
           write,
         } = response.data.result;
         localStorage.setItem('userToken', token);
+        navigate('/');
 
         dispatch(
           setUser({
@@ -63,8 +64,6 @@ const LoginBox = () => {
         );
 
         console.log(response.data);
-
-        navigate('/');
       } else {
         console.error('로그인 실패', response.data);
         setError((prev) => ({ ...prev, id: true, pw: true }));
@@ -97,6 +96,7 @@ const LoginBox = () => {
           />
           <StyledLoginId />
         </Id>
+        <InputLine />
         <Pw>
           <InputPw
             style={{ borderColor: error.pw ? '#ff5454' : '#dadada' }}
@@ -121,12 +121,14 @@ const LoginBox = () => {
           <Text save={save}>로그인 정보 저장하기</Text>
         </Line>
       </Group>
-      <ErrorMsg>{error.msg}</ErrorMsg>
-      <LoginBtn
-        text='로그인하기'
-        onClick={handleLoginClick}
-        disabled={!isLoginEnabled()}
-      />
+      <Bottom>
+        <ErrorMsg>{error.msg}</ErrorMsg>
+        <LoginBtn
+          text='로그인하기'
+          onClick={handleLoginClick}
+          disabled={!isLoginEnabled()}
+        />
+      </Bottom>
       <Text>
         <Gap>
           <More onClick={() => navigate(`/join/one`)}>회원가입</More>
@@ -150,11 +152,10 @@ const Box = styled.div`
   align-items: center;
   margin: 0 auto;
   width: 430px;
-  height: 315px;
   border-radius: 12px;
 
   box-sizing: border-box;
-  padding: 0 70px;
+  padding: 40px 70px;
   background: ${({ theme }) => theme.colors.white};
   box-shadow: 0px 8.978px 14.365px 0px rgba(68, 68, 68, 0.08);
 
@@ -185,6 +186,7 @@ const InputId = styled.input`
   align-items: flex-start;
   border-radius: 8px 8px 0px 0px;
   border: 1px solid #dadada;
+  border-bottom: none;
   color: ${({ theme }) => theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.md};
   font-style: normal;
@@ -200,6 +202,7 @@ const InputId = styled.input`
   &:focus {
     outline: none;
     border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
+    border-bottom: none;
 
     &::placeholder {
       opacity: 0.6;
@@ -212,8 +215,48 @@ const InputId = styled.input`
   }
 `;
 
-const InputPw = styled(InputId)`
+const InputLine = styled.div`
+  border-left: 1px solid #ff5454;
+  border-right: 1px solid #ff5454;
+  background-color: #ff5454;
+  height: 1px;
+`;
+
+const InputPw = styled.input`
+  display: inline-flex;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px 42px 14px 42px;
+  align-items: flex-start;
   border-radius: 0px 0px 8px 8px;
+  border: 1px solid #dadada;
+  border-top: none;
+  color: ${({ theme }) => theme.colors.text_darkgray};
+  font-size: ${({ theme }) => theme.fontSize.md};
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.629px;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.text};
+    opacity: 0.6;
+  }
+
+  &:focus {
+    outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
+    border-top: none;
+
+    &::placeholder {
+      opacity: 0.6;
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    padding: 12px 38px 10px 38px;
+    font-size: ${({ theme }) => theme.fontSize.base};
+  }
 `;
 
 const StyledLoginId = styled(LoginId)`
@@ -264,11 +307,20 @@ const Text = styled.div`
   }
 `;
 
+const Bottom = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+`;
+
 const ErrorMsg = styled.div`
   /* width: 100%; */
-  /* height: 5px; */
-  font-size: ${({ theme }) => theme.fontSize.xs};
+  /* height: 4px; */
+  font-size: ${({ theme }) => theme.fontSize.sm};
   color: ${({ theme }) => theme.colors.error};
+  /* color: ${({ theme }) => theme.colors.white}; */
   /* text-align: left; */
 `;
 
