@@ -1,8 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
 import { LuClock4 } from 'react-icons/lu';
+import { useSelector } from 'react-redux';
 
 function WorkingHours() {
+  const {
+    info: { workingHours },
+  } = useSelector((state) => state.store);
+
+  const convertToDay = (id) => {
+    switch (id) {
+      case 'MONDAY':
+        return '월';
+      case 'TUESDAY':
+        return '화';
+      case 'WEDNESDAY':
+        return '수';
+      case 'THURSDAY':
+        return '목';
+      case 'FRIDAY':
+        return '금';
+      case 'SATURDAY':
+        return '토';
+      case 'SUNDAY':
+        return '일';
+      default:
+        return;
+    }
+  };
   return (
     <Container>
       <Title>
@@ -10,34 +35,20 @@ function WorkingHours() {
         영업 시간
       </Title>
       <HoursWrapper>
-        <Hour>
-          <h5>월</h5>
-          <span>휴무</span>
-        </Hour>
-        <Hour>
-          <h5>화</h5>
-          <span>10:00 ~ 9:00</span>
-        </Hour>
-        <Hour>
-          <h5>수</h5>
-          <span>10:00 ~ 9:00</span>
-        </Hour>
-        <Hour>
-          <h5>목</h5>
-          <span>휴무</span>
-        </Hour>
-        <Hour>
-          <h5>금</h5>
-          <span>10:00 ~ 9:00</span>
-        </Hour>
-        <Hour>
-          <h5>토</h5>
-          <span>10:00 ~ 9:00</span>
-        </Hour>
-        <Hour>
-          <h5>일</h5>
-          <span>10:00 ~ 9:00</span>
-        </Hour>
+        {Object.keys(workingHours).map((day, i) => {
+          return (
+            <Hour key={i}>
+              <h5>{convertToDay(day)}</h5>
+              <span>
+                {workingHours[day].startTime === 'none'
+                  ? '휴무'
+                  : workingHours[day].startTime +
+                    ' ~ ' +
+                    workingHours[day].endTime}
+              </span>
+            </Hour>
+          );
+        })}
       </HoursWrapper>
     </Container>
   );

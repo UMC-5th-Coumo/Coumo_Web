@@ -58,22 +58,22 @@ const storeSlice = createSlice({
   initialState: initialState,
   reducers: {
     setStoreName: (state, action) => {
-      state.storeName = action.payload;
+      state.info.storeName = action.payload;
     },
     setCategory: (state, action) => {
-      state.category = action.payload;
+      state.info.category = action.payload;
     },
     setWorkingHours: (state, action) => {
-      state.workingHours = action.payload;
+      state.info.workingHours = action.payload;
     },
     setNumber: (state, action) => {
-      state.number = action.payload;
+      state.info.number = action.payload;
     },
     setAddress: (state, action) => {
-      state.address = action.payload;
+      state.info.address = action.payload;
     },
     setAddressDetail: (state, action) => {
-      state.addressDetail = action.payload;
+      state.info.addressDetail = action.payload;
     },
   },
   extraReducers: (builder) => {
