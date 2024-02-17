@@ -7,90 +7,35 @@ import { categoryData } from '../../assets/data/categoryData';
 import WorkingHour from '../../components/admin/shop/workingHour/WorkingHour';
 import axios from 'axios';
 import Title from '../../components/common/Title';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AddressInput from '../../components/admin/shop/AddressInput';
-import { authInstance, defaultInstance } from '../../api/axios';
+import getStoreInfo from '../../redux/thunks/getStoreInfo';
+import {
+  setAddress,
+  setAddressDetail,
+  setCategory,
+  setNumber,
+  setStoreName,
+  setWorkingHours,
+} from '../../redux/slices/storeSlice';
+import modifyStoreInfo from '../../redux/thunks/modifyStoreInfo';
 
 const BasicInfo = () => {
+  const dispatch = useDispatch();
+  const { info } = useSelector((state) => state.store);
   const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
   const { storeId } = useSelector((state) => state.user);
-  const [category, setCategory] = useState('cafe');
-  const [inputs, setInputs] = useState({
-    storeName: '',
-    number: '',
-    address: '',
-    addressDetail: '',
-  });
-  const [hours, setHours] = useState({
-    MONDAY: {
-      day: 'MONDAY',
-      startTime: '',
-      endTime: '',
-    },
-    TUESDAY: {
-      day: 'TUESDAY',
-      startTime: '',
-      endTime: '',
-    },
-    WEDNESDAY: {
-      day: 'WEDNESDAY',
-      startTime: '',
-      endTime: '',
-    },
-    THURSDAY: {
-      day: 'THURSDAY',
-      startTime: '',
-      endTime: '',
-    },
-    FRIDAY: {
-      day: 'FRIDAY',
-      startTime: '',
-      endTime: '',
-    },
-    SATURDAY: {
-      day: 'SATURDAY',
-      startTime: '',
-      endTime: '',
-    },
-    SUNDAY: {
-      day: 'SUNDAY',
-      startTime: '',
-      endTime: '',
-    },
-  });
-
   const handleInputClick = () => {
     if (isPostcodeOpen) {
       setIsPostcodeOpen(false);
     }
   };
 
-  const getBasicInfo = async () => {
-    await defaultInstance
-      .get(`/api/owner/store/${storeId}/basic`)
-      .then((res) => {
-        if (res.data.isSuccess) {
-          const data = res.data.result;
-          setInputs({
-            storeName: data.name,
-            number: data.telePhone,
-            address: data.location,
-            addressDetail: '',
-          });
-
-          data.time.forEach((timeData) => {
-            setHours((prev) => ({ ...prev, [timeData.day]: timeData }));
-          });
-        } else {
-          throw Error;
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
   useEffect(() => {
-    getBasicInfo();
+    dispatch(getStoreInfo(1));
   }, []);
+
+  // useEffect(() => {}, [info]);
 
   const getAddressCoords = async (address) => {
     // 좌표 변환 API를 통해 주소를 좌표로 변환
@@ -121,7 +66,7 @@ const BasicInfo = () => {
   };
 
   const isVaild = () => {
-    const { storeName, number, address, addressDetail } = inputs;
+    const { storeName, number, address, addressDetail } = info;
     if (
       storeName.trim() === '' ||
       number.trim() === '' ||
@@ -139,33 +84,9 @@ const BasicInfo = () => {
       alert('모든 항목을 입력해주세요.');
       return;
     }
-    try {
-      const coords = await getAddressCoords(inputs.address);
+    const coords = await getAddressCoords(info.address);
 
-      const storeData = {
-        name: inputs.storeName,
-        time: Object.keys(hours).map((day) => hours[day]),
-        telePhone: inputs.number.split('-').join(''),
-        category: category,
-        location: inputs.address + ' ' + inputs.addressDetail,
-        longitude: coords.longitude,
-        latitude: coords.latitude,
-      };
-      console.log('storeData', storeData);
-
-      // 기본정보 수정 api
-      await authInstance
-        .patch(`/api/owner/store/${storeId}/basic`, storeData)
-        .then((res) => {
-          if (res.data.isSuccess) {
-            console.log('Store data updated successfully!');
-            // 팝업 예정
-          }
-        })
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.error('Failed to update store data:', error);
-    }
+    dispatch(modifyStoreInfo(1, coords));
   };
 
   return (
@@ -177,10 +98,8 @@ const BasicInfo = () => {
             label='매장명'
             type='text'
             placeholder='매장명을 입력해주세요.'
-            value={inputs.storeName}
-            onChange={(e) =>
-              setInputs((prev) => ({ ...prev, storeName: e.target.value }))
-            }
+            value={info.storeName}
+            onChange={(e) => dispatch(setStoreName(e.target.value))}
             onClick={handleInputClick}
           />
           <Input
@@ -188,27 +107,21 @@ const BasicInfo = () => {
             label='매장 전화번호'
             type='text'
             placeholder='ex) 01012345678'
-            value={inputs.number}
-            onChange={(e) =>
-              setInputs((prev) => ({ ...prev, number: e.target.value }))
-            }
+            value={info.number}
+            onChange={(e) => dispatch(setNumber(e.target.value))}
             onClick={handleInputClick}
           />
           <Category
             data={categoryData}
-            category={category}
-            setCategory={setCategory}
+            category={info.category}
+            setCategory={(id) => dispatch(setCategory(id))}
             columns='1fr 1fr 1fr'
           />
           <AddressInput
-            address={inputs.address}
-            addressDetail={inputs.addressDetail}
-            setAddress={(value) =>
-              setInputs((prev) => ({ ...prev, address: value }))
-            }
-            setAddressDetail={(value) =>
-              setInputs((prev) => ({ ...prev, addressDetail: value }))
-            }
+            address={info.address}
+            addressDetail={info.addressDetail}
+            setAddress={(value) => dispatch(setAddress(value))}
+            setAddressDetail={(value) => dispatch(setAddressDetail(value))}
             isPostcodeOpen={isPostcodeOpen}
             setIsPostcodeOpen={setIsPostcodeOpen}
             handleInputClick={handleInputClick}
@@ -216,14 +129,16 @@ const BasicInfo = () => {
         </LeftForm>
         <WorkingHours>
           <Title title='영업시간' />
-          {Object.keys(hours).map((day, i) => (
+          {Object.keys(info.workingHours).map((day, i) => (
             <WorkingHour
               key={i}
               day={day}
-              data={hours[day]}
+              data={info.workingHours[day]}
               dropWidth={false}
               setData={(hours) =>
-                setHours((prev) => ({ ...prev, [day]: hours }))
+                dispatch(
+                  setWorkingHours({ ...info.workingHours, [day]: hours })
+                )
               }
               onClick={handleInputClick}
             />

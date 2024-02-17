@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { RiCoupon2Line } from 'react-icons/ri';
-import stamp from '../../../assets/icon/stampExample.png';
 import { MdArrowOutward } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
@@ -28,7 +27,7 @@ function CouponInfo({ coupon }) {
           {stamps.map((s, i) => {
             return (
               <Stamp key={i} num={coupon.stampMax}>
-                <img src={stamp} alt='stamp' />
+                {coupon.stampImage}
               </Stamp>
             );
           })}
@@ -162,7 +161,7 @@ const Stamp = styled.div`
     height: ${(props) => (props.num > 10 ? '38px' : '45px')};
   }
 
-  & img {
+  & svg {
     width: 40px;
     height: 40px;
   }

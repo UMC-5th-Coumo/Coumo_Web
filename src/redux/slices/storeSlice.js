@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import getStoreInfo from '../thunks/getStoreInfo';
+import modifyStoreInfo from '../thunks/modifyStoreInfo';
 
 const initialState = {
-  basicInfo: {
+  info: {
     storeName: '',
     category: 'cafe',
     workingHours: {
@@ -45,11 +47,6 @@ const initialState = {
     address: '',
     addressDetail: '',
   },
-  storeInfo: {
-    storeImages: [],
-    description: '',
-    menus: [],
-  },
   status: {
     loading: true,
     error: null,
@@ -60,17 +57,64 @@ const storeSlice = createSlice({
   name: 'store',
   initialState: initialState,
   reducers: {
-    setBasicInfo: (state, action) => {
-      state.storeName = action.payload.storeName;
-      state.category = action.payload.category;
-      state.workingHours = action.payload.workingHours;
-      state.number = action.payload.number;
-      state.address = action.payload.address;
-      state.addressDetail = action.payload.addressDetail;
+    setStoreName: (state, action) => {
+      state.storeName = action.payload;
     },
+    setCategory: (state, action) => {
+      state.category = action.payload;
+    },
+    setWorkingHours: (state, action) => {
+      state.workingHours = action.payload;
+    },
+    setNumber: (state, action) => {
+      state.number = action.payload;
+    },
+    setAddress: (state, action) => {
+      state.address = action.payload;
+    },
+    setAddressDetail: (state, action) => {
+      state.addressDetail = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getStoreInfo.pending, (state, action) => {
+        state.status.loading = true;
+      })
+      .addCase(getStoreInfo.fulfilled, (state, action) => {
+        state.storeName = action.payload.storeName;
+        state.category = action.payload.category;
+        state.workingHours = action.payload.workingHours;
+        state.number = action.payload.number;
+        state.address = action.payload.address;
+        state.addressDetail = action.payload.addressDetail;
+        state.status.loading = false;
+      })
+      .addCase(getStoreInfo.rejected, (state, action) => {
+        state.status.loading = false;
+        state.status.error = action.error;
+      })
+      .addCase(modifyStoreInfo.pending, (state, action) => {
+        state.status.loading = true;
+      })
+      .addCase(modifyStoreInfo.fulfilled, (state, action) => {
+        state.status.loading = false;
+      })
+      .addCase(modifyStoreInfo.rejected, (state, action) => {
+        state.status.loading = false;
+        state.status.error = action.error;
+      });
   },
 });
 
-export const { setBasicInfo } = storeSlice.actions;
+export const {
+  setBasicInfo,
+  setStoreName,
+  setCategory,
+  setNumber,
+  setWorkingHours,
+  setAddress,
+  setAddressDetail,
+} = storeSlice.actions;
 
 export default storeSlice.reducer;

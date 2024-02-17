@@ -3,6 +3,19 @@ import styled from 'styled-components';
 import { ArrowDown, ArrowUp } from '../../../../assets';
 
 function CustomerCount({ customer }) {
+  const getPercent = (cur, prev) => {
+    return cur !== 0 && prev === 0
+      ? '-'
+      : cur === 0 && prev === 0
+        ? 0
+        : (((cur - prev) / prev) * 100).toFixed(1);
+  };
+
+  const getColor = (data) => {
+    if (data === '-' || data === 0) return undefined;
+    else if (data > 0) return true;
+    else if (data < 0) return false;
+  };
   return (
     <StatisticsBar>
       <Statistics>
@@ -11,17 +24,11 @@ function CustomerCount({ customer }) {
           <span>
             이번 달 <strong>총 방문</strong> 고객은?
           </span>
-          <DataText increase={true}>
+          <DataText
+            increase={getColor(getPercent(customer.all, customer.prevAll))}
+          >
             <h5>{customer.all}명</h5>
-            <span>
-              {customer.all === 0 && customer.new === 0
-                ? '0'
-                : (
-                    ((customer.all - customer.prevAll) / customer.prevAll) *
-                    100
-                  ).toFixed(1)}
-              %
-            </span>
+            <span>{getPercent(customer.all, customer.prevAll)}%</span>
           </DataText>
         </Content>
       </Statistics>
@@ -31,17 +38,11 @@ function CustomerCount({ customer }) {
           <span>
             이번 달 <strong>신규</strong> 고객은?
           </span>
-          <DataText increase={false}>
+          <DataText
+            increase={getColor(getPercent(customer.new, customer.prevNew))}
+          >
             <h5>{customer.new}명</h5>
-            <span>
-              {customer.all === 0 && customer.new === 0
-                ? '0'
-                : (
-                    ((customer.new - customer.prevNew) / customer.prevNew) *
-                    100
-                  ).toFixed(1)}
-              %
-            </span>
+            <span>{getPercent(customer.new, customer.prevNew)}%</span>
           </DataText>
         </Content>
       </Statistics>
@@ -114,6 +115,7 @@ const DataText = styled.div`
   & span {
     font-size: ${({ theme }) => theme.fontSize.sm};
     padding-bottom: 3px;
-    color: ${({ increase }) => (increase ? '#d02e2e' : '#3355ff')};
+    color: ${({ increase }) =>
+      increase === true ? '#d02e2e' : increase === false ? '#3355ff' : 'gray'};
   }
 `;
