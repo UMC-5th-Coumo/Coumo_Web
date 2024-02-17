@@ -1,16 +1,80 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BiBarChartSquare } from 'react-icons/bi';
 import AgeGroupChart from '../../admin/customer/common/charts/AgeGroupChart';
+import { defaultInstance } from '../../../api/axios';
 
 function GenderGraphInfo() {
+  const [ageGroupData, setAgeGroupData] = useState([]);
+  const changeAge = (day) => {
+    switch (day) {
+      case '10s':
+        return '10대';
+      case '20s':
+        return '20대';
+      case '30s':
+        return '30대';
+      case '40s':
+        return '40대';
+      case '50s':
+        return '50대';
+      case '60s':
+        return '60대';
+      default:
+        break;
+    }
+  };
+
+  /* ----- 서버로부터 받은 데이터 가공 ----- */
+  const processData = (type, chartData) => {
+    return chartData.map((data) => {
+      let newData = {
+        x: '',
+        y: data[type],
+      };
+
+      // 연령대 변경
+      newData.x = changeAge(data.ageGroup);
+
+      // 방문자 수 추가
+      newData.x += ` (${data.total}명)`;
+
+      return newData;
+    });
+  };
+
+  const getAgeGroup = async () => {
+    await defaultInstance
+      .get(
+        `/api/statistics/${1}/month-age?year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}`
+      )
+      .then(async (res) => {
+        if (res.data.isSuccess) {
+          const data = res.data.result;
+          if (data.length > 0) {
+            const processedData = {
+              maleData: processData('male', data),
+              femaleData: processData('female', data),
+            };
+            setAgeGroupData(processedData);
+          }
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getAgeGroup();
+  }, []);
   return (
     <Container>
       <Title>
         <BiBarChartSquare />
         이번 달 주 고객층은?
       </Title>
-      <ChartWrapper>{/* <AgeGroupChart type='light' /> */}</ChartWrapper>
+      <ChartWrapper>
+        <AgeGroupChart type='light' chartData={ageGroupData} />
+      </ChartWrapper>
     </Container>
   );
 }
