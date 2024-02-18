@@ -8,7 +8,7 @@ import DayGraphInfo from '../components/admin/home/DayGraphInfo';
 import CustomerInfo from '../components/admin/home/CustomerInfo';
 import GenderGraphInfo from '../components/admin/home/GenderGraphInfo';
 import { useDispatch, useSelector } from 'react-redux';
-import { defaultInstance } from '../api/axios';
+import { authInstance, defaultInstance } from '../api/axios';
 import getStoreInfo from '../redux/thunks/getStoreInfo';
 import { stampData } from '../assets/data/stampData';
 
@@ -39,7 +39,7 @@ function AdminHome() {
   /* ----- 대표 쿠폰 조회 api ----- */
   const getCouponData = async () => {
     console.log(ownerId);
-    await defaultInstance
+    await authInstance
       .get(`/api/maincoupon/${storeId}`)
       .then(async (res) => {
         if (res.data.isSuccess) {
@@ -61,7 +61,7 @@ function AdminHome() {
 
   /* ----- 이번달 방문자 수 조회 api ----- */
   const getCustomerCount = async () => {
-    await defaultInstance
+    await authInstance
       .get(
         `/api/statistics/${storeId}/month-statistics?year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}`
       )

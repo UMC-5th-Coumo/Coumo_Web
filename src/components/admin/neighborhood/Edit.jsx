@@ -47,7 +47,7 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
       <div>
         <Label>글의 제목을 작성해 주세요</Label>
         <StyledWriteTextarea
-          spellcheck='false'
+          spellCheck='false'
           placeholder='제목을 작성해주세요. (0/30)'
           name='title'
           $height='40px'
@@ -100,7 +100,7 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
           onBlur={() => setContentFocused(false)}
           maxLength='499'
         />
-        <Count focused={isContentFocused}>
+        <Count $focused={isContentFocused}>
           <span>{contentCount}</span>
           <span>/500</span>
         </Count>

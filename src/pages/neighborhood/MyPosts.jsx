@@ -16,7 +16,7 @@ import {
   PagePrevDisable,
 } from '../../assets';
 import PostList from '../../components/admin/neighborhood/PostList';
-import { defaultInstance } from '../../api/axios';
+import { authInstance, defaultInstance } from '../../api/axios';
 
 const MyPosts = () => {
   const [deletePopUp, setDeletePopUp] = useState(false);
@@ -33,9 +33,7 @@ const MyPosts = () => {
   useEffect(() => {
     const posts = async () => {
       try {
-        const response = await defaultInstance.get(
-          `api/notice/1/list?pageId=1`
-        );
+        const response = await authInstance.get(`api/notice/1/list?pageId=1`);
         if (response.data.isSuccess) {
           console.log('성공', response.data);
         }
