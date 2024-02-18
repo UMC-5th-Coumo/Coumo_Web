@@ -9,6 +9,8 @@ const Category = ({
   setPageId,
   columns,
   dropWidth,
+  gap = 12,
+  titleSize = 'normal',
 }) => {
   const onChange = (id) => {
     setCategory(id);
@@ -19,7 +21,7 @@ const Category = ({
   return (
     <Container>
       <Title>카테고리</Title>
-      <Wrapper columns={columns}>
+      <Wrapper columns={columns} gap={gap}>
         {data.map((item) => {
           return (
             <RadioBtn
@@ -41,14 +43,15 @@ const Category = ({
 export default Category;
 
 const Container = styled.div`
-  flex-wrap: wrap;
   display: flex;
   gap: 12px;
+  flex-direction: column;
 `;
 
 const Title = styled.h2`
   color: ${({ theme }) => theme.colors.coumo_purple};
-  font-size: ${({ theme }) => theme.fontSize.lg};
+  font-size: ${({ theme, titleSize }) =>
+    titleSize === 'normal' ? theme.fontSize.lg : theme.fontSize.base};
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 31.68px */
@@ -63,5 +66,5 @@ const Title = styled.h2`
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: ${(props) => props.columns};
-  gap: 12px;
+  gap: ${({ gap }) => gap}px;
 `;

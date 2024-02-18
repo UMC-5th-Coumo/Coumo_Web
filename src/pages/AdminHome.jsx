@@ -7,12 +7,13 @@ import CouponInfo from '../components/admin/home/CouponInfo';
 import DayGraphInfo from '../components/admin/home/DayGraphInfo';
 import CustomerInfo from '../components/admin/home/CustomerInfo';
 import GenderGraphInfo from '../components/admin/home/GenderGraphInfo';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { defaultInstance } from '../api/axios';
-import { Stamp1, Stamp2, Stamp3, Stamp4, Stamp5 } from '../assets';
+import getStoreInfo from '../redux/thunks/getStoreInfo';
 import { stampData } from '../assets/data/stampData';
 
 function AdminHome() {
+  const dispatch = useDispatch();
   const { write, ownerId, storeId } = useSelector((state) => state.user);
   const [coupon, setCoupon] = useState({
     storeName: '쿠모',
@@ -28,19 +29,27 @@ function AdminHome() {
     prevNew: 0,
   });
 
+  /* ----- 팝업 등장 시 뒷배경 스크롤 제한 ----- */
+  if (!write) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
+
   /* ----- 대표 쿠폰 조회 api ----- */
   const getCouponData = async () => {
+    console.log(ownerId);
     await defaultInstance
-      .get(`/api/maincoupon/${ownerId}`)
+      .get(`/api/maincoupon/${storeId}`)
       .then(async (res) => {
         if (res.data.isSuccess) {
           const data = res.data.result;
-          console.log(data);
+          console.log(data.stampImage);
           setCoupon({
             storeName: data.storeName,
-            couponColor: '#7C43E8',
-            fontColor: '#ffffff',
-            stampImage: stampData.find((data) => data.id === data.stampImage)
+            couponColor: data.couponColor,
+            fontColor: data.fontColor,
+            stampImage: stampData.find((stamp) => stamp.id === data.stampImage)
               .image,
             stampMax:
               data.stampMax === 'EIGHT' ? 8 : data.stampMax === 'TEN' ? 10 : 12,
@@ -73,12 +82,12 @@ function AdminHome() {
   useEffect(() => {
     getCustomerCount();
     getCouponData();
+    dispatch(getStoreInfo(storeId));
   }, []);
 
   return (
     <Container>
-      {/* {write && <FormPopUp />} */}
-      {/* <FormPopUp /> */}
+      {!write && <FormPopUp />}
       <ColumWrapper>
         <StoreInfo />
         <DayGraphInfo />

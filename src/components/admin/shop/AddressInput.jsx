@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Input from '../../common/Input';
 import DaumPostcode from 'react-daum-postcode';
 import { createRoot } from 'react-dom/client';
+import PopUpInput from '../../common/PopUpInput';
 
 function AddressInput({
   address,
@@ -12,6 +13,7 @@ function AddressInput({
   isPostcodeOpen,
   handleInputClick,
   setIsPostcodeOpen,
+  type = 'normal',
 }) {
   const handleAddressClick = () => {
     setIsPostcodeOpen(true);
@@ -61,18 +63,33 @@ function AddressInput({
 
   return (
     <Container>
-      <Input
-        id='here'
-        name='address'
-        label='위치정보'
-        type='text'
-        placeholder='주소를 입력해주세요.'
-        value={address}
-        readOnly={true}
-        width
-        onChange={(e) => setAddress(e.target.value)}
-        onClick={handleAddressClick}
-      />
+      {type === 'normal' ? (
+        <Input
+          id='here'
+          name='address'
+          label='위치정보'
+          type='text'
+          placeholder='주소를 입력해주세요.'
+          value={address}
+          readOnly={true}
+          width
+          onChange={(e) => setAddress(e.target.value)}
+          onClick={handleAddressClick}
+        />
+      ) : (
+        <PopUpInput
+          id='here'
+          name='address'
+          label='위치정보'
+          type='text'
+          placeholder='주소를 입력해주세요.'
+          value={address}
+          readOnly={true}
+          width
+          onChange={(e) => setAddress(e.target.value)}
+          onClick={handleAddressClick}
+        />
+      )}
       {isPostcodeOpen && (
         <WindowPopup>
           <DaumPostcode
@@ -86,14 +103,25 @@ function AddressInput({
           />
         </WindowPopup>
       )}
-      <Input
-        name='addressDetail'
-        type='text'
-        placeholder='상세 주소를 입력해주세요.'
-        value={addressDetail}
-        onChange={(e) => setAddressDetail(e.target.value)}
-        onClick={handleAddressDetailClick}
-      />
+      {type === 'normal' ? (
+        <Input
+          name='addressDetail'
+          type='text'
+          placeholder='상세 주소를 입력해주세요.'
+          value={addressDetail}
+          onChange={(e) => setAddressDetail(e.target.value)}
+          onClick={handleAddressDetailClick}
+        />
+      ) : (
+        <PopUpInput
+          name='addressDetail'
+          type='text'
+          placeholder='상세 주소를 입력해주세요.'
+          value={addressDetail}
+          onChange={(e) => setAddressDetail(e.target.value)}
+          onClick={handleAddressDetailClick}
+        />
+      )}
     </Container>
   );
 }

@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ChromePicker } from 'react-color';
 
-const ColorPicker = ({ color, setColor, dropWidth }) => {
+const ColorPicker = ({ color, setColor, dropWidth, type = 'normal' }) => {
   const [open, setOpen] = useState(false);
   const outsideRef = useRef(null);
 
@@ -26,7 +26,7 @@ const ColorPicker = ({ color, setColor, dropWidth }) => {
         <span>{color}</span>
       </ColorBox>
       {open && (
-        <Picker>
+        <Picker type={type}>
           <ChromePicker color={color} onChange={(color) => setColor(color)} />
         </Picker>
       )}
@@ -41,7 +41,7 @@ const ColorBox = styled.button`
   border-radius: 4px;
   display: flex;
   width: ${({ dropWidth }) => (dropWidth ? '100px' : '110px')};
-  height: ${({ dropWidth }) => (dropWidth ? '30px' : '38.5px')};
+  height: ${({ dropWidth }) => (dropWidth ? '35px' : '38.5px')};
   padding: ${({ dropWidth }) => (dropWidth ? '6px 10px' : '8px 12px')};
   align-items: center;
   gap: 8px;
@@ -65,8 +65,8 @@ const ColorBox = styled.button`
 
 const Picker = styled.div`
   position: absolute;
-  right: -225px;
-  top: 0;
+  right: ${({ type }) => (type === 'normal' ? '-225px' : '-1')};
+  top: ${({ type }) => (type === 'normal' ? '0' : '35px')};
   z-index: 999;
 `;
 

@@ -1,28 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { authInstance } from '../../api/axios';
+import { authInstance, defaultInstance } from '../../api/axios';
 
 const modifyStoreInfo = createAsyncThunk(
   'store/modifyStoreInfo',
-  async (storeId, coords, { getState }) => {
+  async ({ storeId, storeInfo }) => {
+    console.log('storeData', storeInfo);
     try {
-      const {
-        storeSlice: { info },
-      } = getState();
-
-      const storeData = {
-        name: info.storeName,
-        time: info.workingHours,
-        telePhone: info.number.split('-').join(''),
-        category: info.category,
-        location: info.address,
-        detailLocation: info.addressDetail,
-        longitude: coords.longitude,
-        latitude: coords.latitude,
-      };
-
       // 기본정보 수정 api
-      await authInstance
-        .put(`/api/owner/store/${storeId}/basic`, storeData)
+      await defaultInstance
+        .put(`/api/owner/store/${storeId}/basic`, storeInfo)
         .then((res) => {
           if (res.data.isSuccess) {
             console.log('Store data updated successfully!');

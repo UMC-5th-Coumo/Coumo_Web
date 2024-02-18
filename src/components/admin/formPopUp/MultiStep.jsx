@@ -13,13 +13,19 @@ function MultiStep({ step }) {
         <Step>
           <LeftLine step={step >= 2} />
           <Num step={step >= 2}>2</Num>
-          <StepName step={step >= 2}>쿠폰 등록</StepName>
+          <StepName step={step >= 2}>영업시간 등록</StepName>
           <RightLine step={step >= 3} />
         </Step>
         <Step>
-          <LeftLine step={step >= 3} style={{ width: '50px' }} />
+          <LeftLine step={step >= 3} />
           <Num step={step >= 3}>3</Num>
-          <StepName step={step >= 3}>시작!</StepName>
+          <StepName step={step >= 3}>쿠폰 등록</StepName>
+          <RightLine step={step >= 4} />
+        </Step>
+        <Step>
+          <LeftLine step={step >= 4} style={{ width: '50px' }} />
+          <Num step={step >= 4}>4</Num>
+          <StepName step={step >= 4}>시작!</StepName>
         </Step>
       </Wrapper>
     </StepBox>
@@ -35,7 +41,7 @@ const StepBox = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 300px;
+  width: 400px;
   display: flex;
   justify-content: space-between;
 `;

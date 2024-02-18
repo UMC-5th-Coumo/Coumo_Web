@@ -5,15 +5,17 @@ import MultiStep from './MultiStep';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
+import Step4 from './Step4';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../../../redux/slices/userSlice';
+import { setUser, setWrite } from '../../../redux/slices/userSlice';
+import { authInstance, defaultInstance } from '../../../api/axios';
 
 function FormPopUp() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.user);
+  const { storeId, ownerId } = useSelector((state) => state.user);
   const [step, setStep] = useState(0);
   const [hours, setHours] = useState({
     MONDAY: {
@@ -58,14 +60,12 @@ function FormPopUp() {
     time: Object.keys(hours).map((day) => hours[day]),
     telePhone: '',
     category: 'cafe',
-    // location: '',
     address: '',
     addressDetail: '',
     longitude: 0,
     latitude: 0,
   });
   const [couponData, setCouponData] = useState({
-    storeName: '',
     couponColor: '#7C43E8',
     fontColor: '#ffffff',
     stampMax: 8,
@@ -124,23 +124,57 @@ function FormPopUp() {
 
   const handleNextClick = () => {
     // 3단계 미만일 땐 '다음' 버튼
-    if (step < 3) {
+    if (step < 4) {
       setStep((prev) => prev + 1);
     }
   };
 
-  const handleStartClick = () => {
-    // 3단계인 경우 서버에 데이터 전송
-    console.log('storeData:', storeData);
-    console.log('couponData:', couponData);
-    // 서버로 전송하는 로직 추가
-    dispatch(
-      setUser({
-        ...state,
-        write: true,
-      })
-    );
-    navigate('/');
+  const handleSubmit = async () => {
+    // 매장 기본 정보 수정 api
+    const coords = await getAddressCoords(storeData.address);
+    const storeInfo = {
+      name: storeData.name,
+      time: Object.keys(hours).map((day) => hours[day]),
+      telePhone: storeData.telePhone,
+      category: storeData.category,
+      location: storeData.address,
+      detailLocation: storeData.addressDetail,
+      longitude: coords.longitude,
+      latitude: coords.latitude,
+    };
+    console.log('storeInfo:', storeInfo);
+
+    try {
+      await defaultInstance
+        .put(`/api/owner/store/${storeId}/basic`, storeInfo)
+        .then((res) => {
+          if (res.data.isSuccess) {
+            console.log('Store data updated successfully!');
+            // 팝업 예정
+          }
+        });
+
+      const couponInfo = {
+        storeName: storeData.name,
+        ...couponData,
+        stampMax:
+          couponData.stampMax === 8
+            ? 'EIGHT'
+            : couponData.stampMax === 10
+              ? 'TEN'
+              : 'TWELVE',
+        stampImage: couponData.stampImage,
+      };
+      console.log('couponData:', couponInfo);
+
+      await defaultInstance
+        .post(`/api/coupon/register/${ownerId}`, couponInfo)
+        .then((res) => console.log(res.data));
+
+      handleNextClick();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const isStep1NextDisabled = () => {
@@ -154,15 +188,6 @@ function FormPopUp() {
     );
   };
 
-  const isStep2NextDisabled = () => {
-    return !(
-      couponData.storeName &&
-      couponData.couponColor &&
-      couponData.fontColor &&
-      couponData.stampMax
-    );
-  };
-
   return (
     <Container>
       <Popup>
@@ -173,31 +198,40 @@ function FormPopUp() {
             <MultiStep step={step} />
             <Content>
               {step === 1 && (
-                <Step1
-                  storeData={storeData}
-                  setStoreData={setStoreData}
-                  hours={hours}
-                  setHours={setHours}
+                <Step1 storeData={storeData} setStoreData={setStoreData} />
+              )}
+              {step === 2 && <Step2 hours={hours} setHours={setHours} />}
+              {step === 3 && (
+                <Step3
+                  couponData={couponData}
+                  setCouponData={setCouponData}
+                  couponName={storeData.name}
                 />
               )}
-              {step === 2 && (
-                <Step2 couponData={couponData} setCouponData={setCouponData} />
-              )}
-              {step === 3 && <Step3 />}
+              {step === 4 && <Step4 />}
             </Content>
             <BtnContainer>
-              {step > 1 && <PrevBtn onClick={handlePrevClick}>이전</PrevBtn>}
+              {step > 1 && step < 4 && (
+                <PrevBtn onClick={handlePrevClick}>이전</PrevBtn>
+              )}
               {step < 3 ? (
                 <NextBtn
                   onClick={handleNextClick}
-                  disabled={
-                    step === 1 ? isStep1NextDisabled() : isStep2NextDisabled()
-                  }
+                  disabled={step === 1 ? isStep1NextDisabled() : false}
                 >
                   다음
                 </NextBtn>
+              ) : step === 3 ? (
+                <NextBtn onClick={handleSubmit}>완료</NextBtn>
               ) : (
-                <NextBtn onClick={handleStartClick}>시작하기</NextBtn>
+                <NextBtn
+                  onClick={() => {
+                    dispatch(setWrite(true));
+                    window.location.reload();
+                  }}
+                >
+                  시작하기
+                </NextBtn>
               )}
             </BtnContainer>
           </FormContainer>
@@ -220,7 +254,7 @@ const Container = styled.div`
 `;
 
 const Popup = styled.div`
-  width: 1200px;
+  min-width: 800px;
   height: 700px;
   background-color: ${({ theme }) => theme.colors.white};
 
@@ -245,7 +279,7 @@ const FormContainer = styled.div`
 const Content = styled.div`
   width: 100%;
   height: 500px;
-  padding: 0px 20px 30px 20px; // 상우하좌
+  padding-bottom: 30px;
   box-sizing: border-box;
 `;
 
