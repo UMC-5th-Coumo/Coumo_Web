@@ -56,14 +56,14 @@ const MyPosts = () => {
       : postDummyData.filter((post) => post.tag === category);
 
   /* ----- 컴포넌트가 마운트될 때 받아오기 ----- */
-  useEffect(() => {
-    dispatch(getMyPosts({ ownerId: 'coumo123', pageId: '1' }));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getMyPosts({ ownerId: 'coumo123', pageId: '1' }));
+  // }, [dispatch]);
 
-  /* ----- selectedPost 변경 시 즉시 업데이트 ----- */
-  useEffect(() => {
-    dispatch(setSelectedPost(selectedPost));
-  }, [dispatch, selectedPost]);
+  // /* ----- selectedPost 변경 시 즉시 업데이트 ----- */
+  // useEffect(() => {
+  //   dispatch(setSelectedPost(selectedPost));
+  // }, [dispatch, selectedPost]);
 
   /* ----- 페이지 이동 처리 ----- */
   useEffect(() => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Category from '../coupon/Category';
-import { StyledWriteInput } from '../../common/Input';
+// import { StyledWriteInput } from '../../common/Input';
 import ImageBlock from '../shop/ImageBlock';
 import { writecategoryData } from '../../../assets/data/categoryData';
 
@@ -19,6 +19,13 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
   const onContentHandler = (e) => {
     setContentCount(e.target.value.length);
   };
+
+  useEffect(() => {
+    setInputs({
+      ...inputs,
+      image: storeImages,
+    });
+  }, [storeImages]);
 
   useEffect(() => {
     setInputs({

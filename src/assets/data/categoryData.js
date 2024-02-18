@@ -27,15 +27,15 @@ export const categoryData = [
 
 export const writecategoryData = [
   {
-    id: 'new',
+    id: 'NEW_PRODUCT',
     label: '신메뉴/신상품',
   },
   {
-    id: 'noshow',
+    id: 'NO_SHOW',
     label: '노쇼 빈자리',
   },
   {
-    id: 'event',
+    id: 'EVENT',
     label: '이벤트',
   },
 ];

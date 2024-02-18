@@ -115,6 +115,10 @@ const StoreInfo = () => {
     menuImages.forEach((image) => formData.append('menuImages', image));
     formData.append('menuDetail', JSON.stringify(menuData));
 
+    for (let value of formData) {
+      console.log('formData value', value);
+    }
+
     await formAuthInstance
       .put(`/api/owner/store/${storeId}/detail`, formData)
       .then((res) => console.log(res.data))
@@ -174,7 +178,6 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   padding: 70px 100px;
-  /* gap: 40px; */
   box-sizing: border-box;
 
   @media screen and (max-width: 1024px) {
