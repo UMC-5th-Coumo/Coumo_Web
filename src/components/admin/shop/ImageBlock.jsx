@@ -48,7 +48,7 @@ const ImageBlock = ({ storeImages, setStoreImages }) => {
 
   return (
     <Image>
-      <Scroll boxCount={storeImages.length} ref={scrollRef}>
+      <Scroll $boxCount={storeImages.length} ref={scrollRef}>
         {storeImages.map((data, index) => (
           <StoreImage
             key={data.id}
@@ -80,7 +80,7 @@ const Image = styled.div`
 
 const Scroll = styled.div`
   display: flex;
-  width: ${({ boxCount }) => (boxCount > 1 ? '860px' : '570px')};
+  width: ${({ $boxCount }) => ($boxCount > 1 ? '860px' : '570px')};
   flex-direction: row;
   gap: 20px;
   overflow-x: auto;

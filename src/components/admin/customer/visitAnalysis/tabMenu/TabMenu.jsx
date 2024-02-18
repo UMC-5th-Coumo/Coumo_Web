@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 const TabMenu = ({ text, onClickTab, isSelected }) => {
   return (
-    <TabDiv onClick={onClickTab} selected={isSelected}>
+    <TabDiv onClick={onClickTab} $selected={isSelected}>
       {text}
-      <Selector selected={isSelected} />
+      <Selector $selected={isSelected} />
     </TabDiv>
   );
 };
@@ -21,8 +21,8 @@ const TabDiv = styled.div`
   justify-content: center;
   align-items: center;
 
-  color: ${({ theme, selected }) =>
-    selected ? theme.colors.coumo_purple : theme.colors.text_darkgray};
+  color: ${({ theme, $selected }) =>
+    $selected ? theme.colors.coumo_purple : theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.md};
   font-style: normal;
   font-weight: 600;
@@ -35,8 +35,8 @@ const TabDiv = styled.div`
 const Selector = styled.div`
   width: 100%;
   height: 3px;
-  background-color: ${({ theme, selected }) =>
-    selected ? theme.colors.coumo_purple : 'none'};
+  background-color: ${({ theme, $selected }) =>
+    $selected ? theme.colors.coumo_purple : 'none'};
   border-radius: 30px;
 
   position: absolute;

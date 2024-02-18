@@ -38,7 +38,7 @@ const InputJoin = ({
         readOnly={readOnly}
         onChange={onChange}
         onClick={onClick}
-        width={width}
+        $width={width}
       ></StyledInput>
     </Element>
   );
@@ -62,7 +62,7 @@ const StyledInputTitle = styled.div`
 
 const StyledInput = styled.input`
   display: flex;
-  width: ${({ width }) => (width ? width : '370px')};
+  width: ${({ $width }) => ($width ? $width : '370px')};
   height: 40px;
   padding: 9.6px 14.4px;
   box-sizing: border-box;

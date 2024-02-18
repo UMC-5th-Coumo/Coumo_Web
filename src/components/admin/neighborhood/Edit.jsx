@@ -50,7 +50,7 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
           spellcheck='false'
           placeholder='제목을 작성해주세요. (0/30)'
           name='title'
-          height='40px'
+          $height='40px'
           value={inputs.title}
           onChange={(e) => {
             onTitleHandler(e);
@@ -64,7 +64,7 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
           onBlur={() => setTitleFocused(false)}
           maxLength='29'
         />
-        <Count focused={isTitleFocused}>
+        <Count $focused={isTitleFocused}>
           <span>{titleCount}</span>
           <span>/30</span>
         </Count>
@@ -188,7 +188,7 @@ const StyledWriteTextarea = styled.textarea`
   display: flex;
   max-width: 840px;
   width: 100%;
-  height: ${({ height }) => (height ? height : '210px')};
+  height: ${({ $height }) => ($height ? $height : '210px')};
   padding: 8px 12px;
   box-sizing: border-box;
   resize: none;
@@ -223,7 +223,7 @@ const Count = styled.div`
   display: flex;
   justify-content: flex-end;
   font-size: ${({ theme }) => theme.fontSize.sm};
-  color: ${({ theme, focused }) =>
-    focused ? theme.colors.coumo_purple : theme.colors.text};
+  color: ${({ theme, $focused }) =>
+    $focused ? theme.colors.coumo_purple : theme.colors.text};
   margin-top: 10px;
 `;

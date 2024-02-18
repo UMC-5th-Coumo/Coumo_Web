@@ -125,7 +125,6 @@ const UIServiceForm = () => {
             rows={30}
             cols={10}
             placeholder='매장에 대해 설명해주세요.'
-            isEmpty={description.length === 0}
             spellcheck='false'
           ></TextArea>
         </Description>

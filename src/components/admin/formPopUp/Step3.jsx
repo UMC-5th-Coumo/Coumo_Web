@@ -17,19 +17,19 @@ const Step3 = ({ couponData, setCouponData, couponName }) => {
     <Box>
       <Container>
         <CouponContainer>
-          <CouponExample color={couponData.couponColor}>
-            <CouponTitle fontColor={couponData.fontColor}>
+          <CouponExample $color={couponData.couponColor}>
+            <CouponTitle $fontColor={couponData.fontColor}>
               <h2>{couponName}</h2>
               <span>COUPON</span>
             </CouponTitle>
-            <StampBox num={couponData.stampMax}>
-              {stamps.map((i) => {
+            <StampBox $num={couponData.stampMax}>
+              {stamps.map((_, i) => {
                 return (
-                  <Stamp key={i} num={couponData.stampMax}>
+                  <Stamp key={i} $num={couponData.stampMax}>
                     <StampIcon
                       src={selectedStamp.image}
                       alt={selectedStamp.alt}
-                      num={couponData.stampMax}
+                      $num={couponData.stampMax}
                     />
                   </Stamp>
                 );
@@ -42,7 +42,7 @@ const Step3 = ({ couponData, setCouponData, couponName }) => {
           <DesginForm>
             <ColorWrapper>
               <Step>
-                <StepNameWidth dropWidth>
+                <StepNameWidth>
                   &bull;&nbsp; 쿠폰 <strong>색상</strong>
                 </StepNameWidth>
                 <ColorPicker
@@ -58,7 +58,7 @@ const Step3 = ({ couponData, setCouponData, couponName }) => {
                 />
               </Step>
               <Step>
-                <StepNameWidth dropWidth>
+                <StepNameWidth>
                   &bull;&nbsp; 폰트 <strong>색상</strong>
                 </StepNameWidth>
                 <ColorPicker
@@ -75,7 +75,7 @@ const Step3 = ({ couponData, setCouponData, couponName }) => {
               </Step>
             </ColorWrapper>
             <Step>
-              <StepName dropWidth>
+              <StepName>
                 &bull;&nbsp; 쿠폰 <strong>도장 개수</strong>
               </StepName>
               <StampCount
@@ -87,7 +87,7 @@ const Step3 = ({ couponData, setCouponData, couponName }) => {
               />
             </Step>
             <Step>
-              <StepName dropWidth>
+              <StepName>
                 &bull;&nbsp; 쿠폰 <strong>도장 이미지</strong>
               </StepName>
               <StampList
@@ -179,7 +179,7 @@ const StepNameWidth = styled.span`
 const CouponExample = styled.div`
   width: 440px;
   height: 245px;
-  background-color: ${(props) => props.color};
+  background-color: ${(props) => props.$color};
 
   display: flex;
   flex-direction: column;
@@ -193,7 +193,7 @@ const CouponTitle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: ${(props) => props.fontColor};
+  color: ${(props) => props.$fontColor};
 
   & h2 {
     margin: 0;
@@ -208,17 +208,17 @@ const CouponTitle = styled.div`
 `;
 
 const StampBox = styled.div`
-  width: ${(props) => (props.num > 8 ? '430px' : '350px')};
+  width: ${(props) => (props.$num > 8 ? '430px' : '350px')};
   height: 138px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: ${(props) => (props.num > 10 ? '0px 12px' : '10px 15px')};
+  gap: ${(props) => (props.$num > 10 ? '0px 12px' : '10px 15px')};
 `;
 
 const Stamp = styled.div`
-  width: ${(props) => (props.num > 10 ? '52px' : '60px')};
-  height: ${(props) => (props.num > 10 ? '52px' : '60px')};
+  width: ${(props) => (props.$num > 10 ? '52px' : '60px')};
+  height: ${(props) => (props.$num > 10 ? '52px' : '60px')};
   border-radius: 50%;
   background: #f6f6f6;
 
@@ -245,6 +245,6 @@ const Description = styled.span`
 `;
 
 const StampIcon = styled.img`
-  width: ${(props) => (props.num > 10 ? '40px' : '45px')};
-  height: ${(props) => (props.num > 10 ? '40px' : '45px')};
+  width: ${(props) => (props.$num > 10 ? '40px' : '45px')};
+  height: ${(props) => (props.$num > 10 ? '40px' : '45px')};
 `;

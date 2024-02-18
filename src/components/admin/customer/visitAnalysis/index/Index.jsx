@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Index = ({ text, onClickTab, isSelected }) => {
   return (
-    <TabDiv onClick={onClickTab} selected={isSelected}>
+    <TabDiv onClick={onClickTab} $selected={isSelected}>
       {text}
     </TabDiv>
   );
@@ -12,7 +12,7 @@ const Index = ({ text, onClickTab, isSelected }) => {
 export default Index;
 
 const TabDiv = styled.div`
-  width: ${(props) => (props.selected ? 128 : 108)}px;
+  width: ${(props) => (props.$selected ? 128 : 108)}px;
   height: 35px;
   box-sizing: border-box;
   padding: 12px 8px;
@@ -23,12 +23,12 @@ const TabDiv = styled.div`
 
   cursor: pointer;
   border-radius: 0px 24px 24px 0px;
-  background: ${({ theme, selected }) =>
-    selected ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
-  color: ${({ theme, selected }) =>
-    selected ? theme.colors.white : theme.colors.text_darkgray};
+  background: ${({ theme, $selected }) =>
+    $selected ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
+  color: ${({ theme, $selected }) =>
+    $selected ? theme.colors.white : theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.sm};
-  font-weight: ${(props) => (props.selected ? '700' : '500')};
+  font-weight: ${(props) => (props.$selected ? '700' : '500')};
   line-height: 132%;
   letter-spacing: 0.48px;
 `;

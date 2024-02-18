@@ -19,9 +19,9 @@ const Input = ({
   return (
     <Element>
       <StyledInputTitle
-        fontSize={fontSize}
-        paddingB={paddingB}
-        paddingL={paddingL}
+        $fontSize={fontSize}
+        $paddingB={paddingB}
+        $paddingL={paddingL}
       >
         {label}
       </StyledInputTitle>
@@ -33,8 +33,8 @@ const Input = ({
         readOnly={readOnly}
         onChange={onChange}
         onClick={onClick}
-        fullwidth={fullwidth}
-        fullheight={fullheight}
+        $fullwidth={fullwidth}
+        $fullheight={fullheight}
       ></StyledInput>
     </Element>
   );
@@ -50,14 +50,14 @@ const Element = styled.div`
 const StyledInputTitle = styled.div`
   color: ${({ theme }) => theme.colors.coumo_purple};
   font-family: 'Pretendard';
-  font-size: ${({ theme, fontSize }) =>
-    fontSize ? theme.fontSize.md : theme.fontSize.lg};
+  font-size: ${({ theme, $fontSize }) =>
+    $fontSize ? theme.fontSize.md : theme.fontSize.lg};
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 31.68px */
   letter-spacing: 0.72px;
-  padding-left: ${({ paddingL }) => (paddingL ? paddingL : '0px')};
-  padding-bottom: ${({ paddingB }) => (paddingB ? paddingB : '13px')};
+  padding-left: ${({ $paddingL }) => ($paddingL ? $paddingL : '0px')};
+  padding-bottom: ${({ $paddingB }) => ($paddingB ? $paddingB : '13px')};
 
   @media screen and (max-width: 1024px) {
     font-size: ${({ theme }) => theme.fontSize.md};
@@ -66,8 +66,8 @@ const StyledInputTitle = styled.div`
 
 const StyledInput = styled.input`
   display: flex;
-  width: ${({ fullwidth }) => (fullwidth ? fullwidth : '100%')};
-  height: ${({ fullheight }) => (fullheight ? fullheight : '40px')};
+  width: ${({ $fullwidth }) => ($fullwidth ? $fullwidth : '100%')};
+  height: ${({ $fullheight }) => ($fullheight ? $fullheight : '40px')};
   padding: 8px 12px;
   box-sizing: border-box;
   justify-content: flex-end;

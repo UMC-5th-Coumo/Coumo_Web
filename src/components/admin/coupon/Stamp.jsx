@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 const Stamp = ({ id, stamp, selected, onChange, dropWidth }) => {
   return (
-    <RadioLabel selected={selected} dropWidth={dropWidth}>
+    <RadioLabel $selected={selected} $dropWidth={dropWidth}>
       <RadioInput type='radio' id={id} checked={selected} onChange={onChange} />
       <StampWrapper>
         <StampIcon src={stamp.image} alt={stamp.alt} />
       </StampWrapper>
-      <RadioSpan htmlFor={id} selected={selected}>
+      <RadioSpan htmlFor={id} $selected={selected}>
         {selected ? '선택완료' : '선택하기'}
       </RadioSpan>
     </RadioLabel>
@@ -20,25 +20,25 @@ export default Stamp;
 const RadioLabel = styled.label`
   display: flex;
   align-items: center;
-  height: ${({ dropWidth }) => (dropWidth ? '35px' : '38px')};
-  padding: ${({ dropWidth }) => (dropWidth ? '0px 10px' : '0px 12px')};
+  height: ${({ $dropWidth }) => ($dropWidth ? '35px' : '38px')};
+  padding: ${({ $dropWidth }) => ($dropWidth ? '0px 10px' : '0px 12px')};
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
   border-radius: 4px;
-  background: ${({ theme, selected }) =>
-    selected ? theme.colors.coumo_purple : theme.colors.white};
-  color: ${({ theme, selected }) =>
-    selected ? theme.colors.white : theme.colors.text};
+  background: ${({ theme, $selected }) =>
+    $selected ? theme.colors.coumo_purple : theme.colors.white};
+  color: ${({ theme, $selected }) =>
+    $selected ? theme.colors.white : theme.colors.text};
   border: 1px solid ${({ theme }) => theme.colors.text};
   cursor: pointer;
 
   & span {
-    display: ${({ dropWidth }) => (dropWidth ? 'none' : null)};
+    display: ${({ $dropWidth }) => ($dropWidth ? 'none' : null)};
   }
 
   @media screen and (max-width: 1224px) {
-    height: ${({ dropWidth }) => (dropWidth ? '30px' : '34px')};
+    height: ${({ $dropWidth }) => ($dropWidth ? '30px' : '34px')};
     padding: 0px 10px;
   }
 
@@ -77,8 +77,8 @@ const RadioSpan = styled.span`
   font-style: normal;
   font-weight: 400;
   line-height: 170%; /* 27.2px */
-  color: ${({ theme, selected }) =>
-    selected ? theme.colors.white : theme.colors.text_darkgray};
+  color: ${({ theme, $selected }) =>
+    $selected ? theme.colors.white : theme.colors.text_darkgray};
 `;
 
 const StampWrapper = styled.div`

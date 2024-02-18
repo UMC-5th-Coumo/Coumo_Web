@@ -10,7 +10,7 @@ function OneBtnPopUp({ title, text, onClick }) {
           <PopUpTitle dangerouslySetInnerHTML={{ __html: title }} />
           <span dangerouslySetInnerHTML={{ __html: text }} />
         </TextBox>
-        <Button ok={true} onClick={onClick}>
+        <Button $ok={true} onClick={onClick}>
           확인
         </Button>
       </PopUp>
@@ -88,15 +88,15 @@ const PopUpTitle = styled.h3`
 const Button = styled.button`
   width: 100%;
   height: 45px;
-  background-color: ${({ ok, theme }) =>
-    ok ? '#643daf' : theme.colors.btn_lightgray};
+  background-color: ${({ $ok, theme }) =>
+    $ok ? '#643daf' : theme.colors.btn_lightgray};
 
   border: none;
   border-radius: 8px;
   font-size: ${({ theme }) => theme.fontSize.base};
   font-weight: 700;
-  color: ${({ ok, theme }) =>
-    ok ? theme.colors.white : theme.colors.text_darkgray};
+  color: ${({ $ok, theme }) =>
+    $ok ? theme.colors.white : theme.colors.text_darkgray};
   cursor: pointer;
 
   @media screen and (max-width: 1024px) {
