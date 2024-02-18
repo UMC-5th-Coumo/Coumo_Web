@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Btn } from '../common/Button';
 import { LoginId, LoginPw, LoginSave, LoginSaveCheck } from '../../assets';
@@ -18,12 +18,21 @@ const LoginBox = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // 마운트 되었을 때 이전에 저장된 id, pw 있는지 확인
+  useEffect(() => {
+    // 로컬 저장소에서 아이디와 비밀번호 가져오기
+    const savedId = localStorage.getItem('id');
+    const savedPw = localStorage.getItem('pw');
+    if (savedId && savedPw) {
+      setId(savedId);
+      setPw(savedPw);
+      setSave(true);
+    }
+  }, []);
+
   const isLoginEnabled = () => {
     return id.trim() !== '' && pw.trim() !== '';
   };
-
-  // 마운트 되었을 때 이전에 저장된 id, pw 있는지 확인
-  // useEffect(() => {}, []);
 
   const handleLoginClick = async () => {
     try {
@@ -44,7 +53,16 @@ const LoginBox = () => {
           createdAt,
           write,
         } = response.data.result;
-        localStorage.setItem('userToken', token);
+        sessionStorage.setItem('userToken', token);
+
+        // 로그인 정보 저장하기
+        if (save) {
+          localStorage.setItem('id', id);
+          localStorage.setItem('pw', pw);
+        } else {
+          localStorage.removeItem('id');
+          localStorage.removeItem('pw');
+        }
         navigate('/');
 
         dispatch(
