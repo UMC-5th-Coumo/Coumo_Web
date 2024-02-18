@@ -65,7 +65,8 @@ const ColorBox = styled.button`
 
 const Picker = styled.div`
   position: absolute;
-  right: -1;
+  right: -225px;
+  top: 0;
   z-index: 999;
 `;
 

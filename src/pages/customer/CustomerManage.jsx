@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import getCustomers from '../../redux/thunks/getCustomers';
 
 const CustomerManage = () => {
+  const { storeId } = useSelector((state) => state.user);
   const [number, setNumber] = useState('');
   const [filter, setFilter] = useState('all');
   const [selected, setSelected] = useState(null);
@@ -21,7 +22,7 @@ const CustomerManage = () => {
 
   // 마운트 될 때 고객 데이터 받아오기
   useEffect(() => {
-    dispatch(getCustomers('1'));
+    dispatch(getCustomers(storeId));
   }, []);
 
   // 가져온 데이터로 렌더링

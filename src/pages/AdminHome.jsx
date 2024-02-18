@@ -10,9 +10,10 @@ import GenderGraphInfo from '../components/admin/home/GenderGraphInfo';
 import { useSelector } from 'react-redux';
 import { defaultInstance } from '../api/axios';
 import { Stamp1, Stamp2, Stamp3, Stamp4, Stamp5 } from '../assets';
+import { stampData } from '../assets/data/stampData';
 
 function AdminHome() {
-  const { write } = useSelector((state) => state.user);
+  const { write, ownerId, storeId } = useSelector((state) => state.user);
   const [coupon, setCoupon] = useState({
     storeName: '쿠모',
     couponColor: '#bb96ff',
@@ -20,7 +21,6 @@ function AdminHome() {
     stampImage: '',
     stampMax: 10,
   });
-
   const [customer, setCustomer] = useState({
     all: 0,
     new: 0,
@@ -28,26 +28,10 @@ function AdminHome() {
     prevNew: 0,
   });
 
-  const getStamp = (type) => {
-    switch (type) {
-      case 'stamp1':
-        return <Stamp1 />;
-      case 'stamp2':
-        return <Stamp2 />;
-      case 'stamp3':
-        return <Stamp3 />;
-      case 'stamp4':
-        return <Stamp4 />;
-      case 'stamp5':
-        return <Stamp5 />;
-      default:
-        return null;
-    }
-  };
-
+  /* ----- 대표 쿠폰 조회 api ----- */
   const getCouponData = async () => {
     await defaultInstance
-      .get(`/api/maincoupon/${1}`)
+      .get(`/api/maincoupon/${ownerId}`)
       .then(async (res) => {
         if (res.data.isSuccess) {
           const data = res.data.result;
@@ -56,7 +40,8 @@ function AdminHome() {
             storeName: data.storeName,
             couponColor: '#7C43E8',
             fontColor: '#ffffff',
-            stampImage: getStamp(data.stampImage),
+            stampImage: stampData.find((data) => data.id === data.stampImage)
+              .image,
             stampMax:
               data.stampMax === 'EIGHT' ? 8 : data.stampMax === 'TEN' ? 10 : 12,
           });
@@ -65,10 +50,11 @@ function AdminHome() {
       .catch((err) => console.log(err));
   };
 
+  /* ----- 이번달 방문자 수 조회 api ----- */
   const getCustomerCount = async () => {
     await defaultInstance
       .get(
-        `/api/statistics/${1}/month-statistics?year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}`
+        `/api/statistics/${storeId}/month-statistics?year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}`
       )
       .then(async (res) => {
         if (res.data.isSuccess) {

@@ -27,7 +27,7 @@ function CouponInfo({ coupon }) {
           {stamps.map((s, i) => {
             return (
               <Stamp key={i} num={coupon.stampMax}>
-                {coupon.stampImage}
+                <img src={coupon.stampImage} alt='stampImage' />
               </Stamp>
             );
           })}
@@ -161,7 +161,7 @@ const Stamp = styled.div`
     height: ${(props) => (props.num > 10 ? '38px' : '45px')};
   }
 
-  & svg {
+  & img {
     width: 40px;
     height: 40px;
   }

@@ -6,26 +6,36 @@ import ColorPicker from '../../components/admin/coupon/ColorPicker';
 import StampCount from '../../components/admin/coupon/StampCount';
 import StampList from '../../components/admin/coupon/StampList';
 import Button from '../../components/common/Button';
-import { authInstance } from '../../api/axios';
+import { authInstance, defaultInstance } from '../../api/axios';
 import { stampData } from '../../assets/data/stampData';
+import { useSelector } from 'react-redux';
 
 const AddCoupon = () => {
+  const { ownerId } = useSelector((state) => state.user);
   const [selectedStamp, setSelectedStamp] = useState(stampData[0]);
   const [coupon, setCoupon] = useState({
     storeName: '',
     couponColor: '#7C43E8',
     fontColor: '#ffffff',
-    stampMax: '8',
-    stampImage: '',
+    stampMax: 8,
   });
   const stamps = Array(coupon.stampMax * 1).fill(0);
 
-  // 서버 요청
+  /* ----- 쿠폰 등록 api ----- */
   const registerCoupon = async () => {
-    const ownerId = '';
+    const couponData = {
+      ...coupon,
+      stampMax:
+        coupon.stampMax === 8
+          ? 'EIGHT'
+          : coupon.stampMax === 10
+            ? 'TEN'
+            : 'TWELVE',
+      stampImage: selectedStamp.id,
+    };
 
-    await authInstance
-      .post(`/api/coupon/register/${ownerId}`, coupon)
+    await defaultInstance
+      .post(`/api/coupon/register/${ownerId}`, couponData)
       .then((res) => console.log(res.data));
   };
 

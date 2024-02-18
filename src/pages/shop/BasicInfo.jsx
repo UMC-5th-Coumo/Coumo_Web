@@ -32,10 +32,8 @@ const BasicInfo = () => {
   };
 
   useEffect(() => {
-    dispatch(getStoreInfo(1));
+    dispatch(getStoreInfo(storeId));
   }, []);
-
-  // useEffect(() => {}, [info]);
 
   const getAddressCoords = async (address) => {
     // 좌표 변환 API를 통해 주소를 좌표로 변환
@@ -86,7 +84,7 @@ const BasicInfo = () => {
     }
     const coords = await getAddressCoords(info.address);
 
-    dispatch(modifyStoreInfo(1, coords));
+    dispatch(modifyStoreInfo(storeId, coords));
   };
 
   return (
