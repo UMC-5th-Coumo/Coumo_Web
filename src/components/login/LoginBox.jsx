@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Btn } from '../common/Button';
 import { LoginId, LoginPw, LoginSave, LoginSaveCheck } from '../../assets';
@@ -11,20 +11,28 @@ const LoginBox = () => {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const [save, setSave] = useState(false);
-  const [error, setError] = useState({
-    id: false,
-    pw: false,
-    msg: '아이디 또는 비밀번호가 틀렸습니다.',
-  });
+  const [error, setError] = useState(false);
+  const [isIdFocused, setIdFocused] = useState(false);
+  const [isPwFocused, setPwFocused] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // 마운트 되었을 때 이전에 저장된 id, pw 있는지 확인
+  useEffect(() => {
+    // 로컬 저장소에서 아이디와 비밀번호 가져오기
+    const savedId = localStorage.getItem('id');
+    const savedPw = localStorage.getItem('pw');
+    if (savedId && savedPw) {
+      setId(savedId);
+      setPw(savedPw);
+      setSave(true);
+    }
+  }, []);
 
   const isLoginEnabled = () => {
     return id.trim() !== '' && pw.trim() !== '';
   };
-
-  // 마운트 되었을 때 이전에 저장된 id, pw 있는지 확인
-  // useEffect(() => {}, []);
 
   const handleLoginClick = async () => {
     try {
@@ -45,7 +53,16 @@ const LoginBox = () => {
           createdAt,
           write,
         } = response.data.result;
-        localStorage.setItem('userToken', token);
+        sessionStorage.setItem('userToken', token);
+
+        // 로그인 정보 저장하기
+        if (save) {
+          localStorage.setItem('id', id);
+          localStorage.setItem('pw', pw);
+        } else {
+          localStorage.removeItem('id');
+          localStorage.removeItem('pw');
+        }
         navigate('/');
 
         dispatch(
@@ -86,27 +103,31 @@ const LoginBox = () => {
       <Group>
         <Id>
           <InputId
-            style={{ borderColor: error.id ? '#ff5454' : '#dadada' }}
             placeholder='아이디를 입력해주세요'
             value={id}
-            onChange={(e) => {
-              setId(e.target.value);
-              setError({ ...error, id: false });
+            error={error}
+            onChange={(e) => setId(e.target.value)}
+            onFocus={() => {
+              setIdFocused(true);
+              setError(false);
             }}
+            onBlur={() => setIdFocused(false)}
           />
           <StyledLoginId />
         </Id>
-        <InputLine />
+        <InputLine error={error} isFocused={isIdFocused || isPwFocused} />
         <Pw>
           <InputPw
-            style={{ borderColor: error.pw ? '#ff5454' : '#dadada' }}
             type='password'
             placeholder='비밀번호'
             value={pw}
-            onChange={(e) => {
-              setPw(e.target.value);
-              setError({ ...error, pw: false });
+            error={error}
+            onChange={(e) => setPw(e.target.value)}
+            onFocus={() => {
+              setPwFocused(true);
+              setError(false);
             }}
+            onBlur={() => setPwFocused(false)}
           />
           <StyledLoginPw />
         </Pw>
@@ -122,7 +143,7 @@ const LoginBox = () => {
         </Line>
       </Group>
       <Bottom>
-        <ErrorMsg>{error.msg}</ErrorMsg>
+        {error ? <ErrorMsg>아이디 또는 비밀번호가 틀렸습니다.</ErrorMsg> : null}
         <LoginBtn
           text='로그인하기'
           onClick={handleLoginClick}
@@ -185,7 +206,8 @@ const InputId = styled.input`
   padding: 16px 42px 14px 42px;
   align-items: flex-start;
   border-radius: 8px 8px 0px 0px;
-  border: 1px solid #dadada;
+  border: 1px solid
+    ${({ theme, error }) => (error ? theme.colors.error : '#dadada')};
   border-bottom: none;
   color: ${({ theme }) => theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.md};
@@ -216,9 +238,12 @@ const InputId = styled.input`
 `;
 
 const InputLine = styled.div`
-  border-left: 1px solid #ff5454;
-  border-right: 1px solid #ff5454;
-  background-color: #ff5454;
+  background-color: ${({ theme, error, isFocused }) =>
+    error
+      ? theme.colors.error
+      : isFocused
+        ? theme.colors.coumo_purple
+        : '#dadada'};
   height: 1px;
 `;
 
@@ -229,7 +254,8 @@ const InputPw = styled.input`
   padding: 16px 42px 14px 42px;
   align-items: flex-start;
   border-radius: 0px 0px 8px 8px;
-  border: 1px solid #dadada;
+  border: 1px solid
+    ${({ theme, error }) => (error ? theme.colors.error : '#dadada')};
   border-top: none;
   color: ${({ theme }) => theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.md};
@@ -316,12 +342,8 @@ const Bottom = styled.div`
 `;
 
 const ErrorMsg = styled.div`
-  /* width: 100%; */
-  /* height: 4px; */
   font-size: ${({ theme }) => theme.fontSize.sm};
   color: ${({ theme }) => theme.colors.error};
-  /* color: ${({ theme }) => theme.colors.white}; */
-  /* text-align: left; */
 `;
 
 const LoginBtn = styled(Btn)`
