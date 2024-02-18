@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import getStoreInfo from '../thunks/getStoreInfo';
 import modifyStoreInfo from '../thunks/modifyStoreInfo';
+import { PURGE } from 'redux-persist';
 
 const initialState = {
   info: {
@@ -58,22 +59,22 @@ const storeSlice = createSlice({
   initialState: initialState,
   reducers: {
     setStoreName: (state, action) => {
-      state.info.storeName = action.payload;
+      state.storeName = action.payload;
     },
     setCategory: (state, action) => {
-      state.info.category = action.payload;
+      state.category = action.payload;
     },
     setWorkingHours: (state, action) => {
-      state.info.workingHours = action.payload;
+      state.workingHours = action.payload;
     },
     setNumber: (state, action) => {
-      state.info.number = action.payload;
+      state.number = action.payload;
     },
     setAddress: (state, action) => {
-      state.info.address = action.payload;
+      state.address = action.payload;
     },
     setAddressDetail: (state, action) => {
-      state.info.addressDetail = action.payload;
+      state.addressDetail = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -82,12 +83,12 @@ const storeSlice = createSlice({
         state.status.loading = true;
       })
       .addCase(getStoreInfo.fulfilled, (state, action) => {
-        state.storeName = action.payload.storeName;
-        state.category = action.payload.category;
-        state.workingHours = action.payload.workingHours;
-        state.number = action.payload.number;
-        state.address = action.payload.address;
-        state.addressDetail = action.payload.addressDetail;
+        state.info.storeName = action.payload.storeName;
+        state.info.category = action.payload.category;
+        state.info.workingHours = action.payload.workingHours;
+        state.info.number = action.payload.number;
+        state.info.address = action.payload.address;
+        state.info.addressDetail = action.payload.addressDetail;
         state.status.loading = false;
       })
       .addCase(getStoreInfo.rejected, (state, action) => {
@@ -103,6 +104,9 @@ const storeSlice = createSlice({
       .addCase(modifyStoreInfo.rejected, (state, action) => {
         state.status.loading = false;
         state.status.error = action.error;
+      })
+      .addCase(PURGE, () => {
+        return initialState;
       });
   },
 });

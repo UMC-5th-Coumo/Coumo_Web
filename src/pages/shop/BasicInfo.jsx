@@ -10,14 +10,6 @@ import Title from '../../components/common/Title';
 import { useDispatch, useSelector } from 'react-redux';
 import AddressInput from '../../components/admin/shop/AddressInput';
 import getStoreInfo from '../../redux/thunks/getStoreInfo';
-import {
-  setAddress,
-  setAddressDetail,
-  setCategory,
-  setNumber,
-  setStoreName,
-  setWorkingHours,
-} from '../../redux/slices/storeSlice';
 import modifyStoreInfo from '../../redux/thunks/modifyStoreInfo';
 
 const BasicInfo = () => {
@@ -25,6 +17,50 @@ const BasicInfo = () => {
   const { info } = useSelector((state) => state.store);
   const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
   const { storeId } = useSelector((state) => state.user);
+  const [storeData, setStoreData] = useState({
+    storeName: '',
+    category: 'cafe',
+    number: '',
+    address: '',
+    addressDetail: '',
+  });
+  const [hours, setHours] = useState({
+    MONDAY: {
+      day: 'MONDAY',
+      startTime: '00:00',
+      endTime: '00:00',
+    },
+    TUESDAY: {
+      day: 'TUESDAY',
+      startTime: '00:00',
+      endTime: '00:00',
+    },
+    WEDNESDAY: {
+      day: 'WEDNESDAY',
+      startTime: '00:00',
+      endTime: '00:00',
+    },
+    THURSDAY: {
+      day: 'THURSDAY',
+      startTime: '00:00',
+      endTime: '00:00',
+    },
+    FRIDAY: {
+      day: 'FRIDAY',
+      startTime: '00:00',
+      endTime: '00:00',
+    },
+    SATURDAY: {
+      day: 'SATURDAY',
+      startTime: '00:00',
+      endTime: '00:00',
+    },
+    SUNDAY: {
+      day: 'SUNDAY',
+      startTime: '00:00',
+      endTime: '00:00',
+    },
+  });
   const handleInputClick = () => {
     if (isPostcodeOpen) {
       setIsPostcodeOpen(false);
@@ -32,7 +68,14 @@ const BasicInfo = () => {
   };
 
   useEffect(() => {
-    dispatch(getStoreInfo(storeId));
+    setStoreData({
+      storeName: info.storeName,
+      category: info.category.toLowerCase(),
+      number: info.number,
+      address: info.address,
+      addressDetail: info.addressDetail,
+    });
+    setHours(info.workingHours);
   }, []);
 
   const getAddressCoords = async (address) => {
@@ -84,7 +127,20 @@ const BasicInfo = () => {
     }
     const coords = await getAddressCoords(info.address);
 
-    dispatch(modifyStoreInfo(storeId, coords));
+    const storeInfo = {
+      name: storeData.storeName,
+      time: Object.keys(hours).map((day) => hours[day]),
+      telePhone: storeData.number.split('-').join(''),
+      category: storeData.category,
+      location: storeData.address,
+      detailLocation: storeData.addressDetail,
+      longitude: coords.longitude,
+      latitude: coords.latitude,
+    };
+
+    console.log(storeInfo);
+
+    dispatch(modifyStoreInfo({ storeId, storeInfo }));
   };
 
   return (
@@ -96,8 +152,10 @@ const BasicInfo = () => {
             label='매장명'
             type='text'
             placeholder='매장명을 입력해주세요.'
-            value={info.storeName}
-            onChange={(e) => dispatch(setStoreName(e.target.value))}
+            value={storeData.storeName}
+            onChange={(e) =>
+              setStoreData((prev) => ({ ...prev, storeName: e.target.value }))
+            }
             onClick={handleInputClick}
           />
           <Input
@@ -105,21 +163,29 @@ const BasicInfo = () => {
             label='매장 전화번호'
             type='text'
             placeholder='ex) 01012345678'
-            value={info.number}
-            onChange={(e) => dispatch(setNumber(e.target.value))}
+            value={storeData.number}
+            onChange={(e) =>
+              setStoreData((prev) => ({ ...prev, number: e.target.value }))
+            }
             onClick={handleInputClick}
           />
           <Category
             data={categoryData}
-            category={info.category}
-            setCategory={(id) => dispatch(setCategory(id))}
+            category={storeData.category}
+            setCategory={(id) =>
+              setStoreData((prev) => ({ ...prev, category: id }))
+            }
             columns='1fr 1fr 1fr'
           />
           <AddressInput
-            address={info.address}
-            addressDetail={info.addressDetail}
-            setAddress={(value) => dispatch(setAddress(value))}
-            setAddressDetail={(value) => dispatch(setAddressDetail(value))}
+            address={storeData.address}
+            addressDetail={storeData.addressDetail}
+            setAddress={(value) =>
+              setStoreData((prev) => ({ ...prev, address: value }))
+            }
+            setAddressDetail={(value) =>
+              setStoreData((prev) => ({ ...prev, addressDetail: value }))
+            }
             isPostcodeOpen={isPostcodeOpen}
             setIsPostcodeOpen={setIsPostcodeOpen}
             handleInputClick={handleInputClick}
@@ -127,16 +193,14 @@ const BasicInfo = () => {
         </LeftForm>
         <WorkingHours>
           <Title title='영업시간' />
-          {Object.keys(info.workingHours).map((day, i) => (
+          {Object.keys(hours).map((day, i) => (
             <WorkingHour
               key={i}
               day={day}
-              data={info.workingHours[day]}
+              data={hours[day]}
               dropWidth={false}
               setData={(hours) =>
-                dispatch(
-                  setWorkingHours({ ...info.workingHours, [day]: hours })
-                )
+                setHours((prev) => ({ ...prev, [day]: hours }))
               }
               onClick={handleInputClick}
             />

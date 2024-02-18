@@ -30,6 +30,9 @@ const userSlice = createSlice({
       state.createdAt = action.payload.createdAt;
       state.write = action.payload.write;
     },
+    setWrite: (state, action) => {
+      state.write = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(PURGE, () => {
@@ -39,7 +42,7 @@ const userSlice = createSlice({
 });
 
 // actions
-export const { setUser, clearUser } = userSlice.actions;
+export const { setUser, setWrite } = userSlice.actions;
 
 // reducer export
 export default userSlice.reducer;

@@ -20,7 +20,7 @@ export default Stamp;
 const RadioLabel = styled.label`
   display: flex;
   align-items: center;
-  height: ${({ dropWidth }) => (dropWidth ? '30px' : '38px')};
+  height: ${({ dropWidth }) => (dropWidth ? '35px' : '38px')};
   padding: ${({ dropWidth }) => (dropWidth ? '0px 10px' : '0px 12px')};
   align-items: center;
   gap: 8px;
