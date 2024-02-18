@@ -47,6 +47,7 @@ const WritePost = () => {
       formData.append('noticeType', category);
       formData.append('title', inputs.title);
       formData.append('noticeContent', inputs.content);
+
       const storeImgData = inputs.image.map(({ image }) => image);
       storeImgData.forEach((image) => formData.append('noticeImages', image));
 
@@ -62,6 +63,7 @@ const WritePost = () => {
       );
 
       if (response.data.isSuccess) {
+        console.log('writing post 성공');
         console.log('Sending data to server:', formData);
         navigate('/neighborhood/myPosts/1');
 
@@ -69,10 +71,10 @@ const WritePost = () => {
         submitPopUp();
         resetData();
       } else {
-        console.error('글 작성 실패', response.data.message);
+        console.error('writing post 실패', response.data.message);
       }
     } catch (error) {
-      console.error('에러에러!');
+      console.error('writing post 에러');
     }
   };
 

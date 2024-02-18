@@ -1,18 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import Post from './Post';
-import { useDispatch } from 'react-redux';
-import { setSelectedPost } from '../../../redux/slices/postSlice';
-import deleteMyPost from '../../../redux/thunks/deleteMyPost';
 
-function PostList({ filteredPosts, currentPosts, setDeletePopUp }) {
-  const dispatch = useDispatch();
-
+function PostList({
+  filteredPosts,
+  currentPosts,
+  setDeletePopUp,
+  setSelectedPost,
+}) {
   /* ----- 게시글 삭제 버튼 ----- */
   const handleDeleteClick = (post) => {
-    dispatch(setSelectedPost(post));
+    setSelectedPost(post);
     setDeletePopUp(true);
-    dispatch(deleteMyPost({ ownerId: 'coumo123', noticeId: '1' }));
   };
 
   return (
@@ -36,6 +35,7 @@ function PostList({ filteredPosts, currentPosts, setDeletePopUp }) {
               key={id}
               data={data}
               onDelete={() => handleDeleteClick(data)}
+              setSelectedPost={setSelectedPost}
             />
           );
         })
@@ -61,7 +61,6 @@ const PostContainer = styled.div`
   flex-direction: column;
   border-radius: 10px;
   border: 1px solid #e0e0e0;
-  /* border: 1px solid #bcbcbc; */
   overflow: hidden;
   background-color: ${({ theme }) => theme.colors.white};
 `;

@@ -1,54 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Title from '../../components/common/Title';
 import Button from '../../components/common/Button';
 import { BtnContainer } from '../coupon/UIServiceForm';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  setPostDummyData,
-  setSelectedPost,
-} from '../../redux/slices/postSlice';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Edit from '../../components/admin/neighborhood/Edit';
 import TwoBtnPopUp from '../../components/common/popUp/TwoBtnPopUp';
 import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
-import { getLabelByTag } from '../../assets/data/categoryData';
-import getMyEdit from '../../redux/thunks/getMyEdit';
-import deleteMyPost from '../../redux/thunks/deleteMyPost';
 import { IoMdArrowBack } from 'react-icons/io';
-// import patchMyEdit from '../../redux/thunks/patchMyEdit';
+import { defaultInstance, formAuthInstance } from '../../api/axios';
 
 const MyEdit = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [modifyPopUp, setModifyPopUp] = useState(false);
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [confirmPopUp, setConfirmPopUp] = useState(false);
 
-  const { postId } = useParams();
-
-  const postDummyData = useSelector((state) => state.post.postDummyData);
-  const selectedPost = useSelector((state) => state.post.selectedPost);
-
-  // 컴포넌트가 마운트될 때 받아오기
-  useEffect(() => {
-    dispatch(getMyEdit({ ownerId: 'coumo123', noticeId: '1' }));
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(setSelectedPost(selectedPost));
-  }, [dispatch, selectedPost]);
-
-  useEffect(() => {
-    dispatch(setPostDummyData(postDummyData));
-  }, [dispatch, postDummyData]);
+  const { noticeId } = useParams();
+  const location = useLocation();
+  const selectedPost = location.state.selectedPost;
 
   // 카테고리, 제목, 내용 상태 관리
-  const [category, setCategory] = useState(selectedPost.tag);
+  const [category, setCategory] = useState(selectedPost.noticeType);
   const [inputs, setInputs] = useState({
     title: selectedPost.title,
-    image: selectedPost.image,
-    content: selectedPost.content,
+    image: selectedPost.noticeImages,
+    content: selectedPost.noticeContent,
   });
 
   // 팝업 등장 시 스크롤 방지
@@ -58,78 +36,85 @@ const MyEdit = () => {
     document.body.style.overflow = 'auto';
   }
 
-  const onUpdate = (updatedPost) => {
-    if (selectedPost) {
-      const updatedData = {
-        id: parseInt(postId),
-        tag: updatedPost.category, // tag와 category를 동일하게 사용
-        label: getLabelByTag(updatedPost.category),
-        title: updatedPost.title,
-        content: updatedPost.content,
-        image: updatedPost.image,
-      };
+  const isVaild = () => {
+    if (category && inputs.title && inputs.content) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
-      console.log('Updated post:', updatedData);
+  const { ownerId } = useSelector((state) => state.user);
 
-      // selectedPost 업데이트
-      dispatch(setSelectedPost(updatedData));
-      console.log('selectded post!:', selectedPost);
+  const onSubmit = async () => {
+    if (!isVaild()) {
+      alert(
+        '모든 항목을 입력해주세요.\n(제목, 카테고리, 글 내용을 모두 입력해야 합니다.)'
+      );
+      return;
+    }
 
-      const updatedDummyData = postDummyData.map((post) =>
-        post.id === updatedData.id ? updatedData : post
+    try {
+      let formData = new FormData();
+      formData.append('noticeType', category);
+      formData.append('title', inputs.title);
+      formData.append('noticeContent', inputs.content);
+      const storeImgData = inputs.image.map(({ image }) => image);
+      storeImgData.forEach((image) => formData.append('noticeImages', image));
+
+      console.log('formData:', formData);
+
+      for (let value of formData) {
+        console.log('formData value', value);
+      }
+
+      const response = await formAuthInstance.put(
+        `/api/notice/${ownerId}/update/${noticeId}`,
+        formData
       );
 
-      // postDummyData 업데이트
-      dispatch(setPostDummyData(updatedDummyData));
-      console.log('postDummyData!:', postDummyData);
+      if (response.data.isSuccess) {
+        console.log('modify post 성공');
+        console.log('Sending data to server:', formData);
+        navigate('/neighborhood/myPosts/1');
 
-      // dispatch(patchMyEdit({ ownerId, noticeId, updatedData }));
+        setModifyPopUp(true);
+      } else {
+        console.error('modify post 실패', response.data.message);
+      }
+    } catch (error) {
+      console.error('modify post 에러');
     }
   };
 
-  const onSubmit = () => {
-    if (category && inputs.title && inputs.content) {
-      const data = {
-        category: category,
-        title: inputs.title,
-        image: inputs.image,
-        content: inputs.content,
-      };
+  const onDelete = async () => {
+    try {
+      const response = await defaultInstance.patch(
+        `/api/notice/${ownerId}/delete/${noticeId}`
+      );
 
-      console.log('Sending data to server:', postDummyData);
+      if (response.data.isSuccess) {
+        console.log('delete post 성공');
+        navigate('/neighborhood/myPosts/1');
 
-      onUpdate(data);
-
-      // 서버 요청 성공 시 모달
-      setModifyPopUp(true);
-    } else {
-      console.error('모든 항목을 입력해주세요.');
+        setDeletePopUp(true);
+      } else {
+        console.error('delete post 실패', response.data.message);
+      }
+    } catch (error) {
+      console.error('delete post 에러');
     }
-  };
-
-  const onDelete = () => {
-    setDeletePopUp(true);
-    dispatch(deleteMyPost({ ownerId: 'coumo123', noticeId: '1' }));
   };
 
   const onModifyConfirm = () => {
     setModifyPopUp(false);
-    dispatch(setSelectedPost(null));
-    navigate(`/neighborhood/myPosts/1`, {
-      state: { updatedData: postDummyData },
-    });
-  };
-
-  const submitPopUpDelete = () => {
-    setDeletePopUp(false);
-    setConfirmPopUp(true);
+    navigate(`/neighborhood/myPosts/1`);
   };
 
   const onDeleteConfirm = () => {
+    onDelete();
     setConfirmPopUp(false);
-    navigate(`/neighborhood/myPosts`, {
-      state: { updatedData: postDummyData },
-    });
+    navigate(`/neighborhood/myPosts/1`);
   };
 
   return (
@@ -152,7 +137,7 @@ const MyEdit = () => {
         }
       />
       <Btn>
-        <Button text='삭제하기' onClickBtn={onDelete} />
+        <Button text='삭제하기' onClickBtn={() => setDeletePopUp(true)} />
         <Button text='수정완료' type={true} onClickBtn={onSubmit} />
       </Btn>
       {modifyPopUp && (
@@ -168,7 +153,7 @@ const MyEdit = () => {
           text='정말 삭제하시겠습니까?'
           btnLabel='삭제하기'
           setOpen={setDeletePopUp}
-          onClick={submitPopUpDelete}
+          onClick={onDeleteConfirm}
         />
       )}
       {confirmPopUp && (
