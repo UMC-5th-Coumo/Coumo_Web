@@ -20,8 +20,8 @@ const Category = ({
   };
   return (
     <Container>
-      <Title titleSize={titleSize}>카테고리</Title>
-      <Wrapper columns={columns} gap={gap}>
+      <Title $titleSize={titleSize}>카테고리</Title>
+      <Wrapper $columns={columns} $gap={gap}>
         {data.map((item) => {
           return (
             <RadioBtn
@@ -50,8 +50,8 @@ const Container = styled.div`
 
 const Title = styled.h2`
   color: ${({ theme }) => theme.colors.coumo_purple};
-  font-size: ${({ theme, titleSize }) =>
-    titleSize === 'normal' ? theme.fontSize.lg : theme.fontSize.base};
+  font-size: ${({ theme, $titleSize }) =>
+    $titleSize === 'normal' ? theme.fontSize.lg : theme.fontSize.base};
   font-style: normal;
   font-weight: 700;
   line-height: 132%; /* 31.68px */
@@ -65,6 +65,6 @@ const Title = styled.h2`
 `;
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: ${(props) => props.columns};
-  gap: ${({ gap }) => gap}px;
+  grid-template-columns: ${(props) => props.$columns};
+  gap: ${({ $gap }) => $gap}px;
 `;

@@ -105,7 +105,7 @@ const LoginBox = () => {
           <InputId
             placeholder='아이디를 입력해주세요'
             value={id}
-            error={error}
+            $error={error}
             onChange={(e) => setId(e.target.value)}
             onFocus={() => {
               setIdFocused(true);
@@ -115,13 +115,13 @@ const LoginBox = () => {
           />
           <StyledLoginId />
         </Id>
-        <InputLine error={error} isFocused={isIdFocused || isPwFocused} />
+        <InputLine $error={error} $isFocused={isIdFocused || isPwFocused} />
         <Pw>
           <InputPw
             type='password'
             placeholder='비밀번호'
             value={pw}
-            error={error}
+            $error={error}
             onChange={(e) => setPw(e.target.value)}
             onFocus={() => {
               setPwFocused(true);
@@ -132,14 +132,14 @@ const LoginBox = () => {
           <StyledLoginPw />
         </Pw>
         <Line>
-          <Icon save={save}>
+          <Icon $save={save}>
             {save ? (
               <LoginSaveCheck onClick={handleUnsaveClick} />
             ) : (
               <LoginSave onClick={handleSaveClick} />
             )}
           </Icon>
-          <Text save={save}>로그인 정보 저장하기</Text>
+          <Text $save={save}>로그인 정보 저장하기</Text>
         </Line>
       </Group>
       <Bottom>
@@ -207,7 +207,7 @@ const InputId = styled.input`
   align-items: flex-start;
   border-radius: 8px 8px 0px 0px;
   border: 1px solid
-    ${({ theme, error }) => (error ? theme.colors.error : '#dadada')};
+    ${({ theme, $error }) => ($error ? theme.colors.error : '#dadada')};
   border-bottom: none;
   color: ${({ theme }) => theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.md};
@@ -238,10 +238,10 @@ const InputId = styled.input`
 `;
 
 const InputLine = styled.div`
-  background-color: ${({ theme, error, isFocused }) =>
-    error
+  background-color: ${({ theme, $error, $isFocused }) =>
+    $error
       ? theme.colors.error
-      : isFocused
+      : $isFocused
         ? theme.colors.coumo_purple
         : '#dadada'};
   height: 1px;
@@ -255,7 +255,7 @@ const InputPw = styled.input`
   align-items: flex-start;
   border-radius: 0px 0px 8px 8px;
   border: 1px solid
-    ${({ theme, error }) => (error ? theme.colors.error : '#dadada')};
+    ${({ theme, $error }) => ($error ? theme.colors.error : '#dadada')};
   border-top: none;
   color: ${({ theme }) => theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.md};
@@ -321,8 +321,8 @@ const Icon = styled.div`
 `;
 
 const Text = styled.div`
-  color: ${({ theme, save }) =>
-    save ? theme.colors.coumo_purple : theme.colors.text};
+  color: ${({ theme, $save }) =>
+    $save ? theme.colors.coumo_purple : theme.colors.text};
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
   font-weight: 500;

@@ -54,7 +54,7 @@ function MyPage() {
         />
       )}
       <TitleBox>
-        <Title title={`안녕하세요, ${name}님!`} size={22} />
+        <Title title={`안녕하세요, ${name}님!`} />
       </TitleBox>
       <Content>
         <Profile open={profileOpen} setProfileOpen={setProfileOpen} />

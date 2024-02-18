@@ -27,19 +27,19 @@ function Dropdown({ value, setValue, disabled, dropWidth }) {
   return (
     <Container ref={outsideRef}>
       <DropdownInput
-        isOpen={open}
+        $isOpen={open}
         onClick={() => setOpen((prev) => !prev)}
-        disabled={disabled}
-        dropWidth={dropWidth}
+        $disabled={disabled}
+        $dropWidth={dropWidth}
       >
         <span>{value}</span>
         <IoIosArrowDown style={{ height: '15px', width: '15px' }} />
       </DropdownInput>
       {open && (
         <DropDownPosition>
-          <DropdownBox dropWidth={dropWidth}>
+          <DropdownBox $dropWidth={dropWidth}>
             {timeData.map((item, i) => (
-              <Item key={i} onClick={() => handleItemClick(item)} dropWidth>
+              <Item key={i} onClick={() => handleItemClick(item)} $dropWidth>
                 {item}
               </Item>
             ))}
@@ -59,39 +59,39 @@ const Container = styled.div`
 `;
 
 const DropdownInput = styled.div`
-  width: ${({ dropWidth }) => (dropWidth ? '100px' : '170px')};
-  height: ${({ dropWidth }) => (dropWidth ? '35px' : '40px')};
+  width: ${({ $dropWidth }) => ($dropWidth ? '100px' : '170px')};
+  height: ${({ $dropWidth }) => ($dropWidth ? '35px' : '40px')};
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-radius: 7px;
   font-weight: 400;
   font-family: 'Pretendard';
-  font-size: ${({ dropWidth, theme }) =>
-    dropWidth ? theme.fontSize.xs : theme.fontSize.sm};
+  font-size: ${({ $dropWidth, theme }) =>
+    $dropWidth ? theme.fontSize.xs : theme.fontSize.sm};
   box-sizing: border-box;
   padding: 0px 15px;
   cursor: pointer;
 
-  pointer-events: ${(props) => (props.disabled ? 'none' : 'all')};
+  pointer-events: ${(props) => (props.$disabled ? 'none' : 'all')};
   background: ${({ theme }) => theme.colors.white};
   border: 1px solid
-    ${({ theme, disabled, isOpen }) =>
-      disabled
+    ${({ theme, $disabled, $isOpen }) =>
+      $disabled
         ? '#dddddd'
-        : isOpen
+        : $isOpen
           ? theme.colors.coumo_purple
           : theme.colors.tab_gray};
-  color: ${(props) => (props.disabled ? '#dddddd' : '#666666')};
+  color: ${(props) => (props.$disabled ? '#dddddd' : '#666666')};
 
   @media screen and (max-width: 1024px) {
-    width: ${(dropWidth) => (dropWidth ? '100px' : '160px')};
+    width: ${({ $dropWidth }) => ($dropWidth ? '100px' : '160px')};
     height: 35px;
     font-size: ${({ theme }) => theme.fontSize.xs};
   }
 
   @media screen and (max-width: 870px) {
-    width: ${(dropWidth) => (dropWidth ? '100px' : '140px')};
+    width: ${({ $dropWidth }) => ($dropWidth ? '100px' : '140px')};
   }
 `;
 
@@ -106,7 +106,7 @@ const DropDownPosition = styled.div`
 
 const DropdownBox = styled.div`
   width: 99%;
-  height: ${(dropWidth) => (dropWidth ? '160px' : '200px')};
+  height: ${({ $dropWidth }) => ($dropWidth ? '160px' : '200px')};
   border-radius: 6px;
   background: ${({ theme }) => theme.colors.white};
   border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
@@ -124,8 +124,8 @@ const Item = styled.span`
   width: 100%;
   box-sizing: border-box;
   padding: 10px 20px;
-  font-size: ${({ dropWidth, theme }) =>
-    dropWidth ? theme.fontSize.xs : theme.fontSize.sm};
+  font-size: ${({ $dropWidth, theme }) =>
+    $dropWidth ? theme.fontSize.xs : theme.fontSize.sm};
   color: #333333;
   cursor: pointer;
 

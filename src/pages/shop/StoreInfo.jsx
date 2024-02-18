@@ -153,7 +153,7 @@ const StoreInfo = () => {
             onBlur={() => setInputFocused(false)}
             maxLength='99'
           />
-          <Count focused={isInputFocused}>
+          <Count $focused={isInputFocused}>
             <span>{inputCount}</span>
             <span>/100</span>
           </Count>
@@ -277,6 +277,6 @@ const Count = styled.div`
   display: flex;
   justify-content: flex-end;
   font-size: ${({ theme }) => theme.fontSize.sm};
-  color: ${({ theme, focused }) =>
-    focused ? theme.colors.coumo_purple : theme.colors.text};
+  color: ${({ theme, $focused }) =>
+    $focused ? theme.colors.coumo_purple : theme.colors.text};
 `;

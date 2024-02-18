@@ -8,7 +8,7 @@ const Button = ({ text, onClickBtn, type = false, disabled, loading }) => {
       onClick={onClickBtn}
       disabled={disabled || loading}
       loading={loading}
-      type={type}
+      $type={type}
     >
       {loading ? 'Loading...' : text}
     </Btn>
@@ -27,10 +27,10 @@ export const Btn = styled.button`
   flex-shrink: 0;
   border: none;
   border-radius: 10px;
-  background: ${({ theme, type }) =>
-    type ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
-  color: ${({ theme, type }) =>
-    type ? theme.colors.white : theme.colors.text_darkgray};
+  background: ${({ theme, $type }) =>
+    $type ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
+  color: ${({ theme, $type }) =>
+    $type ? theme.colors.white : theme.colors.text_darkgray};
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;

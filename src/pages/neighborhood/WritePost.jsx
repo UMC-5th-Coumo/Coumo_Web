@@ -102,7 +102,7 @@ const WritePost = () => {
       />
       <Btn>
         <Button text='취소하기' onClickBtn={() => resetData()} />
-        <Button text='저장하기' typee={true} onClickBtn={() => onSubmit()} />
+        <Button text='저장하기' type={true} onClickBtn={() => onSubmit()} />
       </Btn>
       {popUp && (
         <OneBtnPopUp
