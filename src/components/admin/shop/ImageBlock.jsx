@@ -4,7 +4,7 @@ import { Plus } from '../../../assets';
 import StoreImage from './StoreImage';
 import { v4 as uuidv4 } from 'uuid';
 
-const ImageBlock = ({ storeImages, setStoreImages }) => {
+const ImageBlock = ({ storeImages, setStoreImages, store }) => {
   const scrollRef = useRef(null);
 
   useEffect(() => {
@@ -51,12 +51,13 @@ const ImageBlock = ({ storeImages, setStoreImages }) => {
       <Scroll boxCount={storeImages.length} ref={scrollRef}>
         {storeImages.map((data, index) => (
           <StoreImage
-            key={data.id}
-            id={data.id}
+            key={data.index}
+            id={data.index}
             data={data}
             handleImageDelete={handleImageDelete}
             handleImageChange={handleImageChange}
             handleBoxClick={handleBoxClick}
+            store={store}
           />
         ))}
         {storeImages.length < 6 && (

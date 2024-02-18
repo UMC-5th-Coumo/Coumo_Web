@@ -128,7 +128,6 @@ const MyEdit = () => {
         setCategory={setCategory}
         inputs={inputs}
         setInputs={setInputs}
-        image={inputs.image}
         onImageChange={(image) =>
           setInputs({
             ...inputs,

@@ -136,6 +136,7 @@ const StoreInfo = () => {
           <ImageBlock
             storeImages={storeImages}
             setStoreImages={setStoreImages}
+            store={true}
           />
         </Image>
         <Description>
