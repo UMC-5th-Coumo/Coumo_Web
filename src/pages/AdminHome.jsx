@@ -10,6 +10,7 @@ import GenderGraphInfo from '../components/admin/home/GenderGraphInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { defaultInstance } from '../api/axios';
 import getStoreInfo from '../redux/thunks/getStoreInfo';
+import { stampData } from '../assets/data/stampData';
 
 function AdminHome() {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ function AdminHome() {
   const getCouponData = async () => {
     console.log(ownerId);
     await defaultInstance
-      .get(`/api/maincoupon/${ownerId}`)
+      .get(`/api/maincoupon/${storeId}`)
       .then(async (res) => {
         if (res.data.isSuccess) {
           const data = res.data.result;
@@ -48,7 +49,8 @@ function AdminHome() {
             storeName: data.storeName,
             couponColor: data.couponColor,
             fontColor: data.fontColor,
-            stampImage: data.stampImage,
+            stampImage: stampData.find((stamp) => stamp.id === data.stampImage)
+              .image,
             stampMax:
               data.stampMax === 'EIGHT' ? 8 : data.stampMax === 'TEN' ? 10 : 12,
           });
