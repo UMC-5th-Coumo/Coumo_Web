@@ -3,14 +3,30 @@ import styled from 'styled-components';
 import { LuUsers2 } from 'react-icons/lu';
 import { LuUserPlus2 } from 'react-icons/lu';
 
-function CustomerInfo({ text, count }) {
+function CustomerInfo({ text, count, prev }) {
+  const getPercent = (cur, prev) => {
+    return cur !== 0 && prev === 0
+      ? '-'
+      : cur === 0 && prev === 0
+        ? 0
+        : (((cur - prev) / prev) * 100).toFixed(1);
+  };
+
+  const getColor = (data) => {
+    if (data === '-' || data === 0) return undefined;
+    else if (data > 0) return true;
+    else if (data < 0) return false;
+  };
   return (
     <Container>
       <Title>
         {text.includes('총') ? <LuUsers2 /> : <LuUserPlus2 />}
         {text}
       </Title>
-      <CustomerCount>{count}명</CustomerCount>
+      <CustomerCount increase={getColor(getPercent(count, prev))}>
+        <h3>{count}명</h3>
+        <span>{getPercent(count, prev)}%</span>
+      </CustomerCount>
     </Container>
   );
 }
@@ -48,10 +64,24 @@ const Title = styled.h2`
   }
 `;
 
-const CustomerCount = styled.h3`
-  margin: 0;
-  font-size: 26px;
-  color: ${({ theme }) => theme.colors.coumo_purple};
-  text-align: center;
-  font-weight: 700;
+const CustomerCount = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  justify-content: center;
+
+  & h3 {
+    margin: 0;
+    font-size: 26px;
+    color: ${({ theme }) => theme.colors.coumo_purple};
+    text-align: center;
+    font-weight: 700;
+  }
+
+  & span {
+    font-size: ${({ theme }) => theme.fontSize.sm};
+    padding-bottom: 5px;
+    color: ${({ increase }) =>
+      increase === true ? '#d02e2e' : increase === false ? '#3355ff' : 'gray'};
+  }
 `;

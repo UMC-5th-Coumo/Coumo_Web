@@ -120,7 +120,7 @@ const StoreInfo = () => {
     }
 
     await formAuthInstance
-      .patch(`/api/owner/store/${storeId}/detail`, formData)
+      .put(`/api/owner/store/${storeId}/detail`, formData)
       .then((res) => console.log(res.data))
       .catch((err) => console.error('err:', err));
   };

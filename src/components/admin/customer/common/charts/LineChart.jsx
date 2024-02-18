@@ -36,43 +36,6 @@ function LineChart({ type = 'normal', chartData }) {
     ],
   });
 
-  const processMonthlyData = (chartData) => {
-    return chartData.map((data) => {
-      let newData = {
-        x: '',
-        y: data.totalCustomer,
-      };
-
-      // 요일 변경
-      switch (data.day) {
-        case 'MON':
-          newData.x += '월';
-          break;
-        case 'TUE':
-          newData.x += '화';
-          break;
-        case 'WED':
-          newData.x += '수';
-          break;
-        case 'THU':
-          newData.x += '목';
-          break;
-        case 'FRI':
-          newData.x += '금';
-          break;
-        case 'SAT':
-          newData.x += '토';
-          break;
-        case 'SUN':
-          newData.x += '일';
-          break;
-        default:
-          break;
-      }
-      return newData;
-    });
-  };
-
   useEffect(() => {
     setData({
       datasets: [

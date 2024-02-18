@@ -64,3 +64,8 @@ export const getLabelByTag = (tag) => {
   const category = writecategoryData.find((item) => item.id === tag);
   return category ? category.label : null;
 };
+
+export const getLabelByCategoryId = (tag) => {
+  const category = categoryData.find((item) => item.id === tag);
+  return category ? category.label : null;
+};

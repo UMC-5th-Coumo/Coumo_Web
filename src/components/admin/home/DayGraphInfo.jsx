@@ -1,16 +1,75 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BiLineChart } from 'react-icons/bi';
 import LineChart from '../customer/common/charts/LineChart';
+import { defaultInstance } from '../../../api/axios';
 
 function DayGraphInfo() {
+  const [dayVisitData, setDayVisitData] = useState([]);
+  const processMonthlyData = (chartData) => {
+    return chartData.map((data) => {
+      let newData = {
+        x: '',
+        y: data.totalCustomer,
+      };
+
+      // 요일 변경
+      switch (data.day) {
+        case 'MON':
+          newData.x += '월';
+          break;
+        case 'TUE':
+          newData.x += '화';
+          break;
+        case 'WED':
+          newData.x += '수';
+          break;
+        case 'THU':
+          newData.x += '목';
+          break;
+        case 'FRI':
+          newData.x += '금';
+          break;
+        case 'SAT':
+          newData.x += '토';
+          break;
+        case 'SUN':
+          newData.x += '일';
+          break;
+        default:
+          break;
+      }
+      return newData;
+    });
+  };
+
+  const getDayVisit = async () => {
+    await defaultInstance
+      .get(
+        `/api/statistics/${1}/month-day?year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}`
+      )
+      .then(async (res) => {
+        if (res.data.isSuccess) {
+          const data = res.data.result;
+          setDayVisitData(processMonthlyData(data));
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getDayVisit();
+  }, []);
+
   return (
     <Container>
       <Title>
         <BiLineChart />
         이번 달 방문율이 가장 높은 요일은?
       </Title>
-      <ChartWrapper>{/* <LineChart type='monthly' /> */}</ChartWrapper>
+      <ChartWrapper>
+        <LineChart type='monthly' chartData={dayVisitData} />
+      </ChartWrapper>
     </Container>
   );
 }
