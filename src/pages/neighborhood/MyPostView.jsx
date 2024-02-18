@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom';
 import { setSelectedPost } from '../../redux/slices/postSlice';
 import getMyPostView from '../../redux/thunks/getMyPostView';
 import { IoMdArrowBack } from 'react-icons/io';
-import { defaultInstance } from '../../api/axios';
+import { authInstance } from '../../api/axios';
 
 const MyPostView = () => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const MyPostView = () => {
   useEffect(() => {
     const posts = async () => {
       try {
-        const response = await defaultInstance.get(`/api/notice/1/detail/1`);
+        const response = await authInstance.get(`/api/notice/1/detail/1`);
         if (response.data.isSuccess) {
           console.log('성공', response.data);
         }

@@ -6,7 +6,7 @@ import DoughnutChart from '../../../components/admin/customer/common/charts/Doug
 import { visitTabs } from '../../../assets/data/tabData';
 import AgeGroupChart from '../../../components/admin/customer/common/charts/AgeGroupChart';
 import { Gender, Person } from '../../../assets';
-import { defaultInstance } from '../../../api/axios';
+import { authInstance, defaultInstance } from '../../../api/axios';
 import { useSelector } from 'react-redux';
 
 function DemographicVisit() {
@@ -75,7 +75,7 @@ function DemographicVisit() {
 
   /* ----- 연령대 조회 api ----- */
   const getAgeGroupCount = async () => {
-    await defaultInstance
+    await authInstance
       .get(
         selected !== 'calendar'
           ? `/api/statistics/${storeId}/age?period=${selected}`
@@ -119,7 +119,7 @@ function DemographicVisit() {
 
   /* ----- 성비 조회 api ----- */
   const getGenderRatio = async () => {
-    await defaultInstance
+    await authInstance
       .get(
         selected !== 'calendar'
           ? `/api/statistics/${storeId}/gender?period=${selected}`

@@ -4,7 +4,7 @@ import ImageBlock from '../../components/admin/shop/ImageBlock';
 import MenuMore from '../../components/admin/shop/MenuMore';
 import Button from '../../components/common/Button';
 import { v4 as uuidv4 } from 'uuid';
-import { defaultInstance, formAuthInstance } from '../../api/axios';
+import { authInstance, formAuthInstance } from '../../api/axios';
 import { useSelector } from 'react-redux';
 
 const StoreInfo = () => {
@@ -32,7 +32,7 @@ const StoreInfo = () => {
   };
 
   const getStoreInfo = async () => {
-    await defaultInstance
+    await authInstance
       .get(`/api/owner/store/${storeId}/detail`)
       .then(async (res) => {
         const data = res.data.result;
@@ -142,7 +142,7 @@ const StoreInfo = () => {
           <Title>매장 상세설명</Title>
           <DescripInput
             name='description'
-            spellcheck='false'
+            spellCheck='false'
             placeholder='매장에 대한 설명글을 간단히 적어주세요 (0/100)'
             value={description}
             onChange={(e) => {

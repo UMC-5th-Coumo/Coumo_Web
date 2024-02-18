@@ -145,7 +145,7 @@ function FormPopUp() {
     console.log('storeInfo:', storeInfo);
 
     try {
-      await defaultInstance
+      await authInstance
         .put(`/api/owner/store/${storeId}/basic`, storeInfo)
         .then((res) => {
           if (res.data.isSuccess) {
@@ -167,7 +167,7 @@ function FormPopUp() {
       };
       console.log('couponData:', couponInfo);
 
-      await defaultInstance
+      await authInstance
         .post(`/api/coupon/register/${ownerId}`, couponInfo)
         .then((res) => console.log(res.data));
 

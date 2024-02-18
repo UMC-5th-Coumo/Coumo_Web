@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { authInstance, defaultInstance } from '../../api/axios';
+import { authInstance } from '../../api/axios';
 
 const modifyStoreInfo = createAsyncThunk(
   'store/modifyStoreInfo',
@@ -7,7 +7,7 @@ const modifyStoreInfo = createAsyncThunk(
     console.log('storeData', storeInfo);
     try {
       // 기본정보 수정 api
-      await defaultInstance
+      await authInstance
         .put(`/api/owner/store/${storeId}/basic`, storeInfo)
         .then((res) => {
           if (res.data.isSuccess) {
