@@ -36,12 +36,14 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
 
   return (
     <Write>
-      <Category
-        data={writecategoryData}
-        category={category}
-        setCategory={setCategory}
-        columns='1fr 1fr 1fr'
-      />
+      <CategoryWrapper>
+        <Category
+          data={writecategoryData}
+          category={category}
+          setCategory={setCategory}
+          columns='1fr 1fr 1fr'
+        />
+      </CategoryWrapper>
       <div>
         <Label>글의 제목을 작성해 주세요</Label>
         <StyledWriteTextarea
@@ -117,6 +119,10 @@ const Write = styled.div`
   flex-direction: column;
   position: relative;
   gap: 50px;
+`;
+
+const CategoryWrapper = styled.div`
+  width: fit-content;
 `;
 
 const Image = styled.div`

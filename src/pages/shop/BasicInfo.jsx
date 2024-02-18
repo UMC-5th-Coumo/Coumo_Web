@@ -9,7 +9,6 @@ import axios from 'axios';
 import Title from '../../components/common/Title';
 import { useDispatch, useSelector } from 'react-redux';
 import AddressInput from '../../components/admin/shop/AddressInput';
-import getStoreInfo from '../../redux/thunks/getStoreInfo';
 import modifyStoreInfo from '../../redux/thunks/modifyStoreInfo';
 
 const BasicInfo = () => {
@@ -146,29 +145,29 @@ const BasicInfo = () => {
   return (
     <Content>
       <Wrapper>
-        <LeftForm>
-          <Input
-            name='storeName'
-            label='매장명'
-            type='text'
-            placeholder='매장명을 입력해주세요.'
-            value={storeData.storeName}
-            onChange={(e) =>
-              setStoreData((prev) => ({ ...prev, storeName: e.target.value }))
-            }
-            onClick={handleInputClick}
-          />
-          <Input
-            name='number'
-            label='매장 전화번호'
-            type='text'
-            placeholder='ex) 01012345678'
-            value={storeData.number}
-            onChange={(e) =>
-              setStoreData((prev) => ({ ...prev, number: e.target.value }))
-            }
-            onClick={handleInputClick}
-          />
+        <Input
+          name='storeName'
+          label='매장명'
+          type='text'
+          placeholder='매장명을 입력해주세요.'
+          value={storeData.storeName}
+          onChange={(e) =>
+            setStoreData((prev) => ({ ...prev, storeName: e.target.value }))
+          }
+          onClick={handleInputClick}
+        />
+        <Input
+          name='number'
+          label='매장 전화번호'
+          type='text'
+          placeholder='ex) 01012345678'
+          value={storeData.number}
+          onChange={(e) =>
+            setStoreData((prev) => ({ ...prev, number: e.target.value }))
+          }
+          onClick={handleInputClick}
+        />
+        <CategoryWrapper>
           <Category
             data={categoryData}
             category={storeData.category}
@@ -177,20 +176,21 @@ const BasicInfo = () => {
             }
             columns='1fr 1fr 1fr'
           />
-          <AddressInput
-            address={storeData.address}
-            addressDetail={storeData.addressDetail}
-            setAddress={(value) =>
-              setStoreData((prev) => ({ ...prev, address: value }))
-            }
-            setAddressDetail={(value) =>
-              setStoreData((prev) => ({ ...prev, addressDetail: value }))
-            }
-            isPostcodeOpen={isPostcodeOpen}
-            setIsPostcodeOpen={setIsPostcodeOpen}
-            handleInputClick={handleInputClick}
-          />
-        </LeftForm>
+        </CategoryWrapper>
+        <AddressInput
+          address={storeData.address}
+          addressDetail={storeData.addressDetail}
+          setAddress={(value) =>
+            setStoreData((prev) => ({ ...prev, address: value }))
+          }
+          setAddressDetail={(value) =>
+            setStoreData((prev) => ({ ...prev, addressDetail: value }))
+          }
+          isPostcodeOpen={isPostcodeOpen}
+          setIsPostcodeOpen={setIsPostcodeOpen}
+          handleInputClick={handleInputClick}
+        />
+
         <WorkingHours>
           <Title title='영업시간' />
           {Object.keys(hours).map((day, i) => (
@@ -232,28 +232,21 @@ const Content = styled.div`
   }
 `;
 
-const Wrapper = styled.div`
-  width: 100%;
-  max-width: 1100px;
-  display: flex;
-  gap: 80px;
-
-  @media screen and (max-width: 1400px) {
-    flex-direction: column;
-    max-width: 600px;
-    gap: 40px;
-  }
+const CategoryWrapper = styled.div`
+  width: fit-content;
 `;
 
-const LeftForm = styled.div`
+const Wrapper = styled.div`
+  width: 100%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 50px;
 `;
 
 const BtnContainer = styled.div`
   width: 100%;
-  max-width: 1100px;
+  max-width: 500px;
   display: flex;
   gap: 16px;
   justify-content: center;
