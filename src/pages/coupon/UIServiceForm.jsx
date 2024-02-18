@@ -77,43 +77,42 @@ const UIServiceForm = () => {
   return (
     <Content>
       <Wrapper>
-        <Row>
-          <Input
-            label='매장명'
-            type='text'
-            placeholder='매장명을 입력해주세요.'
-            value={inputs.storeName}
-            onChange={(e) =>
-              setInputs((prev) => ({ ...prev, storeName: e.target.value }))
-            }
-          />
-          <Input
-            label='연락처를 입력해주세요.'
-            type='text'
-            placeholder='ex) 010-1234-5678'
-            value={inputs.phone}
-            onChange={(e) =>
-              setInputs((prev) => ({ ...prev, phone: e.target.value }))
-            }
-          />
-        </Row>
-        <Row>
+        <Input
+          label='매장명'
+          type='text'
+          placeholder='매장명을 입력해주세요.'
+          value={inputs.storeName}
+          onChange={(e) =>
+            setInputs((prev) => ({ ...prev, storeName: e.target.value }))
+          }
+        />
+        <Input
+          label='연락처를 입력해주세요.'
+          type='text'
+          placeholder='ex) 010-1234-5678'
+          value={inputs.phone}
+          onChange={(e) =>
+            setInputs((prev) => ({ ...prev, phone: e.target.value }))
+          }
+        />
+        <CategoryWrapper>
           <Category
             data={categoryData}
             category={category}
             setCategory={setCategory}
             columns='1fr 1fr 1fr'
           />
-          <Input
-            label='이메일 주소를 입력해주세요.'
-            type='text'
-            placeholder='a12345678@naver.com'
-            value={inputs.email}
-            onChange={(e) =>
-              setInputs((prev) => ({ ...prev, email: e.target.value }))
-            }
-          />
-        </Row>
+        </CategoryWrapper>
+        <Input
+          label='이메일 주소를 입력해주세요.'
+          type='text'
+          placeholder='a12345678@naver.com'
+          value={inputs.email}
+          onChange={(e) =>
+            setInputs((prev) => ({ ...prev, email: e.target.value }))
+          }
+        />
+
         <Description>
           <Title>
             매장의 분위기, 디자인 무드나 주요 컬러 등을 설명해주세요.
@@ -164,22 +163,10 @@ const Content = styled.div`
 
 const Wrapper = styled.div`
   width: 100%;
-  max-width: 900px;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   gap: 50px;
-`;
-
-const Row = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-
-  @media screen and (max-width: 1200px) {
-    display: flex;
-    flex-direction: column;
-  }
 `;
 
 const Title = styled.h2`
@@ -194,6 +181,10 @@ const Title = styled.h2`
   @media screen and (max-width: 1024px) {
     font-size: ${({ theme }) => theme.fontSize.md};
   }
+`;
+
+const CategoryWrapper = styled.div`
+  width: fit-content;
 `;
 
 const Description = styled.div`

@@ -20,7 +20,7 @@ const Category = ({
   };
   return (
     <Container>
-      <Title>카테고리</Title>
+      <Title titleSize={titleSize}>카테고리</Title>
       <Wrapper columns={columns} gap={gap}>
         {data.map((item) => {
           return (

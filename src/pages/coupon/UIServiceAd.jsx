@@ -58,11 +58,6 @@ const UIServiceAd = () => {
           ))}
         </ReasonCardsContainer>
       </Reason>
-      <Foot>
-        <PurpleButton onClick={handleService}>
-          서비스 신청하러 가기
-        </PurpleButton>
-      </Foot>
     </Content>
   );
 };
@@ -172,10 +167,11 @@ const WhiteButton = styled.button`
   font-weight: 800;
   line-height: 30.6px; /* 170% */
   margin-top: 60px;
+  cursor: pointer;
 
   &:hover {
-    box-shadow: 12px 15px 12px 0px rgba(87, 76, 108, 0.5);
-    backdrop-filter: blur(4px);
+    scale: calc(1.05);
+    transition: scale 0.2s ease-in-out;
   }
 
   @media screen and (max-width: 1024px) {
@@ -251,7 +247,7 @@ const Reason = styled.div`
     rgba(234, 223, 255, 0) 155.8%
   );
   width: 100%;
-  height: 720px;
+  height: 735px;
   padding: 150px 150px 150px 150px;
   box-sizing: border-box;
 
@@ -269,7 +265,7 @@ const Big3 = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: 23.8px; /* 66.111% */
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 
   @media screen and (max-width: 1024px) {
     font-size: ${({ theme }) => theme.fontSize.title};
@@ -280,10 +276,11 @@ const Big3 = styled.div`
 const PGray = styled(P)`
   width: 250px;
   width: 100%;
+  font-size: ${({ theme }) => theme.fontSize.md};
   color: ${({ theme }) => theme.colors.text_darkgray};
 
   @media screen and (max-width: 1024px) {
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.base};
   }
 `;
 
@@ -291,8 +288,7 @@ const Foot = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 80px;
-  padding-bottom: 278px;
+  padding: 80px 0;
 `;
 
 const PurpleButton = styled.button`
