@@ -7,8 +7,10 @@ import { visitTabs } from '../../../assets/data/tabData';
 import AgeGroupChart from '../../../components/admin/customer/common/charts/AgeGroupChart';
 import { Gender, Person } from '../../../assets';
 import { defaultInstance } from '../../../api/axios';
+import { useSelector } from 'react-redux';
 
 function DemographicVisit() {
+  const { storeId } = useSelector((state) => state.user);
   const [selected, setSelected] = useState(visitTabs[0].key);
   const [date, setDate] = useState([null, null]);
   const [noData, setNoData] = useState(false);
@@ -76,8 +78,8 @@ function DemographicVisit() {
     await defaultInstance
       .get(
         selected !== 'calendar'
-          ? `/api/statistics/${1}/age?period=${selected}`
-          : `/api/statistics/${1}/age?startDate=${getYmd(date[0])}&endDate=${getYmd(date[1])}`
+          ? `/api/statistics/${storeId}/age?period=${selected}`
+          : `/api/statistics/${storeId}/age?startDate=${getYmd(date[0])}&endDate=${getYmd(date[1])}`
       )
       .then(async (res) => {
         if (res.data.isSuccess) {
@@ -120,8 +122,8 @@ function DemographicVisit() {
     await defaultInstance
       .get(
         selected !== 'calendar'
-          ? `/api/statistics/${1}/gender?period=${selected}`
-          : `/api/statistics/${1}/gender?startDate=${getYmd(date[0])}&endDate=${getYmd(date[1])}`
+          ? `/api/statistics/${storeId}/gender?period=${selected}`
+          : `/api/statistics/${storeId}/gender?startDate=${getYmd(date[0])}&endDate=${getYmd(date[1])}`
       )
       .then(async (res) => {
         if (res.data.isSuccess) {
