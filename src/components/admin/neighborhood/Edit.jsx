@@ -9,6 +9,8 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
   const [storeImages, setStoreImages] = useState([]);
   const [titleCount, setTitleCount] = useState(0);
   const [contentCount, setContentCount] = useState(0);
+  const [isTitleFocused, setTitleFocused] = useState(false);
+  const [isContentFocused, setContentFocused] = useState(false);
 
   const onTitleHandler = (e) => {
     setTitleCount(e.target.value.length);
@@ -18,8 +20,12 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
     setContentCount(e.target.value.length);
   };
 
-  const [isTitleFocused, setTitleFocused] = useState(false);
-  const [isContentFocused, setContentFocused] = useState(false);
+  useEffect(() => {
+    setInputs({
+      ...inputs,
+      image: storeImages,
+    });
+  }, [storeImages]);
 
   useEffect(() => {
     setInputs({

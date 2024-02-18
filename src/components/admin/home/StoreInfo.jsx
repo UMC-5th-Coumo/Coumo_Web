@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BiStore } from 'react-icons/bi';
+import { useSelector } from 'react-redux';
+import { getLabelByCategoryId } from '../../../assets/data/categoryData';
 
 function StoreInfo() {
+  const { info } = useSelector((state) => state.store);
   return (
     <Container>
       <Title>
@@ -12,19 +15,19 @@ function StoreInfo() {
       <InfoContainer>
         <InfoLine>
           <h5>매장명</h5>
-          <span>쿠모</span>
+          <span>{info.storeName}</span>
         </InfoLine>
         <InfoLine>
           <h5>카테고리</h5>
-          <span>카페</span>
+          <span>{getLabelByCategoryId(info.category)}</span>
         </InfoLine>
         <InfoLine>
           <h5>매장 번호</h5>
-          <span>010-1234-1234</span>
+          <span>{info.number}</span>
         </InfoLine>
         <InfoLine>
           <h5>매장 주소</h5>
-          <span>서울특별시 마포구 어쩌고 저쩌고 어쩌고 저쩌고,,</span>
+          <span>{info.address + ' ' + info.addressDetail}</span>
         </InfoLine>
       </InfoContainer>
     </Container>
