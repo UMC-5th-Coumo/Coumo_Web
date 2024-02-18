@@ -7,7 +7,13 @@ import JoinBtn from '../join/JoinBtn';
 import { defaultInstance } from '../../api/axios';
 import ErrorMsg from '../join/ErrorMsg';
 
-const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
+const FindForm = ({
+  title,
+  idLabel,
+  sendEndpoint,
+  verifyEndpoint,
+  postData,
+}) => {
   const navigate = useNavigate();
 
   // 유효성 검사 및 오류 메세지
@@ -23,7 +29,6 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
     phone: '',
     number: '',
   });
-
   const onChangeId = (e) => {
     setInfo((prev) => ({ ...prev, id: e.target.value }));
   };
@@ -52,9 +57,10 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
   };
 
   const isFindEnabled = () => {
-    return info.id && info.phone && info.number;
+    return info.id.trim() !== '' && valid.phone && valid.certified;
   };
 
+  // 인증번호 전송
   const onPostCertified = async (e) => {
     e.preventDefault();
     try {
@@ -62,9 +68,8 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
         [postData]: info.id,
         phone: info.phone,
       };
-
       const response = await defaultInstance.post(
-        '/owner/find-id',
+        sendEndpoint,
         postCertifiedData
       );
 
@@ -78,15 +83,17 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
     }
   };
 
+  // 인증번호 검증
   const onCertified = async (e) => {
     e.preventDefault();
-    if (isFindEnabled()) {
+    if (valid.phone && info.number) {
       try {
-        const response = await defaultInstance.post(serverEndpoint, {
+        const response = await defaultInstance.post(verifyEndpoint, {
           phone: info.phone,
           verificationCode: info.number,
         });
 
+        console.log('검증', response.data);
         if (response.data.isSuccess && postData === 'name') {
           setValid((prev) => ({
             ...prev,
@@ -95,7 +102,7 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
               <span style={{ color: '#33bd4a' }}>인증되었습니다.</span>
             ),
           }));
-        } else if (response.data.isSuccess && postData === 'id') {
+        } else if (response.data.isSuccess && postData === 'loginId') {
           setValid((prev) => ({
             ...prev,
             certified: true,
@@ -121,15 +128,20 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
     e.preventDefault();
     if (isFindEnabled()) {
       try {
-        const response = await defaultInstance.post(serverEndpoint, {
+        const response = await defaultInstance.post(verifyEndpoint, {
           phone: info.phone,
           verificationCode: info.number,
         });
 
         if (response.data.isSuccess && postData === 'name') {
-          navigate('/foundId');
-        } else if (response.data.isSuccess && postData === 'id') {
-          navigate('/findPw/rePassword');
+          navigate('/foundId', {
+            state: { loginId: response.data.result.loginId },
+          });
+        } else if (response.data.isSuccess && postData === 'loginId') {
+          console.log('loinId', info.id);
+          navigate('/findPw/rePassword', {
+            state: { loginId: info.id },
+          });
         } else {
           console.error(response.data.message);
         }

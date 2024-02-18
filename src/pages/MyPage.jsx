@@ -8,9 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import ListBox from '../components/admin/myPage/ListBox';
 import Profile from '../components/admin/myPage/Profile';
 import { persistor } from '../redux/store';
+import { authInstance, defaultInstance } from '../api/axios';
 
 function MyPage() {
-  const { name } = useSelector((state) => state.user);
+  const { name, ownerId } = useSelector((state) => state.user);
   const [logOut, setLogOut] = useState(false);
   const [withdrawal, setWithdrawal] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -23,14 +24,26 @@ function MyPage() {
   }
 
   const handleLogOut = () => {
-    localStorage.removeItem('userToken');
+    sessionStorage.removeItem('userToken');
     persistor.purge(); // 리덕스 초기화
     navigate('/login'); // 로그아웃 후 로그인 페이지로 이동
   };
 
-  const handleWithdrawal = () => {
-    persistor.purge(); // 리덕스 초기화
-    // 탈퇴 api
+  const handleWithdrawal = async () => {
+    try {
+      const response = await defaultInstance.delete(`/owner/delete/${ownerId}`);
+
+      if (response.data.isSuccess) {
+        setWithdrawal(false);
+        persistor.purge(); // 리덕스 초기화
+        console.log('withdrawal 성공');
+        navigate('/');
+      } else {
+        console.error('withdrawal 실패', response.data.message);
+      }
+    } catch (error) {
+      console.error('withdrawal 에러');
+    }
   };
 
   return (
@@ -54,7 +67,7 @@ function MyPage() {
         />
       )}
       <TitleBox>
-        <Title title={`안녕하세요, ${name}님!`} size={22} />
+        <Title title={`안녕하세요, ${name}님!`} />
       </TitleBox>
       <Content>
         <Profile open={profileOpen} setProfileOpen={setProfileOpen} />

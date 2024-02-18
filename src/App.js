@@ -23,11 +23,10 @@ import AdminHome from './pages/AdminHome';
 import ScrollTop from './components/common/ScrollTop';
 import NotFound from './pages/NotFound';
 import Join from './pages/Join';
+import Congratulate from './pages/join/Congratulate';
 
 function App() {
   const { token } = useSelector((state) => state.user);
-
-  const redirectToHome = () => <Navigate to='/' replace />;
   return (
     <>
       <GlobalStyle />

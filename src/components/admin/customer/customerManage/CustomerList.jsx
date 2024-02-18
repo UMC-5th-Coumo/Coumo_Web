@@ -17,7 +17,7 @@ function CustomerList({ customerData, selected, setSelected }) {
               return (
                 <Customer
                   key={data.id}
-                  selected={selected === data}
+                  $selected={selected === data}
                   onClick={() => setSelected(data)}
                 >
                   <span>{data.updatedAt.slice(0, 10)}</span>
@@ -116,8 +116,8 @@ const Customer = styled.div`
   gap: 12px;
   cursor: pointer;
   padding-right: 15px;
-  background-color: ${({ theme, selected }) =>
-    selected ? theme.colors.lightpurple : theme.colors.white};
+  background-color: ${({ theme, $selected }) =>
+    $selected ? theme.colors.lightpurple : theme.colors.white};
 
   &:hover {
     background: ${({ theme }) => theme.colors.lightpurple};

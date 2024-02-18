@@ -110,8 +110,10 @@ const JoinOneStep = () => {
     e.preventDefault();
     try {
       const response = await defaultInstance.post(
-        '/owner/join/check-login-id',
-        { loginId: account.id }
+        `/owner/join/check-login-id`,
+        {
+          loginId: account.id,
+        }
       );
 
       if (response.data.isSuccess) {

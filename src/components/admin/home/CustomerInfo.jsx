@@ -23,7 +23,7 @@ function CustomerInfo({ text, count, prev }) {
         {text.includes('총') ? <LuUsers2 /> : <LuUserPlus2 />}
         {text}
       </Title>
-      <CustomerCount increase={getColor(getPercent(count, prev))}>
+      <CustomerCount $increase={getColor(getPercent(count, prev))}>
         <h3>{count}명</h3>
         <span>{getPercent(count, prev)}%</span>
       </CustomerCount>
@@ -81,7 +81,11 @@ const CustomerCount = styled.div`
   & span {
     font-size: ${({ theme }) => theme.fontSize.sm};
     padding-bottom: 5px;
-    color: ${({ increase }) =>
-      increase === true ? '#d02e2e' : increase === false ? '#3355ff' : 'gray'};
+    color: ${({ $increase }) =>
+      $increase === true
+        ? '#d02e2e'
+        : $increase === false
+          ? '#3355ff'
+          : 'gray'};
   }
 `;

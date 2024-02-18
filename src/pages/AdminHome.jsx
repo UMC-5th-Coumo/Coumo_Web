@@ -7,12 +7,14 @@ import CouponInfo from '../components/admin/home/CouponInfo';
 import DayGraphInfo from '../components/admin/home/DayGraphInfo';
 import CustomerInfo from '../components/admin/home/CustomerInfo';
 import GenderGraphInfo from '../components/admin/home/GenderGraphInfo';
-import { useSelector } from 'react-redux';
-import { defaultInstance } from '../api/axios';
-import { Stamp1, Stamp2, Stamp3, Stamp4, Stamp5 } from '../assets';
+import { useDispatch, useSelector } from 'react-redux';
+import { authInstance, defaultInstance } from '../api/axios';
+import getStoreInfo from '../redux/thunks/getStoreInfo';
+import { stampData } from '../assets/data/stampData';
 
 function AdminHome() {
-  const { write } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const { write, ownerId, storeId } = useSelector((state) => state.user);
   const [coupon, setCoupon] = useState({
     storeName: '쿠모',
     couponColor: '#bb96ff',
@@ -20,7 +22,6 @@ function AdminHome() {
     stampImage: '',
     stampMax: 10,
   });
-
   const [customer, setCustomer] = useState({
     all: 0,
     new: 0,
@@ -28,35 +29,28 @@ function AdminHome() {
     prevNew: 0,
   });
 
-  const getStamp = (type) => {
-    switch (type) {
-      case 'stamp1':
-        return <Stamp1 />;
-      case 'stamp2':
-        return <Stamp2 />;
-      case 'stamp3':
-        return <Stamp3 />;
-      case 'stamp4':
-        return <Stamp4 />;
-      case 'stamp5':
-        return <Stamp5 />;
-      default:
-        return null;
-    }
-  };
+  /* ----- 팝업 등장 시 뒷배경 스크롤 제한 ----- */
+  if (!write) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
 
+  /* ----- 대표 쿠폰 조회 api ----- */
   const getCouponData = async () => {
-    await defaultInstance
-      .get(`/api/maincoupon/${1}`)
+    console.log(ownerId);
+    await authInstance
+      .get(`/api/maincoupon/${storeId}`)
       .then(async (res) => {
         if (res.data.isSuccess) {
           const data = res.data.result;
-          console.log(data);
+          console.log(data.stampImage);
           setCoupon({
             storeName: data.storeName,
-            couponColor: '#7C43E8',
-            fontColor: '#ffffff',
-            stampImage: getStamp(data.stampImage),
+            couponColor: data.couponColor,
+            fontColor: data.fontColor,
+            stampImage: stampData.find((stamp) => stamp.id === data.stampImage)
+              .image,
             stampMax:
               data.stampMax === 'EIGHT' ? 8 : data.stampMax === 'TEN' ? 10 : 12,
           });
@@ -65,10 +59,11 @@ function AdminHome() {
       .catch((err) => console.log(err));
   };
 
+  /* ----- 이번달 방문자 수 조회 api ----- */
   const getCustomerCount = async () => {
-    await defaultInstance
+    await authInstance
       .get(
-        `/api/statistics/${1}/month-statistics?year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}`
+        `/api/statistics/${storeId}/month-statistics?year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}`
       )
       .then(async (res) => {
         if (res.data.isSuccess) {
@@ -87,12 +82,12 @@ function AdminHome() {
   useEffect(() => {
     getCustomerCount();
     getCouponData();
+    dispatch(getStoreInfo(storeId));
   }, []);
 
   return (
     <Container>
-      {/* {write && <FormPopUp />} */}
-      {/* <FormPopUp /> */}
+      {!write && <FormPopUp />}
       <ColumWrapper>
         <StoreInfo />
         <DayGraphInfo />

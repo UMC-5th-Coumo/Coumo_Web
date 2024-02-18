@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import MonthPicker from '../../components/admin/customer/monthlyReport/MonthPicker';
-import { defaultInstance } from '../../api/axios';
+import { authInstance, defaultInstance } from '../../api/axios';
 import CustomerCount from '../../components/admin/customer/monthlyReport/CustomerCount';
 import AgeStatic from '../../components/admin/customer/monthlyReport/AgeStatic';
 import DayVisitStatic from '../../components/admin/customer/monthlyReport/DayVisitStatic';
+import { useSelector } from 'react-redux';
 
 const MonthlyReport = () => {
+  const { storeId } = useSelector((state) => state.user);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [customer, setCustomer] = useState({
     all: 0,
@@ -16,9 +18,9 @@ const MonthlyReport = () => {
   });
 
   const getCustomerCount = async () => {
-    await defaultInstance
+    await authInstance
       .get(
-        `/api/statistics/${1}/month-statistics?year=${selectedDate.getFullYear()}&month=${selectedDate.getMonth() + 1}`
+        `/api/statistics/${storeId}/month-statistics?year=${selectedDate.getFullYear()}&month=${selectedDate.getMonth() + 1}`
       )
       .then(async (res) => {
         if (res.data.isSuccess) {

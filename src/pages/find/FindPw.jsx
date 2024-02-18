@@ -8,7 +8,8 @@ const FindPw = () => {
       <FindForm
         title='비밀번호 찾기 (휴대폰 인증)'
         idLabel='아이디'
-        serverEndpoint='/api/owner/findpw'
+        sendEndpoint='/owner/reset-password/send-code'
+        verifyEndpoint='/owner/reset-password/verify-code'
         postData='loginId'
       />
     </Container>

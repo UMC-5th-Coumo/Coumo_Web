@@ -25,7 +25,7 @@ function CustomerCount({ customer }) {
             이번 달 <strong>총 방문</strong> 고객은?
           </span>
           <DataText
-            increase={getColor(getPercent(customer.all, customer.prevAll))}
+            $increase={getColor(getPercent(customer.all, customer.prevAll))}
           >
             <h5>{customer.all}명</h5>
             <span>{getPercent(customer.all, customer.prevAll)}%</span>
@@ -39,7 +39,7 @@ function CustomerCount({ customer }) {
             이번 달 <strong>신규</strong> 고객은?
           </span>
           <DataText
-            increase={getColor(getPercent(customer.new, customer.prevNew))}
+            $increase={getColor(getPercent(customer.new, customer.prevNew))}
           >
             <h5>{customer.new}명</h5>
             <span>{getPercent(customer.new, customer.prevNew)}%</span>
@@ -115,7 +115,11 @@ const DataText = styled.div`
   & span {
     font-size: ${({ theme }) => theme.fontSize.sm};
     padding-bottom: 3px;
-    color: ${({ increase }) =>
-      increase === true ? '#d02e2e' : increase === false ? '#3355ff' : 'gray'};
+    color: ${({ $increase }) =>
+      $increase === true
+        ? '#d02e2e'
+        : $increase === false
+          ? '#3355ff'
+          : 'gray'};
   }
 `;

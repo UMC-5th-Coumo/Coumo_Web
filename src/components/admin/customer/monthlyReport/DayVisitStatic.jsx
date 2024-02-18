@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IoMdCheckmark } from 'react-icons/io';
 import BarChart from '../common/charts/BarChart';
-import { defaultInstance } from '../../../../api/axios';
+import { authInstance, defaultInstance } from '../../../../api/axios';
 
 function DayVisitStatic({ selectedDate }) {
   const [dayVisitData, setDayVisitData] = useState([]);
@@ -58,7 +58,7 @@ function DayVisitStatic({ selectedDate }) {
   };
 
   const getDayVisit = async () => {
-    await defaultInstance
+    await authInstance
       .get(
         `/api/statistics/${1}/month-day?year=${selectedDate.getFullYear()}&month=${selectedDate.getMonth() + 1}`
       )

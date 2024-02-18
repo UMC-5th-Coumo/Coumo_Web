@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import LineChart from '../../../components/admin/customer/common/charts/LineChart';
 import VisitCount from '../../../components/admin/customer/visitAnalysis/VisitCount';
-import { defaultInstance } from '../../../api/axios';
+import { authInstance, defaultInstance } from '../../../api/axios';
+import { useSelector } from 'react-redux';
 
 function TimeVisit() {
+  const { storeId } = useSelector((state) => state.user);
   const [chartData, setChartData] = useState({});
   const [max, setMax] = useState({
     data: '',
@@ -43,8 +45,8 @@ function TimeVisit() {
   };
 
   const getTimeVisit = async () => {
-    await defaultInstance
-      .get(`/api/statistics/${1}/time`)
+    await authInstance
+      .get(`/api/statistics/${storeId}/time`)
       .then(async (res) => {
         if (res.data.isSuccess) {
           const data = res.data.result;
@@ -65,8 +67,6 @@ function TimeVisit() {
               count: 0,
             });
           }
-
-          // console.log(processedData);
         }
       })
       .catch((err) => console.log(err));

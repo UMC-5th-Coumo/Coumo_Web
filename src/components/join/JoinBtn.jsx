@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 function JoinBtn({ topMargin, text, onClick, disabled }) {
   return (
-    <BtnContainer topMargin={topMargin} onClick={onClick} disabled={disabled}>
+    <BtnContainer $topMargin={topMargin} onClick={onClick} disabled={disabled}>
       {text}
     </BtnContainer>
   );
@@ -25,7 +25,7 @@ const BtnContainer = styled.button`
   font-size: ${({ theme }) => theme.fontSize.md};
   font-style: normal;
   font-weight: 700;
-  margin-top: ${(props) => props.topMargin}px;
+  margin-top: ${(props) => props.$topMargin}px;
   cursor: pointer;
 
   &:disabled {

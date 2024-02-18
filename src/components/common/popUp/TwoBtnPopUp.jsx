@@ -11,10 +11,10 @@ function TwoBtnPopUp({ title, text, btnLabel, setOpen, onClick }) {
           <span>{text}</span>
         </TextBox>
         <BtnContainer>
-          <Button ok={true} onClick={onClick}>
+          <Button $ok={true} onClick={onClick}>
             {btnLabel}
           </Button>
-          <Button ok={false} onClick={() => setOpen(false)}>
+          <Button $ok={false} onClick={() => setOpen(false)}>
             취소
           </Button>
         </BtnContainer>
@@ -97,15 +97,15 @@ const BtnContainer = styled.div`
 const Button = styled.button`
   width: 100%;
   height: 45px;
-  background-color: ${({ ok, theme }) =>
-    ok ? '#643daf' : theme.colors.btn_lightgray};
+  background-color: ${({ $ok, theme }) =>
+    $ok ? '#643daf' : theme.colors.btn_lightgray};
 
   border: none;
   border-radius: 8px;
   font-size: ${({ theme }) => theme.fontSize.base};
   font-weight: 700;
-  color: ${({ ok, theme }) =>
-    ok ? theme.colors.white : theme.colors.text_darkgray};
+  color: ${({ $ok, theme }) =>
+    $ok ? theme.colors.white : theme.colors.text_darkgray};
   cursor: pointer;
 
   @media screen and (max-width: 1024px) {

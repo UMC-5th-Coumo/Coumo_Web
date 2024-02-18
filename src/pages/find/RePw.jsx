@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import InputJoin from '../../components/common/InputJoin';
-import axios from 'axios';
 import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
+import { defaultInstance } from '../../api/axios';
 
 const RePw = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const loginId = location.state.loginId;
+  console.log('repw에서 loginId', loginId);
+
   const [newPassword, setNewPassword] = useState('');
   const [rePassword, setRePassword] = useState('');
 
@@ -60,12 +64,14 @@ const RePw = () => {
   }
 
   const onSubmit = async () => {
-    setPopUp(true);
-
     try {
-      const response = await axios.patch('/api/owner/patchpw', {
-        password: newPassword,
-      });
+      const response = await defaultInstance.post(
+        `/owner/reset-password/set-pw`,
+        {
+          loginId: loginId,
+          newPassword: newPassword,
+        }
+      );
 
       if (response.data.isSuccess) {
         setPopUp(true);

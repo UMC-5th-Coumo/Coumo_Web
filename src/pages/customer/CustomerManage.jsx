@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import getCustomers from '../../redux/thunks/getCustomers';
 
 const CustomerManage = () => {
+  const { storeId } = useSelector((state) => state.user);
   const [number, setNumber] = useState('');
   const [filter, setFilter] = useState('all');
   const [selected, setSelected] = useState(null);
@@ -21,7 +22,7 @@ const CustomerManage = () => {
 
   // 마운트 될 때 고객 데이터 받아오기
   useEffect(() => {
-    dispatch(getCustomers('1'));
+    dispatch(getCustomers(storeId));
   }, []);
 
   // 가져온 데이터로 렌더링
@@ -68,7 +69,7 @@ const CustomerManage = () => {
                 type='text'
                 name='number'
                 value={number}
-                isEmpty={number.length === 0}
+                $isEmpty={number.length === 0}
                 placeholder='고객의 전화번호 끝 4자리를 입력하세요'
                 onChange={(e) => setNumber(e.target.value)}
               />
@@ -223,8 +224,8 @@ const StyledInput = styled.input`
   border-radius: 7px;
   background: ${({ theme }) => theme.colors.white};
   border: 1px solid
-    ${({ theme, isEmpty }) =>
-      isEmpty ? theme.colors.text : theme.colors.coumo_purple};
+    ${({ theme, $isEmpty }) =>
+      $isEmpty ? theme.colors.text : theme.colors.coumo_purple};
   overflow: hidden;
   color: #332f3c;
   text-overflow: ellipsis;

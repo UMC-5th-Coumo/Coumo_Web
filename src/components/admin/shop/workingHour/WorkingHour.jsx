@@ -51,7 +51,7 @@ function WorkingHour({ day, data, setData, dropWidth }) {
         disabled={dayOff}
         dropWidth={dropWidth}
       />
-      <DayOffButton dayOff={dayOff} onClick={() => setDayOff((prev) => !prev)}>
+      <DayOffButton $dayOff={dayOff} onClick={() => setDayOff((prev) => !prev)}>
         쉬는 날
       </DayOffButton>
     </Container>
@@ -85,10 +85,10 @@ const DayOffButton = styled.button`
   width: 80px;
   height: 30px;
   border: none;
-  background-color: ${({ theme, dayOff }) =>
-    dayOff ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
-  color: ${({ theme, dayOff }) =>
-    dayOff ? theme.colors.white : theme.colors.text};
+  background-color: ${({ theme, $dayOff }) =>
+    $dayOff ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
+  color: ${({ theme, $dayOff }) =>
+    $dayOff ? theme.colors.white : theme.colors.text};
   border-radius: 60px;
   font-size: ${({ theme }) => theme.fontSize.sm};
   font-weight: 600;

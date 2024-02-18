@@ -8,24 +8,34 @@ import StampList from '../../components/admin/coupon/StampList';
 import Button from '../../components/common/Button';
 import { authInstance } from '../../api/axios';
 import { stampData } from '../../assets/data/stampData';
+import { useSelector } from 'react-redux';
 
 const AddCoupon = () => {
+  const { ownerId } = useSelector((state) => state.user);
   const [selectedStamp, setSelectedStamp] = useState(stampData[0]);
   const [coupon, setCoupon] = useState({
     storeName: '',
     couponColor: '#7C43E8',
     fontColor: '#ffffff',
-    stampMax: '8',
-    stampImage: '',
+    stampMax: 8,
   });
   const stamps = Array(coupon.stampMax * 1).fill(0);
 
-  // 서버 요청
+  /* ----- 쿠폰 등록 api ----- */
   const registerCoupon = async () => {
-    const ownerId = '';
+    const couponData = {
+      ...coupon,
+      stampMax:
+        coupon.stampMax === 8
+          ? 'EIGHT'
+          : coupon.stampMax === 10
+            ? 'TEN'
+            : 'TWELVE',
+      stampImage: selectedStamp.id,
+    };
 
     await authInstance
-      .post(`/api/coupon/register/${ownerId}`, coupon)
+      .post(`/api/coupon/register/${ownerId}`, couponData)
       .then((res) => console.log(res.data));
   };
 
@@ -95,19 +105,19 @@ const AddCoupon = () => {
         </DesginForm>
         <CouponWrapper>
           <CouponContainer>
-            <CouponExample color={coupon.couponColor}>
-              <CouponTitle fontColor={coupon.fontColor}>
+            <CouponExample $color={coupon.couponColor}>
+              <CouponTitle $fontColor={coupon.fontColor}>
                 <h2>{coupon.storeName ? coupon.storeName : '가게명'}</h2>
                 <span>COUPON</span>
               </CouponTitle>
-              <StampBox num={coupon.stampMax}>
+              <StampBox $num={coupon.stampMax}>
                 {stamps.map((s, i) => {
                   return (
-                    <Stamp key={i} num={coupon.stampMax}>
+                    <Stamp key={i} $num={coupon.stampMax}>
                       <StampIcon
                         src={selectedStamp.image}
                         alt={selectedStamp.alt}
-                        num={coupon.stampMax}
+                        $num={coupon.stampMax}
                       />
                     </Stamp>
                   );
@@ -219,7 +229,7 @@ const StepName = styled.span`
 const CouponExample = styled.div`
   width: 493px;
   height: 288px;
-  background-color: ${(props) => props.color};
+  background-color: ${(props) => props.$color};
 
   display: flex;
   flex-direction: column;
@@ -238,7 +248,7 @@ const CouponTitle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: ${(props) => props.fontColor};
+  color: ${(props) => props.$fontColor};
 
   & h2 {
     margin: 0;
@@ -270,22 +280,22 @@ const StepContainer = styled.div`
 `;
 
 const StampBox = styled.div`
-  width: ${(props) => (props.num > 8 ? '450px' : '368px')};
+  width: ${(props) => (props.$num > 8 ? '450px' : '368px')};
   height: 138px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: ${(props) => (props.num > 10 ? '5px 15px' : '10px 15px')};
+  gap: ${(props) => (props.$num > 10 ? '5px 15px' : '10px 15px')};
 
   @media screen and (max-width: 1024px) {
-    width: ${(props) => (props.num > 8 ? '430px' : '350px')};
-    gap: ${(props) => (props.num > 10 ? '0px 12px' : '10px 15px')};
+    width: ${(props) => (props.$num > 8 ? '430px' : '350px')};
+    gap: ${(props) => (props.$num > 10 ? '0px 12px' : '10px 15px')};
   }
 `;
 
 const Stamp = styled.div`
-  width: ${(props) => (props.num > 10 ? '58px' : '65px')};
-  height: ${(props) => (props.num > 10 ? '58px' : '65px')};
+  width: ${(props) => (props.$num > 10 ? '58px' : '65px')};
+  height: ${(props) => (props.$num > 10 ? '58px' : '65px')};
   border-radius: 50%;
   background: #f6f6f6;
 
@@ -294,14 +304,14 @@ const Stamp = styled.div`
   align-items: center;
 
   @media screen and (max-width: 1024px) {
-    width: ${(props) => (props.num > 10 ? '52px' : '60px')};
-    height: ${(props) => (props.num > 10 ? '52px' : '60px')};
+    width: ${(props) => (props.$num > 10 ? '52px' : '60px')};
+    height: ${(props) => (props.$num > 10 ? '52px' : '60px')};
   }
 `;
 
 const StampIcon = styled.img`
-  width: ${(props) => (props.num > 10 ? '40px' : '45px')};
-  height: ${(props) => (props.num > 10 ? '40px' : '45px')};
+  width: ${(props) => (props.$num > 10 ? '40px' : '45px')};
+  height: ${(props) => (props.$num > 10 ? '40px' : '45px')};
 `;
 
 const ButtonGroup = styled.div`

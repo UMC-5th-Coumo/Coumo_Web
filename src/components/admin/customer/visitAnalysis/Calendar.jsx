@@ -57,7 +57,7 @@ const Calendar = ({ selected, setSelected, date, setDate }) => {
             setSelected('calendar');
           }
         }}
-        customInput={<CustomInput selected={selected === 'calendar'} />}
+        customInput={<CustomInput $selected={selected === 'calendar'} />}
         isClearable={false}
         renderCustomHeader={({
           date,
@@ -115,12 +115,12 @@ const CustomInput = styled.input`
   box-sizing: border-box;
   border: none;
   border-radius: 16px 16px 0px 0px;
-  background: ${({ theme, selected }) =>
-    selected ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
+  background: ${({ theme, $selected }) =>
+    $selected ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
 
   text-align: center;
-  color: ${({ theme, selected }) =>
-    selected ? theme.colors.white : theme.colors.text_darkgray};
+  color: ${({ theme, $selected }) =>
+    $selected ? theme.colors.white : theme.colors.text_darkgray};
   font-style: normal;
   font-weight: 500;
   line-height: 132%;
@@ -135,8 +135,8 @@ const CustomInput = styled.input`
   }
 
   &::placeholder {
-    color: ${({ theme, selected }) =>
-      selected ? theme.colors.white : theme.colors.text_darkgray};
+    color: ${({ theme, $selected }) =>
+      $selected ? theme.colors.white : theme.colors.text_darkgray};
     font-size: ${({ theme }) => theme.fontSize.sm};
   }
 
