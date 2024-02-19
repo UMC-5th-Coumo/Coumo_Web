@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Logo } from '../../assets';
-import Button from './Button';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -13,20 +12,13 @@ const Header = () => {
         <LogoIcon to='/'>
           <Logo to='/' />
         </LogoIcon>
-
-        <Nav>
-          <StyledLink to='/shop/basicInfo'>매장 관리</StyledLink>
-          <StyledLink to='/neighborhood/writePost'>동네 소식</StyledLink>
-          <StyledLink to='/coupon/addCoupon'>쿠폰 관리</StyledLink>
-          <StyledLink to='/customer/manage'>고객 데이터 관리</StyledLink>
-        </Nav>
-
         <Button
-          text='로그인/회원가입'
-          onClickBtn={() => {
+          onClick={() => {
             navigate('/login');
           }}
-        ></Button>
+        >
+          로그인/회원가입
+        </Button>
       </HeaderBar>
     </Head>
   );
@@ -41,7 +33,7 @@ const Head = styled.div`
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.coumo_purple};
   font-family: 'Pretendard';
   font-size: ${({ theme }) => theme.fontSize.md};
   position: absolute;
@@ -61,18 +53,41 @@ const HeaderBar = styled.div`
 `;
 
 const LogoIcon = styled(Link)`
-  width: 100px;
+  width: 80px;
+
+  & svg {
+    width: 60px;
+  }
 `;
 
-const Nav = styled.div`
+const Button = styled.button`
   display: flex;
-  width: 50%;
-  justify-content: space-between;
-  align-items: flex-start;
-`;
+  height: 42px;
+  padding: 8px 24px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 10px;
+  background: ${({ theme, $type }) =>
+    $type ? theme.colors.coumo_purple : theme.colors.white};
+  color: ${({ theme, $type }) =>
+    $type ? theme.colors.white : theme.colors.text_darkgray};
+  text-align: center;
+  font-size: ${({ theme }) => theme.fontSize.base};
+  font-style: normal;
+  font-weight: 700;
+  line-height: 132%; /* 23.76px */
+  letter-spacing: 0.54px;
 
-const StyledLink = styled(Link)`
-  color: ${({ theme }) => theme.colors.text_darkgray};
-  font-weight: 600;
-  text-decoration-line: none;
+  &::before {
+    content: '${(props) => (props.text ? props.text : '')}';
+  }
+
+  @media screen and (max-width: 1024px) {
+    font-size: ${({ theme }) => theme.fontSize.sm};
+    padding: 8px 12px;
+    height: 38px;
+  }
 `;
