@@ -1,4 +1,5 @@
 export { ReactComponent as Logo } from './icon/Logo.svg';
+export { ReactComponent as LogoPurple } from './icon/Logo_Purple.svg';
 export { ReactComponent as Arrow } from './icon/arrow.svg';
 export { ReactComponent as BannerIcon } from './icon/banner-icon.svg';
 export { ReactComponent as LoginId } from './icon/LoginId.svg';
@@ -28,6 +29,9 @@ export { ReactComponent as Cancel } from './icon/Cancel.svg';
 export { ReactComponent as Person } from './icon/person.svg';
 export { ReactComponent as Gender } from './icon/gender.svg';
 export { ReactComponent as CouponBack } from './icon/CouponBack.svg';
+export { ReactComponent as BigLogo } from './icon/BigLogo.svg';
+export { ReactComponent as Symbol } from './icon/Symbol.svg';
+export { ReactComponent as CouponIcon } from './icon/CouponIcon.svg';
 
 // 도장 이미지
 export { ReactComponent as Stamp1 } from './icon/stamp1.svg';

@@ -1,18 +1,20 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Logo } from '../../assets';
+import { Logo, LogoPurple } from '../../assets';
 
 const Header = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   return (
-    <Head>
+    <Head $isHome={pathname === '/' ? true : false}>
       <HeaderBar>
         <LogoIcon to='/'>
-          <Logo to='/' />
+          {pathname === '/' ? <Logo /> : <LogoPurple />}
         </LogoIcon>
         <Button
+          $isHome={pathname === '/' ? true : false}
           onClick={() => {
             navigate('/login');
           }}
@@ -33,12 +35,14 @@ const Head = styled.div`
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  background-color: ${({ theme }) => theme.colors.coumo_purple};
+  background-color: ${({ theme, $isHome }) =>
+    $isHome ? theme.colors.coumo_purple : theme.colors.white};
   font-family: 'Pretendard';
   font-size: ${({ theme }) => theme.fontSize.md};
   position: absolute;
   top: 0;
-  box-shadow: 0px 13px 21.8px 0px rgba(69, 0, 198, 0.08);
+  box-shadow: ${({ $isHome }) =>
+    $isHome ? 'none' : '0px 13px 21.8px 0px rgba(69, 0, 198, 0.08)'};
 `;
 
 const HeaderBar = styled.div`
@@ -53,8 +57,6 @@ const HeaderBar = styled.div`
 `;
 
 const LogoIcon = styled(Link)`
-  width: 80px;
-
   & svg {
     width: 60px;
   }
@@ -70,10 +72,10 @@ const Button = styled.button`
   flex-shrink: 0;
   border: none;
   border-radius: 10px;
-  background: ${({ theme, $type }) =>
-    $type ? theme.colors.coumo_purple : theme.colors.white};
-  color: ${({ theme, $type }) =>
-    $type ? theme.colors.white : theme.colors.text_darkgray};
+  background: ${({ theme, $isHome }) =>
+    $isHome ? theme.colors.white : theme.colors.coumo_purple};
+  color: ${({ theme, $isHome }) =>
+    $isHome ? theme.colors.text_darkgray : theme.colors.white};
   text-align: center;
   font-size: ${({ theme }) => theme.fontSize.base};
   font-style: normal;
