@@ -26,6 +26,7 @@ const JoinTwoStep = () => {
     certified: false,
     emailMsg: '',
     phoneMsg: '',
+    sendMsg: '',
     certifiedMsg: '',
   });
 
@@ -85,8 +86,18 @@ const JoinTwoStep = () => {
 
       if (response.data.isSuccess) {
         console.log('인증번호 전송 완료', response.data);
+        setValid((prev) => ({
+          ...prev,
+          sendMsg: (
+            <span style={{ color: '#33bd4a' }}>{response.data.result}</span>
+          ),
+        }));
       } else {
         console.log('인증번호 전송 실패');
+        setValid((prev) => ({
+          ...prev,
+          sendMsg: response.data.message,
+        }));
       }
     } catch {
       console.error('Error Join send Certified Number');
@@ -193,7 +204,7 @@ const JoinTwoStep = () => {
             />
             <CheckButton text='인증 받기' onClick={onPostCertified} />
           </Row>
-          <ErrorMsg text={valid.phoneMsg} />
+          <ErrorMsg text={valid.phoneMsg || valid.sendMsg} />
         </div>
         <div>
           <Row>
