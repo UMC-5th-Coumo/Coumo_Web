@@ -1,32 +1,26 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Logo } from '../../assets';
-import Button from './Button';
+import { Logo, LogoPurple } from '../../assets';
 
 const Header = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   return (
-    <Head>
+    <Head $isHome={pathname === '/' ? true : false}>
       <HeaderBar>
         <LogoIcon to='/'>
-          <Logo to='/' />
+          {pathname === '/' ? <Logo /> : <LogoPurple />}
         </LogoIcon>
-
-        <Nav>
-          <StyledLink to='/shop/basicInfo'>매장 관리</StyledLink>
-          <StyledLink to='/neighborhood/writePost'>동네 소식</StyledLink>
-          <StyledLink to='/coupon/addCoupon'>쿠폰 관리</StyledLink>
-          <StyledLink to='/customer/manage'>고객 데이터 관리</StyledLink>
-        </Nav>
-
         <Button
-          text='로그인/회원가입'
-          onClickBtn={() => {
+          $isHome={pathname === '/' ? true : false}
+          onClick={() => {
             navigate('/login');
           }}
-        ></Button>
+        >
+          로그인/회원가입
+        </Button>
       </HeaderBar>
     </Head>
   );
@@ -41,12 +35,14 @@ const Head = styled.div`
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme, $isHome }) =>
+    $isHome ? theme.colors.coumo_purple : theme.colors.white};
   font-family: 'Pretendard';
   font-size: ${({ theme }) => theme.fontSize.md};
   position: absolute;
   top: 0;
-  box-shadow: 0px 13px 21.8px 0px rgba(69, 0, 198, 0.08);
+  box-shadow: ${({ $isHome }) =>
+    $isHome ? 'none' : '0px 13px 21.8px 0px rgba(69, 0, 198, 0.08)'};
 `;
 
 const HeaderBar = styled.div`
@@ -61,18 +57,39 @@ const HeaderBar = styled.div`
 `;
 
 const LogoIcon = styled(Link)`
-  width: 100px;
+  & svg {
+    width: 60px;
+  }
 `;
 
-const Nav = styled.div`
+const Button = styled.button`
   display: flex;
-  width: 50%;
-  justify-content: space-between;
-  align-items: flex-start;
-`;
+  height: 42px;
+  padding: 8px 24px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 10px;
+  background: ${({ theme, $isHome }) =>
+    $isHome ? theme.colors.white : theme.colors.coumo_purple};
+  color: ${({ theme, $isHome }) =>
+    $isHome ? theme.colors.text_darkgray : theme.colors.white};
+  text-align: center;
+  font-size: ${({ theme }) => theme.fontSize.base};
+  font-style: normal;
+  font-weight: 700;
+  line-height: 132%; /* 23.76px */
+  letter-spacing: 0.54px;
 
-const StyledLink = styled(Link)`
-  color: ${({ theme }) => theme.colors.text_darkgray};
-  font-weight: 600;
-  text-decoration-line: none;
+  &::before {
+    content: '${(props) => (props.text ? props.text : '')}';
+  }
+
+  @media screen and (max-width: 1024px) {
+    font-size: ${({ theme }) => theme.fontSize.sm};
+    padding: 8px 12px;
+    height: 38px;
+  }
 `;

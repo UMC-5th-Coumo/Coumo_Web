@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from './Button';
-import { Logo } from '../../assets';
+import { LogoPurple } from '../../assets';
 
 function AdminHeader() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function AdminHeader() {
     <Head>
       <HeaderBar>
         <LogoContainer>
-          <Logo />
+          <LogoPurple />
         </LogoContainer>
         <Button
           text={`${name} 사장님`}
@@ -58,4 +58,8 @@ const HeaderBar = styled.div`
 
 const LogoContainer = styled.div`
   width: 100px;
+
+  & svg {
+    width: 60px;
+  }
 `;
