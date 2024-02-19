@@ -9,7 +9,7 @@ function WorkingHour({ day, data, setData, dropWidth }) {
   const [dayOff, setDayOff] = useState(false);
 
   useEffect(() => {
-    if (data.startTime === 'none' || data.endTime === 'none') {
+    if (data.startTime === null || data.endTime === null) {
       setStartTime('00:00');
       setEndTime('00:00');
       setDayOff(true);
@@ -24,8 +24,8 @@ function WorkingHour({ day, data, setData, dropWidth }) {
     if (dayOff) {
       setData({
         day: day,
-        startTime: 'none',
-        endTime: 'none',
+        startTime: null,
+        endTime: null,
       });
     } else {
       setData({
