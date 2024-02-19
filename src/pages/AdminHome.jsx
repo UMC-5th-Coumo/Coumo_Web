@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import FormPopUp from '../components/admin/formPopUp/FormPopUp';
 import StoreInfo from '../components/admin/home/StoreInfo';
 import WorkingHours from '../components/admin/home/WorkingHours';
 import CouponInfo from '../components/admin/home/CouponInfo';
@@ -87,7 +86,8 @@ function AdminHome() {
 
   return (
     <Container>
-      {!write && <FormPopUp />}
+      {console.log('write 여부 > ', write)}
+      {/* {!write && <FormPopUp />} */}
       <ColumWrapper>
         <StoreInfo />
         <DayGraphInfo />

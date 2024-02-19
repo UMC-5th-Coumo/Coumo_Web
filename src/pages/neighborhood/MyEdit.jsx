@@ -128,12 +128,6 @@ const MyEdit = () => {
         setCategory={setCategory}
         inputs={inputs}
         setInputs={setInputs}
-        onImageChange={(image) =>
-          setInputs({
-            ...inputs,
-            image: image,
-          })
-        }
       />
       <Btn>
         <Button text='삭제하기' onClickBtn={() => setDeletePopUp(true)} />

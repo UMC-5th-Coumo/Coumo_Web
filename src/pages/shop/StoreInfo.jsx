@@ -50,7 +50,6 @@ const StoreInfo = () => {
 
         setDescription(data.description);
 
-        // Wait for the conversion of the menu images
         const menuImages = await Promise.all(
           data.menus.map((menu) => convertURLtoFile(menu.image))
         );
@@ -108,10 +107,8 @@ const StoreInfo = () => {
 
     // FormData 생성
     let formData = new FormData();
-    // formData.append('storeImages', storeImgData);
     storeImgData.forEach((image) => formData.append('storeImages', image));
     formData.append('description', description);
-    // formData.append('menuImages', menuImages);
     menuImages.forEach((image) => formData.append('menuImages', image));
     formData.append('menuDetail', JSON.stringify(menuData));
 
@@ -136,7 +133,6 @@ const StoreInfo = () => {
           <ImageBlock
             storeImages={storeImages}
             setStoreImages={setStoreImages}
-            store={true}
           />
         </Image>
         <Description>

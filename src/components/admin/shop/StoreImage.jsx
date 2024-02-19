@@ -9,7 +9,6 @@ function StoreImage({
   handleImageDelete,
   handleImageChange,
   handleBoxClick,
-  store,
 }) {
   const [imageData, setImageData] = useState(data);
 
@@ -39,76 +38,41 @@ function StoreImage({
           accept='image/*'
           onChange={(event) => fileUpload(event)}
         />
-        {store ? (
-          <>
-            {imageData.image && (
-              <ImagePreview
-                src={URL.createObjectURL(imageData.image)}
-                alt={`uploaded-${id}`}
-              />
-            )}
-            {imageData.image && (
-              <StyledCancel
-                onClick={(event) => {
-                  event.stopPropagation();
-                  handleImageDelete(imageData.id);
-                }}
-              >
-                <Cancel />
-              </StyledCancel>
-            )}
-            {!imageData.image && (
-              <MyText>
-                <LargeP>
-                  <Span>이미지</Span>를 추가해주세요
-                </LargeP>
-                <SmallP>
-                  (
-                  <Plus
-                    style={{
-                      width: '15px',
-                      height: '15px',
-                    }}
-                  />
-                  를 클릭하시면 내 기기에 있는 이미지에 접근합니다)
-                </SmallP>
-              </MyText>
-            )}
-          </>
-        ) : (
-          <>
-            {imageData && (
-              <ImagePreview src={imageData} alt={`uploaded-${id}`} />
-            )}
-            {imageData && (
-              <StyledCancel
-                onClick={(event) => {
-                  event.stopPropagation();
-                  handleImageDelete(imageData.id);
-                }}
-              >
-                <Cancel />
-              </StyledCancel>
-            )}
-            {!imageData && (
-              <MyText>
-                <LargeP>
-                  <Span>이미지</Span>를 추가해주세요
-                </LargeP>
-                <SmallP>
-                  (
-                  <Plus
-                    style={{
-                      width: '15px',
-                      height: '15px',
-                    }}
-                  />
-                  를 클릭하시면 내 기기에 있는 이미지에 접근합니다)
-                </SmallP>
-              </MyText>
-            )}
-          </>
-        )}
+        <>
+          {imageData.image && (
+            <ImagePreview
+              src={URL.createObjectURL(imageData.image)}
+              alt={`uploaded-${id}`}
+            />
+          )}
+          {imageData.image && (
+            <StyledCancel
+              onClick={(event) => {
+                event.stopPropagation();
+                handleImageDelete(imageData.id);
+              }}
+            >
+              <Cancel />
+            </StyledCancel>
+          )}
+          {!imageData.image && (
+            <MyText>
+              <LargeP>
+                <Span>이미지</Span>를 추가해주세요
+              </LargeP>
+              <SmallP>
+                (
+                <Plus
+                  style={{
+                    width: '15px',
+                    height: '15px',
+                  }}
+                />
+                를 클릭하시면 내 기기에 있는 이미지에 접근합니다)
+              </SmallP>
+            </MyText>
+          )}
+        </>
       </InnerBox>
     </Box>
   );

@@ -14,7 +14,7 @@ import {
   PagePrevDisable,
 } from '../../assets';
 import PostList from '../../components/admin/neighborhood/PostList';
-import { authInstance } from '../../api/axios';
+import { authInstance, defaultInstance } from '../../api/axios';
 
 const MyPosts = () => {
   const [deletePopUp, setDeletePopUp] = useState(false);

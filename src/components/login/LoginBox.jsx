@@ -80,6 +80,8 @@ const LoginBox = () => {
           })
         );
 
+        console.log('로그인 시 write', write);
+
         console.log(response.data);
       } else {
         console.error('로그인 실패', response.data);
