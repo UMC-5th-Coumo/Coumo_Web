@@ -8,7 +8,7 @@ import DayGraphInfo from '../components/admin/home/DayGraphInfo';
 import CustomerInfo from '../components/admin/home/CustomerInfo';
 import GenderGraphInfo from '../components/admin/home/GenderGraphInfo';
 import { useDispatch, useSelector } from 'react-redux';
-import { authInstance, defaultInstance } from '../api/axios';
+import { authInstance } from '../api/axios';
 import getStoreInfo from '../redux/thunks/getStoreInfo';
 import { stampData } from '../assets/data/stampData';
 

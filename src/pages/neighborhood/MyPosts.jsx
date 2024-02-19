@@ -14,7 +14,7 @@ import {
   PagePrevDisable,
 } from '../../assets';
 import PostList from '../../components/admin/neighborhood/PostList';
-import { authInstance, defaultInstance } from '../../api/axios';
+import { authInstance } from '../../api/axios';
 
 const MyPosts = () => {
   const [deletePopUp, setDeletePopUp] = useState(false);
@@ -32,8 +32,8 @@ const MyPosts = () => {
   //게시글 불러오는 함수
   const posts = async () => {
     try {
-      const response = await defaultInstance.get(
-        `api/notice/2/list?pageId=${pageId}`
+      const response = await authInstance.get(
+        `/api/notice/${ownerId}/list?pageId=${pageId}`
       );
       if (response.data.isSuccess) {
         console.log('MyPostList Success:', response.data);

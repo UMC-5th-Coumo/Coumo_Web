@@ -51,8 +51,8 @@ const ImageBlock = ({ storeImages, setStoreImages, store }) => {
       <Scroll $boxCount={storeImages.length} ref={scrollRef}>
         {storeImages.map((data, index) => (
           <StoreImage
-            key={data.index}
-            id={data.index}
+            key={data.id}
+            id={data.id}
             data={data}
             handleImageDelete={handleImageDelete}
             handleImageChange={handleImageChange}
