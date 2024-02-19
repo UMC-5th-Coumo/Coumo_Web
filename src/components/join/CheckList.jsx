@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CheckBoxDefault, CheckBoxSelected } from '../../assets';
+import { privateData, serviceData } from '../../assets/data/consentData';
+import CheckPopUp from './CheckPopUp';
 
 function CheckList({ checks, setChecks }) {
+  const [servicePopUp, setServicePopUp] = useState(false);
+  const [privatePopUp, setPrivatePopUp] = useState(false);
+
   /* ----- 체크박스 클릭 이벤트 핸들러 ----- */
   const handleCheck1Click = () => {
     setChecks((prev) => ({
@@ -29,7 +34,7 @@ function CheckList({ checks, setChecks }) {
           )}
           <CheckTitle>쿠모 서비스 이용 약관 동의</CheckTitle>
         </CheckWrapper>
-        <CheckMore>보기</CheckMore>
+        <CheckMore onClick={() => setServicePopUp(true)}>보기</CheckMore>
       </Agree>
       <Agree>
         <CheckWrapper>
@@ -40,8 +45,22 @@ function CheckList({ checks, setChecks }) {
           )}
           <CheckTitle>개인정보 정책 동의</CheckTitle>
         </CheckWrapper>
-        <CheckMore>보기</CheckMore>
+        <CheckMore onClick={() => setPrivatePopUp(true)}>보기</CheckMore>
       </Agree>
+      {servicePopUp && (
+        <CheckPopUp
+          title='서비스 이용약관'
+          content={serviceData}
+          setPopUp={setServicePopUp}
+        />
+      )}
+      {privatePopUp && (
+        <CheckPopUp
+          title='개인정보 처리 방침'
+          content={privateData}
+          setPopUp={setPrivatePopUp}
+        />
+      )}
     </Container>
   );
 }

@@ -11,12 +11,12 @@ export const defaultInstance = axios.create({
 });
 
 // 인증 값 필요, json
-const token = sessionStorage.getItem('userToken');
+const token = localStorage.getItem('userToken');
 export const authInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer ' + token,
+    // Authorization: `Bearer ${token}`,
   },
 });
 
@@ -25,6 +25,6 @@ export const formAuthInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-Type': 'multipart/form-data',
-    Authorization: 'Bearer ' + token,
+    // Authorization: `Bearer ${token}`,
   },
 });

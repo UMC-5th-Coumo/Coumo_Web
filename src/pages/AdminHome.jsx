@@ -87,7 +87,7 @@ function AdminHome() {
 
   return (
     <Container>
-      {!write && <FormPopUp />}
+      {/* {!write && <FormPopUp />} */}
       <ColumWrapper>
         <StoreInfo />
         <DayGraphInfo />
