@@ -165,7 +165,6 @@ function FormPopUp() {
               : 'TWELVE',
         stampImage: couponData.stampImage,
       };
-      console.log('couponData:', couponInfo);
 
       await authInstance
         .post(`/api/coupon/register/${ownerId}`, couponInfo)

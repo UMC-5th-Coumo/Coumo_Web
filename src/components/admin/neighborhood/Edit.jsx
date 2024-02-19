@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Category from '../coupon/Category';
-// import { StyledWriteInput } from '../../common/Input';
 import ImageBlock from '../shop/ImageBlock';
 import { writecategoryData } from '../../../assets/data/categoryData';
 
 const Edit = ({ category, setCategory, inputs, setInputs }) => {
-  const [storeImages, setStoreImages] = useState([]);
+  const [storeImages, setStoreImages] = useState(inputs.image || []);
   const [titleCount, setTitleCount] = useState(0);
   const [contentCount, setContentCount] = useState(0);
   const [isTitleFocused, setTitleFocused] = useState(false);
@@ -25,13 +24,7 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
       ...inputs,
       image: storeImages,
     });
-  }, [storeImages]);
-
-  useEffect(() => {
-    setInputs({
-      ...inputs,
-      image: storeImages,
-    });
+    console.log('storeImage', storeImages);
   }, [storeImages]);
 
   return (

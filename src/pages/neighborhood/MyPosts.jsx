@@ -4,11 +4,9 @@ import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import TwoBtnPopUp from '../../components/common/popUp/TwoBtnPopUp';
 import Category from '../../components/admin/coupon/Category';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 import { postCategoryData } from '../../assets/data/categoryData';
-import { setSelectedPost } from '../../redux/slices/postSlice';
-import getMyPosts from '../../redux/thunks/getMyPosts';
 import {
   PageNext,
   PageNextDisable,
@@ -21,46 +19,45 @@ import { authInstance, defaultInstance } from '../../api/axios';
 const MyPosts = () => {
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [confirmPopUp, setConfirmPopUp] = useState(false);
-  const [category, setCategory] = useState('all');
+  const [category, setCategory] = useState('ALL');
   const [currentPage, setCurrentPage] = useState(1);
   const [nextButtonDisabled, setNextButtonDisabled] = useState(false);
+  const [postDummyData, setPostDummyData] = useState([]);
+  const [selectedPost, setSelectedPost] = useState([]);
 
   const navigate = useNavigate();
   const { pageId } = useParams();
+  const { ownerId } = useSelector((state) => state.user);
 
-  // dispatch(getMyPosts({ ownerId: 1, pageId: 1 }));
+  //게시글 불러오는 함수
+  const posts = async () => {
+    try {
+      const response = await defaultInstance.get(
+        `api/notice/${ownerId}/list?pageId=${pageId}`
+      );
+      if (response.data.isSuccess) {
+        console.log('MyPostList Success:', response.data);
+        setPostDummyData(response.data.result.notice);
+      }
+    } catch (error) {
+      console.error('MyPostList Error:', error);
+    }
+  };
 
   useEffect(() => {
-    const posts = async () => {
-      try {
-        const response = await authInstance.get(`api/notice/1/list?pageId=1`);
-        if (response.data.isSuccess) {
-          console.log('성공', response.data);
-        }
-      } catch (error) {
-        console.error('에러:', error);
-      }
-    };
-
     posts();
+    setSelectedPost(null);
   }, []);
 
-  const postDummyData = useSelector((state) => state.post.postDummyData);
-  const selectedPost = useSelector((state) => state.post.selectedPost);
   const filteredPosts =
-    category === 'all'
+    category === 'ALL'
       ? postDummyData
-      : postDummyData.filter((post) => post.tag === category);
+      : postDummyData.filter((post) => post.noticeType === category);
 
-  /* ----- 컴포넌트가 마운트될 때 받아오기 ----- */
-  // useEffect(() => {
-  //   dispatch(getMyPosts({ ownerId: 'coumo123', pageId: '1' }));
-  // }, [dispatch]);
-
-  // /* ----- selectedPost 변경 시 즉시 업데이트 ----- */
-  // useEffect(() => {
-  //   dispatch(setSelectedPost(selectedPost));
-  // }, [dispatch, selectedPost]);
+  /* ----- selectedPost 변경 시 즉시 업데이트 ----- */
+  useEffect(() => {
+    setSelectedPost(selectedPost);
+  }, [selectedPost]);
 
   /* ----- 페이지 이동 처리 ----- */
   useEffect(() => {
@@ -98,9 +95,25 @@ const MyPosts = () => {
   }
 
   /* ----- 게시글 삭제 버튼 ----- */
-  const onDeleteConfirm = () => {
-    setDeletePopUp(false);
-    setConfirmPopUp(true);
+  const onDeleteConfirm = async () => {
+    try {
+      const response = await defaultInstance.patch(
+        `/api/notice/${ownerId}/delete/${selectedPost.noticeId}`
+      );
+
+      if (response.data.isSuccess) {
+        console.log('delete post 성공');
+        posts();
+        navigate('/neighborhood/myPosts/1');
+
+        setDeletePopUp(false);
+        setConfirmPopUp(true);
+      } else {
+        console.error('delete post 실패', response.data.message);
+      }
+    } catch (error) {
+      console.error('delete post 에러');
+    }
   };
 
   /* ----- 페이징 처리 ----- */
@@ -130,6 +143,7 @@ const MyPosts = () => {
             filteredPosts={filteredPosts}
             currentPosts={currentPosts}
             setDeletePopUp={setDeletePopUp}
+            setSelectedPost={setSelectedPost}
           />
         </PostWrapper>
         <Page>
@@ -162,6 +176,7 @@ const MyPosts = () => {
           title='글이 삭제되었습니다!'
           text='남아있는 글을 확인해보세요.'
           setOpen={setConfirmPopUp}
+          onClick={setConfirmPopUp(false)}
         />
       )}
     </Container>

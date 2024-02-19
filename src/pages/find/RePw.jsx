@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import InputJoin from '../../components/common/InputJoin';
 import axios from 'axios';
 import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
+import { defaultInstance } from '../../api/axios';
 
 const RePw = () => {
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ const RePw = () => {
     setPopUp(true);
 
     try {
-      const response = await axios.patch('/api/owner/patchpw', {
+      const response = await defaultInstance.patch('/api/owner/patchpw', {
         password: newPassword,
       });
 

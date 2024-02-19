@@ -1,35 +1,61 @@
 import React from 'react';
 import styled from 'styled-components';
 import TagButton from './TagButton';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setSelectedPost } from '../../../redux/slices/postSlice';
+import { postCategoryData } from '../../../assets/data/categoryData';
+import { useSelector } from 'react-redux';
+import { defaultInstance } from '../../../api/axios';
 
-const Post = ({ data, onDelete }) => {
-  const dispatch = useDispatch();
+const Post = ({ data, onDelete, setSelectedPost }) => {
   const navigate = useNavigate();
+  const { ownerId } = useSelector((state) => state.user);
 
   /* ----- 게시글 수정 버튼 ----- */
   const handleModifyClick = () => {
-    dispatch(setSelectedPost(data));
-    const postId = data.id;
-    navigate(`/neighborhood/myPosts/myEdit/${postId}`);
+    setSelectedPost(data);
+    const noticeId = data.noticeId;
+    navigate(`/neighborhood/myPosts/myEdit/${noticeId}`, {
+      state: { selectedPost: data, noticeId },
+    });
   };
 
-  /* ----- 게시글 클릭 시 ----- */
-  const handlePostClick = () => {
-    dispatch(setSelectedPost(data));
-    const postId = data.id;
-    navigate(`/neighborhood/myPosts/myPostView/${postId}`);
+  const handlePostClick = async () => {
+    console.log('handlePostClick 함수 실행');
+    try {
+      const noticeId = data.noticeId;
+      const response = await defaultInstance.get(
+        `/api/notice/${ownerId}/detail/${noticeId}`
+      );
+      if (response.data.isSuccess) {
+        console.log('detail get 성공', response.data);
+        console.log('selectedPost', data);
+
+        navigate(`/neighborhood/myPosts/myPostView/${noticeId}`, {
+          state: { selectedPost: response.data.result },
+        });
+      }
+    } catch (error) {
+      console.error('detail get 에러:', error);
+    }
   };
+
+  const getLabelByNoticeType = (noticeType) => {
+    const category = postCategoryData.find(
+      (category) => category.id === noticeType
+    );
+    return category.label;
+  };
+
+  const createdAt = new Date(data.createdAt);
+  const formattedDate = `${createdAt.getFullYear().toString().substr(-2)}/${(createdAt.getMonth() + 1).toString().padStart(2, '0')}/${createdAt.getDate().toString().padStart(2, '0')} ${createdAt.getHours().toString().padStart(2, '0')}:${createdAt.getMinutes().toString().padStart(2, '0')}`;
 
   return (
     <Container>
       <Content onClick={handlePostClick}>
-        <TagButton label={data.label} />
+        <TagButton label={getLabelByNoticeType(data.noticeType)} />
         <TextWrapper>
           <Title>{data.title}</Title>
-          <Date>{data.time}</Date>
+          <DateTime>{formattedDate}</DateTime>
         </TextWrapper>
       </Content>
       <Btns>
@@ -90,7 +116,7 @@ const Title = styled.h4`
   overflow: hidden;
 `;
 
-const Date = styled.span`
+const DateTime = styled.span`
   font-size: ${({ theme }) => theme.fontSize.sm};
   color: ${({ theme }) => theme.colors.text};
   display: flex;

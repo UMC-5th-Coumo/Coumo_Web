@@ -6,7 +6,7 @@ import CheckList from '../../components/join/CheckList';
 import JoinBtn from '../../components/join/JoinBtn';
 import ErrorMsg from '../../components/join/ErrorMsg';
 import CheckButton from '../../components/join/CheckButton';
-import { authInstance } from '../../api/axios';
+import { defaultInstance } from '../../api/axios';
 
 const JoinOneStep = () => {
   const navigate = useNavigate();
@@ -109,9 +109,12 @@ const JoinOneStep = () => {
   const handleCheckDup = async (e) => {
     e.preventDefault();
     try {
-      const response = await authInstance.post('/owner/join/check-login-id', {
-        loginId: account.id,
-      });
+      const response = await defaultInstance.post(
+        '/owner/join/check-login-id',
+        {
+          loginId: account.id,
+        }
+      );
 
       if (response.data.isSuccess) {
         console.log('사용 가능');

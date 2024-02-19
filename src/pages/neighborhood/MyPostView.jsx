@@ -1,52 +1,26 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import styled from 'styled-components';
 import Title from '../../components/common/Title';
 import Button from '../../components/common/Button';
 import { BtnContainer } from '../coupon/UIServiceForm';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getLabelByTag } from '../../assets/data/categoryData';
 import RadioBtn from '../../components/common/RadioBtn';
 import { useParams } from 'react-router-dom';
-import { setSelectedPost } from '../../redux/slices/postSlice';
-import getMyPostView from '../../redux/thunks/getMyPostView';
 import { IoMdArrowBack } from 'react-icons/io';
-import { authInstance } from '../../api/axios';
 
 const MyPostView = () => {
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const { noticeId } = useParams();
 
-  const { postId } = useParams();
-  const selectedPost = useSelector((state) => state.post.selectedPost);
-
-  useEffect(() => {
-    const posts = async () => {
-      try {
-        const response = await authInstance.get(`/api/notice/1/detail/1`);
-        if (response.data.isSuccess) {
-          console.log('성공', response.data);
-        }
-      } catch (error) {
-        console.error('에러:', error);
-      }
-    };
-
-    posts();
-  }, []);
-
-  /* ----- 컴포넌트가 마운트될 때 받아오기 ----- */
-  // useEffect(() => {
-  //   dispatch(getMyPostView({ ownerId: 'coumo123', noticeId: postId }));
-  // }, [dispatch, postId]);
-
-  // useEffect(() => {
-  //   dispatch(setSelectedPost(selectedPost));
-  // }, [dispatch, selectedPost]);
+  const location = useLocation();
+  const selectedPost = location.state.selectedPost;
 
   /* ----- 수정 버튼 클릭 시 ----- */
   const onClickMod = () => {
-    navigate(`/neighborhood/myPosts/myEdit/${postId}`);
+    navigate(`/neighborhood/myPosts/myEdit/${noticeId}`, {
+      state: { selectedPost, noticeId },
+    });
   };
 
   return (
@@ -57,10 +31,10 @@ const MyPostView = () => {
       </TitleBox>
       <div>
         <SubTitle>카테고리</SubTitle>
-        <RadioBtn label={getLabelByTag(selectedPost.tag)} />
+        <RadioBtn label={getLabelByTag(selectedPost.noticeType)} />
       </div>
       <ImagePreview>
-        {selectedPost.image.map((image, index) => (
+        {selectedPost.noticeImages.map((image, index) => (
           <ImageWrapper key={index}>
             <Img
               key={index}
@@ -71,12 +45,12 @@ const MyPostView = () => {
         ))}
       </ImagePreview>
       <div>
-        <Box>{selectedPost.content}</Box>
+        <Box>{selectedPost.noticeContent}</Box>
       </div>
       <Btn>
         <Button
           text='취소하기'
-          onClickBtn={() => navigate(`/neighborhood/myPosts`)}
+          onClickBtn={() => navigate(`/neighborhood/myPosts/1`)}
         />
         <Button text='수정하기' type={true} onClickBtn={onClickMod} />
       </Btn>
