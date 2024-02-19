@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import MonthPicker from '../../components/admin/customer/monthlyReport/MonthPicker';
-import { authInstance, defaultInstance } from '../../api/axios';
+import { authInstance } from '../../api/axios';
 import CustomerCount from '../../components/admin/customer/monthlyReport/CustomerCount';
 import AgeStatic from '../../components/admin/customer/monthlyReport/AgeStatic';
 import DayVisitStatic from '../../components/admin/customer/monthlyReport/DayVisitStatic';

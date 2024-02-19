@@ -182,6 +182,7 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 10px;
   padding: 20px;
+  position: relative;
 `;
 
 const NoData = styled.div`

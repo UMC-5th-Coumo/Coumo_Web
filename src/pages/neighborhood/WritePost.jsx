@@ -49,14 +49,7 @@ const WritePost = () => {
       formData.append('noticeContent', inputs.content);
 
       let storeImgData = inputs.image.map(({ image }) => image);
-      // storeImgData = storeImgData.filte((data) => data !== '');
       storeImgData.forEach((image) => formData.append('noticeImages', image));
-
-      console.log('formData:', formData);
-
-      for (let value of formData) {
-        console.log('formData value', value);
-      }
 
       const response = await formAuthInstance.post(
         `/api/notice/${ownerId}/post`,
@@ -64,8 +57,6 @@ const WritePost = () => {
       );
 
       if (response.data.isSuccess) {
-        console.log('writing post 성공');
-        console.log('Sending data to server:', formData);
         navigate('/neighborhood/myPosts/1');
 
         // 서버 요청 성공 시 모달

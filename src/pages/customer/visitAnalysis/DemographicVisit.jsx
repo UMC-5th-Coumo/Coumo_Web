@@ -133,8 +133,8 @@ function DemographicVisit() {
             setNoData(true);
           } else {
             const processedData = {
-              male: data.male.toFixed(2),
-              female: 100 - data.male.toFixed(2),
+              male: parseInt(data.male),
+              female: parseInt(100 - data.male),
             };
             setDoughnutData(processedData);
             setNoData(false);
