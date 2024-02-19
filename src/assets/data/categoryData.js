@@ -1,26 +1,26 @@
 export const categoryData = [
   {
-    id: 'CAFE',
+    id: 'cafe',
     label: '카페/디저트',
   },
   {
-    id: 'RESTAURANT',
+    id: 'restaurant',
     label: '요식업',
   },
   {
-    id: 'RETAIL',
+    id: 'retail',
     label: '리테일',
   },
   {
-    id: 'BEAUTY',
+    id: 'beauty',
     label: '뷰티/살롱',
   },
   {
-    id: 'ACADEMY',
+    id: 'academy',
     label: '학원/클래스',
   },
   {
-    id: 'ENTERTAINMENT',
+    id: 'entertainment',
     label: '오락/스포츠',
   },
 ];
