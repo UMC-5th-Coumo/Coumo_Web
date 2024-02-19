@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IoMdCheckmark } from 'react-icons/io';
 import AgeGroupChart from '../common/charts/AgeGroupChart';
-import { defaultInstance } from '../../../../api/axios';
+import { authInstance, defaultInstance } from '../../../../api/axios';
 
 function AgeStatic({ selectedDate }) {
   const [ageGroupData, setAgeGroupData] = useState([]);
@@ -66,7 +66,7 @@ function AgeStatic({ selectedDate }) {
   };
 
   const getAgeGroup = async () => {
-    await defaultInstance
+    await authInstance
       .get(
         `/api/statistics/${1}/month-age?year=${selectedDate.getFullYear()}&month=${selectedDate.getMonth() + 1}`
       )

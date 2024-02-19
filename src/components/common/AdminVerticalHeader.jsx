@@ -27,7 +27,7 @@ function AdminVerticalHeader() {
   return (
     <Container>
       <Home onClick={() => handleSelectMenu('home')}>
-        <HomeLink to='/' current={current === '/'}>
+        <HomeLink to='/' $current={current === '/'}>
           <BiHomeAlt />
           HOME
         </HomeLink>
@@ -88,8 +88,8 @@ const HomeLink = styled(Link)`
   margin: 0;
   font-size: ${({ theme }) => theme.fontSize.md};
   text-decoration: none;
-  color: ${({ theme, current }) =>
-    current ? theme.colors.coumo_purple : theme.colors.text_darkgray};
+  color: ${({ theme, $current }) =>
+    $current ? theme.colors.coumo_purple : theme.colors.text_darkgray};
   font-weight: 500;
 
   display: flex;

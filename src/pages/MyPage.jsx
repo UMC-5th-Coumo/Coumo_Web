@@ -23,7 +23,7 @@ function MyPage() {
   }
 
   const handleLogOut = () => {
-    localStorage.removeItem('userToken');
+    sessionStorage.removeItem('userToken');
     persistor.purge(); // 리덕스 초기화
     navigate('/login'); // 로그아웃 후 로그인 페이지로 이동
   };
@@ -54,7 +54,7 @@ function MyPage() {
         />
       )}
       <TitleBox>
-        <Title title={`안녕하세요, ${name}님!`} size={22} />
+        <Title title={`안녕하세요, ${name}님!`} />
       </TitleBox>
       <Content>
         <Profile open={profileOpen} setProfileOpen={setProfileOpen} />

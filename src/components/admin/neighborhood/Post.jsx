@@ -59,8 +59,8 @@ const Post = ({ data, onDelete, setSelectedPost }) => {
         </TextWrapper>
       </Content>
       <Btns>
-        <PostButton onClick={handleModifyClick} isModify={true} />
-        <PostButton onClick={onDelete} isModify={false} />
+        <PostButton onClick={handleModifyClick} $isModify={true} />
+        <PostButton onClick={onDelete} $isModify={false} />
       </Btns>
     </Container>
   );
@@ -166,7 +166,7 @@ const PostButton = styled.button`
   }
 
   &:after {
-    content: '${(props) => (props.isModify ? '수정하기' : '삭제하기')}';
+    content: '${(props) => (props.$isModify ? '수정하기' : '삭제하기')}';
   }
 
   @media screen and (max-width: 1024px) {
@@ -175,7 +175,7 @@ const PostButton = styled.button`
     height: 20px;
 
     &:after {
-      content: '${(props) => (props.isModify ? '수정' : '삭제')}';
+      content: '${(props) => (props.$isModify ? '수정' : '삭제')}';
     }
   }
 `;

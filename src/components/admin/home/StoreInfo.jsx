@@ -19,7 +19,7 @@ function StoreInfo() {
         </InfoLine>
         <InfoLine>
           <h5>카테고리</h5>
-          <span>{getLabelByCategoryId(info.category)}</span>
+          <span>{getLabelByCategoryId(info.category.toLowerCase())}</span>
         </InfoLine>
         <InfoLine>
           <h5>매장 번호</h5>

@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux';
 function Profile({ open, setProfileOpen }) {
   const { name, id, email, phone } = useSelector((state) => state.user);
   return (
-    <Container open={open}>
-      <ProfileTitle open={open}>
+    <Container $open={open}>
+      <ProfileTitle $open={open}>
         <h4>내 프로필</h4>
         <DetailArrow onClick={() => setProfileOpen((prev) => !prev)} />
       </ProfileTitle>
@@ -37,7 +37,7 @@ export default Profile;
 
 const Container = styled.div`
   width: 450px;
-  height: ${(props) => (props.open ? '240px' : '60px')};
+  height: ${(props) => (props.$open ? '240px' : '60px')};
   overflow: hidden;
   display: flex;
   padding: 18px 34px;
@@ -66,7 +66,7 @@ const ProfileTitle = styled.div`
   }
 
   ${(props) =>
-    props.open &&
+    props.$open &&
     css`
       & svg {
         transform: rotateY(180deg);

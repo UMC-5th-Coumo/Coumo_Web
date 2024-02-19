@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import CheckButton from '../join/CheckButton';
 import InputJoin from '../common/InputJoin';
 import JoinBtn from '../join/JoinBtn';
-import { defaultInstance } from '../../api/axios';
+import { authInstance, defaultInstance } from '../../api/axios';
 import ErrorMsg from '../join/ErrorMsg';
 
 const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
@@ -63,7 +63,7 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
         phone: info.phone,
       };
 
-      const response = await defaultInstance.post(
+      const response = await authInstance.post(
         '/owner/find-id',
         postCertifiedData
       );
@@ -82,7 +82,7 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
     e.preventDefault();
     if (isFindEnabled()) {
       try {
-        const response = await defaultInstance.post(serverEndpoint, {
+        const response = await authInstance.post(serverEndpoint, {
           phone: info.phone,
           verificationCode: info.number,
         });
@@ -121,7 +121,7 @@ const FindForm = ({ title, idLabel, serverEndpoint, postData }) => {
     e.preventDefault();
     if (isFindEnabled()) {
       try {
-        const response = await defaultInstance.post(serverEndpoint, {
+        const response = await authInstance.post(serverEndpoint, {
           phone: info.phone,
           verificationCode: info.number,
         });

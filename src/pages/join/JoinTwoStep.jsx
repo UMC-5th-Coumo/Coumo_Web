@@ -5,7 +5,7 @@ import InputJoin from '../../components/common/InputJoin';
 import JoinBtn from '../../components/join/JoinBtn';
 import ErrorMsg from '../../components/join/ErrorMsg';
 import CheckButton from '../../components/join/CheckButton';
-import { defaultInstance } from '../../api/axios';
+import { authInstance, defaultInstance } from '../../api/axios';
 
 const JoinTwoStep = () => {
   const navigate = useNavigate();
@@ -78,7 +78,7 @@ const JoinTwoStep = () => {
         phone: info.phone,
       };
 
-      const response = await defaultInstance.post(
+      const response = await authInstance.post(
         '/owner/join/send-verification-code',
         postCertifiedData
       );
@@ -97,7 +97,7 @@ const JoinTwoStep = () => {
     e.preventDefault();
     if (info.phone && info.certified) {
       try {
-        const response = await defaultInstance.post(`/owner/join/verify-code`, {
+        const response = await authInstance.post(`/owner/join/verify-code`, {
           phone: info.phone,
           verificationCode: info.certified,
         });

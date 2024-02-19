@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import BarChart from '../../../components/admin/customer/common/charts/BarChart';
 import VisitCount from '../../../components/admin/customer/visitAnalysis/VisitCount';
-import { defaultInstance } from '../../../api/axios';
+import { authInstance, defaultInstance } from '../../../api/axios';
+import { useSelector } from 'react-redux';
 
 function DailyVisit() {
+  const { storeId } = useSelector((state) => state.user);
   const [chartData, setChartData] = useState([]);
   const [max, setMax] = useState({
     data: '',
@@ -96,8 +98,8 @@ function DailyVisit() {
   };
 
   const getWeeklyVisit = async () => {
-    await defaultInstance
-      .get(`/api/statistics/${1}/day`)
+    await authInstance
+      .get(`/api/statistics/${storeId}/day`)
       .then(async (res) => {
         if (res.data.isSuccess) {
           const data = res.data.result;

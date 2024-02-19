@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { theme } from '../../styles/theme';
 
-const InputJoin = ({
+const PopUpInput = ({
   label,
   type,
   placeholder,
@@ -11,26 +10,11 @@ const InputJoin = ({
   onChange,
   onClick,
   readOnly,
-  width,
-  star,
 }) => {
   return (
     <Element>
-      {star ? (
-        <StyledInputTitle>
-          <span>{label.slice(0, -1)}</span>
-          <span>&nbsp;</span>
-          <span style={{ color: theme.colors.coumo_purple }}>
-            {label.slice(-1)}
-          </span>
-        </StyledInputTitle>
-      ) : (
-        <StyledInputTitle>
-          <span>{label}</span>
-        </StyledInputTitle>
-      )}
+      <StyledInputTitle>{label}</StyledInputTitle>
       <StyledInput
-        isEmpty={value.length === 0}
         type={type}
         name={name}
         value={value}
@@ -38,57 +22,58 @@ const InputJoin = ({
         readOnly={readOnly}
         onChange={onChange}
         onClick={onClick}
-        $width={width}
       ></StyledInput>
     </Element>
   );
 };
 
-export default InputJoin;
+export default PopUpInput;
 
 const Element = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 5px;
 `;
 
 const StyledInputTitle = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 8px;
+  color: ${({ theme }) => theme.colors.coumo_purple};
+  font-family: 'Pretendard';
   font-size: ${({ theme }) => theme.fontSize.base};
+  font-style: normal;
+  font-weight: 700;
+  line-height: 132%; /* 31.68px */
+  letter-spacing: 0.72px;
+  margin-bottom: 5px;
+
+  @media screen and (max-width: 1024px) {
+    font-size: ${({ theme }) => theme.fontSize.md};
+  }
 `;
 
 const StyledInput = styled.input`
   display: flex;
-  width: ${({ $width }) => ($width ? $width : '370px')};
-  height: 40px;
-  padding: 9.6px 14.4px;
+  width: 340px;
+  height: 38px;
+  padding: 8px 12px;
   box-sizing: border-box;
-  border: none;
   justify-content: flex-end;
-  align-items: center;
-  gap: 9.6px;
-  align-self: stretch;
-  border-radius: 8px;
+  align-items: top;
+  gap: 8px;
+  border-radius: 4px;
+  border: 1px solid ${({ theme }) => theme.colors.text};
   background: ${({ theme }) => theme.colors.white};
   overflow: hidden;
   color: ${({ theme }) => theme.colors.text_darkgray};
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: ${({ theme }) => theme.fontSize.base};
+  font-family: 'Pretendard';
+  font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   font-weight: 400;
-  line-height: 170%; /* 32.3px */
-
-  border: 1px solid ${({ theme }) => theme.colors.text};
-  background: ${({ theme }) => theme.colors.white};
+  line-height: 170%; /* 27.2px */
 
   &:focus {
     outline: none;
     border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
-
     &::placeholder {
       opacity: 0.6;
     }

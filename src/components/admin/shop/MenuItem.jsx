@@ -62,7 +62,7 @@ function MenuItem({ id, data, handleMenuDelete, handleMenuChange }) {
                 isNew: !menuData.isNew,
               }))
             }
-            active={menuData.isNew}
+            $active={menuData.isNew}
           >
             신메뉴
           </NewBtn>
@@ -205,10 +205,10 @@ const NewBtn = styled.span`
   align-items: center;
   padding: 0 10px;
   border-radius: 62.4px;
-  background: ${({ theme, active }) =>
-    active ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
-  color: ${({ theme, active }) =>
-    active ? theme.colors.white : theme.colors.text_darkgray};
+  background: ${({ theme, $active }) =>
+    $active ? theme.colors.coumo_purple : theme.colors.btn_lightgray};
+  color: ${({ theme, $active }) =>
+    $active ? theme.colors.white : theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   font-weight: 500;

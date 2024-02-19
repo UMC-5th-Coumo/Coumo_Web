@@ -11,7 +11,7 @@ const CustomerRadio = ({
   height,
 }) => {
   return (
-    <RadioLabel height={height} isSelected={id === selected}>
+    <RadioLabel $height={height} $isSelected={id === selected}>
       <RadioInput
         type='radio'
         id={id}
@@ -20,7 +20,7 @@ const CustomerRadio = ({
         checked={id === selected}
         onChange={() => onChange(id)}
       />
-      <RadioSpan htmlFor={id} isSelected={id === selected}>
+      <RadioSpan htmlFor={id} $isSelected={id === selected}>
         {label}
       </RadioSpan>
     </RadioLabel>
@@ -32,7 +32,7 @@ export default CustomerRadio;
 const RadioLabel = styled.label`
   display: flex;
   width: 80px;
-  height: ${({ height }) => (height ? height : '40px')};
+  height: ${({ $height }) => ($height ? $height : '40px')};
   padding: 0px 12px;
   align-items: center;
   gap: 8px;
@@ -40,8 +40,8 @@ const RadioLabel = styled.label`
   border-radius: 5px;
   background: ${({ theme }) => theme.colors.white};
   border: 1px solid
-    ${({ theme, isSelected }) =>
-      isSelected ? theme.colors.coumo_purple : theme.colors.text};
+    ${({ theme, $isSelected }) =>
+      $isSelected ? theme.colors.coumo_purple : theme.colors.text};
   align-self: flex-end;
 
   @media screen and (max-width: 1024px) {
@@ -92,7 +92,7 @@ const RadioSpan = styled.span`
   font-size: ${({ theme }) => theme.fontSize.sm};
   font-style: normal;
   line-height: 170%; /* 27.2px */
-  font-weight: ${(props) => (props.isSelected ? '600' : '400')};
+  font-weight: ${(props) => (props.$isSelected ? '600' : '400')};
 
   @media screen and (max-width: 1024px) {
     font-size: ${({ theme }) => theme.fontSize.xs};

@@ -12,7 +12,7 @@ const Congratulate = () => {
       <LittleComment>
         쿠모를 통해 더 편리하게 매장을 관리해보세요!
       </LittleComment>
-      <Button ok={true} onClick={() => navigate('/login')}>
+      <Button $ok={true} onClick={() => navigate('/login')}>
         로그인 하러 가기
       </Button>
     </Card>
@@ -51,15 +51,15 @@ const LittleComment = styled.div`
 const Button = styled.button`
   width: 100%;
   height: 45px;
-  background-color: ${({ ok, theme }) =>
-    ok ? '#643daf' : theme.colors.btn_lightgray};
+  background-color: ${({ $ok, theme }) =>
+    $ok ? '#643daf' : theme.colors.btn_lightgray};
 
   border: none;
   border-radius: 8px;
   font-size: ${({ theme }) => theme.fontSize.base};
   font-weight: 700;
-  color: ${({ ok, theme }) =>
-    ok ? theme.colors.white : theme.colors.text_darkgray};
+  color: ${({ $ok, theme }) =>
+    $ok ? theme.colors.white : theme.colors.text_darkgray};
   cursor: pointer;
   margin-top: 50px;
 `;

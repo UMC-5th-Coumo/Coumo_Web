@@ -5,7 +5,7 @@ import styled from 'styled-components';
 function VerticalHeaderMenu({ menuData, selected, handleSelectMenu, current }) {
   const { id, title, size, icon, subMenus } = menuData;
   return (
-    <Menu open={selected.indexOf(id) > -1} size={size}>
+    <Menu $open={selected.indexOf(id) > -1} $size={size}>
       <TitleContainer>
         {icon}
         <MenuTitle onClick={() => handleSelectMenu(id)}>{title}</MenuTitle>
@@ -16,7 +16,7 @@ function VerticalHeaderMenu({ menuData, selected, handleSelectMenu, current }) {
             <SubMenuLink
               key={i}
               to={menu.path}
-              current={current.includes(menu.path)}
+              $current={current.includes(menu.path)}
             >
               {menu.subTitle}
             </SubMenuLink>
@@ -37,7 +37,7 @@ const Menu = styled.div`
   padding-left: 30px;
   border-bottom: 1px solid lightgray;
   overflow: hidden;
-  height: ${(props) => (props.open ? props.size : 35)}px;
+  height: ${(props) => (props.$open ? props.$size : 35)}px;
   transition: height 0.3s ease-in-out;
   cursor: pointer;
   box-sizing: border-box;
@@ -76,8 +76,8 @@ const SubMenuLink = styled(Link)`
   box-sizing: border-box;
   font-size: ${({ theme }) => theme.fontSize.base};
   text-decoration: none;
-  color: ${({ theme, current }) =>
-    current ? theme.colors.coumo_purple : theme.colors.text_darkgray};
+  color: ${({ theme, $current }) =>
+    $current ? theme.colors.coumo_purple : theme.colors.text_darkgray};
   font-weight: 600;
 
   &:hover {

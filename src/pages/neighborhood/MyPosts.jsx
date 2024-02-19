@@ -14,7 +14,7 @@ import {
   PagePrevDisable,
 } from '../../assets';
 import PostList from '../../components/admin/neighborhood/PostList';
-import { defaultInstance } from '../../api/axios';
+import { authInstance, defaultInstance } from '../../api/axios';
 
 const MyPosts = () => {
   const [deletePopUp, setDeletePopUp] = useState(false);
@@ -126,14 +126,16 @@ const MyPosts = () => {
     <Container>
       <TitleBox>
         <Title title='총 13개의 게시글이 있어요!' />
-        <Category
-          data={postCategoryData}
-          category={category}
-          setCategory={handleCategoryChange}
-          setPageId={setCurrentPage}
-          containerWidth='1000px'
-          columns='1fr 1fr 1fr 1fr'
-        />
+        <CategoryWrapper>
+          <Category
+            data={postCategoryData}
+            category={category}
+            setCategory={handleCategoryChange}
+            setPageId={setCurrentPage}
+            containerWidth='1000px'
+            columns='1fr 1fr 1fr 1fr'
+          />
+        </CategoryWrapper>
       </TitleBox>
       <BottomContainer>
         <PostWrapper>
@@ -199,6 +201,10 @@ const TitleBox = styled.div`
   @media screen and (max-width: 980px) {
     padding: 0px 0px 50px 40px;
   }
+`;
+
+const CategoryWrapper = styled.div`
+  width: fit-content;
 `;
 
 const Page = styled.div`
