@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import { BiLineChart } from 'react-icons/bi';
 import LineChart from '../customer/common/charts/LineChart';
 import { authInstance } from '../../../api/axios';
+import { useSelector } from 'react-redux';
 
 function DayGraphInfo() {
+  const { storeId } = useSelector((state) => state.user);
   const [dayVisitData, setDayVisitData] = useState([]);
   const processMonthlyData = (chartData) => {
     return chartData.map((data) => {
@@ -46,7 +48,7 @@ function DayGraphInfo() {
   const getDayVisit = async () => {
     await authInstance
       .get(
-        `/api/statistics/${1}/month-day?year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}`
+        `/api/statistics/${storeId}/month-day?year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}`
       )
       .then(async (res) => {
         if (res.data.isSuccess) {

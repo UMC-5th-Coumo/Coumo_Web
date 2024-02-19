@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IoMdCheckmark } from 'react-icons/io';
 import AgeGroupChart from '../common/charts/AgeGroupChart';
-import { authInstance, defaultInstance } from '../../../../api/axios';
+import { authInstance } from '../../../../api/axios';
+import { useSelector } from 'react-redux';
 
 function AgeStatic({ selectedDate }) {
+  const { storeId } = useSelector((state) => state.user);
   const [ageGroupData, setAgeGroupData] = useState([]);
   const [ageCount, setAgeCount] = useState({
     max: '',
@@ -43,7 +45,7 @@ function AgeStatic({ selectedDate }) {
     let minData = data.filter((d) => d.total === min)[0];
     setAgeCount((prev) => ({
       ...prev,
-      max: changeAge(minData.ageGroup),
+      min: changeAge(minData.ageGroup),
     }));
   };
 
@@ -68,7 +70,7 @@ function AgeStatic({ selectedDate }) {
   const getAgeGroup = async () => {
     await authInstance
       .get(
-        `/api/statistics/${1}/month-age?year=${selectedDate.getFullYear()}&month=${selectedDate.getMonth() + 1}`
+        `/api/statistics/${storeId}/month-age?year=${selectedDate.getFullYear()}&month=${selectedDate.getMonth() + 1}`
       )
       .then(async (res) => {
         if (res.data.isSuccess) {

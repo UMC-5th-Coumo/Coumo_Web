@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authInstance } from '../api/axios';
 import getStoreInfo from '../redux/thunks/getStoreInfo';
 import { stampData } from '../assets/data/stampData';
+import FormPopUp from '../components/admin/formPopUp/FormPopUp';
 
 function AdminHome() {
   const dispatch = useDispatch();
@@ -37,13 +38,11 @@ function AdminHome() {
 
   /* ----- 대표 쿠폰 조회 api ----- */
   const getCouponData = async () => {
-    console.log(ownerId);
     await authInstance
       .get(`/api/maincoupon/${storeId}`)
       .then(async (res) => {
         if (res.data.isSuccess) {
           const data = res.data.result;
-          console.log(data.stampImage);
           setCoupon({
             storeName: data.storeName,
             couponColor: data.couponColor,
@@ -87,7 +86,7 @@ function AdminHome() {
   return (
     <Container>
       {console.log('write 여부 > ', write)}
-      {/* {!write && <FormPopUp />} */}
+      {!write && <FormPopUp />}
       <ColumWrapper>
         <StoreInfo />
         <DayGraphInfo />
