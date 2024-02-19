@@ -40,7 +40,7 @@ function WorkingHours() {
             <Hour key={i}>
               <h5>{convertToDay(day)}</h5>
               <span>
-                {workingHours[day].startTime === 'none'
+                {workingHours[day].startTime === null
                   ? '휴무'
                   : workingHours[day].startTime +
                     ' ~ ' +

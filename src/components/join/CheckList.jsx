@@ -5,6 +5,7 @@ import { privateData, serviceData } from '../../assets/data/consentData';
 import CheckPopUp from './CheckPopUp';
 
 function CheckList({ checks, setChecks }) {
+  /* ---- 서비스 이용약관 팝업, 개인정보 정책 팝업 --- */
   const [servicePopUp, setServicePopUp] = useState(false);
   const [privatePopUp, setPrivatePopUp] = useState(false);
 
@@ -45,6 +46,7 @@ function CheckList({ checks, setChecks }) {
           )}
           <CheckTitle>개인정보 정책 동의</CheckTitle>
         </CheckWrapper>
+
         <CheckMore onClick={() => setPrivatePopUp(true)}>보기</CheckMore>
       </Agree>
       {servicePopUp && (
@@ -56,7 +58,7 @@ function CheckList({ checks, setChecks }) {
       )}
       {privatePopUp && (
         <CheckPopUp
-          title='개인정보 처리 방침'
+          title='개인정보의 수집 및 이용에 대한 동의서'
           content={privateData}
           setPopUp={setPrivatePopUp}
         />
@@ -88,6 +90,7 @@ const CheckTitle = styled.div`
   font-weight: 600;
   line-height: 32.4px; /* 180% */
   margin-left: 10px;
+  cursor: pointer;
 `;
 
 const CheckMore = styled.div`
@@ -97,6 +100,7 @@ const CheckMore = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 32.4px; /* 180% */
+  cursor: pointer;
 `;
 
 const CheckWrapper = styled.div`

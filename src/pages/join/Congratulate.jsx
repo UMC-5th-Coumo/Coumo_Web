@@ -1,12 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { LogoCongratulate } from '../../assets';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Congratulate = () => {
-  const navigate = useNavigate();
   return (
-    <Card onClick={() => navigate('/')}>
+    <Card>
       <LogoCongratulate />
       <Comment>쿠모 회원이 되신 것을 축하드려요.</Comment>
       <LittleComment>

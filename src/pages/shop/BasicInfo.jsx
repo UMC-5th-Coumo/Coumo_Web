@@ -23,6 +23,7 @@ const BasicInfo = () => {
     address: '',
     addressDetail: '',
   });
+
   const [hours, setHours] = useState({
     MONDAY: {
       day: 'MONDAY',
@@ -106,7 +107,7 @@ const BasicInfo = () => {
   };
 
   const isVaild = () => {
-    const { storeName, number, address, addressDetail } = info;
+    const { storeName, number, address, addressDetail } = storeData;
     if (
       storeName.trim() === '' ||
       number.trim() === '' ||
@@ -124,7 +125,7 @@ const BasicInfo = () => {
       alert('모든 항목을 입력해주세요.');
       return;
     }
-    const coords = await getAddressCoords(info.address);
+    const coords = await getAddressCoords(storeData.address);
 
     const storeInfo = {
       name: storeData.storeName,

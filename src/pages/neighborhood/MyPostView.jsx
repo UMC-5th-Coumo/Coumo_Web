@@ -11,10 +11,14 @@ import { IoMdArrowBack } from 'react-icons/io';
 
 const MyPostView = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  /* ---- 게시글 번호 ---- */
   const { noticeId } = useParams();
 
-  const location = useLocation();
+  /* ---- 선택한 포스트 정보 ---- */
   const selectedPost = location.state.selectedPost;
+  console.log('durl', selectedPost.noticeImages);
 
   /* ----- 수정 버튼 클릭 시 ----- */
   const onClickMod = () => {
@@ -106,16 +110,6 @@ const ImagePreview = styled.div`
   flex-direction: row;
   gap: 13px;
   overflow-x: auto;
-  height: 180px;
-
-  @media screen and (max-width: 1024px) {
-    height: 130px;
-  }
-
-  @media screen and (max-width: 768px) {
-    height: 90px;
-    gap: 5px;
-  }
 `;
 
 const ImageWrapper = styled.div`

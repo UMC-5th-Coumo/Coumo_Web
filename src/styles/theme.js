@@ -1,5 +1,5 @@
 const colors = {
-  banner_gradient: 'linear-gradient(331deg, #7733F9 6.83%, #E6D9FF 114.92%)',
+  banner_gradient: 'linear-gradient(180deg, #7C43E8 -0.2%, #ffffff 90%)',
   coumo_purple: '#7C43E8',
   coumo_lightpurple: '#EDE4FC',
   lightpurple: '#f8f4ff', // image box 연한 purple

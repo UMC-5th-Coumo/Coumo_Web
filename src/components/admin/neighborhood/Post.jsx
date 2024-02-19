@@ -19,8 +19,9 @@ const Post = ({ data, onDelete, setSelectedPost }) => {
     });
   };
 
+  /* ---- 특정 게시글 클릭 ---- */
   const handlePostClick = async () => {
-    console.log('handlePostClick 함수 실행');
+    /* ---- 게시글 세부내용 불러오기 (get) ---- */
     try {
       const noticeId = data.noticeId;
       const response = await authInstance.get(
@@ -30,6 +31,7 @@ const Post = ({ data, onDelete, setSelectedPost }) => {
         console.log('detail get 성공', response.data);
         console.log('selectedPost', data);
 
+        /* ---- selectedPost에 세부내용 저장해서 전달 ---- */
         navigate(`/neighborhood/myPosts/myPostView/${noticeId}`, {
           state: { selectedPost: response.data.result },
         });
@@ -39,6 +41,7 @@ const Post = ({ data, onDelete, setSelectedPost }) => {
     }
   };
 
+  /* ---- 카테고리 ID(영어)를 Label(한글)로 변경 함수 ---- */
   const getLabelByNoticeType = (noticeType) => {
     const category = postCategoryData.find(
       (category) => category.id === noticeType
@@ -46,6 +49,7 @@ const Post = ({ data, onDelete, setSelectedPost }) => {
     return category.label;
   };
 
+  /* ---- 글 작성시간 포맷변경 yy/mm/dd hh:mm ---- */
   const createdAt = new Date(data.createdAt);
   const formattedDate = `${createdAt.getFullYear().toString().substr(-2)}/${(createdAt.getMonth() + 1).toString().padStart(2, '0')}/${createdAt.getDate().toString().padStart(2, '0')} ${createdAt.getHours().toString().padStart(2, '0')}:${createdAt.getMinutes().toString().padStart(2, '0')}`;
 
