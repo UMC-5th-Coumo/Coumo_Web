@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser, setWrite } from '../../../redux/slices/userSlice';
-import { authInstance, defaultInstance } from '../../../api/axios';
+import { defaultInstance } from '../../../api/axios';
 
 function FormPopUp() {
   const navigate = useNavigate();
@@ -145,7 +145,7 @@ function FormPopUp() {
     console.log('storeInfo:', storeInfo);
 
     try {
-      await authInstance
+      await defaultInstance
         .put(`/api/owner/store/${storeId}/basic`, storeInfo)
         .then((res) => {
           if (res.data.isSuccess) {
@@ -166,7 +166,7 @@ function FormPopUp() {
         stampImage: couponData.stampImage,
       };
 
-      await authInstance
+      await defaultInstance
         .post(`/api/coupon/register/${ownerId}`, couponInfo)
         .then((res) => console.log(res.data));
 

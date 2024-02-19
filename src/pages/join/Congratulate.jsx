@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { LogoCongratulate } from '../../assets';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Congratulate = () => {
   const navigate = useNavigate();
@@ -12,9 +12,9 @@ const Congratulate = () => {
       <LittleComment>
         쿠모를 통해 더 편리하게 매장을 관리해보세요!
       </LittleComment>
-      <Button $ok={true} onClick={() => navigate('/login')}>
-        로그인 하러 가기
-      </Button>
+      <Link to='/login'>
+        <Button $ok={true}>로그인 하러 가기</Button>
+      </Link>
     </Card>
   );
 };

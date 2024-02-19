@@ -1,17 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Profile } from '../../assets';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const FoundId = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const loginId = location.state.loginId;
   return (
     <Container>
       <Wrapper>
         <Title>사장님의 쿠모 아이디를 찾았습니다.</Title>
         <Result>
           <Profile />
-          <Text>id</Text>
+          <Text>{loginId}</Text>
         </Result>
         <Button $ok={true} onClick={() => navigate('/login')}>
           로그인 하러 가기

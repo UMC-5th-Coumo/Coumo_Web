@@ -4,7 +4,7 @@ import TagButton from './TagButton';
 import { useNavigate } from 'react-router-dom';
 import { postCategoryData } from '../../../assets/data/categoryData';
 import { useSelector } from 'react-redux';
-import { defaultInstance } from '../../../api/axios';
+import { authInstance } from '../../../api/axios';
 
 const Post = ({ data, onDelete, setSelectedPost }) => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const Post = ({ data, onDelete, setSelectedPost }) => {
     console.log('handlePostClick 함수 실행');
     try {
       const noticeId = data.noticeId;
-      const response = await defaultInstance.get(
+      const response = await authInstance.get(
         `/api/notice/${ownerId}/detail/${noticeId}`
       );
       if (response.data.isSuccess) {

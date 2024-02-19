@@ -8,7 +8,8 @@ const FindId = () => {
       <FindForm
         title='아이디 찾기 (휴대폰 인증)'
         idLabel='사장님 성함'
-        serverEndpoint='/owner/verify-code'
+        sendEndpoint='/owner/find-id'
+        verifyEndpoint='/owner/verify-code'
         postData='name'
       />
     </Container>
