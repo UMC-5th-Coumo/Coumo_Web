@@ -48,7 +48,8 @@ const WritePost = () => {
       formData.append('title', inputs.title);
       formData.append('noticeContent', inputs.content);
 
-      const storeImgData = inputs.image.map(({ image }) => image);
+      let storeImgData = inputs.image.map(({ image }) => image);
+      // storeImgData = storeImgData.filte((data) => data !== '');
       storeImgData.forEach((image) => formData.append('noticeImages', image));
 
       console.log('formData:', formData);
@@ -75,6 +76,7 @@ const WritePost = () => {
       }
     } catch (error) {
       console.error('writing post 에러');
+      console.log(error);
     }
   };
 
