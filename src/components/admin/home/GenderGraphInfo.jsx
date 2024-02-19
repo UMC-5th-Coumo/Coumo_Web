@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BiBarChartSquare } from 'react-icons/bi';
 import AgeGroupChart from '../../admin/customer/common/charts/AgeGroupChart';
-import { authInstance, defaultInstance } from '../../../api/axios';
+import { authInstance } from '../../../api/axios';
+import { useSelector } from 'react-redux';
 
 function GenderGraphInfo() {
+  const { storeId } = useSelector((state) => state.user);
   const [ageGroupData, setAgeGroupData] = useState([]);
   const changeAge = (day) => {
     switch (day) {
@@ -46,7 +48,7 @@ function GenderGraphInfo() {
   const getAgeGroup = async () => {
     await authInstance
       .get(
-        `/api/statistics/${1}/month-age?year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}`
+        `/api/statistics/${storeId}/month-age?year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}`
       )
       .then(async (res) => {
         if (res.data.isSuccess) {

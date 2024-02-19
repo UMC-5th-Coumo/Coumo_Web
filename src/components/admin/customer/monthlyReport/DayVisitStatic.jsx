@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IoMdCheckmark } from 'react-icons/io';
 import BarChart from '../common/charts/BarChart';
-import { authInstance, defaultInstance } from '../../../../api/axios';
+import { authInstance } from '../../../../api/axios';
+import { useSelector } from 'react-redux';
 
 function DayVisitStatic({ selectedDate }) {
+  const { storeId } = useSelector((state) => state.user);
   const [dayVisitData, setDayVisitData] = useState([]);
   const [visitCount, setVisitCount] = useState({
     max: '',
@@ -60,11 +62,12 @@ function DayVisitStatic({ selectedDate }) {
   const getDayVisit = async () => {
     await authInstance
       .get(
-        `/api/statistics/${1}/month-day?year=${selectedDate.getFullYear()}&month=${selectedDate.getMonth() + 1}`
+        `/api/statistics/${storeId}/month-day?year=${selectedDate.getFullYear()}&month=${selectedDate.getMonth() + 1}`
       )
       .then(async (res) => {
         if (res.data.isSuccess) {
           const data = res.data.result;
+          console.log(data);
           setDayVisitData(processWeeklyData(data));
           getMax(data);
           getMin(data);

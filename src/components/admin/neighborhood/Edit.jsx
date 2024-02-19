@@ -40,7 +40,6 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
       <div>
         <Label>글의 제목을 작성해 주세요</Label>
         <StyledWriteTextarea
-          spellCheck='false'
           placeholder='제목을 작성해주세요. (0/30)'
           name='title'
           $height='40px'
