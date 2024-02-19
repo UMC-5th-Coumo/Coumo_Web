@@ -35,7 +35,6 @@ const ImageBlock = ({ storeImages, setStoreImages, store }) => {
 
   const handleAddImage = (e) => {
     e.preventDefault();
-    console.log('in');
     const newImage = {
       id: uuidv4(),
       image: '',
@@ -49,10 +48,10 @@ const ImageBlock = ({ storeImages, setStoreImages, store }) => {
   return (
     <Image>
       <Scroll $boxCount={storeImages.length} ref={scrollRef}>
-        {storeImages.map((data, index) => (
+        {storeImages.map((data) => (
           <StoreImage
-            key={data.index}
-            id={data.index}
+            key={data.id}
+            id={data.id}
             data={data}
             handleImageDelete={handleImageDelete}
             handleImageChange={handleImageChange}

@@ -87,7 +87,8 @@ function AdminHome() {
 
   return (
     <Container>
-      {!write && <FormPopUp />}
+      {console.log('write 여부 > ', write)}
+      {/* {!write && <FormPopUp />} */}
       <ColumWrapper>
         <StoreInfo />
         <DayGraphInfo />

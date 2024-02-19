@@ -5,7 +5,7 @@ import ImageBlock from '../shop/ImageBlock';
 import { writecategoryData } from '../../../assets/data/categoryData';
 
 const Edit = ({ category, setCategory, inputs, setInputs }) => {
-  const [storeImages, setStoreImages] = useState(inputs.image || []);
+  const [storeImages, setStoreImages] = useState([]);
   const [titleCount, setTitleCount] = useState(0);
   const [contentCount, setContentCount] = useState(0);
   const [isTitleFocused, setTitleFocused] = useState(false);
