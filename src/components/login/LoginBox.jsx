@@ -53,7 +53,7 @@ const LoginBox = () => {
           createdAt,
           write,
         } = response.data.result;
-        sessionStorage.setItem('userToken', token);
+        localStorage.setItem('userToken', token);
 
         // 로그인 정보 저장하기
         if (save) {
