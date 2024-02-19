@@ -38,6 +38,7 @@ const Container = styled.div`
   margin: 0 auto;
 
   display: flex;
+  flex-direction: column;
   box-sizing: border-box;
   padding: 100px 200px;
   position: relative;
