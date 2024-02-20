@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BiLineChart } from 'react-icons/bi';
 import LineChart from '../customer/common/charts/LineChart';
-import { authInstance } from '../../../api/axios';
+import { defaultInstance } from '../../../api/axios';
 import { useSelector } from 'react-redux';
 
 function DayGraphInfo() {
@@ -46,7 +46,7 @@ function DayGraphInfo() {
   };
 
   const getDayVisit = async () => {
-    await authInstance
+    await defaultInstance
       .get(
         `/api/statistics/${storeId}/month-day?year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}`
       )

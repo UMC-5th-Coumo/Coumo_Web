@@ -53,7 +53,6 @@ const LoginBox = () => {
           createdAt,
           write,
         } = response.data.result;
-        localStorage.setItem('userToken', token);
 
         // 로그인 정보 저장하기
         if (save) {
@@ -75,10 +74,17 @@ const LoginBox = () => {
             storeId,
             token,
             createdAt,
-            write, //false: 처음 로그인 유저, true: 기존 로그인 유저
+            write,
           })
         );
-        navigate('/');
+        localStorage.setItem('userToken', token);
+        navigate('/', {
+          state: {
+            storeId,
+            token,
+            write,
+          },
+        });
       } else {
         console.error('로그인 실패', response.data);
         setError((prev) => ({ ...prev, id: true, pw: true }));
