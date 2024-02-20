@@ -1,12 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Title from '../../components/common/Title';
 import ListBox from '../../components/admin/myPage/ListBox';
 import { useNavigate } from 'react-router-dom';
 import { IoMdArrowBack } from 'react-icons/io';
+import { defaultInstance } from '../../api/axios';
+import { useSelector } from 'react-redux';
 
 function UIServiceList() {
   const navigate = useNavigate();
+  const { ownerId } = useSelector((state) => state.user);
+
+  /* ---- 서비스 신청내역 목록 불러오기 함수 (get)  ---- */
+  const serviceList = async () => {
+    try {
+      const response = await defaultInstance.get(
+        `/api/coupon/${ownerId}/receipts`
+      );
+      if (response.data.isSuccess) {
+        console.log('UIServiceList Success:', response.data);
+      }
+    } catch (error) {
+      console.error('UIServiceList Error:', error);
+    }
+  };
+
+  /* ----- 랜더링 시, 목록 불러오기 ----- */
+  useEffect(() => {
+    serviceList();
+    console.log('dkd');
+  }, []);
+
   return (
     <Container>
       <TitleBox>
