@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import getStoreInfo from '../redux/thunks/getStoreInfo';
 import { stampData } from '../assets/data/stampData';
 import FormPopUp from '../components/admin/formPopUp/FormPopUp';
-import { authInstance, defaultInstance } from '../api/axios';
+import { defaultInstance } from '../api/axios';
 
 function AdminHome() {
   const dispatch = useDispatch();
@@ -59,7 +59,7 @@ function AdminHome() {
 
   /* ----- 이번달 방문자 수 조회 api ----- */
   const getCustomerCount = async () => {
-    await authInstance
+    await defaultInstance
       .get(
         `/api/statistics/${storeId}/month-statistics?year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}`
       )

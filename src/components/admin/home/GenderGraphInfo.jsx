@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BiBarChartSquare } from 'react-icons/bi';
 import AgeGroupChart from '../../admin/customer/common/charts/AgeGroupChart';
-import { authInstance } from '../../../api/axios';
+import { defaultInstance } from '../../../api/axios';
 import { useSelector } from 'react-redux';
 
 function GenderGraphInfo() {
@@ -46,7 +46,7 @@ function GenderGraphInfo() {
   };
 
   const getAgeGroup = async () => {
-    await authInstance
+    await defaultInstance
       .get(
         `/api/statistics/${storeId}/month-age?year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}`
       )

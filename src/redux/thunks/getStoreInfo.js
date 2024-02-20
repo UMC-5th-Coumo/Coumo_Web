@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { authInstance } from '../../api/axios';
+import { defaultInstance } from '../../api/axios';
 
 const getStoreInfo = createAsyncThunk('store/getStoreInfo', async (storeId) => {
   try {
-    const res = await authInstance.get(`/api/owner/store/${storeId}/basic`);
+    const res = await defaultInstance.get(`/api/owner/store/${storeId}/basic`);
 
     if (res.data.isSuccess) {
       const data = res.data.result;

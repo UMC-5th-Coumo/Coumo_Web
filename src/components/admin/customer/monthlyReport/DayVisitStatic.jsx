@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IoMdCheckmark } from 'react-icons/io';
 import BarChart from '../common/charts/BarChart';
-import { authInstance } from '../../../../api/axios';
+import { defaultInstance } from '../../../../api/axios';
 import { useSelector } from 'react-redux';
 
 function DayVisitStatic({ selectedDate }) {
@@ -60,7 +60,7 @@ function DayVisitStatic({ selectedDate }) {
   };
 
   const getDayVisit = async () => {
-    await authInstance
+    await defaultInstance
       .get(
         `/api/statistics/${storeId}/month-day?year=${selectedDate.getFullYear()}&month=${selectedDate.getMonth() + 1}`
       )
