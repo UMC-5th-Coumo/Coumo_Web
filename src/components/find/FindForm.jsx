@@ -16,11 +16,12 @@ const FindForm = ({
 }) => {
   const navigate = useNavigate();
 
-  // 유효성 검사 및 오류 메세지
+  /* ---- 유효성 검사 및 오류 메세지 ---- */
   const [valid, setValid] = useState({
     phone: false,
     certified: false,
     phoneMsg: '',
+    sendMsg: '',
     certifiedMsg: '',
   });
 
@@ -29,6 +30,8 @@ const FindForm = ({
     phone: '',
     number: '',
   });
+
+  /* ---- 아이디, 전화번호, 인증번호 onChange 함수 ---- */
   const onChangeId = (e) => {
     setInfo((prev) => ({ ...prev, id: e.target.value }));
   };
@@ -56,11 +59,12 @@ const FindForm = ({
     setInfo((prev) => ({ ...prev, number: e.target.value }));
   };
 
+  /* ---- 제출 조건 ---- */
   const isFindEnabled = () => {
     return info.id.trim() !== '' && valid.phone && valid.certified;
   };
 
-  // 인증번호 전송
+  /* ---- 인증번호 전송 ---- */
   const onPostCertified = async (e) => {
     e.preventDefault();
     try {
@@ -75,15 +79,25 @@ const FindForm = ({
 
       if (response.data.isSuccess) {
         console.log('인증번호 전송 완료', response.data);
+        setValid((prev) => ({
+          ...prev,
+          sendMsg: (
+            <span style={{ color: '#33bd4a' }}>{response.data.result}</span>
+          ),
+        }));
       } else {
         console.log('인증번호 전송 실패');
+        setValid((prev) => ({
+          ...prev,
+          sendMsg: response.data.message,
+        }));
       }
     } catch {
       console.error('Error Login Certified Number');
     }
   };
 
-  // 인증번호 검증
+  /* ---- 인증번호 검증 ---- */
   const onCertified = async (e) => {
     e.preventDefault();
     if (valid.phone && info.number) {
@@ -124,6 +138,7 @@ const FindForm = ({
     }
   };
 
+  /* ---- 아이디 찾기, 비밀번호 찾기 제출 ---- */
   const onSubmit = async (e) => {
     e.preventDefault();
     if (isFindEnabled()) {
@@ -169,7 +184,7 @@ const FindForm = ({
             />
             <CheckButton text='인증받기' onClick={onPostCertified} />
           </Row>
-          <ErrorMsg text={valid.phoneMsg} />
+          <ErrorMsg text={valid.phoneMsg || valid.sendMsg} />
         </div>
         <div>
           <Row>

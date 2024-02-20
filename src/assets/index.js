@@ -33,6 +33,13 @@ export { ReactComponent as BigLogo } from './icon/BigLogo.svg';
 export { ReactComponent as Symbol } from './icon/Symbol.svg';
 export { ReactComponent as CouponIcon } from './icon/CouponIcon.svg';
 
+// 랜딩 페이지
+export { ReactComponent as AndroidHome } from './icon/AndroidHome.svg';
+export { ReactComponent as AndroidNeighborAll } from './icon/AndroidNeighborAll.svg';
+export { ReactComponent as AndroidNeighborNoshow } from './icon/AndroidNeighborNoshow.svg';
+export { ReactComponent as AndroidData } from './icon/AndroidData.svg';
+export { ReactComponent as AndroidPostWrite } from './icon/AndroidPostWrite.svg';
+
 // 도장 이미지
 export { ReactComponent as Stamp1 } from './icon/stamp1.svg';
 export { ReactComponent as Stamp2 } from './icon/stamp2.svg';
