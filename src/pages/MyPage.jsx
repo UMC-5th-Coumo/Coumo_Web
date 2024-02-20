@@ -33,7 +33,7 @@ function MyPage() {
 
   const handleWithdrawal = async () => {
     try {
-      const response = await authInstance.delete(`/owner/delete/${ownerId}`);
+      const response = await defaultInstance.delete(`/owner/delete/${ownerId}`);
 
       if (response.data.isSuccess) {
         setWithdrawal(false);

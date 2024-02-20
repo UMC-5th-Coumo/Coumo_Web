@@ -4,8 +4,9 @@ import Category from '../coupon/Category';
 import { categoryData } from '../../../assets/data/categoryData';
 import AddressInput from '../shop/AddressInput';
 import PopUpInput from '../../common/PopUpInput';
+import ErrorMsg from '../../join/ErrorMsg';
 
-const Step1 = ({ storeData, setStoreData }) => {
+const Step1 = ({ storeData, setStoreData, onChangePhone, phoneValid }) => {
   const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
 
   const handleInputClick = () => {
@@ -27,16 +28,17 @@ const Step1 = ({ storeData, setStoreData }) => {
             setStoreData((prev) => ({ ...prev, name: e.target.value }))
           }
         />
-        <PopUpInput
-          name='number'
-          label='매장 전화번호'
-          type='text'
-          placeholder='ex) 010-1234-5678'
-          value={storeData.telePhone}
-          onChange={(e) =>
-            setStoreData((prev) => ({ ...prev, telePhone: e.target.value }))
-          }
-        />
+        <NumberWrapper>
+          <PopUpInput
+            name='number'
+            label='매장 전화번호'
+            type='text'
+            placeholder='ex) 01012345678'
+            value={storeData.telePhone}
+            onChange={onChangePhone}
+          />
+          <ErrorMsg text={phoneValid.msg} />
+        </NumberWrapper>
         <Category
           data={categoryData}
           category={storeData.category}
@@ -88,4 +90,9 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+`;
+
+const NumberWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
