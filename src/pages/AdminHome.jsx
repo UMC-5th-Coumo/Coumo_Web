@@ -13,6 +13,7 @@ import { defaultInstance } from '../api/axios';
 
 function AdminHome() {
   const dispatch = useDispatch();
+  const { info } = useSelector((state) => state.store);
   const { write, storeId } = useSelector((state) => state.user);
   const [coupon, setCoupon] = useState({
     storeName: '쿠모',
@@ -79,7 +80,10 @@ function AdminHome() {
   useEffect(() => {
     getCustomerCount();
     getCouponData();
-    dispatch(getStoreInfo(storeId));
+
+    if (info.storeName === '') {
+      dispatch(getStoreInfo(storeId));
+    }
   }, []);
 
   return (

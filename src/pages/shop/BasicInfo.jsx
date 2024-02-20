@@ -12,6 +12,7 @@ import AddressInput from '../../components/admin/shop/AddressInput';
 import modifyStoreInfo from '../../redux/thunks/modifyStoreInfo';
 import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 import ErrorMsg from '../../components/join/ErrorMsg';
+import getStoreInfo from '../../redux/thunks/getStoreInfo';
 
 const BasicInfo = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const BasicInfo = () => {
     address: '',
     addressDetail: '',
   });
-  const [phoneVaild, setPhoneVaild] = useState({});
+  const [phoneValid, setPhoneValid] = useState({});
   const [hours, setHours] = useState({
     isValid: false,
     msg: '',
@@ -50,6 +51,20 @@ const BasicInfo = () => {
   }
 
   useEffect(() => {
+    setStoreData({
+      storeName: info.storeName,
+      category: info.category.toLowerCase(),
+      number: info.number,
+      address: info.address,
+      addressDetail: info.addressDetail,
+    });
+    setHours(info.workingHours);
+  }, [info]);
+
+  useEffect(() => {
+    if (info.storeName === '') {
+      dispatch(getStoreInfo(storeId));
+    }
     setStoreData({
       storeName: info.storeName,
       category: info.category.toLowerCase(),
@@ -95,7 +110,7 @@ const BasicInfo = () => {
       number.trim() === '' ||
       address.trim() === '' ||
       addressDetail.trim() === '' ||
-      !phoneVaild.isVaild
+      phoneValid.isVaild
     ) {
       return false;
     } else {
@@ -129,15 +144,16 @@ const BasicInfo = () => {
 
   const onChangePhone = (e) => {
     setStoreData((prev) => ({ ...prev, number: e.target.value }));
-    const isValid = /^\d{10,11}$/.test(e.target.value);
+    const valid = /^\d{10,11}$/.test(e.target.value);
+    console.log(valid, storeData.number);
 
-    if (!isValid) {
-      setPhoneVaild({
+    if (!valid) {
+      setPhoneValid({
         isVaild: false,
         msg: '올바른 형식의 전화번호를 작성해주세요. (-없이 10~11자리)',
       });
     } else {
-      setPhoneVaild({
+      setPhoneValid({
         isValid: true,
         msg: '',
       });
@@ -168,7 +184,7 @@ const BasicInfo = () => {
             onChange={onChangePhone}
             onClick={handleInputClick}
           />
-          <ErrorMsg text={phoneVaild.msg} />
+          <ErrorMsg text={phoneValid.msg} />
         </NumberWrapper>
         <CategoryWrapper>
           <Category
