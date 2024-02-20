@@ -43,6 +43,7 @@ export const landingData = [
   },
   {
     id: 6,
+    icon: <BiArchive />,
     menu: '동네소식',
     copy: '매장과 관련된 소식을\n고객들에게 실시간으로\n전달하세요',
     description:
