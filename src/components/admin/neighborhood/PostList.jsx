@@ -6,11 +6,11 @@ function PostList({
   filteredPosts,
   currentPosts,
   setDeletePopUp,
-  setSelectedPost,
+  setSelectedPostId,
 }) {
   /* ----- 게시글 삭제 버튼 ----- */
   const handleDeleteClick = (post) => {
-    setSelectedPost(post);
+    setSelectedPostId(post.noticeId);
     setDeletePopUp(true);
   };
 
@@ -35,7 +35,7 @@ function PostList({
               key={id}
               data={data}
               onDelete={() => handleDeleteClick(data)}
-              setSelectedPost={setSelectedPost}
+              setSelectedPostId={setSelectedPostId}
             />
           );
         })
@@ -60,7 +60,7 @@ const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid ${({ theme }) => theme.colors.lightpurple_border};
   overflow: hidden;
   background-color: ${({ theme }) => theme.colors.white};
 `;
@@ -68,7 +68,7 @@ const PostContainer = styled.div`
 const ListHeader = styled.div`
   display: flex;
   padding: 16px 40px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.lightpurple_border};
 
   @media screen and (max-width: 980px) {
     padding: 16px 20px;

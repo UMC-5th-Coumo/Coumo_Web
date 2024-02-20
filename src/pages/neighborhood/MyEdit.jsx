@@ -98,7 +98,6 @@ const MyEdit = () => {
       );
 
       if (response.data.isSuccess) {
-        console.log('delete post 성공');
         navigate('/neighborhood/myPosts/1');
 
         setDeletePopUp(true);
