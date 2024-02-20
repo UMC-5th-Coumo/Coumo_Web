@@ -3,9 +3,7 @@ import Title from '../../components/common/Title';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import TwoBtnPopUp from '../../components/common/popUp/TwoBtnPopUp';
-import Category from '../../components/admin/coupon/Category';
 import { useSelector } from 'react-redux';
-import { postCategoryData } from '../../assets/data/categoryData';
 import {
   PageNext,
   PageNextDisable,
@@ -18,11 +16,10 @@ import { LuTrash2 } from 'react-icons/lu';
 
 const MyPosts = () => {
   const [deletePopUp, setDeletePopUp] = useState(false);
-  const [category, setCategory] = useState('ALL');
   const [currentPage, setCurrentPage] = useState(1);
   const [nextButtonDisabled, setNextButtonDisabled] = useState(false);
-  const [postDummyData, setPostDummyData] = useState([]);
-  const [selectedPost, setSelectedPost] = useState([]);
+  const [postData, setPostData] = useState([]);
+  const [selectedPostId, setSelectedPostId] = useState('');
 
   const navigate = useNavigate();
   const { pageId } = useParams();
@@ -36,7 +33,7 @@ const MyPosts = () => {
       );
       if (response.data.isSuccess) {
         console.log('MyPostList Success:', response.data);
-        setPostDummyData(response.data.result.notice);
+        setPostData(response.data.result.notice);
       }
     } catch (error) {
       console.error('MyPostList Error:', error);
@@ -46,18 +43,13 @@ const MyPosts = () => {
   /* ----- 랜더링 시, 게시글 목록 불러오기 && selectedPost 초기화 ----- */
   useEffect(() => {
     posts();
-    setSelectedPost(null);
+    setSelectedPostId('');
   }, []);
-
-  const filteredPosts =
-    category === 'ALL'
-      ? postDummyData
-      : postDummyData.filter((post) => post.noticeType === category);
 
   /* ----- selectedPost 변경 시 즉시 업데이트 ----- */
   useEffect(() => {
-    setSelectedPost(selectedPost);
-  }, [selectedPost]);
+    setSelectedPostId(selectedPostId);
+  }, [selectedPostId]);
 
   /* ----- 페이지 이동 처리 ----- */
   useEffect(() => {
@@ -74,19 +66,12 @@ const MyPosts = () => {
     navigate(`/neighborhood/myPosts/${newPage}`);
   };
 
-  const handleCategoryChange = (newCategory) => {
-    setCategory(newCategory);
-    setCurrentPage(1);
-    /* ---- 변경 카테고리의 첫 페이지로 이동 ---- */
-    navigate(`/neighborhood/myPosts/1`);
-  };
-
   /* ---- 페이지 이동 버튼 상태관리 ---- */
   useEffect(() => {
     setNextButtonDisabled(
-      currentPage >= Math.ceil(filteredPosts.length / postsPerPage)
+      currentPage >= Math.ceil(postData.length / postsPerPage)
     );
-  }, [currentPage, filteredPosts.length]);
+  }, [currentPage, postData.length]);
 
   /* ----- 팝업 뒷배경 스크롤, 클릭 방지 ----- */
   if (deletePopUp) {
@@ -99,7 +84,7 @@ const MyPosts = () => {
   const onDeleteConfirm = async () => {
     try {
       const response = await defaultInstance.patch(
-        `/api/notice/${ownerId}/delete/${selectedPost.noticeId}`
+        `/api/notice/${ownerId}/delete/${selectedPostId}`
       );
 
       if (response.data.isSuccess) {
@@ -120,30 +105,20 @@ const MyPosts = () => {
   const postsPerPage = 8;
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = postData.slice(indexOfFirstPost, indexOfLastPost);
 
   return (
     <Container>
       <TitleBox>
         <Title title='총 13개의 게시글이 있어요!' />
-        <CategoryWrapper>
-          <Category
-            data={postCategoryData}
-            category={category}
-            setCategory={handleCategoryChange}
-            setPageId={setCurrentPage}
-            containerWidth='1000px'
-            columns='1fr 1fr 1fr 1fr'
-          />
-        </CategoryWrapper>
       </TitleBox>
       <BottomContainer>
         <PostWrapper>
           <PostList
-            filteredPosts={filteredPosts}
+            filteredPosts={postData}
             currentPosts={currentPosts}
             setDeletePopUp={setDeletePopUp}
-            setSelectedPost={setSelectedPost}
+            setSelectedPostId={setSelectedPostId}
           />
         </PostWrapper>
         <Page>
@@ -184,21 +159,17 @@ const Container = styled.div`
   padding-top: 70px;
   box-sizing: border-box;
   overflow: hidden;
+  background-color: #fafafa;
 `;
 
 const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 38px;
-  padding: 0px 0px 50px 70px;
+  padding: 0px 0px 0px 70px;
 
   @media screen and (max-width: 980px) {
     padding: 0px 0px 50px 40px;
   }
-`;
-
-const CategoryWrapper = styled.div`
-  width: fit-content;
 `;
 
 const Page = styled.div`
@@ -214,17 +185,16 @@ const Page = styled.div`
 const PostWrapper = styled.div`
   width: 100%;
   box-sizing: border-box;
-  padding: 50px 70px;
+  padding: 30px 70px;
 
   @media screen and (max-width: 980px) {
-    padding: 50px 40px;
+    padding: 30px 40px;
   }
 `;
 
 const BottomContainer = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #f6f6f6;
   padding-bottom: 70px;
 `;
 

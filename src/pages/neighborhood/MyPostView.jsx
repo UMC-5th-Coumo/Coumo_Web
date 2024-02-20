@@ -18,7 +18,6 @@ const MyPostView = () => {
 
   /* ---- 선택한 포스트 정보 ---- */
   const selectedPost = location.state.selectedPost;
-  console.log('durl', selectedPost.noticeImages);
 
   /* ----- 수정 버튼 클릭 시 ----- */
   const onClickMod = () => {
@@ -38,11 +37,11 @@ const MyPostView = () => {
         <RadioBtn label={getLabelByTag(selectedPost.noticeType)} />
       </div>
       <ImagePreview>
-        {selectedPost.noticeImages.map((image, index) => (
+        {selectedPost.noticeImages.map(({ image }, index) => (
           <ImageWrapper key={index}>
             <Img
               key={index}
-              src={image}
+              src={URL.createObjectURL(image)}
               alt={`${selectedPost.title}-${index}`}
             />
           </ImageWrapper>

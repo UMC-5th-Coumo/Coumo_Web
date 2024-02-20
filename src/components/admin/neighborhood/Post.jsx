@@ -5,18 +5,56 @@ import { useNavigate } from 'react-router-dom';
 import { postCategoryData } from '../../../assets/data/categoryData';
 import { useSelector } from 'react-redux';
 import { defaultInstance } from '../../../api/axios';
+import { v4 as uuidv4 } from 'uuid';
 
-const Post = ({ data, onDelete, setSelectedPost }) => {
+const Post = ({ data, onDelete, setSelectedPostId }) => {
   const navigate = useNavigate();
   const { ownerId } = useSelector((state) => state.user);
 
   /* ----- 게시글 수정 버튼 ----- */
-  const handleModifyClick = () => {
-    setSelectedPost(data);
-    const noticeId = data.noticeId;
-    navigate(`/neighborhood/myPosts/myEdit/${noticeId}`, {
-      state: { selectedPost: data, noticeId },
-    });
+  const handleModifyClick = async () => {
+    try {
+      const noticeId = data.noticeId;
+      setSelectedPostId(noticeId);
+      const response = await defaultInstance.get(
+        `/api/notice/${ownerId}/detail/${noticeId}`
+      );
+      if (response.data.isSuccess) {
+        console.log('detail get 성공', response.data);
+        console.log('selectedPost', data);
+
+        const { result } = response.data;
+
+        const noticeImg = await Promise.all(
+          result.noticeImages.map(async (imgUrl) => ({
+            id: uuidv4(),
+            image: await convertURLtoFile(imgUrl),
+          }))
+        );
+
+        const postData = {
+          ...result,
+          noticeImages: noticeImg,
+        };
+
+        /* ---- selectedPost에 세부내용 저장해서 전달 ---- */
+        navigate(`/neighborhood/myPosts/myEdit/${noticeId}`, {
+          state: { selectedPost: postData, noticeId },
+        });
+      }
+    } catch (error) {
+      console.error('detail get 에러:', error);
+    }
+  };
+
+  /* ---- 이미지 url -> File object 변환 함수 ---- */
+  const convertURLtoFile = async (url) => {
+    const response = await fetch(url);
+    const data = await response.blob();
+    const ext = url.split('/').pop();
+    const filename = url.split('/').pop();
+    const metadata = { type: `image/${ext}` };
+    return new File([data], filename, metadata);
   };
 
   /* ---- 특정 게시글 클릭 ---- */
@@ -31,9 +69,23 @@ const Post = ({ data, onDelete, setSelectedPost }) => {
         console.log('detail get 성공', response.data);
         console.log('selectedPost', data);
 
+        const { result } = response.data;
+
+        const noticeImg = await Promise.all(
+          result.noticeImages.map(async (imgUrl) => ({
+            id: uuidv4(),
+            image: await convertURLtoFile(imgUrl),
+          }))
+        );
+
+        const postData = {
+          ...result,
+          noticeImages: noticeImg,
+        };
+
         /* ---- selectedPost에 세부내용 저장해서 전달 ---- */
         navigate(`/neighborhood/myPosts/myPostView/${noticeId}`, {
-          state: { selectedPost: response.data.result },
+          state: { selectedPost: postData },
         });
       }
     } catch (error) {
@@ -85,8 +137,8 @@ const Container = styled.div`
 
   background: ${({ theme }) => theme.colors.white};
 
-  &:not(:first-child) {
-    border-top: 1px solid #e0e0e0;
+  &:not(:last-child) {
+    border-bottom: 1px solid #e0e0e0;
   }
 
   &:hover {
@@ -166,7 +218,7 @@ const PostButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    border: 1px solid ${({ theme }) => theme.colors.coumo_purple};
+    border: 1px solid ${({ theme }) => theme.colors.lightpurple_border};
   }
 
   &:after {

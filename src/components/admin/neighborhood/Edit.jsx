@@ -20,11 +20,15 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
   };
 
   useEffect(() => {
+    setStoreImages(inputs.image);
+    console.log(inputs.image);
+  }, []);
+
+  useEffect(() => {
     setInputs({
       ...inputs,
       image: storeImages,
     });
-    console.log('storeImage', storeImages);
   }, [storeImages]);
 
   return (
