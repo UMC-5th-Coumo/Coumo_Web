@@ -29,7 +29,7 @@ function PostList({
       {filteredPosts.length === 0 ? (
         <NoPosts>게시물이 없습니다.</NoPosts>
       ) : (
-        currentPosts.map((data, id) => {
+        filteredPosts.map((data, id) => {
           return (
             <Post
               key={id}

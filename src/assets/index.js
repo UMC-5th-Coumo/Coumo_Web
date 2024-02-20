@@ -41,6 +41,17 @@ export { ReactComponent as AndroidNeighborNoshow } from './icon/AndroidNeighborN
 export { ReactComponent as AndroidData } from './icon/AndroidData.svg';
 export { ReactComponent as AndroidPostWrite } from './icon/AndroidPostWrite.svg';
 
+// 디자인 쿠폰
+export { ReactComponent as DesignSet1 } from './icon/DesignSet1.svg';
+export { ReactComponent as DesignSet2 } from './icon/DesignSet2.svg';
+export { ReactComponent as DesignSet3 } from './icon/DesignSet3.svg';
+export { ReactComponent as DesignCoupon1 } from './icon/DesignCoupon1.svg';
+export { ReactComponent as DesignCoupon2 } from './icon/DesignCoupon2.svg';
+export { ReactComponent as DesignCoupon3 } from './icon/DesignCoupon3.svg';
+export { ReactComponent as DesignStamp1 } from './icon/DesignStamp1.svg';
+export { ReactComponent as DesignStamp2 } from './icon/DesignStamp2.svg';
+export { ReactComponent as DesignStamp3 } from './icon/DesignStamp3.svg';
+
 // 도장 이미지
 export { ReactComponent as Stamp1 } from './icon/stamp1.svg';
 export { ReactComponent as Stamp2 } from './icon/stamp2.svg';

@@ -3,10 +3,32 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Title from '../../components/common/Title';
 import styled from 'styled-components';
 import { IoMdArrowBack } from 'react-icons/io';
+import {
+  getLabelByCategoryId,
+  getLabelByServiceApplyId,
+} from '../../assets/data/categoryData';
+import {
+  DesignCoupon1,
+  DesignCoupon2,
+  DesignCoupon3,
+  DesignStamp1,
+  DesignStamp2,
+  DesignStamp3,
+} from '../../assets';
 
 function UIServiceDetail() {
   const navigate = useNavigate();
   const { state: data } = useLocation();
+
+  /* ----- createdAt 형식 변환 ----- */
+  function formatDate(createdAt) {
+    const date = new Date(createdAt);
+    const year = date.getFullYear(); // 년도
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 월
+    const day = String(date.getDate()).padStart(2, '0'); // 일
+    return `${year}년 ${month}월 ${day}일`;
+  }
+
   return (
     <Container>
       <Wrapper>
@@ -16,20 +38,21 @@ function UIServiceDetail() {
         </TitleBox>
         <Content>
           <TagContainer>
-            <StatusTag>{data.status}</StatusTag>
+            <StatusTag>{getLabelByServiceApplyId(data.receiptState)}</StatusTag>
           </TagContainer>
           <FormContent>
             <span>
-              <strong>신청 일자:</strong> {data.createdAt}
+              <strong>신청 일자:</strong> {formatDate(data.createdAt)}
             </span>
             <span>
               <strong>신청 번호:</strong> {data.receiptId}
             </span>
             <span>
-              <strong>가게명:</strong> {data.couponTitle}
+              <strong>가게명:</strong> {data.storeName}
             </span>
             <span>
-              <strong>카테고리:</strong> {data.storeType}
+              <strong>카테고리:</strong>
+              {getLabelByCategoryId(data.storeType.toLowerCase())}
             </span>
             <span>
               <strong>쿠폰 설명</strong>
@@ -38,21 +61,31 @@ function UIServiceDetail() {
           </FormContent>
         </Content>
       </Wrapper>
-      <Wrapper>
-        <TitleBox>
-          <Title title='완성된 디자인 이미지' />
-        </TitleBox>
-        <DesignContent>
-          <DesignBox>
-            <span>쿠폰 디자인</span>
-            <CouponDesgin />
-          </DesignBox>
-          <DesignBox>
-            <span>도장 디자인</span>
-            <StampDesign />
-          </DesignBox>
-        </DesignContent>
-      </Wrapper>
+      {data.receiptState !== 'APPLIED' ? (
+        <Wrapper>
+          <TitleBox>
+            <Title title='완성된 디자인 이미지' />
+          </TitleBox>
+          <DesignContent>
+            <DesignBox>
+              <span>쿠폰 디자인</span>
+              <CouponDesgin>
+                {data.receiptId % 3 === 0 && <DesignCoupon1 />}
+                {data.receiptId % 3 === 1 && <DesignCoupon2 />}
+                {data.receiptId % 3 === 2 && <DesignCoupon3 />}
+              </CouponDesgin>
+            </DesignBox>
+            <DesignBox>
+              <span>도장 디자인</span>
+              <StampDesign>
+                {data.receiptId % 3 === 0 && <DesignStamp1 />}
+                {data.receiptId % 3 === 1 && <DesignStamp2 />}
+                {data.receiptId % 3 === 2 && <DesignStamp3 />}
+              </StampDesign>
+            </DesignBox>
+          </DesignContent>
+        </Wrapper>
+      ) : null}
     </Container>
   );
 }
@@ -149,14 +182,16 @@ const DesignBox = styled.div`
 `;
 
 const CouponDesgin = styled.div`
-  width: 400px;
-  height: 250px;
-  background-color: gainsboro;
+  & svg {
+    width: 400px;
+    height: 250px;
+  }
 `;
 
 const StampDesign = styled.div`
-  width: 100px;
-  height: 100px;
+  & svg {
+    width: 100px;
+    height: 100px;
+  }
   border-radius: 50%;
-  background-color: gainsboro;
 `;

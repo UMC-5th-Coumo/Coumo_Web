@@ -59,6 +59,21 @@ export const postCategoryData = [
   },
 ];
 
+export const serviceApplyData = [
+  {
+    id: 'APPLIED',
+    label: '신청접수',
+  },
+  {
+    id: 'WORKING',
+    label: '작업중',
+  },
+  {
+    id: 'COMPLETED',
+    label: '작업완료',
+  },
+];
+
 // label(한글)값 tag(영어)에 따라 자동 지정
 export const getLabelByTag = (tag) => {
   const category = writecategoryData.find((item) => item.id === tag);
@@ -67,5 +82,10 @@ export const getLabelByTag = (tag) => {
 
 export const getLabelByCategoryId = (tag) => {
   const category = categoryData.find((item) => item.id === tag);
+  return category ? category.label : null;
+};
+
+export const getLabelByServiceApplyId = (tag) => {
+  const category = serviceApplyData.find((item) => item.id === tag);
   return category ? category.label : null;
 };

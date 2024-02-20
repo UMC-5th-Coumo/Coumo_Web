@@ -79,7 +79,7 @@ const Article = styled.div`
   background-color: ${({ theme }) => theme.colors.coumo_purple};
   vertical-align: top;
   width: 100%;
-  height: 800px;
+  height: 700px;
   display: flex;
   flex-direction: column;
   padding-top: 120px;
@@ -90,18 +90,19 @@ const Article = styled.div`
 
   & svg {
     width: 100%;
-    height: 207px;
+    height: 310px;
     position: absolute;
     bottom: 0;
-    margin-right: 20px;
-    left: 50%;
+    margin-right: 300px;
+    left: 70%;
     transform: translate(-50%);
   }
 
-  @media screen and (max-width: 1340px) {
+  @media screen and (max-width: 1600px) {
+    height: 800px;
     & svg {
       width: 1046px;
-      left: 600px;
+      left: 670px;
     }
   }
 
@@ -112,8 +113,8 @@ const Article = styled.div`
 
     & svg {
       width: 1046px;
-      height: 150px;
-      left: 500px;
+      height: 200px;
+      left: 480px;
     }
   }
 `;
@@ -252,7 +253,7 @@ const Reason = styled.div`
   box-sizing: border-box;
 
   @media screen and (max-width: 1024px) {
-    height: 600px;
+    height: 1450px;
     padding: 96px 96px 126px 120px;
   }
 `;
@@ -269,7 +270,6 @@ const Big3 = styled.div`
 
   @media screen and (max-width: 1024px) {
     font-size: ${({ theme }) => theme.fontSize.title};
-    margin-bottom: 20px;
   }
 `;
 
@@ -310,19 +310,25 @@ const fade = keyframes`
 const ReasonCardsContainer = styled.div`
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(auto-fill, 260px);
-  gap: 0px;
-  direction: rtl;
-  margin: 30px;
+  grid-template-columns: repeat(3, 400px);
+  margin-top: 30px;
+
+  @media screen and (max-width: 1600px) {
+    width: 100%;
+    grid-template-columns: repeat(3, 300px);
+  }
 
   @media screen and (max-width: 1400px) {
     width: 100%;
     grid-template-columns: repeat(3, 200px);
   }
 
-  @media screen and (max-width: 1200px) {
+  @media screen and (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    grid-template-columns: repeat(3, 100px);
+    gap: 50px;
+    margin-top: 50px;
   }
 
   // 순차적 애니메이션

@@ -67,7 +67,7 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
       </div>
       <Image>
         <Representative>
-          <ImageLabel>대표이미지</ImageLabel>
+          <ImageLabel>이미지</ImageLabel>
           <Recommend>*이미지는 1000px, 1000px의 1:1비율을 권장합니다</Recommend>
         </Representative>
         <Scroll>
@@ -80,7 +80,7 @@ const Edit = ({ category, setCategory, inputs, setInputs }) => {
       <div>
         <Label>글의 상세설명을 작성해 주세요</Label>
         <StyledWriteTextarea
-          spellcheck='false'
+          $spellcheck='false'
           placeholder='손님들이 궁금해하실 내용을 작성해주세요 (0/500)'
           name='content'
           value={inputs.content}

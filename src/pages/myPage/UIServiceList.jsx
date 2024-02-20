@@ -1,12 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Title from '../../components/common/Title';
 import ListBox from '../../components/admin/myPage/ListBox';
 import { useNavigate } from 'react-router-dom';
 import { IoMdArrowBack } from 'react-icons/io';
+import { useSelector } from 'react-redux';
+import { defaultInstance } from '../../api/axios';
 
 function UIServiceList() {
   const navigate = useNavigate();
+  const { ownerId } = useSelector((state) => state.user);
+  const [serviceData, setServiceData] = useState([]);
+
+  /* ---- 서비스 신청내역 목록 불러오기 함수 (get)  ---- */
+  const serviceList = async () => {
+    try {
+      const response = await defaultInstance.get(
+        `/api/coupon/${ownerId}/receipts`
+      );
+      if (response.data.isSuccess) {
+        console.log('UIServiceList Success:', response.data.result);
+        setServiceData(response.data.result);
+      }
+    } catch (error) {
+      console.error('UIServiceList Error:', error);
+    }
+  };
+
+  /* ----- 랜더링 시, 목록 불러오기 ----- */
+  useEffect(() => {
+    serviceList();
+  }, []);
+
+  /* ----- serviceData 업데이트 ----- */
+  useEffect(() => {
+    console.log('Change serviceData');
+  }, [serviceData]);
+
+  /* ----- createdAt 형식 변환 ----- */
+  function formatDate(createdAt) {
+    const date = new Date(createdAt);
+    const year = date.getFullYear(); // 년도
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 월
+    const day = String(date.getDate()).padStart(2, '0'); // 일
+    return `${year}년 ${month}월 ${day}일`;
+  }
+
   return (
     <Container>
       <TitleBox>
@@ -14,11 +53,11 @@ function UIServiceList() {
         <Title title='쿠폰 UI 서비스 신청내역' />
       </TitleBox>
       <List>
-        {dummyData.map((data) => {
+        {serviceData.map((data) => {
           return (
             <ListBox
               key={data.receiptId}
-              text={data.createdAt}
+              text={formatDate(data.createdAt)}
               onClick={() =>
                 navigate(`/mypage/uiServiceList/${data.receiptId}`, {
                   state: data,

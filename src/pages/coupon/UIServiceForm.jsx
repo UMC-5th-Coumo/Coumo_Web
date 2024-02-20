@@ -57,7 +57,7 @@ const UIServiceForm = () => {
         storeName: inputs.storeName,
         phone: inputs.phone,
         email: inputs.email,
-        storeType: category,
+        storeType: category.toUpperCase(),
         couponDescription: description,
       };
 
