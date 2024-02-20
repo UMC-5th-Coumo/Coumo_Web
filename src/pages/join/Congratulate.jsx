@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { LogoCongratulate } from '../../assets';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Congratulate = () => {
+  const navigate = useNavigate();
   return (
     <Card>
       <LogoCongratulate />
@@ -11,9 +12,9 @@ const Congratulate = () => {
       <LittleComment>
         쿠모를 통해 더 편리하게 매장을 관리해보세요!
       </LittleComment>
-      <Link to='/login'>
-        <Button $ok={true}>로그인 하러 가기</Button>
-      </Link>
+      <StyledButton onClick={() => navigate('/login')}>
+        로그인 하러 가기
+      </StyledButton>
     </Card>
   );
 };
@@ -47,18 +48,16 @@ const LittleComment = styled.div`
   line-height: 32.4px; /* 180% */
 `;
 
-const Button = styled.button`
+const StyledButton = styled.button`
   width: 100%;
   height: 45px;
-  background-color: ${({ $ok, theme }) =>
-    $ok ? '#643daf' : theme.colors.btn_lightgray};
+  background-color: #643daf;
 
   border: none;
   border-radius: 8px;
   font-size: ${({ theme }) => theme.fontSize.base};
   font-weight: 700;
-  color: ${({ $ok, theme }) =>
-    $ok ? theme.colors.white : theme.colors.text_darkgray};
+  color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
   margin-top: 50px;
 `;
