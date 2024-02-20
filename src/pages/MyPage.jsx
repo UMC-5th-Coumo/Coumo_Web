@@ -9,6 +9,8 @@ import ListBox from '../components/admin/myPage/ListBox';
 import Profile from '../components/admin/myPage/Profile';
 import { persistor } from '../redux/store';
 import { defaultInstance } from '../api/axios';
+import { LuUserX2 } from 'react-icons/lu';
+import { LuLogOut } from 'react-icons/lu';
 
 function MyPage() {
   const { name, ownerId } = useSelector((state) => state.user);
@@ -31,7 +33,7 @@ function MyPage() {
 
   const handleWithdrawal = async () => {
     try {
-      const response = await defaultInstance.delete(`/owner/delete/${ownerId}`);
+      const response = await authInstance.delete(`/owner/delete/${ownerId}`);
 
       if (response.data.isSuccess) {
         setWithdrawal(false);
@@ -51,19 +53,21 @@ function MyPage() {
       {logOut && (
         <TwoBtnPopUp
           title='로그아웃 하기'
-          text='로그아웃 시, 재인증이 필요합니다'
+          text='로그아웃 시, 재로그인이 필요합니다'
           btnLabel='로그아웃'
           setOpen={setLogOut}
           onClick={handleLogOut}
+          icon={<LuLogOut />}
         />
       )}
       {withdrawal && (
         <TwoBtnPopUp
           title='정말 탈퇴하시겠습니까?'
-          text='복구가 불가능합니다.'
+          text='탈퇴 시 계정 복구가 불가능합니다.'
           btnLabel='탈퇴하기'
           setOpen={setWithdrawal}
           onClick={handleWithdrawal}
+          icon={<LuUserX2 />}
         />
       )}
       <TitleBox>

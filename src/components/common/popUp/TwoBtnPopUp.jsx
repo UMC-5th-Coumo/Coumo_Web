@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { fadeIn } from '../../../styles/GlobalStyle';
 
-function TwoBtnPopUp({ title, text, btnLabel, setOpen, onClick }) {
+function TwoBtnPopUp({ title, text, btnLabel, setOpen, onClick, icon }) {
   return (
     <Container>
       <PopUp>
+        <IconBox>{icon}</IconBox>
         <TextBox>
           <PopUpTitle>{title}</PopUpTitle>
           <span>{text}</span>
@@ -26,21 +27,21 @@ function TwoBtnPopUp({ title, text, btnLabel, setOpen, onClick }) {
 export default TwoBtnPopUp;
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   position: absolute;
   top: 0;
   left: 0;
   background-color: #93939317;
-  z-index: 15;
+  z-index: 100;
 `;
 
 const PopUp = styled.div`
-  width: 380px;
+  width: 320px;
   height: auto;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
-  z-index: 20;
+  z-index: 200;
 
   position: fixed;
   top: 50%;
@@ -49,6 +50,7 @@ const PopUp = styled.div`
 
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-between;
   gap: 20px;
   box-sizing: border-box;
@@ -63,8 +65,9 @@ const PopUp = styled.div`
 
 const TextBox = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
 
   & span {
     font-size: ${({ theme }) => theme.fontSize.sm};
@@ -89,14 +92,15 @@ const PopUpTitle = styled.h3`
 `;
 
 const BtnContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
 `;
 
 const Button = styled.button`
   width: 100%;
-  height: 45px;
+  height: 40px;
   background-color: ${({ $ok, theme }) =>
     $ok ? '#643daf' : theme.colors.btn_lightgray};
 
@@ -110,5 +114,21 @@ const Button = styled.button`
 
   @media screen and (max-width: 1024px) {
     height: 40px;
+  }
+`;
+
+const IconBox = styled.div`
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #643daf;
+  border-radius: 50%;
+
+  & svg {
+    width: 25px;
+    height: 25px;
+    color: white;
   }
 `;

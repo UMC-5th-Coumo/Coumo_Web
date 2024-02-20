@@ -12,12 +12,11 @@ import { useSelector } from 'react-redux';
 const UIServiceForm = () => {
   const [popUp, setPopUp] = useState(false);
   const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('CAFE');
+  const [category, setCategory] = useState('cafe');
   const [inputs, setInputs] = useState({
     storeName: '',
     phone: '',
     email: '',
-    category: '',
   });
   const navigate = useNavigate();
   const { ownerId } = useSelector((state) => state.user);
@@ -53,8 +52,7 @@ const UIServiceForm = () => {
         storeName: inputs.storeName,
         phone: inputs.phone,
         email: inputs.email,
-        // storeType: inputs.category,
-        storeType: 'CAFE',
+        storeType: category,
         couponDescription: description,
       };
 
@@ -79,7 +77,7 @@ const UIServiceForm = () => {
 
   const submitPopUp = () => {
     setPopUp(false);
-    navigate('/mypage'); // 신청 내역 페이지로 랜딩할 예정
+    navigate('/mypage/uiServiceList'); // 신청 내역 페이지로 랜딩할 예정
   };
 
   const resetData = () => {
@@ -154,7 +152,7 @@ const UIServiceForm = () => {
         {popUp && (
           <OneBtnPopUp
             title='신청서가 정상적으로 제출되었습니다.'
-            text='담당자가 신청서 확인 후, 개별 연락 드릴예정이오니<br> 참고 부탁드립니다 :)'
+            text='담당자가 신청서 확인 후, 개별 연락 드릴예정입니다.'
             onClick={submitPopUp}
           />
         )}
@@ -171,7 +169,6 @@ const Content = styled.div`
   color: ${({ theme }) => theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.base};
   box-sizing: border-box;
-  position: relative;
   padding: 70px 100px;
 
   @media screen and (max-width: 1024px) {
