@@ -6,7 +6,7 @@ import ColorPicker from '../../components/admin/coupon/ColorPicker';
 import StampCount from '../../components/admin/coupon/StampCount';
 import StampList from '../../components/admin/coupon/StampList';
 import Button from '../../components/common/Button';
-import { authInstance } from '../../api/axios';
+import { authInstance, defaultInstance } from '../../api/axios';
 import { stampData } from '../../assets/data/stampData';
 import { useSelector } from 'react-redux';
 
@@ -34,7 +34,7 @@ const AddCoupon = () => {
       stampImage: selectedStamp.id,
     };
 
-    await authInstance
+    await defaultInstance
       .post(`/api/coupon/register/${ownerId}`, couponData)
       .then((res) => console.log(res.data));
   };

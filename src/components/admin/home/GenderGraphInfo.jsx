@@ -96,6 +96,14 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media screen and (max-width: 1430px) {
+    width: 400px;
+    height: 310px;
+  }
+  @media screen and (max-width: 1170px) {
+    width: 430px;
+  }
 `;
 
 const Title = styled.h2`
@@ -117,4 +125,8 @@ const Title = styled.h2`
 const ChartWrapper = styled.div`
   width: 100%;
   height: 190px;
+
+  @media screen and (max-width: 1430px) {
+    height: 230px;
+  }
 `;

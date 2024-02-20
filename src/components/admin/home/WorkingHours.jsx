@@ -69,6 +69,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media screen and (max-width: 1430px) {
+    width: 390px;
+  }
+  @media screen and (max-width: 1170px) {
+    width: 200px;
+  }
 `;
 
 const Title = styled.h2`
@@ -113,5 +120,12 @@ const Hour = styled.div`
   & span {
     width: 130px;
     font-size: ${({ theme }) => theme.fontSize.base};
+
+    @media screen and (max-width: 1430px) {
+      width: 280px;
+    }
+    @media screen and (max-width: 1170px) {
+      width: 120px;
+    }
   }
 `;

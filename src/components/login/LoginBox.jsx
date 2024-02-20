@@ -63,7 +63,6 @@ const LoginBox = () => {
           localStorage.removeItem('id');
           localStorage.removeItem('pw');
         }
-        navigate('/');
 
         dispatch(
           setUser({
@@ -79,10 +78,7 @@ const LoginBox = () => {
             write, //false: 처음 로그인 유저, true: 기존 로그인 유저
           })
         );
-
-        console.log('로그인 시 write', write);
-
-        console.log(response.data);
+        navigate('/');
       } else {
         console.error('로그인 실패', response.data);
         setError((prev) => ({ ...prev, id: true, pw: true }));

@@ -14,7 +14,7 @@ import {
   PagePrevDisable,
 } from '../../assets';
 import PostList from '../../components/admin/neighborhood/PostList';
-import { authInstance } from '../../api/axios';
+import { authInstance, defaultInstance } from '../../api/axios';
 
 const MyPosts = () => {
   const [deletePopUp, setDeletePopUp] = useState(false);
@@ -32,7 +32,7 @@ const MyPosts = () => {
   /* ---- 게시글 목록 불러오기 함수 (get)  ---- */
   const posts = async () => {
     try {
-      const response = await authInstance.get(
+      const response = await defaultInstance.get(
         `/api/notice/${ownerId}/list?pageId=${pageId}`
       );
       if (response.data.isSuccess) {
@@ -99,7 +99,7 @@ const MyPosts = () => {
   /* ----- 게시글 삭제 버튼 ----- */
   const onDeleteConfirm = async () => {
     try {
-      const response = await authInstance.patch(
+      const response = await defaultInstance.patch(
         `/api/notice/${ownerId}/delete/${selectedPost.noticeId}`
       );
 

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import ListBox from '../components/admin/myPage/ListBox';
 import Profile from '../components/admin/myPage/Profile';
 import { persistor } from '../redux/store';
-import { authInstance, defaultInstance } from '../api/axios';
+import { defaultInstance } from '../api/axios';
 
 function MyPage() {
   const { name, ownerId } = useSelector((state) => state.user);

@@ -49,6 +49,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media screen and (max-width: 1430px) {
+    width: 400px;
+  }
+  @media screen and (max-width: 1170px) {
+    width: 430px;
+  }
 `;
 
 const Title = styled.h2`
@@ -98,5 +105,9 @@ const InfoLine = styled.div`
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
+
+    @media screen and (max-width: 1430px) {
+      width: 250px;
+    }
   }
 `;
