@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 function GenderGraphInfo() {
   const { storeId } = useSelector((state) => state.user);
   const [ageGroupData, setAgeGroupData] = useState([]);
+  const [noData, setNoData] = useState(false);
   const changeAge = (day) => {
     switch (day) {
       case '10s':
@@ -58,7 +59,17 @@ function GenderGraphInfo() {
               maleData: processData('male', data),
               femaleData: processData('female', data),
             };
+          }
+
+          if (data.length > 0) {
+            const processedData = {
+              maleData: processData('male', data),
+              femaleData: processData('female', data),
+            };
+            setNoData(false);
             setAgeGroupData(processedData);
+          } else {
+            setNoData(true);
           }
         }
       })
@@ -77,6 +88,11 @@ function GenderGraphInfo() {
       <ChartWrapper>
         <AgeGroupChart type='light' chartData={ageGroupData} />
       </ChartWrapper>
+      {noData && (
+        <NoData>
+          <span>데이터 없음</span>
+        </NoData>
+      )}
     </Container>
   );
 }
@@ -96,6 +112,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative;
 
   @media screen and (max-width: 1430px) {
     width: 400px;
@@ -104,6 +121,21 @@ const Container = styled.div`
   @media screen and (max-width: 1170px) {
     width: 430px;
   }
+`;
+
+const NoData = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border-radius: 12px;
+  top: 0;
+  left: 0;
+  background-color: #80808036;
+  color: ${({ theme }) => theme.colors.text_black};
+  font-size: ${({ theme }) => theme.fontSize.base};
 `;
 
 const Title = styled.h2`

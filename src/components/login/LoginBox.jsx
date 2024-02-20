@@ -78,13 +78,7 @@ const LoginBox = () => {
           })
         );
         localStorage.setItem('userToken', token);
-        navigate('/', {
-          state: {
-            storeId,
-            token,
-            write,
-          },
-        });
+        navigate('/mypage');
       } else {
         console.error('로그인 실패', response.data);
         setError((prev) => ({ ...prev, id: true, pw: true }));

@@ -40,7 +40,7 @@ function App() {
             <AdminVerticalHeader />
             <AdminWrapper>
               <Routes>
-                <Route path='/login' element={<AdminHome />} />
+                <Route path='/login' element={<MyPage />} />
                 <Route path='/' element={<AdminHome />} />
                 <Route path='/shop/*' element={<Shop />} />
                 <Route path='/neighborhood/*' element={<Neighborhood />} />
