@@ -18,27 +18,46 @@ const Home = () => {
   return (
     <Container>
       <Banner />
-      <P>
-        내 모든 금융 내역을 한눈에 조회하고 한 곳에서 관리하세요. 이제껏 경험 못
-        했던 쉽고 편리한 금융 서비스, 쿠모와 함께라면 당신의 일상이 새로워질
-        거예요.
-      </P>
+      <Comment>
+        <P>
+          카페, 음식점, 미용실 등 매장을 방문할 때마다 나눠주는 종이 쿠폰을
+          관리하기 힘들지 않으셨나요? 이제 휴대폰으로 쿠폰을 한 눈에 모아보세요
+        </P>
+        <P>
+          매장 서칭부터 쿠폰 적립, 동네 소식 파악까지 한 번에! 이제껏 경험하지
+          못 했던 쉽고 편리한 쿠폰 적립 서비스, 쿠모와 함께라면 당신의 일상이
+          편해질 거예요
+        </P>
+      </Comment>
+      <Button>소비자 이용 APP</Button>
       <HomePay>
         <AndroidHome />
-        <LandingCopy data={landingData[0]} />
+        <Column>
+          <LandingCopy data={landingData[0]} />
+          <AndroidHome />
+        </Column>
       </HomePay>
       <Coupon>
-        <LandingCopy data={landingData[1]} />
+        <AndroidHome />
+        <Column>
+          <LandingCopy data={landingData[1]} />
+        </Column>
       </Coupon>
       <HomePay>
-        <AndroidNeighborAll />
-        <LandingCopy data={landingData[2]} />
-        <AndroidNeighborNoshow />
+        <AndroidHome />
+        <Column>
+          <LandingCopy data={landingData[2]} />
+          <AndroidHome />
+        </Column>
       </HomePay>
+      <Button>사장단 이용 WEB</Button>
       <HomePay>
         <AndroidData />
-        <LandingCopy data={landingData[3]} />
+        <Column>
+          <LandingCopy data={landingData[3]} />
+        </Column>
       </HomePay>
+
       <HomePay>
         <LandingCopy data={landingData[4]} />
         <AndroidPostWrite />
@@ -63,26 +82,54 @@ const Container = styled.div`
   overflow-x: hidden;
 `;
 
-const P = styled.p`
+const Comment = styled.div`
   width: 520px;
+  height: 700px;
+  gap: 100px;
+  padding: 200px 200px;
+`;
+
+const P = styled.p`
   /* font-size: ${({ theme }) => theme.fontSize.title}; */
   font-size: 22px;
   font-weight: 600;
   line-height: 180%;
-  white-space: pre-wrap;
+  white-space: pre-line;
   text-align: center;
+`;
+
+const Button = styled.button`
+  width: 450px;
+  height: 90px;
+  /* background-color: ${({ theme }) => theme.colors.coumo_purple}; */
+  background-color: #643daf;
+  border-radius: 50px;
+  color: ${({ theme }) => theme.colors.white};
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 200px;
 `;
 
 const HomePay = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  gap: 80px;
+  margin-bottom: 300px;
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
 `;
 
 const Coupon = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  gap: 80px;
+  margin-bottom: 300px;
 `;
 
 const Service = styled.div`
