@@ -105,6 +105,10 @@ const CouponExample = styled.div`
   gap: 18px;
   border-radius: 12px;
 
+  @media screen and (max-width: 1440px) {
+    width: 360px;
+  }
+
   @media screen and (max-width: 1170px) {
     width: 390px;
   }
@@ -147,9 +151,14 @@ const StampBox = styled.div`
   justify-content: center;
   gap: ${(props) => (props.$num > 10 ? '5px 15px' : '10px 15px')};
 
+  @media screen and (max-width: 1440px) {
+    width: ${(props) => (props.$num > 8 ? '320px' : '300px')};
+    gap: ${(props) => (props.$num > 10 ? '5px 12px' : '5px 15px')};
+  }
+
   @media screen and (max-width: 1170px) {
-    width: 340px;
-    gap: 10px 15px;
+    width: ${(props) => (props.$num > 8 ? '320px' : '280px')};
+    gap: ${(props) => (props.$num > 10 ? '10px 12px' : '10px 15px')};
   }
 `;
 
@@ -162,13 +171,17 @@ const Stamp = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media screen and (max-width: 1024px) {
-    width: ${(props) => (props.$num > 10 ? '38px' : '45px')};
-    height: ${(props) => (props.$num > 10 ? '38px' : '45px')};
-  }
-
   & img {
     width: 40px;
     height: 40px;
+
+    @media screen and (max-width: 1170px) {
+      width: ${(props) => (props.$num > 10 ? '30px' : '35px')};
+      height: ${(props) => (props.$num > 10 ? '30px' : '35px')};
+    }
+    @media screen and (max-width: 1440px) {
+      width: ${(props) => (props.$num > 10 ? '28px' : '32px')};
+      height: ${(props) => (props.$num > 10 ? '28px' : '32px')};
+    }
   }
 `;

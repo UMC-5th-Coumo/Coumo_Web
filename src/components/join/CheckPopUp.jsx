@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Cancel } from '../../assets';
 
 const CheckPopUp = ({ title, content, setPopUp }) => {
+  const outsideRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (outsideRef.current && !outsideRef.current.contains(event.target)) {
+        setPopUp(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [outsideRef, setPopUp]);
+
   return (
     <Background>
-      <AgreePop>
+      <AgreePop ref={outsideRef}>
         <Div>
           <Back>
             <Title>{title}</Title>
