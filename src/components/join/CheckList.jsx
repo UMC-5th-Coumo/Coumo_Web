@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { CheckBoxDefault, CheckBoxSelected } from '../../assets';
 import { privateData, serviceData } from '../../assets/data/consentData';

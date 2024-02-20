@@ -121,6 +121,11 @@ const Container = styled.div`
   justify-content: space-between;
   gap: 50px;
   padding: 30px 70px;
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    overflow: auto;
+  }
 `;
 
 const DesignContainer = styled.div`
@@ -140,6 +145,9 @@ const ColorWrapper = styled.div`
   display: flex;
   width: 100%;
   gap: 35px;
+  @media screen and (max-width: 1024px) {
+    justify-content: center;
+  }
 `;
 
 const Step = styled.div`
@@ -147,6 +155,10 @@ const Step = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
+
+  @media screen and (max-width: 1024px) {
+    align-items: center;
+  }
 `;
 
 const StepName = styled.span`
@@ -187,6 +199,11 @@ const CouponExample = styled.div`
   justify-content: center;
   gap: 18px;
   border-radius: 12px;
+
+  @media screen and (max-width: 1024px) {
+    width: 400px;
+    height: 225px;
+  }
 `;
 
 const CouponTitle = styled.div`
@@ -214,6 +231,12 @@ const StampBox = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: ${(props) => (props.$num > 10 ? '0px 12px' : '10px 15px')};
+
+  @media screen and (max-width: 1024px) {
+    width: ${(props) => (props.$num > 8 ? '350px' : '280px')};
+    height: 128px;
+    gap: ${(props) => (props.$num > 10 ? '0px 12px' : '0px 15px')};
+  }
 `;
 
 const Stamp = styled.div`
@@ -225,6 +248,11 @@ const Stamp = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 1024px) {
+    width: ${(props) => (props.$num > 10 ? '48px' : '55px')};
+    height: ${(props) => (props.$num > 10 ? '48px' : '55px')};
+  }
 `;
 
 const CouponContainer = styled.div`

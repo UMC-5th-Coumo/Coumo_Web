@@ -51,7 +51,7 @@ export const Btn = styled.button`
 
   @media screen and (max-width: 1024px) {
     font-size: ${({ theme }) => theme.fontSize.sm};
-    padding: 8px 12px;
+    padding: 8px 20px;
     height: 38px;
   }
 `;

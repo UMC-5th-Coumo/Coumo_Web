@@ -80,10 +80,7 @@ function AdminHome() {
   useEffect(() => {
     getCustomerCount();
     getCouponData();
-
-    if (info.storeName === '') {
-      dispatch(getStoreInfo(storeId));
-    }
+    dispatch(getStoreInfo(storeId));
   }, []);
 
   return (
