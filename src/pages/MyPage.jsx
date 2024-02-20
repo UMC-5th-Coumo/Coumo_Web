@@ -11,9 +11,10 @@ import { persistor } from '../redux/store';
 import { defaultInstance } from '../api/axios';
 import { LuUserX2 } from 'react-icons/lu';
 import { LuLogOut } from 'react-icons/lu';
+import FormPopUp from '../components/admin/formPopUp/FormPopUp';
 
 function MyPage() {
-  const { name, ownerId } = useSelector((state) => state.user);
+  const { name, ownerId, write } = useSelector((state) => state.user);
   const [logOut, setLogOut] = useState(false);
   const [withdrawal, setWithdrawal] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -50,6 +51,7 @@ function MyPage() {
 
   return (
     <Container>
+      {!write && <FormPopUp />}
       {logOut && (
         <TwoBtnPopUp
           title='로그아웃 하기'

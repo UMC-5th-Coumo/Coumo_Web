@@ -10,12 +10,17 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setWrite } from '../../../redux/slices/userSlice';
 import { defaultInstance } from '../../../api/axios';
+import { useNavigate } from 'react-router-dom';
 
 function FormPopUp() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { storeId, ownerId } = useSelector((state) => state.user);
   const [step, setStep] = useState(0);
-  const [phoneVaild, setPhoneVaild] = useState({});
+  const [phoneValid, setPhoneVaild] = useState({
+    isValid: false,
+    msg: '',
+  });
   const [hours, setHours] = useState({
     MONDAY: {
       day: 'MONDAY',
@@ -187,7 +192,7 @@ function FormPopUp() {
   };
 
   const onChangePhone = (e) => {
-    setStoreData((prev) => ({ ...prev, number: e.target.value }));
+    setStoreData((prev) => ({ ...prev, telePhone: e.target.value }));
     const isValid = /^\d{10,11}$/.test(e.target.value);
 
     if (!isValid) {
@@ -217,7 +222,7 @@ function FormPopUp() {
                   storeData={storeData}
                   setStoreData={setStoreData}
                   onChangePhone={onChangePhone}
-                  phoneVaild={phoneVaild}
+                  phoneValid={phoneValid}
                 />
               )}
               {step === 2 && <Step2 hours={hours} setHours={setHours} />}
@@ -247,7 +252,7 @@ function FormPopUp() {
                 <NextBtn
                   onClick={() => {
                     dispatch(setWrite(true));
-                    window.location.reload();
+                    navigate('/');
                   }}
                 >
                   시작하기

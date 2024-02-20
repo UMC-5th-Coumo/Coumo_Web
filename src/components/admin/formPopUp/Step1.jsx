@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Category from '../coupon/Category';
 import { categoryData } from '../../../assets/data/categoryData';
@@ -8,6 +8,10 @@ import ErrorMsg from '../../join/ErrorMsg';
 
 const Step1 = ({ storeData, setStoreData, onChangePhone, phoneValid }) => {
   const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
+
+  useEffect(() => {
+    console.log(phoneValid);
+  }, []);
 
   const handleInputClick = () => {
     if (isPostcodeOpen) {

@@ -56,15 +56,27 @@ const StoreInfo = () => {
           data.menus.map((menu) => convertURLtoFile(menu.image))
         );
 
-        setMenus(
-          data.menus.map((menu, index) => ({
-            id: uuidv4(),
-            name: menu.name,
-            description: menu.description,
-            image: menuImages[index],
-            isNew: menu.isNew,
-          }))
-        );
+        if (data.menus.length !== 0) {
+          setMenus(
+            data.menus.map((menu, index) => ({
+              id: uuidv4(),
+              name: menu.name,
+              description: menu.description,
+              image: menuImages[index],
+              isNew: menu.isNew,
+            }))
+          );
+        } else {
+          setMenus([
+            {
+              id: uuidv4(),
+              name: '',
+              description: '',
+              image: '',
+              isNew: false,
+            },
+          ]);
+        }
       })
       .catch((err) => console.log(err));
   };

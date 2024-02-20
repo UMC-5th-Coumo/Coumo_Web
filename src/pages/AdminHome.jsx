@@ -9,7 +9,6 @@ import GenderGraphInfo from '../components/admin/home/GenderGraphInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import getStoreInfo from '../redux/thunks/getStoreInfo';
 import { stampData } from '../assets/data/stampData';
-import FormPopUp from '../components/admin/formPopUp/FormPopUp';
 import { defaultInstance } from '../api/axios';
 
 function AdminHome() {
@@ -85,8 +84,6 @@ function AdminHome() {
 
   return (
     <Container>
-      {console.log('write 여부 > ', write)}
-      {!write && <FormPopUp />}
       <ColumWrapper>
         <StoreInfo />
         <DayGraphInfo />
