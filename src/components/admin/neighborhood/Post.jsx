@@ -4,7 +4,7 @@ import TagButton from './TagButton';
 import { useNavigate } from 'react-router-dom';
 import { postCategoryData } from '../../../assets/data/categoryData';
 import { useSelector } from 'react-redux';
-import { authInstance } from '../../../api/axios';
+import { defaultInstance } from '../../../api/axios';
 
 const Post = ({ data, onDelete, setSelectedPost }) => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Post = ({ data, onDelete, setSelectedPost }) => {
     /* ---- 게시글 세부내용 불러오기 (get) ---- */
     try {
       const noticeId = data.noticeId;
-      const response = await authInstance.get(
+      const response = await defaultInstance.get(
         `/api/notice/${ownerId}/detail/${noticeId}`
       );
       if (response.data.isSuccess) {

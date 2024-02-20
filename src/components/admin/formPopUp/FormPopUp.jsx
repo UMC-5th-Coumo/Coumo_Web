@@ -9,7 +9,7 @@ import Step4 from './Step4';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser, setWrite } from '../../../redux/slices/userSlice';
+import { setWrite } from '../../../redux/slices/userSlice';
 import { defaultInstance } from '../../../api/axios';
 
 function FormPopUp() {

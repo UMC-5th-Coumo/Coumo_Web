@@ -46,6 +46,14 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media screen and (max-width: 1430px) {
+    width: 390px;
+  }
+  @media screen and (max-width: 1170px) {
+    width: 200px;
+    height: 120px;
+  }
 `;
 
 const Title = styled.h2`
@@ -57,6 +65,10 @@ const Title = styled.h2`
   display: flex;
   align-items: center;
   gap: 10px;
+
+  @media screen and (max-width: 1170px) {
+    font-size: 13px;
+  }
 
   & svg {
     width: 22px;
@@ -76,6 +88,10 @@ const CustomerCount = styled.div`
     color: ${({ theme }) => theme.colors.coumo_purple};
     text-align: center;
     font-weight: 700;
+
+    @media screen and (max-width: 1170px) {
+      font-size: 22px;
+    }
   }
 
   & span {

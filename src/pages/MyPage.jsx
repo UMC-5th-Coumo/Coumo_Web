@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import ListBox from '../components/admin/myPage/ListBox';
 import Profile from '../components/admin/myPage/Profile';
 import { persistor } from '../redux/store';
-import { authInstance } from '../api/axios';
+import { defaultInstance } from '../api/axios';
 import { LuUserX2 } from 'react-icons/lu';
 import { LuLogOut } from 'react-icons/lu';
 

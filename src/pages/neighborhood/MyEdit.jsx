@@ -9,7 +9,7 @@ import Edit from '../../components/admin/neighborhood/Edit';
 import TwoBtnPopUp from '../../components/common/popUp/TwoBtnPopUp';
 import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 import { IoMdArrowBack } from 'react-icons/io';
-import { authInstance, formAuthInstance } from '../../api/axios';
+import { defaultInstance, formAuthInstance } from '../../api/axios';
 
 const MyEdit = () => {
   const navigate = useNavigate();
@@ -93,7 +93,7 @@ const MyEdit = () => {
 
   const onDelete = async () => {
     try {
-      const response = await authInstance.patch(
+      const response = await defaultInstance.patch(
         `/api/notice/${ownerId}/delete/${noticeId}`
       );
 
