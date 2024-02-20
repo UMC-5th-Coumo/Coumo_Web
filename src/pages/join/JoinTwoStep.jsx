@@ -59,7 +59,7 @@ const JoinTwoStep = () => {
     if (!isValid) {
       setValid((prev) => ({
         ...prev,
-        phoneMsg: '올바른 형식의 전화번호를 작성해주세요.',
+        phoneMsg: '올바른 형식의 전화번호를 작성해주세요. (-없이 10~11자리)',
       }));
       setValid((prev) => ({ ...prev, phone: false }));
     } else {

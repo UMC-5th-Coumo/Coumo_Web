@@ -6,17 +6,16 @@ import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
 import Step4 from './Step4';
-import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setWrite } from '../../../redux/slices/userSlice';
 import { defaultInstance } from '../../../api/axios';
 
 function FormPopUp() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { storeId, ownerId } = useSelector((state) => state.user);
   const [step, setStep] = useState(0);
+  const [phoneVaild, setPhoneVaild] = useState({});
   const [hours, setHours] = useState({
     MONDAY: {
       day: 'MONDAY',
@@ -187,6 +186,23 @@ function FormPopUp() {
     );
   };
 
+  const onChangePhone = (e) => {
+    setStoreData((prev) => ({ ...prev, number: e.target.value }));
+    const isValid = /^\d{10,11}$/.test(e.target.value);
+
+    if (!isValid) {
+      setPhoneVaild({
+        isVaild: false,
+        msg: '올바른 형식의 전화번호를 작성해주세요. (-없이 10~11자리)',
+      });
+    } else {
+      setPhoneVaild({
+        isValid: true,
+        msg: '',
+      });
+    }
+  };
+
   return (
     <Container>
       <Popup>
@@ -197,7 +213,12 @@ function FormPopUp() {
             <MultiStep step={step} />
             <Content>
               {step === 1 && (
-                <Step1 storeData={storeData} setStoreData={setStoreData} />
+                <Step1
+                  storeData={storeData}
+                  setStoreData={setStoreData}
+                  onChangePhone={onChangePhone}
+                  phoneVaild={phoneVaild}
+                />
               )}
               {step === 2 && <Step2 hours={hours} setHours={setHours} />}
               {step === 3 && (

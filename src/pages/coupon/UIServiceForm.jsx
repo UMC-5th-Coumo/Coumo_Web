@@ -8,6 +8,7 @@ import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 import { useNavigate } from 'react-router-dom';
 import { defaultInstance } from '../../api/axios';
 import { useSelector } from 'react-redux';
+import ErrorMsg from '../../components/join/ErrorMsg';
 
 const UIServiceForm = () => {
   const [popUp, setPopUp] = useState(false);
@@ -20,7 +21,10 @@ const UIServiceForm = () => {
   });
   const navigate = useNavigate();
   const { ownerId } = useSelector((state) => state.user);
-  console.log('오너아이디', ownerId);
+  const [phoneVaild, setPhoneVaild] = useState({
+    isValid: false,
+    msg: '',
+  });
 
   if (popUp) {
     document.body.style.overflow = 'hidden';
@@ -34,7 +38,8 @@ const UIServiceForm = () => {
       description.trim() === '' ||
       storeName.trim() === '' ||
       phone.trim() === '' ||
-      email.trim() === ''
+      email.trim() === '' ||
+      !phoneVaild.isValid
     ) {
       return false;
     } else {
@@ -56,7 +61,6 @@ const UIServiceForm = () => {
         couponDescription: description,
       };
 
-      console.log('아아', couponServiceData);
       const response = await defaultInstance.post(
         `/api/coupon/${ownerId}/coupon-ui-service`,
         couponServiceData
@@ -77,7 +81,7 @@ const UIServiceForm = () => {
 
   const submitPopUp = () => {
     setPopUp(false);
-    navigate('/mypage/uiServiceList'); // 신청 내역 페이지로 랜딩할 예정
+    navigate('/mypage/uiServiceList');
   };
 
   const resetData = () => {
@@ -89,6 +93,23 @@ const UIServiceForm = () => {
     });
     setCategory('cafe');
     setDescription('');
+  };
+
+  const onChangePhone = (e) => {
+    setInputs((prev) => ({ ...prev, phone: e.target.value }));
+    const isValid = /^\d{10,11}$/.test(e.target.value);
+
+    if (!isValid) {
+      setPhoneVaild({
+        isVaild: false,
+        msg: '올바른 형식의 전화번호를 작성해주세요. (-없이 10~11자리)',
+      });
+    } else {
+      setPhoneVaild({
+        isValid: true,
+        msg: '',
+      });
+    }
   };
 
   return (
@@ -103,15 +124,16 @@ const UIServiceForm = () => {
             setInputs((prev) => ({ ...prev, storeName: e.target.value }))
           }
         />
-        <Input
-          label='연락처'
-          type='text'
-          placeholder='ex) 010-1234-5678'
-          value={inputs.phone}
-          onChange={(e) =>
-            setInputs((prev) => ({ ...prev, phone: e.target.value }))
-          }
-        />
+        <NumberWrapper>
+          <Input
+            label='연락처'
+            type='text'
+            placeholder='ex) 01012345678'
+            value={inputs.phone}
+            onChange={onChangePhone}
+          />
+          <ErrorMsg text={phoneVaild.msg} />
+        </NumberWrapper>
         <CategoryWrapper>
           <Category
             data={categoryData}
@@ -242,4 +264,9 @@ export const BtnContainer = styled.div`
   display: flex;
   gap: 16px;
   justify-content: center;
+`;
+
+const NumberWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

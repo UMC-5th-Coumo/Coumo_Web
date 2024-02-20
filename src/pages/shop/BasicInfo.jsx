@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AddressInput from '../../components/admin/shop/AddressInput';
 import modifyStoreInfo from '../../redux/thunks/modifyStoreInfo';
 import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
+import ErrorMsg from '../../components/join/ErrorMsg';
 
 const BasicInfo = () => {
   const dispatch = useDispatch();
@@ -25,43 +26,10 @@ const BasicInfo = () => {
     address: '',
     addressDetail: '',
   });
-
+  const [phoneVaild, setPhoneVaild] = useState({});
   const [hours, setHours] = useState({
-    MONDAY: {
-      day: 'MONDAY',
-      startTime: '00:00',
-      endTime: '00:00',
-    },
-    TUESDAY: {
-      day: 'TUESDAY',
-      startTime: '00:00',
-      endTime: '00:00',
-    },
-    WEDNESDAY: {
-      day: 'WEDNESDAY',
-      startTime: '00:00',
-      endTime: '00:00',
-    },
-    THURSDAY: {
-      day: 'THURSDAY',
-      startTime: '00:00',
-      endTime: '00:00',
-    },
-    FRIDAY: {
-      day: 'FRIDAY',
-      startTime: '00:00',
-      endTime: '00:00',
-    },
-    SATURDAY: {
-      day: 'SATURDAY',
-      startTime: '00:00',
-      endTime: '00:00',
-    },
-    SUNDAY: {
-      day: 'SUNDAY',
-      startTime: '00:00',
-      endTime: '00:00',
-    },
+    isValid: false,
+    msg: '',
   });
 
   const handleInputClick = () => {
@@ -126,7 +94,8 @@ const BasicInfo = () => {
       storeName.trim() === '' ||
       number.trim() === '' ||
       address.trim() === '' ||
-      addressDetail.trim() === ''
+      addressDetail.trim() === '' ||
+      !phoneVaild.isVaild
     ) {
       return false;
     } else {
@@ -158,6 +127,23 @@ const BasicInfo = () => {
     setPopUp(true);
   };
 
+  const onChangePhone = (e) => {
+    setStoreData((prev) => ({ ...prev, number: e.target.value }));
+    const isValid = /^\d{10,11}$/.test(e.target.value);
+
+    if (!isValid) {
+      setPhoneVaild({
+        isVaild: false,
+        msg: '올바른 형식의 전화번호를 작성해주세요. (-없이 10~11자리)',
+      });
+    } else {
+      setPhoneVaild({
+        isValid: true,
+        msg: '',
+      });
+    }
+  };
+
   return (
     <Content>
       <Wrapper>
@@ -172,17 +158,18 @@ const BasicInfo = () => {
           }
           onClick={handleInputClick}
         />
-        <Input
-          name='number'
-          label='매장 전화번호'
-          type='text'
-          placeholder='ex) 01012345678'
-          value={storeData.number}
-          onChange={(e) =>
-            setStoreData((prev) => ({ ...prev, number: e.target.value }))
-          }
-          onClick={handleInputClick}
-        />
+        <NumberWrapper>
+          <Input
+            name='number'
+            label='매장 전화번호'
+            type='text'
+            placeholder='ex) 01012345678'
+            value={storeData.number}
+            onChange={onChangePhone}
+            onClick={handleInputClick}
+          />
+          <ErrorMsg text={phoneVaild.msg} />
+        </NumberWrapper>
         <CategoryWrapper>
           <Category
             data={categoryData}
@@ -279,4 +266,9 @@ const WorkingHours = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+`;
+
+const NumberWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
