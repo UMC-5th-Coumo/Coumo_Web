@@ -14,7 +14,7 @@ import {
   PagePrevDisable,
 } from '../../assets';
 import PostList from '../../components/admin/neighborhood/PostList';
-import { authInstance, defaultInstance } from '../../api/axios';
+import { authInstance } from '../../api/axios';
 
 const MyPosts = () => {
   const [deletePopUp, setDeletePopUp] = useState(false);
@@ -29,11 +29,11 @@ const MyPosts = () => {
   const { pageId } = useParams();
   const { ownerId } = useSelector((state) => state.user);
 
-  //게시글 불러오는 함수
+  /* ---- 게시글 목록 불러오기 함수 (get)  ---- */
   const posts = async () => {
     try {
       const response = await authInstance.get(
-        `api/notice/${ownerId}/list?pageId=${pageId}`
+        `/api/notice/${ownerId}/list?pageId=${pageId}`
       );
       if (response.data.isSuccess) {
         console.log('MyPostList Success:', response.data);
@@ -44,6 +44,7 @@ const MyPosts = () => {
     }
   };
 
+  /* ----- 랜더링 시, 게시글 목록 불러오기 && selectedPost 초기화 ----- */
   useEffect(() => {
     posts();
     setSelectedPost(null);
@@ -77,10 +78,11 @@ const MyPosts = () => {
   const handleCategoryChange = (newCategory) => {
     setCategory(newCategory);
     setCurrentPage(1);
-    // 변경 카테고리의 첫 페이지로 이동
+    /* ---- 변경 카테고리의 첫 페이지로 이동 ---- */
     navigate(`/neighborhood/myPosts/1`);
   };
 
+  /* ---- 페이지 이동 버튼 상태관리 ---- */
   useEffect(() => {
     setNextButtonDisabled(
       currentPage >= Math.ceil(filteredPosts.length / postsPerPage)

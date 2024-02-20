@@ -24,6 +24,7 @@ const WritePost = () => {
     document.body.style.overflow = 'auto';
   }
 
+  /* ---- 필수 작성 항목 확인 (카테고리, 제목, 내용) ---- */
   const isVaild = () => {
     if (category && inputs.title && inputs.content) {
       return true;
@@ -42,6 +43,7 @@ const WritePost = () => {
       return;
     }
 
+    /* ---- 글작성 POST 요청 ---- */
     try {
       let formData = new FormData();
       formData.append('noticeType', category);
@@ -59,8 +61,9 @@ const WritePost = () => {
       if (response.data.isSuccess) {
         navigate('/neighborhood/myPosts/1');
 
-        // 서버 요청 성공 시 모달
+        /* ---- 서버 요청 성공 시, 제출 팝업 ---- */
         submitPopUp();
+        /* ---- 서버 요청 성공 시, 입력값 초기화 ---- */
         resetData();
       } else {
         console.error('writing post 실패', response.data.message);
@@ -71,6 +74,7 @@ const WritePost = () => {
     }
   };
 
+  /* ---- 제출 팝업 ---- */
   const submitPopUp = () => {
     setPopUp(true);
     setTimeout(() => {
@@ -78,6 +82,7 @@ const WritePost = () => {
     }, 3000);
   };
 
+  /* ---- 입력값 초기화 ---- */
   const resetData = () => {
     setCategory('');
     setInputs({

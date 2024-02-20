@@ -7,16 +7,19 @@ import { v4 as uuidv4 } from 'uuid';
 const ImageBlock = ({ storeImages, setStoreImages, store }) => {
   const scrollRef = useRef(null);
 
+  /* --- 스크롤 생성값 기준 위치 조정 --- */
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollLeft = scrollRef.current.scrollWidth;
     }
   }, [storeImages.length]);
 
+  /* --- 이미지 삭제 --- */
   const handleImageDelete = (id) => {
     setStoreImages((prev) => prev.filter((data) => data.id !== id));
   };
 
+  /* --- 이미지 변경 --- */
   const handleImageChange = (imageData) => {
     setStoreImages((prev) =>
       prev.map((data) => {
@@ -26,6 +29,7 @@ const ImageBlock = ({ storeImages, setStoreImages, store }) => {
     );
   };
 
+  /* --- 이미지 박스 클릭 시 --- */
   const handleBoxClick = (id) => {
     const fileInput = document.getElementById(`fileInput-${id}`);
     if (fileInput) {
@@ -33,6 +37,7 @@ const ImageBlock = ({ storeImages, setStoreImages, store }) => {
     }
   };
 
+  /* --- 이미지 추가 --- */
   const handleAddImage = (e) => {
     e.preventDefault();
     const newImage = {

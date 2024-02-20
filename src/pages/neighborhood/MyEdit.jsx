@@ -13,15 +13,17 @@ import { authInstance, formAuthInstance } from '../../api/axios';
 
 const MyEdit = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  /* ---- 수정 재확인, 삭제 재확인, 삭제완료 팝업창  ---- */
   const [modifyPopUp, setModifyPopUp] = useState(false);
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [confirmPopUp, setConfirmPopUp] = useState(false);
 
   const { noticeId } = useParams();
-  const location = useLocation();
   const selectedPost = location.state.selectedPost;
 
-  // 카테고리, 제목, 내용 상태 관리
+  /* ---- 카테고리, 제목, 내용 상태 관리 ---- */
   const [category, setCategory] = useState(selectedPost.noticeType);
   const [inputs, setInputs] = useState({
     title: selectedPost.title,
@@ -29,13 +31,14 @@ const MyEdit = () => {
     content: selectedPost.noticeContent,
   });
 
-  // 팝업 등장 시 스크롤 방지
+  /* ---- 팝업 등장 시 스크롤 방지 ---- */
   if (modifyPopUp || deletePopUp || confirmPopUp) {
     document.body.style.overflow = 'hidden';
   } else {
     document.body.style.overflow = 'auto';
   }
 
+  /* ---- 필수 작성 항목 확인 (카테고리, 제목, 내용) ---- */
   const isVaild = () => {
     if (category && inputs.title && inputs.content) {
       return true;
@@ -54,6 +57,7 @@ const MyEdit = () => {
       return;
     }
 
+    /* ---- 글수정 PUT 요청 ---- */
     try {
       let formData = new FormData();
       formData.append('noticeType', category);
