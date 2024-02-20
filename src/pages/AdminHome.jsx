@@ -7,14 +7,14 @@ import DayGraphInfo from '../components/admin/home/DayGraphInfo';
 import CustomerInfo from '../components/admin/home/CustomerInfo';
 import GenderGraphInfo from '../components/admin/home/GenderGraphInfo';
 import { useDispatch, useSelector } from 'react-redux';
-import { authInstance } from '../api/axios';
 import getStoreInfo from '../redux/thunks/getStoreInfo';
 import { stampData } from '../assets/data/stampData';
 import FormPopUp from '../components/admin/formPopUp/FormPopUp';
+import { defaultInstance } from '../api/axios';
 
 function AdminHome() {
   const dispatch = useDispatch();
-  const { write, ownerId, storeId } = useSelector((state) => state.user);
+  const { write, storeId } = useSelector((state) => state.user);
   const [coupon, setCoupon] = useState({
     storeName: '쿠모',
     couponColor: '#bb96ff',
@@ -38,7 +38,7 @@ function AdminHome() {
 
   /* ----- 대표 쿠폰 조회 api ----- */
   const getCouponData = async () => {
-    await authInstance
+    await defaultInstance
       .get(`/api/maincoupon/${storeId}`)
       .then(async (res) => {
         if (res.data.isSuccess) {
@@ -59,7 +59,7 @@ function AdminHome() {
 
   /* ----- 이번달 방문자 수 조회 api ----- */
   const getCustomerCount = async () => {
-    await authInstance
+    await defaultInstance
       .get(
         `/api/statistics/${storeId}/month-statistics?year=${new Date().getFullYear()}&month=${new Date().getMonth() + 1}`
       )
@@ -91,23 +91,25 @@ function AdminHome() {
         <StoreInfo />
         <DayGraphInfo />
       </ColumWrapper>
-      <ColumWrapper>
+      <HourWrapper>
         <WorkingHours />
-        <CustomerInfo
-          text='이번 달 총 방문 고객은?'
-          count={customer.all}
-          prev={customer.prevAll}
-        />
-        <CustomerInfo
-          text='이번 달 신규 고객은?'
-          count={customer.new}
-          prev={customer.prevNew}
-        />
-      </ColumWrapper>
-      <ColumWrapper>
+        <Info>
+          <CustomerInfo
+            text='이번 달 총 방문 고객은?'
+            count={customer.all}
+            prev={customer.prevAll}
+          />
+          <CustomerInfo
+            text='이번 달 신규 고객은?'
+            count={customer.new}
+            prev={customer.prevNew}
+          />
+        </Info>
+      </HourWrapper>
+      <CouponWrapper>
         <CouponInfo coupon={coupon} />
         <GenderGraphInfo />
-      </ColumWrapper>
+      </CouponWrapper>
     </Container>
   );
 }
@@ -123,10 +125,46 @@ const Container = styled.div`
   display: flex;
   gap: 30px;
   flex-wrap: wrap;
+
+  @media screen and (max-width: 1430px) {
+    height: auto;
+  }
+  @media screen and (max-width: 1170px) {
+    padding: 50px;
+  }
 `;
 
 const ColumWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
+`;
+
+const HourWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  @media screen and (max-width: 1170px) {
+    flex-direction: row;
+  }
+`;
+
+const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+`;
+
+const CouponWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  @media screen and (max-width: 1430px) {
+    flex-direction: row;
+  }
+  @media screen and (max-width: 1170px) {
+    flex-direction: column;
+  }
 `;

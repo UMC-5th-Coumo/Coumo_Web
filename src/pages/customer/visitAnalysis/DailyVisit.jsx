@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import BarChart from '../../../components/admin/customer/common/charts/BarChart';
 import VisitCount from '../../../components/admin/customer/visitAnalysis/VisitCount';
-import { authInstance, defaultInstance } from '../../../api/axios';
+import { defaultInstance } from '../../../api/axios';
 import { useSelector } from 'react-redux';
 
 function DailyVisit() {
@@ -98,7 +98,7 @@ function DailyVisit() {
   };
 
   const getWeeklyVisit = async () => {
-    await authInstance
+    await defaultInstance
       .get(`/api/statistics/${storeId}/day`)
       .then(async (res) => {
         if (res.data.isSuccess) {

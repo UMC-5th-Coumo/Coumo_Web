@@ -52,6 +52,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media screen and (max-width: 1430px) {
+    width: 400px;
+  }
+  @media screen and (max-width: 1170px) {
+    width: 430px;
+  }
 `;
 
 const Title = styled.h2`
@@ -98,9 +105,8 @@ const CouponExample = styled.div`
   gap: 18px;
   border-radius: 12px;
 
-  @media screen and (max-width: 1024px) {
-    width: 440px;
-    height: 245px;
+  @media screen and (max-width: 1170px) {
+    width: 390px;
   }
 `;
 
@@ -141,9 +147,9 @@ const StampBox = styled.div`
   justify-content: center;
   gap: ${(props) => (props.$num > 10 ? '5px 15px' : '10px 15px')};
 
-  @media screen and (max-width: 1024px) {
-    width: ${(props) => (props.$num > 8 ? '430px' : '350px')};
-    gap: ${(props) => (props.$num > 10 ? '0px 12px' : '10px 15px')};
+  @media screen and (max-width: 1170px) {
+    width: 340px;
+    gap: 10px 15px;
   }
 `;
 

@@ -7,6 +7,7 @@ const LandingCopy = ({ data }) => {
       <Content>
         <Menu>{data.menu}</Menu>
         <Copy dangerouslySetInnerHTML={{ __html: data.copy }} />
+        <Text dangerouslySetInnerHTML={{ __html: data.description }} />
       </Content>
     </Container>
   );
@@ -41,4 +42,15 @@ const Copy = styled.span`
   color: ${({ theme }) => theme.colors.text_black};
   line-height: 150%;
   white-space: pre-wrap;
+`;
+
+const Text = styled.span`
+  /* font-size: ${({ theme }) => theme.fontSize.xl}; */
+  font-size: 18px;
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.text_black};
+  line-height: 150%;
+  /* letter-spacing: 2px; */
+  white-space: pre-wrap;
+  margin-top: 100px;
 `;
