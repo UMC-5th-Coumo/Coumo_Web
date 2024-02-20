@@ -57,10 +57,11 @@ const UIServiceForm = () => {
         storeName: inputs.storeName,
         phone: inputs.phone,
         email: inputs.email,
-        storeType: category,
+        storeType: category.toUpperCase(),
         couponDescription: description,
       };
 
+      console.log('couponServiceData', couponServiceData);
       const response = await defaultInstance.post(
         `/api/coupon/${ownerId}/coupon-ui-service`,
         couponServiceData

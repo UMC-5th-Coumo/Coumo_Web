@@ -1,13 +1,19 @@
+import React from 'react';
+import { BiArchive, BiStore } from 'react-icons/bi';
+import { RiCoupon2Line } from 'react-icons/ri';
+
 export const landingData = [
   {
     id: 1,
-    menu: '홈 · 소비',
-    copy: '내 돈 관리,\n지출부터 일정까지\n똑똑하게',
+    icon: <BiStore />,
+    menu: '홈 · 카테고리',
+    copy: '카페부터 음식점, 뷰티, 학원까지!\n내 주변 인기 매장 정보를 확인해\n쿠폰 적립도 빠르게',
     description:
       '반경 10m 이내에 있는 다양한 매장들의 정보를 한 눈에\n확인할 수 있어요! 매장 운영 시간부터, 판매 중인 메뉴/상품\n그리고 위치까지 정확하게 볼 수 있답니다',
   },
   {
     id: 2,
+    icon: <RiCoupon2Line />,
     menu: '내 쿠폰',
     copy: '매번 종이쿠폰을 들고 다녀야\n했던 불편함은 이제 끝!\n휴대폰으로 간편하게 적립해요',
     description:
@@ -15,6 +21,7 @@ export const landingData = [
   },
   {
     id: 3,
+    icon: <BiArchive />,
     menu: '동네소식',
     copy: '동네의 다양한 소식을\n실시간으로 확인하며 혜택을\n누리세요',
     description:
@@ -33,5 +40,19 @@ export const landingData = [
     copy: '내 매장만의 특별한 쿠폰\n디자인을 만들고, 발급한\n쿠폰을 손쉽게 관리하세요',
     description:
       '무료로 제공하는 쿠폰 커스텀 기능을\n활용하여 매장 쿠폰 디자인을 만들어 보세요\n더 개성있는 디자인을 원한다면,\n유료 쿠폰 UI 디자인 서비스를 통해\n1:1 맞춤 제작도 가능해요',
+  },
+  {
+    id: 6,
+    menu: '동네소식',
+    copy: '매장과 관련된 소식을\n고객들에게 실시간으로\n전달하세요',
+    description:
+      '신메뉴/신상품, 노쇼 빈자리 SALE, 이벤트 등의\n소식을 고객들에게 실시간으로 전달해 보세요\n자유롭게 매장을 홍보하고, 매출을 높일 수 있어요',
+  },
+  {
+    id: 7,
+    menu: '고객 데이터 관리',
+    copy: '단골 손님부터 신규 손님까지!\n고객 데이터를 철저하게\n분석하여 수익을 늘려봐요',
+    description:
+      '요일별, 시간대별, 인구통계별 고객 데이터를\n세밀하게 파악할 수 있어요 요약된 버전이 필요하다면, 월간 레포트를 활용해 보세요!',
   },
 ];

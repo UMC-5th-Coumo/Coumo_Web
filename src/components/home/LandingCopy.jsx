@@ -5,7 +5,10 @@ const LandingCopy = ({ data }) => {
   return (
     <Container>
       <Content>
-        <Menu>{data.menu}</Menu>
+        <Menu>
+          {data.icon}
+          {data.menu}
+        </Menu>
         <Copy dangerouslySetInnerHTML={{ __html: data.copy }} />
         <Text dangerouslySetInnerHTML={{ __html: data.description }} />
       </Content>
@@ -30,13 +33,22 @@ const Content = styled.div`
 `;
 
 const Menu = styled.div`
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   font-size: ${({ theme }) => theme.fontSize.lg};
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.coumo_purple};
+  font-weight: 700;
+  color: #643daf;
+  gap: 10px;
+
+  & svg {
+    width: 20px;
+  }
 `;
 
 const Copy = styled.span`
-  /* font-size: ${({ theme }) => theme.fontSize.xl}; */
   font-size: 37px;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.text_black};
@@ -45,12 +57,11 @@ const Copy = styled.span`
 `;
 
 const Text = styled.span`
-  /* font-size: ${({ theme }) => theme.fontSize.xl}; */
   font-size: 18px;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.text_black};
   line-height: 150%;
-  /* letter-spacing: 2px; */
   white-space: pre-wrap;
   margin-top: 100px;
+  margin-bottom: 50px;
 `;
