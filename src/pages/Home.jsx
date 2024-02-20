@@ -13,6 +13,7 @@ import {
 } from '../assets';
 import { landingData } from '../assets/data/landingData';
 import LandingCopy from '../components/home/LandingCopy';
+import Footer from '../components/home/Footer';
 
 const Home = () => {
   return (
@@ -67,7 +68,7 @@ const Home = () => {
           return <ServiceIntro key={index} data={data} />;
         })}
       </Service>
-      <PricePlan />
+      <Footer />
     </Container>
   );
 };
@@ -90,7 +91,6 @@ const Comment = styled.div`
 `;
 
 const P = styled.p`
-  /* font-size: ${({ theme }) => theme.fontSize.title}; */
   font-size: 22px;
   font-weight: 600;
   line-height: 180%;

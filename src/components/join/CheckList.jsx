@@ -24,6 +24,13 @@ function CheckList({ checks, setChecks }) {
     }));
   };
 
+  /* ----- 팝업 뒷배경 스크롤, 클릭 방지 ----- */
+  if (servicePopUp || privatePopUp) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
+
   return (
     <Container>
       <Agree>

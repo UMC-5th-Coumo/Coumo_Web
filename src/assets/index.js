@@ -30,6 +30,7 @@ export { ReactComponent as Person } from './icon/person.svg';
 export { ReactComponent as Gender } from './icon/gender.svg';
 export { ReactComponent as CouponBack } from './icon/CouponBack.svg';
 export { ReactComponent as BigLogo } from './icon/BigLogo.svg';
+export { ReactComponent as FooterLogo } from './icon/FooterLogo.svg';
 export { ReactComponent as Symbol } from './icon/Symbol.svg';
 export { ReactComponent as CouponIcon } from './icon/CouponIcon.svg';
 
