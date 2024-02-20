@@ -4,7 +4,7 @@
 <rect y="301.182" width="733.379" height="185.619" fill="url(#paint1_linear_1833_3484)"/>
 <rect y="301.182" width="733.379" height="185.619" fill="url(#paint2_linear_1833_3484)"/>
 <defs>
-<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+<pattern id="pattern" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image0_1833_3484" transform="scale(0.000301777 0.000429)"/>
 </pattern>
 <linearGradient id="paint0_linear_1833_3484" x1="309.366" y1="443.126" x2="309.366" y2="233.849" gradientUnits="userSpaceOnUse">

@@ -46,9 +46,9 @@ const Head = styled.div`
 `;
 
 const HeaderBar = styled.div`
-  max-width: 1300px;
+  max-width: 1400px;
   box-sizing: border-box;
-  padding: 0 30px;
+  padding: 0 80px;
   width: 100%;
   height: 52px;
   display: flex;

@@ -28,7 +28,18 @@ export default Banner;
 const Back = styled.div`
   width: 100%;
   height: 900px;
-  background: ${({ theme }) => theme.colors.banner_gradient};
+  background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 30%,
+      rgba(255, 255, 255, 0.1) 40%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0.5) 60%,
+      rgba(255, 255, 255, 0.7) 75%,
+      rgba(255, 255, 255, 0.9) 90%,
+      rgba(255, 255, 255, 1) 100%,
+      rgba(255, 255, 255, 1) 110%
+    ),
+    ${({ theme }) => theme.colors.coumo_purple};
 `;
 
 const Container = styled.div`
@@ -47,13 +58,14 @@ const Container = styled.div`
 const Title = styled.h1`
   margin: 0;
   font-family: 'GmarketSans';
-  font-size: clamp(45px, 4vw, 60px);
+  font-size: clamp(40px, 4vw, 50px);
   font-style: normal;
   font-weight: 700;
-  line-height: 140%;
+  line-height: 130%;
   letter-spacing: 0.952px;
   color: ${({ theme }) => theme.colors.white};
   display: inline;
+  margin-bottom: 10px;
 `;
 
 const Wrapper = styled.div`
@@ -76,7 +88,7 @@ const LocoContainer = styled.div`
 
 const CouponContainer = styled.div`
   position: absolute;
-  right: 0;
+  right: 10px;
   top: 10px;
   & svg {
     height: 700px;

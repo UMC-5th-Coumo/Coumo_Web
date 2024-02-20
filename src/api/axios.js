@@ -10,7 +10,6 @@ export const defaultInstance = axios.create({
   },
 });
 
-// FormData
 export const formAuthInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
