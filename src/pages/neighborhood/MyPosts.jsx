@@ -5,7 +5,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import TwoBtnPopUp from '../../components/common/popUp/TwoBtnPopUp';
 import Category from '../../components/admin/coupon/Category';
 import { useSelector } from 'react-redux';
-import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 import { postCategoryData } from '../../assets/data/categoryData';
 import {
   PageNext,
@@ -15,10 +14,10 @@ import {
 } from '../../assets';
 import PostList from '../../components/admin/neighborhood/PostList';
 import { authInstance } from '../../api/axios';
+import { LuTrash2 } from 'react-icons/lu';
 
 const MyPosts = () => {
   const [deletePopUp, setDeletePopUp] = useState(false);
-  const [confirmPopUp, setConfirmPopUp] = useState(false);
   const [category, setCategory] = useState('ALL');
   const [currentPage, setCurrentPage] = useState(1);
   const [nextButtonDisabled, setNextButtonDisabled] = useState(false);
@@ -90,7 +89,7 @@ const MyPosts = () => {
   }, [currentPage, filteredPosts.length]);
 
   /* ----- 팝업 뒷배경 스크롤, 클릭 방지 ----- */
-  if (deletePopUp || confirmPopUp) {
+  if (deletePopUp) {
     document.body.style.overflow = 'hidden';
   } else {
     document.body.style.overflow = 'auto';
@@ -109,7 +108,6 @@ const MyPosts = () => {
         navigate('/neighborhood/myPosts/1');
 
         setDeletePopUp(false);
-        setConfirmPopUp(true);
       } else {
         console.error('delete post 실패', response.data.message);
       }
@@ -171,14 +169,7 @@ const MyPosts = () => {
           btnLabel='삭제하기'
           setOpen={setDeletePopUp}
           onClick={onDeleteConfirm}
-        />
-      )}
-      {confirmPopUp && (
-        <OneBtnPopUp
-          title='글이 삭제되었습니다!'
-          text='남아있는 글을 확인해보세요.'
-          setOpen={setConfirmPopUp}
-          onClick={setConfirmPopUp(false)}
+          icon={<LuTrash2 />}
         />
       )}
     </Container>
@@ -189,6 +180,7 @@ export default MyPosts;
 
 const Container = styled.div`
   width: 100%;
+  height: calc(100vh - 80px);
   padding-top: 70px;
   box-sizing: border-box;
   overflow: hidden;
@@ -231,6 +223,7 @@ const PostWrapper = styled.div`
 
 const BottomContainer = styled.div`
   width: 100%;
+  height: 100%;
   background-color: #f6f6f6;
   padding-bottom: 70px;
 `;

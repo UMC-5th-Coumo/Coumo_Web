@@ -9,9 +9,11 @@ import Button from '../../components/common/Button';
 import { authInstance } from '../../api/axios';
 import { stampData } from '../../assets/data/stampData';
 import { useSelector } from 'react-redux';
+import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 
 const AddCoupon = () => {
   const { ownerId } = useSelector((state) => state.user);
+  const [popUp, setPopUp] = useState(false);
   const [selectedStamp, setSelectedStamp] = useState(stampData[0]);
   const [coupon, setCoupon] = useState({
     storeName: '',
@@ -21,22 +23,32 @@ const AddCoupon = () => {
   });
   const stamps = Array(coupon.stampMax * 1).fill(0);
 
+  const submitPopUp = () => {
+    setPopUp(false);
+    window.scrollTo(0, 0);
+  };
+
   /* ----- 쿠폰 등록 api ----- */
   const registerCoupon = async () => {
-    const couponData = {
-      ...coupon,
-      stampMax:
-        coupon.stampMax === 8
-          ? 'EIGHT'
-          : coupon.stampMax === 10
-            ? 'TEN'
-            : 'TWELVE',
-      stampImage: selectedStamp.id,
-    };
+    try {
+      const couponData = {
+        ...coupon,
+        stampMax:
+          coupon.stampMax === 8
+            ? 'EIGHT'
+            : coupon.stampMax === 10
+              ? 'TEN'
+              : 'TWELVE',
+        stampImage: selectedStamp.id,
+      };
 
-    await authInstance
-      .post(`/api/coupon/register/${ownerId}`, couponData)
-      .then((res) => console.log(res.data));
+      await authInstance
+        .post(`/api/coupon/register/${ownerId}`, couponData)
+        .then((res) => console.log(res.data));
+    } catch (err) {
+      console.log(err);
+    }
+    setPopUp(true);
   };
 
   return (
@@ -139,6 +151,13 @@ const AddCoupon = () => {
           </ButtonGroup>
         </CouponWrapper>
       </DesignContainer>
+      {popUp && (
+        <OneBtnPopUp
+          title='쿠폰 등록이 완료되었습니다.'
+          text='등록한 쿠폰을 확인해보세요.'
+          onClick={submitPopUp}
+        />
+      )}
     </Container>
   );
 };

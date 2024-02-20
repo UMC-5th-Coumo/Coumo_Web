@@ -24,6 +24,11 @@ const WritePost = () => {
     document.body.style.overflow = 'auto';
   }
 
+  const onClickBtn = () => {
+    setPopUp(false);
+    navigate('/neighborhood/myPosts/1');
+  };
+
   /* ---- 필수 작성 항목 확인 (카테고리, 제목, 내용) ---- */
   const isVaild = () => {
     if (category && inputs.title && inputs.content) {
@@ -59,10 +64,9 @@ const WritePost = () => {
       );
 
       if (response.data.isSuccess) {
-        navigate('/neighborhood/myPosts/1');
-
         /* ---- 서버 요청 성공 시, 제출 팝업 ---- */
-        submitPopUp();
+        setPopUp(true);
+
         /* ---- 서버 요청 성공 시, 입력값 초기화 ---- */
         resetData();
       } else {
@@ -72,14 +76,6 @@ const WritePost = () => {
       console.error('writing post 에러');
       console.log(error);
     }
-  };
-
-  /* ---- 제출 팝업 ---- */
-  const submitPopUp = () => {
-    setPopUp(true);
-    setTimeout(() => {
-      setPopUp(false);
-    }, 3000);
   };
 
   /* ---- 입력값 초기화 ---- */
@@ -106,8 +102,9 @@ const WritePost = () => {
       </Btn>
       {popUp && (
         <OneBtnPopUp
-          title='글이 성공적으로 작성되었습니다!'
-          onClick={() => setPopUp(false)}
+          title='글이 성공적으로 작성되었습니다.'
+          text='작성된 글을 확인해보세요.'
+          onClick={onClickBtn}
         />
       )}
     </StyledWrite>
