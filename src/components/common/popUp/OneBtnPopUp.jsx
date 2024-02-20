@@ -1,11 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { fadeIn } from '../../../styles/GlobalStyle';
+import Lottie from 'lottie-react';
+import lottieData from '../../../assets/image/checkLottie.json';
 
-function OneBtnPopUp({ title, text, onClick }) {
+function OneBtnPopUp({ title, text, onClick, icon }) {
   return (
     <Container>
       <PopUp>
+        <IconBox>
+          <Lottie animationData={lottieData} loop={false} />
+        </IconBox>
         <TextBox>
           <PopUpTitle dangerouslySetInnerHTML={{ __html: title }} />
           <span dangerouslySetInnerHTML={{ __html: text }} />
@@ -21,19 +26,21 @@ function OneBtnPopUp({ title, text, onClick }) {
 export default OneBtnPopUp;
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   background-color: #8a8a8a16;
+  z-index: 100;
 `;
 
 const PopUp = styled.div`
-  width: 380px;
+  width: 360px;
   height: auto;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 12px;
+  z-index: 200;
 
   position: fixed;
   top: 50%;
@@ -56,15 +63,17 @@ const PopUp = styled.div`
 `;
 
 const TextBox = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 10px;
-  align-items: flex-start;
+  align-items: center;
+  gap: 5px;
 
   & span {
     font-size: ${({ theme }) => theme.fontSize.sm};
     color: ${({ theme }) => theme.colors.text};
+    width: 100%;
+    text-align: center;
   }
 
   @media screen and (max-width: 1024px) {
@@ -87,7 +96,7 @@ const PopUpTitle = styled.h3`
 
 const Button = styled.button`
   width: 100%;
-  height: 45px;
+  height: 40px;
   background-color: ${({ $ok, theme }) =>
     $ok ? '#643daf' : theme.colors.btn_lightgray};
 
@@ -102,4 +111,9 @@ const Button = styled.button`
   @media screen and (max-width: 1024px) {
     height: 40px;
   }
+`;
+
+const IconBox = styled.div`
+  width: 60px;
+  height: 60px;
 `;

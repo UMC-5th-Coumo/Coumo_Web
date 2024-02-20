@@ -6,11 +6,13 @@ import Button from '../../components/common/Button';
 import { v4 as uuidv4 } from 'uuid';
 import { authInstance, formAuthInstance } from '../../api/axios';
 import { useSelector } from 'react-redux';
+import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 
 const StoreInfo = () => {
   const { storeId } = useSelector((state) => state.user);
   const [storeImages, setStoreImages] = useState([]);
   const [description, setDescription] = useState('');
+  const [popUp, setPopUp] = useState(false);
 
   const [menus, setMenus] = useState([
     {
@@ -83,6 +85,17 @@ const StoreInfo = () => {
     }
   };
 
+  const submitPopUp = () => {
+    setPopUp(false);
+    window.scrollTo(0, 0);
+  };
+
+  if (popUp) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
+
   const [inputCount, setInputCount] = useState(0);
   const onInputHandler = (e) => {
     setInputCount(e.target.value.length);
@@ -96,30 +109,34 @@ const StoreInfo = () => {
       );
       return;
     }
-    // 메뉴 이미지, 메뉴명/가격 데이터
-    const menuImages = menus.map((data) => data.image);
-    const menuData = menus.map(({ name, description, isNew }) => ({
-      name,
-      description,
-      isNew,
-    }));
-    const storeImgData = storeImages.map(({ image }) => image);
+    try {
+      const menuImages = menus.map((data) => data.image);
+      const menuData = menus.map(({ name, description, isNew }) => ({
+        name,
+        description,
+        isNew,
+      }));
+      const storeImgData = storeImages.map(({ image }) => image);
 
-    // FormData 생성
-    let formData = new FormData();
-    storeImgData.forEach((image) => formData.append('storeImages', image));
-    formData.append('description', description);
-    menuImages.forEach((image) => formData.append('menuImages', image));
-    formData.append('menuDetail', JSON.stringify(menuData));
+      // FormData 생성
+      let formData = new FormData();
+      storeImgData.forEach((image) => formData.append('storeImages', image));
+      formData.append('description', description);
+      menuImages.forEach((image) => formData.append('menuImages', image));
+      formData.append('menuDetail', JSON.stringify(menuData));
 
-    for (let value of formData) {
-      console.log('formData value', value);
+      for (let value of formData) {
+        console.log('formData value', value);
+      }
+
+      await formAuthInstance
+        .put(`/api/owner/store/${storeId}/detail`, formData)
+        .then((res) => console.log(res.data));
+
+      setPopUp(true);
+    } catch (err) {
+      console.log(err);
     }
-
-    await formAuthInstance
-      .put(`/api/owner/store/${storeId}/detail`, formData)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.error('err:', err));
   };
 
   return (
@@ -162,6 +179,13 @@ const StoreInfo = () => {
       <BtnContainer>
         <Button text='저장하기' type={true} onClickBtn={onSubmit} />
       </BtnContainer>
+      {popUp && (
+        <OneBtnPopUp
+          title='매장 설명 수정이 완료되었습니다.'
+          text='수정된 매장 정보를 확인해보세요.'
+          onClick={submitPopUp}
+        />
+      )}
     </Info>
   );
 };

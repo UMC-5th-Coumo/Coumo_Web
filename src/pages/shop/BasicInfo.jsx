@@ -10,9 +10,11 @@ import Title from '../../components/common/Title';
 import { useDispatch, useSelector } from 'react-redux';
 import AddressInput from '../../components/admin/shop/AddressInput';
 import modifyStoreInfo from '../../redux/thunks/modifyStoreInfo';
+import OneBtnPopUp from '../../components/common/popUp/OneBtnPopUp';
 
 const BasicInfo = () => {
   const dispatch = useDispatch();
+  const [popUp, setPopUp] = useState(false);
   const { info } = useSelector((state) => state.store);
   const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
   const { storeId } = useSelector((state) => state.user);
@@ -61,11 +63,23 @@ const BasicInfo = () => {
       endTime: '00:00',
     },
   });
+
   const handleInputClick = () => {
     if (isPostcodeOpen) {
       setIsPostcodeOpen(false);
     }
   };
+
+  const submitPopUp = () => {
+    setPopUp(false);
+    window.scrollTo(0, 0);
+  };
+
+  if (popUp) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
 
   useEffect(() => {
     setStoreData({
@@ -141,6 +155,7 @@ const BasicInfo = () => {
     console.log(storeInfo);
 
     dispatch(modifyStoreInfo({ storeId, storeInfo }));
+    setPopUp(true);
   };
 
   return (
@@ -211,6 +226,13 @@ const BasicInfo = () => {
       <BtnContainer>
         <Button text='저장하기' type={true} onClickBtn={onSubmit} />
       </BtnContainer>
+      {popUp && (
+        <OneBtnPopUp
+          title='기본 정보 수정이 완료되었습니다.'
+          text='수정된 매장 정보를 확인해보세요.'
+          onClick={submitPopUp}
+        />
+      )}
     </Content>
   );
 };
@@ -223,7 +245,6 @@ const Content = styled.div`
   color: ${({ theme }) => theme.colors.text_darkgray};
   font-size: ${({ theme }) => theme.fontSize.base};
   box-sizing: border-box;
-  position: relative;
   padding: 70px 100px;
   display: flex;
   flex-direction: column;
