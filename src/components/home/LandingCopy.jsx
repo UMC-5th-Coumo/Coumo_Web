@@ -33,10 +33,9 @@ const Content = styled.div`
 `;
 
 const Menu = styled.div`
-  width: 200px;
   display: flex;
+  /* width: 200px; */
   flex-direction: row;
-  justify-content: flex-start;
   align-items: center;
   font-size: ${({ theme }) => theme.fontSize.lg};
   font-weight: 700;
@@ -44,12 +43,13 @@ const Menu = styled.div`
   gap: 10px;
 
   & svg {
-    width: 20px;
+    width: 22px;
+    height: 22px;
   }
 `;
 
 const Copy = styled.span`
-  font-size: 37px;
+  font-size: 30px;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.text_black};
   line-height: 150%;
@@ -58,10 +58,10 @@ const Copy = styled.span`
 
 const Text = styled.span`
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 600;
   color: ${({ theme }) => theme.colors.text_black};
-  line-height: 150%;
+  line-height: 180%;
   white-space: pre-wrap;
-  margin-top: 100px;
+  margin-top: 30px;
   margin-bottom: 50px;
 `;
