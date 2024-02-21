@@ -7,6 +7,7 @@ import CustomerList from '../../components/admin/customer/customerManage/Custome
 import CustomerDetail from '../../components/admin/customer/customerManage/CustomerDetail';
 import { useDispatch, useSelector } from 'react-redux';
 import getCustomers from '../../redux/thunks/getCustomers';
+import { ClipLoader } from 'react-spinners';
 
 const CustomerManage = () => {
   const { storeId } = useSelector((state) => state.user);
@@ -90,10 +91,13 @@ const CustomerManage = () => {
           />
         </ButtonContainer>
       </FormContainer>
-      {loading ? (
-        'loading...'
-      ) : (
-        <CustomerContainer>
+
+      <CustomerContainer>
+        {loading ? (
+          <SpinnerWrapper>
+            <ClipLoader color='#7C43E8' speedMultiplier={0.8} />
+          </SpinnerWrapper>
+        ) : (
           <ContentWrapper>
             <CustomerList
               customerData={filteredData}
@@ -109,8 +113,8 @@ const CustomerManage = () => {
               )}
             </DetailBox>
           </ContentWrapper>
-        </CustomerContainer>
-      )}
+        )}
+      </CustomerContainer>
     </Container>
   );
 };
@@ -119,6 +123,7 @@ export default CustomerManage;
 
 const Container = styled.div`
   width: 100%;
+  height: cal(100vh - 80px);
   display: flex;
   flex-direction: column;
 `;
@@ -139,6 +144,7 @@ const FormContainer = styled.div`
 
 const CustomerContainer = styled.div`
   width: 100%;
+  height: 100%;
 `;
 
 const DetailBox = styled.div`
@@ -185,6 +191,14 @@ const Line = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+const SpinnerWrapper = styled.div`
+  width: 100%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Wrapper = styled.div`

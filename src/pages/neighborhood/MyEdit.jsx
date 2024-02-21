@@ -78,10 +78,6 @@ const MyEdit = () => {
       );
 
       if (response.data.isSuccess) {
-        console.log('modify post 성공');
-        console.log('Sending data to server:', formData);
-        navigate('/neighborhood/myPosts/1');
-
         setModifyPopUp(true);
       } else {
         console.error('modify post 실패', response.data.message);
