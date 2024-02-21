@@ -202,6 +202,7 @@ const StyledWriteTextarea = styled.textarea`
   font-style: normal;
   font-weight: 400;
   line-height: 170%;
+  wrap: hard;
 
   &:focus {
     outline: none;
