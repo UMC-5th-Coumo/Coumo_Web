@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
 export const fadeInUp = keyframes`
   0% {
       opacity: 0;
-      transform: translate3d(0, 100%, 0);
+      transform: translate3d(0, 10%, 0);
   }
   to {
       opacity: 1;

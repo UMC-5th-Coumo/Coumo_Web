@@ -18,90 +18,88 @@ import { landingData } from '../assets/data/landingData';
 import LandingCopy from '../components/home/LandingCopy';
 import Footer from '../components/home/Footer';
 import { fadeInUp } from '../styles/GlobalStyle';
-import Fade from 'react-reveal/Fade';
 import { BiStore, BiIdCard } from 'react-icons/bi';
 import { RiCoupon2Line } from 'react-icons/ri';
+import {
+  ScrollAnimationContainer,
+  ScrollAnimationContainerColumn,
+} from '../components/common/ScrollAnimationContainer';
 
 const Home = () => {
   return (
     <Container>
       <Banner />
+
       <Comment>
-        <Fade bottom delay={0}>
+        <ScrollAnimationContainer>
           <P>
             카페, 음식점, 미용실 등 매장을 방문할 때마다 나눠주는
             <br /> <strong>종이 쿠폰</strong>을 관리하기 힘들지 않으셨나요?{' '}
             <br />
             이제 휴대폰으로 쿠폰을 한 눈에 모아보세요!
           </P>
-        </Fade>
-        <Fade bottom delay={0}>
+        </ScrollAnimationContainer>
+        <ScrollAnimationContainer>
           <P>
             매장 서칭부터 쿠폰 적립, 동네 소식 파악까지 한 번에!
             <br />
             이제껏 경험하지 못 했던 쉽고 편리한 쿠폰 적립 서비스,
             <br /> <strong>쿠모</strong>와 함께라면 당신의 일상이 편해질 거예요.
           </P>
-        </Fade>
+        </ScrollAnimationContainer>
       </Comment>
-      <Fade bottom delay={0}>
-        <Button>소비자 이용 APP</Button>
-      </Fade>
 
+      <Button>소비자 이용 APP</Button>
       <HomePay>
-        <Fade bottom delay={0}>
+        <ScrollAnimationContainer>
           <AndroidHome />
-        </Fade>
-        <Fade bottom delay={0}>
+        </ScrollAnimationContainer>
+        <ScrollAnimationContainer>
           <Column>
             <LandingCopy data={landingData[0]} />
             <AndroidStore />
           </Column>
-        </Fade>
+        </ScrollAnimationContainer>
       </HomePay>
-
       <Coupon>
-        <Fade bottom delay={0}>
+        <ScrollAnimationContainer>
           <AndroidCoupon />
-        </Fade>
-        <Fade bottom delay={0}>
+        </ScrollAnimationContainer>
+        <ScrollAnimationContainer>
           <Column>
             <LandingCopy data={landingData[1]} />
           </Column>
-        </Fade>
+        </ScrollAnimationContainer>
       </Coupon>
-
       <HomePay>
-        <Fade bottom delay={0}>
+        <ScrollAnimationContainer>
           <AndroidNeighborAll />
-        </Fade>
-        <Fade bottom delay={0}>
+        </ScrollAnimationContainer>
+        <ScrollAnimationContainer>
           <ColumnNeighbor>
             <LandingCopy data={landingData[2]} />
             <AndroidNeighborNoshow />
           </ColumnNeighbor>
-        </Fade>
+        </ScrollAnimationContainer>
       </HomePay>
-
-      <Fade bottom delay={0}>
-        <Button>사장단 이용 WEB</Button>
-      </Fade>
+      <Button>사장단 이용 WEB</Button>
       <Management>
-        <Fade bottom delay={0}>
+        <ScrollAnimationContainerColumn>
           <Menu>
             <BiStore />
             {landingData[3].menu}
           </Menu>
           <CopyCenter>{landingData[3].copy}</CopyCenter>
-        </Fade>
-        <Fade bottom delay={0}>
+        </ScrollAnimationContainerColumn>
+        <ScrollAnimationContainerColumn>
           <WebStore />
+
           <TextCenter>{landingData[3].description}</TextCenter>
-        </Fade>
+        </ScrollAnimationContainerColumn>
       </Management>
       <CouponWeb>
-        <Column>
-          <Fade bottom delay={0}>
+        <ScrollAnimationContainer>
+          <Column>
             <MenuPadding>
               <RiCoupon2Line />
               {landingData[4].menu}
@@ -110,31 +108,33 @@ const Home = () => {
               <Copy>{landingData[4].copy}</Copy>
               <Text>{landingData[4].description}</Text>
             </Row>
-          </Fade>
-          <Fade bottom delay={0}>
             <WebCoupon />
-          </Fade>
-        </Column>
+          </Column>
+        </ScrollAnimationContainer>
       </CouponWeb>
-      <Fade bottom delay={0}>
+      <NeighborBox>
         <NeighborWrapper>
-          <WebNeighbor />
-          <LandingCopy data={landingData[5]} />
+          <ScrollAnimationContainer>
+            <WebNeighbor />
+          </ScrollAnimationContainer>
+          <ScrollAnimationContainer>
+            <LandingCopy data={landingData[5]} />
+          </ScrollAnimationContainer>
         </NeighborWrapper>
-      </Fade>
+      </NeighborBox>
       <Management>
-        <Fade bottom delay={0}>
+        <ScrollAnimationContainerColumn>
           <Menu>
             <BiIdCard />
             {landingData[6].menu}
           </Menu>
           <CopyCenter>{landingData[6].copy}</CopyCenter>
-        </Fade>
-        <Fade bottom delay={0}>
+        </ScrollAnimationContainerColumn>
+        <ScrollAnimationContainerColumn>
           <WebData />
 
           <TextCenter>{landingData[6].description}</TextCenter>
-        </Fade>
+        </ScrollAnimationContainerColumn>
       </Management>
       {/* <Service>
         {introData.map((data, index) => {
@@ -201,16 +201,23 @@ const HomePay = styled.div`
 `;
 
 const NeighborWrapper = styled.div`
-  width: 1000px;
+  width: 1200px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
+  justify-content: center;
   gap: 100px;
   margin-bottom: 300px;
 
   & > svg {
-    width: 500px;
+    width: 300px;
   }
+`;
+
+const NeighborBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 const CouponWeb = styled.div`
