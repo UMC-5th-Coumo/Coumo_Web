@@ -62,9 +62,7 @@ const BasicInfo = () => {
   }, [info]);
 
   useEffect(() => {
-    if (info.storeName === '') {
-      dispatch(getStoreInfo(storeId));
-    }
+    dispatch(getStoreInfo(storeId));
     setStoreData({
       storeName: info.storeName,
       category: info.category.toLowerCase(),

@@ -61,6 +61,7 @@ const UIServiceForm = () => {
         couponDescription: description,
       };
 
+      console.log('couponServiceData', couponServiceData);
       const response = await defaultInstance.post(
         `/api/coupon/${ownerId}/coupon-ui-service`,
         couponServiceData

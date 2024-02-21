@@ -187,6 +187,10 @@ const Bar = styled(Row)`
   align-items: center;
   margin-top: 8px;
   margin-bottom: 5px;
+
+  & svg {
+    cursor: pointer;
+  }
 `;
 
 const Content = styled(Column)`
@@ -214,4 +218,10 @@ const NewBtn = styled.span`
   font-weight: 500;
   line-height: 170%; /* 28.56px */
   letter-spacing: 1.2px;
+  cursor: pointer;
+
+  &:hover {
+    scale: calc(1.05);
+    transition: scale 0.3s ease-in-out;
+  }
 `;

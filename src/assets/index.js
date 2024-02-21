@@ -36,10 +36,16 @@ export { ReactComponent as CouponIcon } from './icon/CouponIcon.svg';
 
 // 랜딩 페이지
 export { ReactComponent as AndroidHome } from './icon/AndroidHome.svg';
+export { ReactComponent as AndroidStore } from './icon/AndroidStore.svg';
 export { ReactComponent as AndroidNeighborAll } from './icon/AndroidNeighborAll.svg';
 export { ReactComponent as AndroidNeighborNoshow } from './icon/AndroidNeighborNoshow.svg';
 export { ReactComponent as AndroidData } from './icon/AndroidData.svg';
 export { ReactComponent as AndroidPostWrite } from './icon/AndroidPostWrite.svg';
+
+export { ReactComponent as WebStore } from './icon/WebStore.svg';
+export { ReactComponent as WebCoupon } from './icon/WebCoupon.svg';
+export { ReactComponent as WebNeighbor } from './icon/WebNeighbor.svg';
+export { ReactComponent as WebData } from './icon/WebData.svg';
 
 // 디자인 쿠폰
 export { ReactComponent as DesignSet1 } from './icon/DesignSet1.svg';
