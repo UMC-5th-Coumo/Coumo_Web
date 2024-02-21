@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Title from '../../components/common/Title';
 import styled from 'styled-components';
@@ -15,10 +15,37 @@ import {
   DesignStamp2,
   DesignStamp3,
 } from '../../assets';
+import { defaultInstance } from '../../api/axios';
+import { useSelector } from 'react-redux';
 
 function UIServiceDetail() {
   const navigate = useNavigate();
   const { state: data } = useLocation();
+  const { ownerId } = useSelector((state) => state.user);
+
+  /* ---- 서비스 신청내역 변경 함수 (post)  ---- */
+  const serviceList = async () => {
+    try {
+      const data1 = {
+        state: 'COMPLETED',
+      };
+
+      const response = await defaultInstance.post(
+        `/api/coupon/${ownerId}/receipts/2/change-state`,
+        data1
+      );
+      if (response.data.isSuccess) {
+        console.log('Change Success:', response.data.result);
+      }
+    } catch (error) {
+      console.error('Change Error:', error);
+    }
+  };
+
+  /* ----- 랜더링 시, 목록 불러오기 ----- */
+  useEffect(() => {
+    serviceList();
+  });
 
   /* ----- createdAt 형식 변환 ----- */
   function formatDate(createdAt) {
