@@ -6,80 +6,135 @@ import styled from 'styled-components';
 import {
   AndroidNeighborAll,
   AndroidHome,
+  AndroidCoupon,
   AndroidNeighborNoshow,
   WebData,
   WebCoupon,
   WebNeighbor,
   WebStore,
+  AndroidStore,
 } from '../assets';
 import { landingData } from '../assets/data/landingData';
 import LandingCopy from '../components/home/LandingCopy';
 import Footer from '../components/home/Footer';
+import { fadeInUp } from '../styles/GlobalStyle';
+import { BiStore, BiIdCard } from 'react-icons/bi';
+import { RiCoupon2Line } from 'react-icons/ri';
+import {
+  ScrollAnimationContainer,
+  ScrollAnimationContainerColumn,
+} from '../components/common/ScrollAnimationContainer';
 
 const Home = () => {
   return (
     <Container>
       <Banner />
+
       <Comment>
-        <P>
-          카페, 음식점, 미용실 등 매장을 방문할 때마다 나눠주는
-          <br /> 종이 쿠폰을 관리하기 힘들지 않으셨나요? <br />
-          이제 휴대폰으로 쿠폰을 한 눈에 모아보세요
-        </P>
-        <P>
-          매장 서칭부터 쿠폰 적립, 동네 소식 파악까지 한 번에!
-          <br />
-          이제껏 경험하지 못 했던 쉽고 편리한 쿠폰 적립 서비스,
-          <br /> 쿠모와 함께라면 당신의 일상이 편해질 거예요
-        </P>
+        <ScrollAnimationContainer>
+          <P>
+            카페, 음식점, 미용실 등 매장을 방문할 때마다 나눠주는
+            <br /> <strong>종이 쿠폰</strong>을 관리하기 힘들지 않으셨나요?{' '}
+            <br />
+            이제 휴대폰으로 쿠폰을 한 눈에 모아보세요!
+          </P>
+        </ScrollAnimationContainer>
+        <ScrollAnimationContainer>
+          <P>
+            매장 서칭부터 쿠폰 적립, 동네 소식 파악까지 한 번에!
+            <br />
+            이제껏 경험하지 못 했던 쉽고 편리한 쿠폰 적립 서비스,
+            <br /> <strong>쿠모</strong>와 함께라면 당신의 일상이 편해질 거예요.
+          </P>
+        </ScrollAnimationContainer>
       </Comment>
+
       <Button>소비자 이용 APP</Button>
       <HomePay>
-        <AndroidHome />
-        <Column>
-          <LandingCopy data={landingData[0]} />
+        <ScrollAnimationContainer>
           <AndroidHome />
-        </Column>
+        </ScrollAnimationContainer>
+        <ScrollAnimationContainer>
+          <Column>
+            <LandingCopy data={landingData[0]} />
+            <AndroidStore />
+          </Column>
+        </ScrollAnimationContainer>
       </HomePay>
       <Coupon>
-        <AndroidHome />
-        <Column>
-          <LandingCopy data={landingData[1]} />
-        </Column>
+        <ScrollAnimationContainer>
+          <AndroidCoupon />
+        </ScrollAnimationContainer>
+        <ScrollAnimationContainer>
+          <Column>
+            <LandingCopy data={landingData[1]} />
+          </Column>
+        </ScrollAnimationContainer>
       </Coupon>
       <HomePay>
-        <AndroidNeighborAll />
-        <ColumnNeighbor>
-          <LandingCopy data={landingData[2]} />
-          <AndroidNeighborNoshow />
-        </ColumnNeighbor>
+        <ScrollAnimationContainer>
+          <AndroidNeighborAll />
+        </ScrollAnimationContainer>
+        <ScrollAnimationContainer>
+          <ColumnNeighbor>
+            <LandingCopy data={landingData[2]} />
+            <AndroidNeighborNoshow />
+          </ColumnNeighbor>
+        </ScrollAnimationContainer>
       </HomePay>
       <Button>사장단 이용 WEB</Button>
       <Management>
-        <Menu>{landingData[3].menu}</Menu>
-        <CopyCenter>{landingData[3].copy}</CopyCenter>
-        <WebStore />
-        <TextCenter>{landingData[3].description}</TextCenter>
+        <ScrollAnimationContainerColumn>
+          <Menu>
+            <BiStore />
+            {landingData[3].menu}
+          </Menu>
+          <CopyCenter>{landingData[3].copy}</CopyCenter>
+        </ScrollAnimationContainerColumn>
+        <ScrollAnimationContainerColumn>
+          <WebStore />
+
+          <TextCenter>{landingData[3].description}</TextCenter>
+        </ScrollAnimationContainerColumn>
       </Management>
       <CouponWeb>
-        <Column>
-          <MenuPadding>{landingData[4].menu}</MenuPadding>
-          <Row>
-            <Copy>{landingData[4].copy}</Copy>
-            <Text>{landingData[4].description}</Text>
-          </Row>
-          <WebCoupon />
-        </Column>
+        <ScrollAnimationContainer>
+          <Column>
+            <MenuPadding>
+              <RiCoupon2Line />
+              {landingData[4].menu}
+            </MenuPadding>
+            <Row>
+              <Copy>{landingData[4].copy}</Copy>
+              <Text>{landingData[4].description}</Text>
+            </Row>
+            <WebCoupon />
+          </Column>
+        </ScrollAnimationContainer>
       </CouponWeb>
-      <HomePay>
-        <WebNeighbor />
-        <LandingCopy data={landingData[5]} />
-      </HomePay>
+      <NeighborBox>
+        <NeighborWrapper>
+          <ScrollAnimationContainer>
+            <WebNeighbor />
+          </ScrollAnimationContainer>
+          <ScrollAnimationContainer>
+            <LandingCopy data={landingData[5]} />
+          </ScrollAnimationContainer>
+        </NeighborWrapper>
+      </NeighborBox>
       <Management>
-        <Menu>{landingData[6].menu}</Menu>
-        <CopyCenter>{landingData[6].copy}</CopyCenter>
-        <WebData />
-        <TextCenter>{landingData[6].description}</TextCenter>
+        <ScrollAnimationContainerColumn>
+          <Menu>
+            <BiIdCard />
+            {landingData[6].menu}
+          </Menu>
+          <CopyCenter>{landingData[6].copy}</CopyCenter>
+        </ScrollAnimationContainerColumn>
+        <ScrollAnimationContainerColumn>
+          <WebData />
+
+          <TextCenter>{landingData[6].description}</TextCenter>
+        </ScrollAnimationContainerColumn>
       </Management>
       {/* <Service>
         {introData.map((data, index) => {
@@ -104,29 +159,37 @@ const Container = styled.div`
 `;
 
 const Comment = styled.div`
-  width: 520px;
-  margin: 400px;
+  width: fit-content;
+  margin: 200px 0px;
 `;
 
 const P = styled.p`
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 170%;
   white-space: pre-line;
   text-align: center;
   margin-bottom: 100px;
+  animation: ${fadeInUp} 1s;
+  color: ${({ theme }) => theme.colors.text_black};
+
+  & strong {
+    font-size: 22px;
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.coumo_purple};
+  }
 `;
 
 const Button = styled.button`
-  width: 450px;
-  height: 90px;
+  width: 380px;
+  height: 80px;
   background-color: #643daf;
   border: none;
   border-radius: 50px;
   color: ${({ theme }) => theme.colors.white};
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
-  margin-bottom: 200px;
+  margin-bottom: 150px;
 `;
 
 const HomePay = styled.div`
@@ -134,14 +197,35 @@ const HomePay = styled.div`
   flex-direction: row;
   justify-content: center;
   gap: 100px;
-  margin-bottom: 500px;
+  margin-bottom: 300px;
+`;
+
+const NeighborWrapper = styled.div`
+  width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  margin-bottom: 300px;
+
+  & > svg {
+    width: 300px;
+  }
+`;
+
+const NeighborBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 const CouponWeb = styled.div`
   display: flex;
+  width: fit-content;
   flex-direction: row;
   justify-content: center;
-  margin-bottom: 500px;
+  margin-bottom: 300px;
 `;
 
 const Management = styled.div`
@@ -210,7 +294,8 @@ const Menu = styled.div`
   gap: 10px;
 
   & svg {
-    width: 20px;
+    width: 22px;
+    height: 22px;
   }
 `;
 
@@ -219,10 +304,10 @@ const MenuPadding = styled(Menu)`
 `;
 
 const Copy = styled.span`
-  font-size: 37px;
+  font-size: 30px;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.text_black};
-  line-height: 150%;
+  line-height: 140%;
   white-space: pre-wrap;
 `;
 
@@ -233,9 +318,9 @@ const CopyCenter = styled(Copy)`
 
 const Text = styled.span`
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 600;
   color: ${({ theme }) => theme.colors.text_black};
-  line-height: 150%;
+  line-height: 180%;
   white-space: pre-wrap;
 `;
 
