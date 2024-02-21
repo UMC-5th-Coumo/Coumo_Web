@@ -20,6 +20,7 @@ const MyPosts = () => {
   const [nextButtonDisabled, setNextButtonDisabled] = useState(false);
   const [postData, setPostData] = useState([]);
   const [selectedPostId, setSelectedPostId] = useState('');
+  const [num, setNum] = useState(null);
 
   const navigate = useNavigate();
   const { pageId } = useParams();
@@ -34,6 +35,7 @@ const MyPosts = () => {
       if (response.data.isSuccess) {
         console.log('MyPostList Success:', response.data);
         setPostData(response.data.result.notice);
+        setNum(response.data.result.total);
       }
     } catch (error) {
       console.error('MyPostList Error:', error);
@@ -44,7 +46,7 @@ const MyPosts = () => {
   useEffect(() => {
     posts();
     setSelectedPostId('');
-  }, []);
+  }, [currentPage]);
 
   /* ----- selectedPost 변경 시 즉시 업데이트 ----- */
   useEffect(() => {
@@ -68,9 +70,7 @@ const MyPosts = () => {
 
   /* ---- 페이지 이동 버튼 상태관리 ---- */
   useEffect(() => {
-    setNextButtonDisabled(
-      currentPage >= Math.ceil(postData.length / postsPerPage)
-    );
+    setNextButtonDisabled(postData.length < 10);
   }, [currentPage, postData.length]);
 
   /* ----- 팝업 뒷배경 스크롤, 클릭 방지 ----- */
@@ -101,22 +101,15 @@ const MyPosts = () => {
     }
   };
 
-  /* ----- 페이징 처리 ----- */
-  const postsPerPage = 8;
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = postData.slice(indexOfFirstPost, indexOfLastPost);
-
   return (
     <Container>
       <TitleBox>
-        <Title title='총 13개의 게시글이 있어요!' />
+        <Title title={`${num}개의 게시글이 있어요!`} />
       </TitleBox>
       <BottomContainer>
         <PostWrapper>
           <PostList
             filteredPosts={postData}
-            currentPosts={currentPosts}
             setDeletePopUp={setDeletePopUp}
             setSelectedPostId={setSelectedPostId}
           />
