@@ -20,29 +20,6 @@
 
 <br>
 
-# 💜 Team 쿠모
-### PM & Designer
-| PM  | Designer  | 
-| :-----: | :-----: |
-| 비니수(강수빈) | 써니(최윤선) | 
-
-### 사장단 Front-end (React 🌐)
-| <img src="https://avatars.githubusercontent.com/u/102593738?v=4" width=80px alt="진도리/유진주"/>  | <img src="https://avatars.githubusercontent.com/u/121474189?v=4" width=80px alt="민/류지민"/>  | 
-| :-----: | :-----: |
-| [진도리(유진주)](https://github.com/yyypearl) | [민(류지민)](https://github.com/JIMIN1020)  | 
-
-### 소비자단 Front-end (Android 🤖)
-| <img src="https://avatars.githubusercontent.com/u/43240607?v=4" width=80px alt="나제/김지송"/>  | <img src="https://avatars.githubusercontent.com/u/49194469?v=4" width=80px alt="심오야/박시우"/>  | 
-| :-----: | :-----: |
-| [나제(김지송)](https://github.com/NaZe0320) | [심오야(박시우)](https://github.com/psw9428)  | 
-
-### Back-end (Spring 🌱)
-| <img src="https://avatars.githubusercontent.com/u/23547185?v=4" width=90px alt="버즈/강현우"/>  | <img src="https://avatars.githubusercontent.com/u/104756460?v=4" width=90px alt="통키/유수민"/>  | <img src="https://avatars.githubusercontent.com/u/150939763?v=4" width=90px alt="월리/정정교"/>  | <img src="https://avatars.githubusercontent.com/u/96732525?v=4" width=90px alt="샐리/조솔비"/>  |
-| :-----: | :-----: | :-----: | :-----: |
-| [버즈(강현우)](https://github.com/khwoowoo) | [통키(유수민)](https://github.com/proysm)  | [월리(정정교)](https://github.com/junggyo1020) | [샐리(조솔비)](https://github.com/chosolbee) |
-
-<br>
-
 # 💜 프로젝트 기획 배경
 <img src="https://github.com/UMC-5th-Coumo/server/assets/23547185/31040644-c77f-4783-8320-2a56bab3851e" width="70%" />
 <img src="https://github.com/UMC-5th-Coumo/server/assets/23547185/ecf8c0fc-a6e2-48fb-aed1-18fac626d56b" width="70%" />
@@ -89,14 +66,47 @@
 
 <br>
 
+# 💜 Team 쿠모
+### PM & Designer
+| PM  | Designer  | 
+| :-----: | :-----: |
+| 비니수(강수빈) | 써니(최윤선) | 
+
+### 사장단 Front-end (React 🌐)
+| <img src="https://avatars.githubusercontent.com/u/102593738?v=4" width=80px alt="진도리/유진주"/>  | <img src="https://avatars.githubusercontent.com/u/121474189?v=4" width=80px alt="민/류지민"/>  | 
+| :-----: | :-----: |
+| [진도리(유진주)](https://github.com/yyypearl) | [민(류지민)](https://github.com/JIMIN1020)  | 
+
+### 소비자단 Front-end (Android 🤖)
+| <img src="https://avatars.githubusercontent.com/u/43240607?v=4" width=80px alt="나제/김지송"/>  | <img src="https://avatars.githubusercontent.com/u/49194469?v=4" width=80px alt="심오야/박시우"/>  | 
+| :-----: | :-----: |
+| [나제(김지송)](https://github.com/NaZe0320) | [심오야(박시우)](https://github.com/psw9428)  | 
+
+### Back-end (Spring 🌱)
+| <img src="https://avatars.githubusercontent.com/u/23547185?v=4" width=90px alt="버즈/강현우"/>  | <img src="https://avatars.githubusercontent.com/u/104756460?v=4" width=90px alt="통키/유수민"/>  | <img src="https://avatars.githubusercontent.com/u/150939763?v=4" width=90px alt="월리/정정교"/>  | <img src="https://avatars.githubusercontent.com/u/96732525?v=4" width=90px alt="샐리/조솔비"/>  |
+| :-----: | :-----: | :-----: | :-----: |
+| [버즈(강현우)](https://github.com/khwoowoo) | [통키(유수민)](https://github.com/proysm)  | [월리(정정교)](https://github.com/junggyo1020) | [샐리(조솔비)](https://github.com/chosolbee) |
+
+<br>
+
+# 💜 Web 파트 역할
+### 👩🏻‍💻 민/류지민
+- *Web 파트장*
+- 홈화면
+- 매장관리 > 기본정보
+- 쿠폰 등록
+- 고객 데이터 관리
+
+### 👩🏻‍💻 진도리/유진주
+- 랜딩페이지
+- 회원가입/로그인
+- 매장관리 > 매장설명
+- 동네소식
+- 쿠폰 디자인 서비스
+
+<br>
+
 # 💜 Web 기술 스택 및 구조
 <img width="928" alt="coumo stack" src="https://github.com/UMC-5th-Coumo/Coumo_Web/assets/121474189/1217556f-984a-464b-a16d-dfc20e64ff01">
 
 <br>
-
-
-# 💜 수익 구조
-![0011](https://github.com/UMC-5th-Coumo/server/assets/23547185/f88f19e8-3f5f-4dfb-bbdc-dc1ddb86b90e)
-
-<br>
-
