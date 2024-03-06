@@ -4,6 +4,7 @@ import { LuUsers2 } from 'react-icons/lu';
 import { LuUserPlus2 } from 'react-icons/lu';
 
 function CustomerInfo({ text, count, prev }) {
+  /* ----- 증감 퍼센트 구하는 함수 ----- */
   const getPercent = (cur, prev) => {
     return cur !== 0 && prev === 0
       ? '-'
@@ -12,11 +13,13 @@ function CustomerInfo({ text, count, prev }) {
         : (((cur - prev) / prev) * 100).toFixed(1);
   };
 
+  /* ----- 증감 시 색깔 지정 함수 ----- */
   const getColor = (data) => {
     if (data === '-' || data === 0) return undefined;
     else if (data > 0) return true;
     else if (data < 0) return false;
   };
+
   return (
     <Container>
       <Title>

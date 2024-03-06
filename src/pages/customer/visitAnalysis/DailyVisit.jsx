@@ -17,7 +17,7 @@ function DailyVisit() {
     count: 0,
   });
 
-  // 서버로부터 받은 데이터 가공
+  /* ----- 서버로부터 받은 데이터 가공 ----- */
   const processWeeklyData = (chartData) => {
     return chartData.map((data) => {
       let newData = {
@@ -55,6 +55,7 @@ function DailyVisit() {
     });
   };
 
+  /* ----- 최대값 구하기 ----- */
   const getMax = (data) => {
     const max = Math.max(...data.map((data) => data.totalCustomer));
     let maxData = data.filter((d) => d.totalCustomer === max)[0];
@@ -65,6 +66,7 @@ function DailyVisit() {
     });
   };
 
+  /* ----- 최소값 구하기 ----- */
   const getMin = (data) => {
     const min = Math.min(...data.map((data) => data.totalCustomer));
     let minData = data.filter((d) => d.totalCustomer === min)[0];
@@ -75,6 +77,7 @@ function DailyVisit() {
     });
   };
 
+  /* ----- 요일 텍스트 변경 함수 ----- */
   const changeDay = (day) => {
     // 요일 변경
     switch (day) {
@@ -97,6 +100,7 @@ function DailyVisit() {
     }
   };
 
+  /* ----- 방문자수 조회 api ----- */
   const getWeeklyVisit = async () => {
     await defaultInstance
       .get(`/api/statistics/${storeId}/day`)
