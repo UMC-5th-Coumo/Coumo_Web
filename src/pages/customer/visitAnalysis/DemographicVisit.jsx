@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import GroupTabBar from '../../../components/admin/customer/visitAnalysis/groupTab/GroupTabBar';
 import styled from 'styled-components';
 import Calendar from '../../../components/admin/customer/visitAnalysis/Calendar';
-import DoughnutChart from '../../../components/admin/customer/common/charts/DoughnutChart';
 import { visitTabs } from '../../../assets/data/tabData';
-import AgeGroupChart from '../../../components/admin/customer/common/charts/AgeGroupChart';
-import { Gender, Person } from '../../../assets';
 import { defaultInstance } from '../../../api/axios';
 import { useSelector } from 'react-redux';
+import Doughnut from '../../../components/admin/customer/visitAnalysis/Doughnut';
+import AgeBar from './AgeBar';
 
 function DemographicVisit() {
   const { storeId } = useSelector((state) => state.user);
@@ -25,6 +24,7 @@ function DemographicVisit() {
   });
   const [age, setAge] = useState();
 
+  /* ----- 연령대 텍스트 변경 함수 ----- */
   const changeAge = (day) => {
     switch (day) {
       case '10s':
@@ -182,41 +182,8 @@ function DemographicVisit() {
             <span>데이터 없음</span>
           </NoData>
         )}
-        <Doughnut>
-          <CountContainer>
-            <Gender />
-            <Content>
-              <span>
-                고객의 <strong>성비</strong>는?
-              </span>
-              <TextBox>
-                <h5>
-                  <strong>여성: {doughnutData.female}%</strong>
-                </h5>
-                <h5>남성: {doughnutData.male}%</h5>
-              </TextBox>
-            </Content>
-          </CountContainer>
-          <DoughnutWrapper>
-            <DoughnutChart chartData={doughnutData} />
-          </DoughnutWrapper>
-        </Doughnut>
-        <Bar>
-          <CountContainer>
-            <Person />
-            <Content>
-              <span>
-                가장 많이 방문하는 고객 <strong>연령대</strong>는?
-              </span>
-              <TextBox>
-                <h5>
-                  <strong>{age}</strong>
-                </h5>
-              </TextBox>
-            </Content>
-          </CountContainer>
-          <AgeGroupChart type='normal' chartData={chartData} />
-        </Bar>
+        <Doughnut doughnutData={doughnutData} />
+        <AgeBar chartData={chartData} age={age} />
       </ChartContainer>
     </>
   );
@@ -271,31 +238,6 @@ const ChartContainer = styled.div`
   }
 `;
 
-const Bar = styled.div`
-  width: 60%;
-  height: 300px;
-
-  @media screen and (max-width: 1100px) {
-    width: 400px;
-    height: 300px;
-  }
-  @media screen and (max-width: 1000px) {
-    width: 100%;
-  }
-`;
-
-const DoughnutWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @media screen and (max-width: 1000px) {
-    align-items: flex-start;
-  }
-`;
-
 const NoData = styled.div`
   width: 100%;
   height: 100%;
@@ -308,64 +250,4 @@ const NoData = styled.div`
   background-color: #80808036;
   color: ${({ theme }) => theme.colors.text_black};
   font-size: ${({ theme }) => theme.fontSize.base};
-`;
-
-const Doughnut = styled.div`
-  width: 30%;
-  height: 320px;
-
-  @media screen and (max-width: 1000px) {
-    width: 100%;
-  }
-`;
-
-const CountContainer = styled.div`
-  height: 45px;
-  display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
-`;
-
-const Content = styled.div`
-  width: 180px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 8px;
-
-  & span {
-    font-size: ${({ theme }) => theme.fontSize.sm};
-    color: ${({ theme }) => theme.colors.text};
-    font-style: normal;
-    font-weight: 500;
-    line-height: 100%; /* 16px */
-    letter-spacing: 0.16px;
-
-    & strong {
-      color: ${({ theme }) => theme.colors.coumo_purple};
-    }
-
-    @media screen and (max-width: 1024px) {
-      font-size: ${({ theme }) => theme.fontSize.xs};
-    }
-  }
-`;
-
-const TextBox = styled.div`
-  display: flex;
-  gap: 10px;
-
-  & h5 {
-    margin: 0;
-    font-size: ${({ theme }) => theme.fontSize.lg};
-    color: ${({ theme }) => theme.colors.text};
-
-    & strong {
-      color: ${({ theme }) => theme.colors.coumo_purple};
-    }
-
-    @media screen and (max-width: 1024px) {
-      font-size: ${({ theme }) => theme.fontSize.md};
-    }
-  }
 `;

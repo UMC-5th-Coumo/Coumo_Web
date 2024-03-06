@@ -9,6 +9,8 @@ function GenderGraphInfo() {
   const { storeId } = useSelector((state) => state.user);
   const [ageGroupData, setAgeGroupData] = useState([]);
   const [noData, setNoData] = useState(false);
+
+  /* ----- 연령대 텍스트 변경 함수 ----- */
   const changeAge = (day) => {
     switch (day) {
       case '10s':
@@ -46,6 +48,7 @@ function GenderGraphInfo() {
     });
   };
 
+  /* ----- 연령대 조회 api ----- */
   const getAgeGroup = async () => {
     await defaultInstance
       .get(
@@ -54,13 +57,6 @@ function GenderGraphInfo() {
       .then(async (res) => {
         if (res.data.isSuccess) {
           const data = res.data.result;
-          if (data.length > 0) {
-            const processedData = {
-              maleData: processData('male', data),
-              femaleData: processData('female', data),
-            };
-          }
-
           if (data.length > 0) {
             const processedData = {
               maleData: processData('male', data),
@@ -79,6 +75,7 @@ function GenderGraphInfo() {
   useEffect(() => {
     getAgeGroup();
   }, []);
+
   return (
     <Container>
       <Title>

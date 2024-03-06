@@ -8,6 +8,7 @@ function WorkingHours() {
     info: { workingHours },
   } = useSelector((state) => state.store);
 
+  /* ----- 날짜 텍스트 변경 함수 ----- */
   const convertToDay = (id) => {
     switch (id) {
       case 'MONDAY':

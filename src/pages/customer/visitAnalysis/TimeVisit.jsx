@@ -17,6 +17,7 @@ function TimeVisit() {
     count: 0,
   });
 
+  /* ----- 서버로부터 받은 데이터 가공 ----- */
   const processData = (chartData) => {
     return chartData.map((data) => ({
       x: data.startTime.slice(0, 5),
@@ -24,6 +25,7 @@ function TimeVisit() {
     }));
   };
 
+  /* ----- 최대값 구하기 ----- */
   const getMax = (data) => {
     const max = Math.max(...data.map((data) => data.totalCustomer));
     let maxData = data.filter((d) => d.totalCustomer === max)[0];
@@ -34,6 +36,7 @@ function TimeVisit() {
     });
   };
 
+  /* ----- 최소값 구하기 ----- */
   const getMin = (data) => {
     const min = Math.min(...data.map((data) => data.totalCustomer));
     let minData = data.filter((d) => d.totalCustomer === min)[0];
@@ -44,6 +47,7 @@ function TimeVisit() {
     });
   };
 
+  /* ----- 시간대별 방문자수 조회 api ----- */
   const getTimeVisit = async () => {
     await defaultInstance
       .get(`/api/statistics/${storeId}/time`)

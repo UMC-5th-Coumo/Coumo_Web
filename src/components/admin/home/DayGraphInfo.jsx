@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux';
 function DayGraphInfo() {
   const { storeId } = useSelector((state) => state.user);
   const [dayVisitData, setDayVisitData] = useState([]);
+
+  /* ----- 데이터 가공 함수 ----- */
   const processMonthlyData = (chartData) => {
     return chartData.map((data) => {
       let newData = {
@@ -45,6 +47,7 @@ function DayGraphInfo() {
     });
   };
 
+  /* ----- 이번 달 요일별 방문자 수 api ----- */
   const getDayVisit = async () => {
     await defaultInstance
       .get(
